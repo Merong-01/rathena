@@ -25,8 +25,8 @@
 //==================================================
 // ein_fild01 - Einbroch Field
 //==================================================
-ein_fild01,115,190,80,150	monster	Demon Pungus	1378,30
-ein_fild01,264,318,70,60	monster	Demon Pungus	1378,20
+//ein_fild01,115,190,80,150	monster	Demon Pungus	1378,30		to avoid easy zeny farm
+//ein_fild01,264,318,70,60	monster	Demon Pungus	1378,20
 ein_fild01,232,100,25,60	monster	Demon Pungus	1378,5,300000,60000
 ein_fild01,115,190,80,150	monster	Punk	1199,25
 ein_fild01,264,318,70,60	monster	Punk	1199,20

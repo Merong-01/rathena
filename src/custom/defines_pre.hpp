@@ -8,6 +8,11 @@
  * rAthena configuration file (http://rathena.org)
  * For detailed guidance on these check http://rathena.org/wiki/SRC/config/
  **/
+ //Enable VIP
+#define VIP_ENABLE
+
+//#define PACKETVER 20151104
+#define PACKETVER 20190626
 
 
 

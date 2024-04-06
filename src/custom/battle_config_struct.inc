@@ -11,4 +11,12 @@
  * Format:
  *	 <datatype> name;
  **/
-
+ int as_rightHandMasteryBuff;
+ int as_leftHandMasteryBuff;
+ int tf_doubleAttackEnableCritical;
+ int as_katarMasteryCritBonus;
+ int as_splasherRenewalSetting;
+ int kn_spearMasteryAspdBuff;
+ int pr_maceMasteryAspdBuff;
+ int cr_spearQuickenBuff;
+ int sa_autoSpellBuff;

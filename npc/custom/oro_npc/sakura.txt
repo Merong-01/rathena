@@ -1,0 +1,102 @@
+//====== Custom Hunting Quest with Mob Card Reward ===========
+//============================================================
+prontera,161,181,3	script	Card Captor	4_F_BERRYTEA,{
+	.@npcname$ = "[Card Captor - Sakura]";
+	
+	if(sakura_quest_state > 1){
+		callfunc "Sakura_Ongoing";
+	}
+	
+	mes .@npcname$;
+	mes "Oh! Hello there...";
+	mes "You must be one of those people!";
+	mes "You know, those people who can't seem to pick up cards...";
+	mes "No matter how 'long' they hunt mobs.";
+	next;
+	
+	mes .@npcname$;
+	mes "Don't worry anymore, as long as you accept my quest,";
+	mes "You are guaranted to get the card of the monster you are hunting.";
+	mes "Of course, you have to hunt 5,000 of the said monster for you to get the card.";
+	mes "What do you think, do you want to try it?";
+	next;
+	
+	.@mob_id = 0;
+	switch(select("Let me do the quest!:Nah! I am not one of those people.")){
+		case 1: mes .@npcname$;
+				mes "Great! You just have to tell me the monster of the card that you want.";
+				next;
+				input .@mob_id;
+			break;
+		default: mes .@npcname$;
+				 mes "Oh, well...";
+				 mes "If you say so.";
+				 end;
+			break;
+	}
+	
+	if(.@mob_id == 0){
+		mes .@npcname$;
+		mes "Did you change your mind?";
+		mes "You can talk to me anytime if you want the quest again.";
+		end;
+	}
+	
+	.@ret = getmobdrops(.@mob_id);
+	.@mobDropsCount = $@MobDrop_count;
+	copyarray .@mobDropItem[0],$@MobDrop_item[0],.@mobDropsCount;
+	
+	if(.@ret == 0){
+		end;
+	}
+	
+	sakura_quest_state = 2;
+	for(.@i = 0; .@i < .@mobDropsCount; .@i++){
+		.@res = compare(getitemname(.@mobDropItem[.@i]), "card");
+		if(.@res == 1){
+			sakura_target_id = .@mob_id;
+			sakura_hunt_count = 0;
+			sakura_reward_id = .@mobDropItem[.@i];
+			CARD_ITEM_ID = 0;
+			callfunc "Sakura_Start", .@mob_id;
+			break;
+		}
+	}
+	
+	mes .@npcname$;
+	mes "That monster doesn't drop cards.";
+	mes "Try a different one.";
+	sakura_quest_state = 1;
+	end;
+
+OnNPCKillEvent:
+	if(sakura_quest_state == 2 && sakura_target_id == killedrid){
+		dispbottom "You killed " + strmobinfo(1,killedrid) + ", " + ++sakura_hunt_count + " out of 5000.";
+		if(CARD_ITEM_ID == sakura_reward_id){
+			dispbottom "Lucky You!! You got the card after all.";
+			sakura_quest_state = 0;
+		}
+		
+		if(sakura_hunt_count >= 5000){
+			getitem(sakura_reward_id, 1);
+			announce "Congrats!! " + strcharinfo(0) + 
+				" just received a " + getitemname(sakura_reward_id) + 
+				" after finishing a Sakura Quest", bc_blue|bc_all;
+			sakura_quest_state = 0;
+		}
+	}
+	end;
+}
+
+function	script	Sakura_Start	{
+	set .@monster_id, getarg(0);
+	
+	mes "[Card Captor - Sakura]";
+	mes "You can now start hunting " + getmonsterinfo(.@monster_id, MOB_NAME);
+	end;
+}
+function	script	Sakura_Ongoing	{
+	mes "[Card Captor - Sakura]";
+	mes "How was your hunting? Not done yet?";
+	end;
+}

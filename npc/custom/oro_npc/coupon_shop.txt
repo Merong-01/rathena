@@ -1,0 +1,79 @@
+//======Modified Coin Merchant Script=========================
+//============================================================
+function	script	F_SettleBill	{
+	set .@Coupon,7199;
+	set .@item_id, getarg(0);
+	set .@item_price, getarg(1);
+	
+	if (countitem(.@Coupon) >= .@item_price) {
+		
+		mes "[Coupon shop]";
+		
+		.@ret = delitem (.@Coupon,.@item_price);
+		if(.@ret != 0 ) {
+			mes "There's seem to be a problem.";
+			mes "Please check if your coupon is fine, ";
+			mes "and come back later.";
+			close;
+		}
+		
+		.@ret = getitem (.@item_id,1);
+		if(.@ret != 0) {
+			mes "There's seem to be a problem.";
+			mes "Please come back later, ";
+			mes "after I check our supplies.";
+			close;
+		}
+		
+		mes "Brilliant choice!";
+		mes "Thank you for coming.";
+		close;
+	}
+	else {
+		mes "[Coupon Shop]";
+		mes "Sorry, you don't have enough coupon.";
+		close;
+	}
+}
+
+-	script	Coupon_Shop	-1,{
+	mes "[Coupon Shop]";
+	mes "Hello!";
+	mes "Feel free to browse our items.";
+	mes "All of these can be exchanged with coupons.";
+	next;
+	
+	setarray .@Consumables[0],12211,12221,12004,30001,13534,13810,12210,12208,14592;
+	setarray .@Cons_Prices[0],2,2,1,5,5,5,2,4,2;
+	setarray .@Costumes[0],19698,19699,19740,31918,31919,20052;
+	setarray .@Costu_Prices[0],50,50,50,50,50,50;
+	set .@Coupon,7199; //tentative use
+	set .@i, select("Consumables:Costumes:Cancel");
+	
+	if(.@i == 1){
+		setarray .@item_array$[0],"","","","","","","","","";
+		for(.@j = 0; .@j < 9; .@j += 1){
+			.@item_array$[.@j] = "" + getitemname(.@Consumables[.@j]) + " -> ^3131FF" + .@Cons_Prices[.@j] + " Coupon^000000";
+		}
+		
+		set .@choice, select(implode(.@item_array$, ":"));
+		callfunc "F_SettleBill",.@Consumables[.@choice-1],.@Cons_Prices[.@choice-1];
+	}
+	else if(.@i == 2){
+		setarray .@item_array$[0], "","";
+		for(.@j = 0; .@j < 6; .@j += 1){
+			.@item_array$[.@j] = "" + getitemname(.@Costumes[.@j]) + " -> ^3131FF" + .@Costu_Prices[.@j] + " Coupon^000000";
+		}
+		
+		set .@choice, select(implode(.@item_array$, ":"));
+		callfunc "F_SettleBill",.@Costumes[.@choice-1],.@Costu_Prices[.@choice-1];
+	}
+	else {
+	mes "[Coupon Shop]";
+	mes "Come again if you change your mind.";
+	close;
+	}
+}
+
+payon,184,102,3	duplicate(Coupon_Shop)	Coupon Shop#pay	831
+prontera,161,183,3	duplicate(Coupon_Shop)	Coupon Shop#prt	831

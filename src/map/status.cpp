@@ -4378,6 +4378,13 @@ int status_calc_pc_sub(map_session_data* sd, uint8 opt)
 			base_status->cri += 50 + skill * 20;
 	}
 
+	if (sd->status.weapon == W_KATAR &&
+		(skill = pc_checkskill(sd, AS_KATAR)) == 10 &&
+			battle_config.as_katarMasteryCritBonus)
+	{
+		base_status->cri += 100;
+	}
+
 // ----- P.Atk/S.Matk CALCULATION -----
 	if ((skill = pc_checkskill(sd, TR_STAGE_MANNER)) > 0 && (sd->status.weapon == W_BOW || sd->status.weapon == W_MUSICAL || sd->status.weapon == W_WHIP)) {
 		base_status->patk += skill * 3;
@@ -4454,6 +4461,19 @@ int status_calc_pc_sub(map_session_data* sd, uint8 opt)
 	if((skill=pc_checkskill(sd,GS_SINGLEACTION))>0 &&
 		(sd->status.weapon >= W_REVOLVER && sd->status.weapon <= W_GRENADE))
 		base_status->aspd_rate -= ((skill+1)/2) * 10;
+
+	if((skill = pc_checkskill(sd, KN_SPEARMASTERY)) > 0 &&
+		(sd->status.weapon == W_1HSPEAR || sd->status.weapon == W_2HSPEAR) &&
+		battle_config.kn_spearMasteryAspdBuff == 1)
+	{
+		base_status->aspd_rate -= 20 * skill;
+	}
+	if ((skill = pc_checkskill(sd, PR_MACEMASTERY)) > 0 &&
+		sd->status.weapon == W_MACE &&
+		battle_config.pr_maceMasteryAspdBuff == 1)
+	{
+		base_status->aspd_rate -= 30 * skill;
+	}
 	if(pc_isriding(sd))
 		base_status->aspd_rate += 500-100*pc_checkskill(sd,KN_CAVALIERMASTERY);
 	else if(pc_isridingdragon(sd))
@@ -5237,6 +5257,7 @@ void status_calc_regen(struct block_list *bl, struct status_data *status, struct
 
 		if( (skill=pc_checkskill(sd,TK_HPTIME)) > 0 && sd->state.rest )
 			val += skill*30 + skill*status->max_hp/500;
+
 		sregen->hp = cap_value(val, 0, SHRT_MAX);
 
 		val = 0;
@@ -5247,6 +5268,7 @@ void status_calc_regen(struct block_list *bl, struct status_data *status, struct
 		}
 		if( (skill=pc_checkskill(sd,MO_SPIRITSRECOVERY)) > 0 )
 			val += skill*2 + skill*status->max_sp/500;
+
 		sregen->sp = cap_value(val, 0, SHRT_MAX);
 	}
 
@@ -5301,6 +5323,7 @@ void status_calc_regen_rate(struct block_list *bl, struct regen_data *regen, sta
 
 		if (regen->ssregen->sp)
 			regen->flag |= RGN_SSP;
+
 		regen->ssregen->rate.hp = regen->ssregen->rate.sp = 100;
 	}
 	regen->rate.hp = regen->rate.sp = 100;
@@ -10747,6 +10770,9 @@ int status_change_start(struct block_list* src, struct block_list* bl,enum sc_ty
 			val4 = val1 * 2; // Chance of casting
 #else
 			val4 = 5 + val1*2; // Chance of casting
+			if (battle_config.sa_autoSpellBuff == 1) {
+				val4 += val4/2;
+			}
 #endif
 			break;
 		case SC_VOLCANO:
@@ -10816,7 +10842,12 @@ int status_change_start(struct block_list* src, struct block_list* bl,enum sc_ty
 			break;
 #ifndef RENEWAL_ASPD
 		case SC_SPEARQUICKEN:
-			val2 = 200+10*val1;
+			if (battle_config.cr_spearQuickenBuff == 1) {
+				val2 = 200 + 30 * val1;
+			}
+			else {
+				val2 = 200 + 10 * val1;
+			}
 			break;
 #endif
 		case SC_DANCING:
@@ -15243,11 +15274,34 @@ static int status_natural_heal(struct block_list* bl, va_list args)
 			flag &= ~RGN_HP;
 	}
 
+	int flag_heal = 1;
+	int temp_hp_rate = 0;
+	int temp_sp_rate = 0;
+	unsigned short temp_hp_regen = 0;
+	unsigned short temp_sp_regen = 0;
+
 	if (flag&(RGN_HP|RGN_SP)) {
 		if(!vd)
 			vd = status_get_viewdata(bl);
-		if(vd && vd->dead_sit == 2)
+		if (vd && vd->dead_sit == 2) {
+			if ((bl->type & BL_PC) && sd && (sd->enhance_sit_regen_tick == 0
+				|| DIFF_TICK(gettick(), sd->enhance_sit_regen_tick) > 5000)) {
+				temp_hp_regen = cap_value(status->max_hp / 20, 0, SHRT_MAX);
+				temp_hp_rate = 300;
+				temp_sp_regen = cap_value(status->max_sp / 20, 0, SHRT_MAX);
+				temp_sp_rate = 400;
+				flag_heal = 3;
+			}
+			else {
+				temp_hp_regen = regen->hp;
+				temp_hp_rate = regen->rate.hp;
+				temp_sp_regen = regen->sp;
+				temp_sp_rate = regen->rate.sp;
+				flag_heal = 1;
+			}
 			multi += 1; //This causes the interval to be halved
+		}
+			
 		if(regen->state.gc)
 			multi += 1; //This causes the interval to be halved
 	}
@@ -15255,7 +15309,7 @@ static int status_natural_heal(struct block_list* bl, va_list args)
 	// Natural Hp regen
 	if (flag&RGN_HP) {
 		// Interval to next recovery tick
-		rate = (int)(battle_config.natural_healhp_interval / (regen->rate.hp/100. * multi));
+		rate = (int)(battle_config.natural_healhp_interval / (temp_hp_rate/100. * multi));
 		if (ud && ud->walktimer != INVALID_TIMER)
 			rate *= 2;
 		// Homun HP regen fix (they should regen as if they were sitting (twice as fast)
@@ -15269,7 +15323,7 @@ static int status_natural_heal(struct block_list* bl, va_list args)
 			regen->tick.hp = natural_heal_prev_tick;
 			if (status->hp >= status->max_hp)
 				flag &= ~(RGN_HP | RGN_SHP);
-			else if (status_heal(bl, regen->hp, 0, 1) < regen->hp)
+			else if (status_heal(bl, temp_hp_regen, 0, flag_heal) < temp_hp_regen)
 				flag &= ~RGN_SHP; // Full
 		}
 	}
@@ -15280,7 +15334,7 @@ static int status_natural_heal(struct block_list* bl, va_list args)
 	// Natural SP regen
 	if(flag&RGN_SP) {
 		// Interval to next recovery tick
-		rate = (int)(battle_config.natural_healsp_interval / (regen->rate.sp/100. * multi));
+		rate = (int)(battle_config.natural_healsp_interval / (temp_sp_rate/100. * multi));
 		// Homun SP regen fix (they should regen as if they were sitting (twice as fast)
 		if(bl->type==BL_HOM)
 			rate /= 2;
@@ -15297,7 +15351,7 @@ static int status_natural_heal(struct block_list* bl, va_list args)
 			regen->tick.sp = natural_heal_prev_tick;
 			if (status->sp >= status->max_sp)
 				flag &= ~(RGN_SP | RGN_SSP);
-			else if (status_heal(bl, 0, regen->sp, 1) < regen->sp)
+			else if (status_heal(bl, 0, temp_sp_regen, flag_heal) < temp_sp_regen)
 				flag &= ~RGN_SSP; // Full
 		}
 	}

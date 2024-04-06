@@ -77,6 +77,8 @@ static inline bool pc_attendance_rewarded_today( map_session_data* sd );
 
 #define PVP_CALCRANK_INTERVAL 1000	// PVP calculation interval
 
+#define HOURLY_COUPON_TICK (60 * 60)	// shoul be 1 hour in seconds
+
 PlayerStatPointDatabase statpoint_db;
 
 SkillTreeDatabase skill_tree_db;
@@ -2329,6 +2331,14 @@ void pc_reg_received(map_session_data *sd)
 		sd->roulette_point.gold = static_cast<int>(pc_readreg2(sd, ROULETTE_GOLD_VAR));
 	}
 	sd->roulette.prizeIdx = -1;
+
+	//hourly coupon
+	sd->hourly_coupn_prev_tick = static_cast<t_tick>(pc_readreg2(sd, HOURLY_CPN_VAR));
+	//ShowInfo("prev tick: %d \n", sd->hourly_coupn_prev_tick);
+	sd->hourly_coupn_prev_tick =
+		DIFF_TICK((gettick() / 1000), sd->hourly_coupn_prev_tick);
+	//ShowInfo("adjusted prev tick: %d \n", sd->hourly_coupn_prev_tick);
+	sd->hourly_coupn_timer_id = INVALID_TIMER;
 
 	//SG map and mob read [Komurka]
 	for(i=0;i<MAX_PC_FEELHATE;i++) { //for now - someone need to make reading from txt/sql
@@ -6129,10 +6139,11 @@ bool pc_takeitem(map_session_data *sd,struct flooritem_data *fitem)
 
 	if (fitem->mob_id &&
 		(itemdb_search(fitem->item.nameid))->flag.broadcast &&
-		(!p || !(p->party.item&2)) // Somehow, if party's pickup distribution is 'Even Share', no announcemet
+		(!p || !(p->party.item & 2)) // Somehow, if party's pickup distribution is 'Even Share', no announcemet
 		)
+	{
 		intif_broadcast_obtain_special_item(sd, fitem->item.nameid, fitem->mob_id, ITEMOBTAIN_TYPE_MONSTER_ITEM);
-
+	}
 	map_clearflooritem(&fitem->bl);
 	return true;
 }
@@ -9525,8 +9536,11 @@ void pc_damage(map_session_data *sd,struct block_list *src,unsigned int hp, unsi
 	if( sd->status.ele_id > 0 )
 		elemental_set_target(sd,src);
 
-	if(battle_config.prevent_logout_trigger&PLT_DAMAGE)
+	if (battle_config.prevent_logout_trigger & PLT_DAMAGE) {
 		sd->canlog_tick = gettick();
+	}
+
+	sd->enhance_sit_regen_tick = gettick();
 }
 
 TIMER_FUNC(pc_close_npc_timer){
@@ -10446,6 +10460,9 @@ bool pc_setparam(map_session_data *sd,int64 type,int64 val_tmp)
 		val = cap_value(val, 0, 1999);
 		sd->cook_mastery = val;
 		pc_setglobalreg(sd, add_str(COOKMASTERY_VAR), sd->cook_mastery);
+		return true;
+	case SP_CARDDROPPED:
+		pc_setglobalreg(sd, add_str("CARD_ITEM_ID"), val);
 		return true;
 	default:
 		ShowError("pc_setparam: Attempted to set unknown parameter '%lld'.\n", type);
@@ -14616,6 +14633,67 @@ TIMER_FUNC(pc_global_expiration_timer){
   return 0;
 }
 
+/**
+ * Timer used for hourly coupon
+ */
+TIMER_FUNC(pc_hourly_coupon_timer) {
+	block_list* bl = map_id2bl(id);
+	map_session_data* sd;
+
+	if (!(bl->type & BL_PC)) {
+		return -1;
+	}
+
+	sd = BL_CAST(BL_PC, bl);
+	if (sd == NULL) {
+		return -1;
+	}
+	t_tick tmp_prev_tick = (gettick() / 1000);
+
+	if (DIFF_TICK(tmp_prev_tick, sd->hourly_coupn_prev_tick)
+		>= HOURLY_COUPON_TICK) {
+		struct item item_tmp = {};
+		char flag = 0;
+		
+		item_tmp.nameid = 7199; //tentative coupon (7199)
+		item_tmp.identify = 1;
+		item_tmp.bound = 0;
+		if ((flag = pc_additem(sd, &item_tmp, 1, LOG_TYPE_COMMAND))) {
+			clif_additem(sd, 0, 0, flag);
+		}
+		sd->hourly_coupn_prev_tick = tmp_prev_tick;
+	}
+
+	return 0;
+}
+
+int pc_save_hourly_coupn_progress(map_session_data* sd) {
+	int ret = 0;
+	t_tick tmp_tick = 0;
+
+	if (sd == NULL) {
+		return -1;
+	}
+
+	tmp_tick = DIFF_TICK((gettick() / 1000), sd->hourly_coupn_prev_tick);
+
+	if (tmp_tick > 0) {
+		sd->hourly_coupn_prev_tick = tmp_tick % HOURLY_COUPON_TICK;
+	}
+
+	ret = pc_setreg2(sd, HOURLY_CPN_VAR, sd->hourly_coupn_prev_tick);
+
+	if (ret && sd->hourly_coupn_timer_id != INVALID_TIMER) {
+		ret = delete_timer(sd->hourly_coupn_timer_id, pc_hourly_coupon_timer);
+		if (ret != 0) {
+			return 0;
+		}
+		sd->hourly_coupn_timer_id = INVALID_TIMER;
+	}
+
+	return ~ret;
+}
+
 void pc_expire_check(map_session_data *sd) {  
 	/* ongoing timer */
 	if( sd->expiration_tid != INVALID_TIMER )
@@ -15861,6 +15939,7 @@ void do_init_pc(void) {
 	add_timer_func_list(pc_autotrade_timer, "pc_autotrade_timer");
 	add_timer_func_list(pc_on_expire_active, "pc_on_expire_active");
 	add_timer_func_list(pc_macro_detector_timeout, "pc_macro_detector_timeout");
+	add_timer_func_list(pc_hourly_coupon_timer, "pc_hourly_coupon_timer");
 
 	add_timer(gettick() + autosave_interval, pc_autosave, 0, 0);
 

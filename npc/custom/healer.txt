@@ -42,45 +42,107 @@
 	end;
 }
 
+-	script	Poring_Healer	-1,{
+
+	// Zeny required for heal
+	.@NPrice = 5000;
+	.@LPrice = 20000;
+	.@Buffs = 1;	// Also buff players? (1: yes / 0: no)
+	.@Delay = 5;	// Heal delay, in seconds
+
+	if (@HD > gettimetick(2)){
+		end;
+	}
+	
+	mes "[Poring]";
+	mes "blink, blink, blink....";
+	next;
+	
+	setarray .@heal_services$[0], "", "", "";
+	
+	.@heal_services$[0] = "Normal Treatment -> " + .@NPrice;
+	.@heal_services$[1] = "^777777Luxury Treatment^000000 -> " + .@LPrice;
+	.@heal_services$[2] = "^0055FFVIP Treatment^000000 -> (free for VIP)";
+	
+	.@choice = select(implode(.@heal_services$, ":"));
+	if(.@choice == 1){
+		.@cost = .@NPrice;
+		.@buff_duration = 300000;
+	}
+	else if(.@choice == 2){
+		.@cost = .@LPrice;
+		.@buff_duration = 1800000;
+	}
+	else if(.@choice == 3){
+		//check vip status
+		//.@is_vip = vip_status VIP_STATUS_ACTIVE;
+		if(vip_status(VIP_STATUS_ACTIVE) == false){
+			end;
+		}
+		.@cost = 0;
+		.@buff_duration = 1800000;
+	}
+	else {
+		end;
+	}
+	
+	if(Zeny < .@cost){
+		end;
+	}
+	
+	Zeny -= .@cost;
+	
+	specialeffect2 EF_HEAL2;
+	percentheal 100,100;
+	if (.@Buffs) {
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,.@buff_duration,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,.@buff_duration,10;
+	}
+	if (.@Delay)
+		@HD = gettimetick(2) + .@Delay;
+	end;
+}
 
 // Duplicates
 //============================================================
-alberta,25,240,6	duplicate(Healer)	Healer#alb	909
-aldebaran,135,118,6	duplicate(Healer)	Healer#alde	909
-amatsu,200,79,4	duplicate(Healer)	Healer#ama	909
-ayothaya,207,169,6	duplicate(Healer)	Healer#ayo	909
-comodo,184,158,6	duplicate(Healer)	Healer#com	909
-einbech,57,36,6	duplicate(Healer)	Healer#einbe	909
-einbroch,57,202,6	duplicate(Healer)	Healer#einbr	909
-geffen,115,72,6	duplicate(Healer)	Healer#gef	909
-gonryun,156,122,6	duplicate(Healer)	Healer#gon	909
-hugel,89,150,6	duplicate(Healer)	Healer#hug	909
-izlude,121,150,6	duplicate(Healer)	Healer#izl	909	//Pre-RE: (125,118)
-jawaii,250,139,4	duplicate(Healer)	Healer#jaw	909
-lighthalzen,152,100,6	duplicate(Healer)	Healer#lhz	909
-louyang,226,103,4	duplicate(Healer)	Healer#lou	909
-manuk,272,144,6	duplicate(Healer)	Healer#man	909
-mid_camp,203,289,6	duplicate(Healer)	Healer#mid	909
-moc_ruins,72,164,4	duplicate(Healer)	Healer#moc	909
-morocc,153,97,6	duplicate(Healer)	Healer#mor	909
-moscovia,220,191,4	duplicate(Healer)	Healer#mos	909
-niflheim,212,182,5	duplicate(Healer)	Healer#nif	909
-payon,179,106,4	duplicate(Healer)	Healer#pay	909
-prontera,162,193,4	duplicate(Healer)	Healer#prt	909
-rachel,125,116,6	duplicate(Healer)	Healer#rac	909
-splendide,201,153,4	duplicate(Healer)	Healer#spl	909
-thor_camp,249,74,4	duplicate(Healer)	Healer#thor	909
-umbala,105,148,3	duplicate(Healer)	Healer#umb	909
-veins,217,121,4	duplicate(Healer)	Healer#ve	909
-xmas,143,136,4	duplicate(Healer)	Healer#xmas	909
-yuno,164,45,4	duplicate(Healer)	Healer#yuno	909
+alberta,25,240,6	duplicate(Poring_Healer)	Healer#alb	4_ANGELING
+aldebaran,135,118,6	duplicate(Poring_Healer)	Healer#alde	4_ANGELING
+amatsu,200,79,4	duplicate(Poring_Healer)	Healer#ama	4_ANGELING
+ayothaya,207,169,6	duplicate(Poring_Healer)	Healer#ayo	4_ANGELING
+comodo,184,158,6	duplicate(Poring_Healer)	Healer#com	4_ANGELING
+einbech,57,36,6	duplicate(Poring_Healer)	Healer#einbe	4_ANGELING
+einbroch,57,202,6	duplicate(Poring_Healer)	Healer#einbr	4_ANGELING
+geffen,115,72,6	duplicate(Poring_Healer)	Healer#gef	4_ANGELING
+gonryun,156,122,6	duplicate(Poring_Healer)	Healer#gon	4_ANGELING
+hugel,89,150,6	duplicate(Poring_Healer)	Healer#hug	4_ANGELING
+izlude,121,150,6	duplicate(Poring_Healer)	Healer#izl	4_ANGELING	//Pre-RE: (125,118)
+jawaii,250,139,4	duplicate(Poring_Healer)	Healer#jaw	4_ANGELING
+lighthalzen,152,100,6	duplicate(Poring_Healer)	Healer#lhz	4_ANGELING
+louyang,226,103,4	duplicate(Poring_Healer)	Healer#lou	4_ANGELING
+manuk,272,144,6	duplicate(Poring_Healer)	Healer#man	4_ANGELING
+mid_camp,203,289,6	duplicate(Poring_Healer)	Healer#mid	4_ANGELING
+moc_ruins,72,164,4	duplicate(Poring_Healer)	Healer#moc	4_ANGELING
+morocc,153,97,6	duplicate(Poring_Healer)	Healer#mor	4_ANGELING
+moscovia,220,191,4	duplicate(Poring_Healer)	Healer#mos	4_ANGELING
+niflheim,212,182,5	duplicate(Poring_Healer)	Healer#nif	4_ANGELING
+payon,179,106,4	duplicate(Poring_Healer)	Healer#pay	4_ANGELING
+prontera,159,187,4	duplicate(Poring_Healer)	Healer#prt	4_ANGELING
+rachel,125,116,6	duplicate(Poring_Healer)	Healer#rac	4_ANGELING
+splendide,201,153,4	duplicate(Poring_Healer)	Healer#spl	4_ANGELING
+thor_camp,249,74,4	duplicate(Poring_Healer)	Healer#thor	4_ANGELING
+umbala,105,148,3	duplicate(Poring_Healer)	Healer#umb	4_ANGELING
+veins,217,121,4	duplicate(Poring_Healer)	Healer#ve	4_ANGELING
+xmas,143,136,4	duplicate(Poring_Healer)	Healer#xmas	4_ANGELING
+yuno,164,45,4	duplicate(Poring_Healer)	Healer#yuno	4_ANGELING
 
 // Duplicates (Renewal)
 //============================================================
-brasilis,194,221,6	duplicate(Healer)	Healer#bra	909
-dewata,195,187,4	duplicate(Healer)	Healer#dew	909
-dicastes01,201,194,4	duplicate(Healer)	Healer#dic	909
-ecl_in01,45,60,4	duplicate(Healer)	Healer#ecl	909
-malangdo,132,114,6	duplicate(Healer)	Healer#mal	909
-malaya,227,204,6	duplicate(Healer)	Healer#ma	909
-mora,55,152,4	duplicate(Healer)	Healer#mora	909
+//brasilis,194,221,6	duplicate(Poring_Healer)	Healer#bra	4_ANGELING
+//dewata,195,187,4	duplicate(Poring_Healer)	Healer#dew	4_ANGELING
+//dicastes01,201,194,4	duplicate(Poring_Healer)	Healer#dic	4_ANGELING
+//ecl_in01,45,60,4	duplicate(Poring_Healer)	Healer#ecl	4_ANGELING
+//malangdo,132,114,6	duplicate(Poring_Healer)	Healer#mal	4_ANGELING
+//malaya,227,204,6	duplicate(Poring_Healer)	Healer#ma	4_ANGELING
+//mora,55,152,4	duplicate(Poring_Healer)	Healer#mora	4_ANGELING

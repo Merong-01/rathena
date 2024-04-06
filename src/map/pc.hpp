@@ -52,6 +52,7 @@ class MapGuild;
 #define CASHPOINT_VAR "#CASHPOINTS"
 #define KAFRAPOINT_VAR "#KAFRAPOINTS"
 #define BANK_VAULT_VAR "#BANKVAULT"
+#define HOURLY_CPN_VAR "#HOURLYCPN" //added four hourly coupon
 #define ROULETTE_BRONZE_VAR "RouletteBronze"
 #define ROULETTE_SILVER_VAR "RouletteSilver"
 #define ROULETTE_GOLD_VAR "RouletteGold"
@@ -535,6 +536,7 @@ public:
 
 	int invincible_timer;
 	t_tick canlog_tick;
+	t_tick enhance_sit_regen_tick;
 	t_tick canuseitem_tick;	// [Skotlex]
 	t_tick canusecashfood_tick;
 	t_tick canequip_tick;	// [Inkfish]
@@ -543,6 +545,10 @@ public:
 	t_tick cansendmail_tick; // [Mail System Flood Protection]
 	t_tick ks_floodprotect_tick; // [Kill Steal Protection]
 	t_tick equipswitch_tick; // Equip switch
+
+	t_tick hourly_coupn_prev_tick; //hourly coupon
+	//t_tick hourly_coupn_progress_tick;
+	int hourly_coupn_timer_id;
 
 	struct s_item_delay {
 		t_itemid nameid;
@@ -1747,6 +1753,9 @@ void pc_macro_detector_disconnect(map_session_data &sd);
 // Macro Reporter
 void pc_macro_reporter_area_select(map_session_data &sd, const int16 x, const int16 y, const int8 radius);
 void pc_macro_reporter_process(map_session_data &sd, int32 reporter_account_id = -1);
+
+TIMER_FUNC(pc_hourly_coupon_timer);
+int pc_save_hourly_coupn_progress(map_session_data* sd);
 
 #ifdef MAP_GENERATOR
 void pc_reputation_generate();

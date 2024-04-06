@@ -2975,8 +2975,9 @@ static void itemdb_pc_get_itemgroup_sub(map_session_data *sd, bool identify, std
 			if (pc_candrop(sd, &tmp))
 				map_addflooritem(&tmp, tmp.amount, sd->bl.m, sd->bl.x,sd->bl.y, 0, 0, 0, 0, 0);
 		}
-		else if (!flag && data->isAnnounced)
+		else if (!flag && data->isAnnounced) {
 			intif_broadcast_obtain_special_item(sd, data->nameid, sd->itemid, ITEMOBTAIN_TYPE_BOXITEM);
+		}
 	}
 }
 

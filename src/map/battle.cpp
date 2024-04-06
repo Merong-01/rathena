@@ -2948,7 +2948,8 @@ static bool is_attack_critical(struct Damage* wd, struct block_list *src, struct
 			if(pc_checkskill(sd,GS_CHAINACTION) && !skill_get_nk(GS_CHAINACTION,NK_CRITICAL)) //Chain Action
 				return false;
 
-			if(pc_checkskill(sd,TF_DOUBLE) && !skill_get_nk(TF_DOUBLE,NK_CRITICAL)) //Double Attack
+			if(pc_checkskill(sd,TF_DOUBLE) &&
+				!skill_get_nk(TF_DOUBLE,NK_CRITICAL) && !battle_config.tf_doubleAttackEnableCritical) //Double Attack
 				return false;
 		}
 
@@ -6612,7 +6613,12 @@ static void battle_calc_attack_left_right_hands(struct Damage* wd, struct block_
 			if (wd->damage) {
 				if( (sd->class_&MAPID_BASEMASK) == MAPID_THIEF ) {
 					skill = pc_checkskill(sd,AS_RIGHT);
-					ATK_RATER(wd->damage, 50 + (skill * 10))
+					if (battle_config.as_rightHandMasteryBuff == 1) {
+						ATK_RATER(wd->damage, 70 + (skill * 10))
+					}
+					else {
+						ATK_RATER(wd->damage, 50 + (skill * 10))
+					}
 				}
 				else if(sd->class_ == MAPID_KAGEROUOBORO) {
 					skill = pc_checkskill(sd,KO_RIGHT);
@@ -6624,7 +6630,12 @@ static void battle_calc_attack_left_right_hands(struct Damage* wd, struct block_
 			if (wd->damage2) {
 				if( (sd->class_&MAPID_BASEMASK) == MAPID_THIEF) {
 					skill = pc_checkskill(sd,AS_LEFT);
-					ATK_RATEL(wd->damage2, 30 + (skill * 10))
+					if (battle_config.as_leftHandMasteryBuff == 1) {
+						ATK_RATER(wd->damage, 50 + (skill * 10))
+					}
+					else {
+						ATK_RATEL(wd->damage2, 30 + (skill * 10))
+					}
 				}
 				else if(sd->class_ == MAPID_KAGEROUOBORO) {
 					skill = pc_checkskill(sd,KO_LEFT);

@@ -1,0 +1,259 @@
+//===== Customized Quest Gear NPC ============================
+//============================================================
+function	script	F_HeadGear_Upper	{
+	setarray .@gear_list_id[0], 5286, 5481, 5388, 5423, 5378, 5564;
+	.@gear_list_names$ = "";
+	for(.@i = 0; .@i < getarraysize(.@gear_list_id); .@i++){
+		.@gear_list_names$ += "^0000CC" + getitemname(.@gear_list_id[.@i]) + "^000000:";
+	}
+	.@gear_list_names$ += "Cancel";
+	
+	set .@sel, select(.@gear_list_names$);
+	.@selected_gear_id = .@gear_list_id[.@sel-1];
+	
+	switch(.@sel){
+		case 1: 
+				.@gear_requirements_id[0] = 925;
+				.@gear_requirements_count[0] = 3000;
+			break;
+		case 2: 
+				.@gear_requirements_id[0] = 5286;
+				.@gear_requirements_count[0] = 1;
+				
+				.@gear_requirements_id[1] = 5358;
+				.@gear_requirements_count[1] = 1;
+			break;
+		case 3: 
+				.@gear_requirements_id[0] = 926;
+				.@gear_requirements_count[0] = 3000;
+			break;
+		case 4: 
+				.@gear_requirements_id[0] = 2289;
+				.@gear_requirements_count[0] = 3;
+				
+				.@gear_requirements_id[1] = 2285;
+				.@gear_requirements_count[1]= 3;
+			break;
+		case 5: 
+				.@gear_requirements_id[0] = 949;
+				.@gear_requirements_count[0] = 3000;
+			break;
+		case 6: 
+				.@gear_requirements_id[0] = 5053;
+				.@gear_requirements_count[0] = 3;
+			break;
+		default: mes "[Head Gear Comissioner]";
+				 mes "Talk to me if you change your mind.";
+				 end;
+			break;
+	}
+	
+	mes "[Head Gear Comissioner]";
+	mes "You can have ^0000CC" + getitemname(.@selected_gear_id) + "^000000 if you have: ";
+	
+	for(.@ii = 0; .@ii < getarraysize(.@gear_requirements_id); .@ii++){
+		.@temp_str$ = "- ^0000CC" + getitemname(.@gear_requirements_id[.@ii]) + "^000000";
+		.@temp_str$ += " x " + .@gear_requirements_count;
+		if(.@gear_requirements_count == 1){
+			.@temp_str$ += " pc.";
+		}
+		else {
+			.@temp_str$ += " pcs.";
+		}
+		mes .@temp_str$;
+	}
+	next;
+	
+	.@sel = select("Proceed the exchange:Cancel");
+	if(.@sel == 1){
+		callfunc "F_HandleGearExchange",.@selected_gear_id,.@gear_requirements_id,.@gear_requirements_count;
+	}
+	else {
+		mes "[Head Gear Comissioner]";
+		mes "Talk to me if you change your mind.";
+		end;
+	}
+}
+
+function	script	F_HeadGear_Mid	{
+//	.@gear_list$[0] = "^0000CCPeco Ears^000000";
+//	.@gear_list$[1] = "^0000CCFilir's Pinions^000000";
+//	.@gear_list$[2] = "^0000CCBlush Of Groom^000000";
+//	.@gear_list$[3] = "^0000CCBlack Frame Glasses^000000";
+//	.@gear_list$[4] = "^0000CCAngel Spirit^000000";
+//	.@gear_list$[5] = "^0000CCCyclops Eye^000000";
+//	.@gear_list$[6] = "Cancel";
+	
+	setarray .@mid_gear_list_id, 5358, 5664, 5800, 5401, 5389, 5135;
+	
+	.@mid_gear_name$ = "";
+	for(.@i = 0; .@i < getarraysize(.@mid_gear_list_id); .@i++){
+		.@mid_gear_name$ += "^0000CC" + getitemname(.@mid_gear_list_id[.@i]) + "^000000:";
+	}
+	.@mid_gear_name$ += "Cancel";
+	
+	.@sel = select(.@mid_gear_name$);
+	.@selected_gear_id = .@mid_gear_list_id[.@sel-1];
+	
+	switch(.@sel){
+		case 1: 
+				.@gear_requirements_id[0] = 916;
+				.@gear_requirements_count[0] = 3000;
+			break;
+		case 2: 
+				.@gear_requirements_id[0] = 5358;
+				.@gear_requirements_count[0] = 1;
+				
+				.@gear_requirements_id[1] = 2274;
+				.@gear_requirements_count[1] = 1;
+			break;
+		case 3: 
+				.@gear_requirements_id[0] = 5040;
+				.@gear_requirements_count[0] = 3;
+			break;
+		case 4: 
+				.@gear_requirements_id[0] = 2276;
+				.@gear_requirements_count[0] = 3;
+			break;
+		case 5: 
+				.@gear_requirements_id[0] = 5074;
+				.@gear_requirements_count[0] = 1;
+				
+				.@gear_requirements_id[1] = 5068;
+				.@gear_requirements_count[1] = 1;
+			break;
+		case 6: 
+				.@gear_requirements_id[0] = 4010;
+				.@gear_requirements_count[0] = 5;
+			break;
+		default: mes "[Head Gear Comissioner]";
+				 mes "Talk to me if you change your mind.";
+				 end;
+			break;
+	}
+	
+	mes "[Head Gear Comissioner]";
+	mes "You can have ^0000CC" + getitemname(.@selected_gear_id) + "^000000 if you have: ";
+	
+	for(.@ii = 0; .@ii < getarraysize(.@gear_requirements_id); .@ii++){
+		.@temp_str$ = "- ^0000CC" + getitemname(.@gear_requirements_id[.@ii]) + "^000000";
+		.@temp_str$ += " x " + .@gear_requirements_count;
+		if(.@gear_requirements_count == 1){
+			.@temp_str$ += " pc.";
+		}
+		else {
+			.@temp_str$ += " pcs.";
+		}
+		mes .@temp_str$;
+	}
+	next;
+	
+	.@sel = select("Proceed the exchange:Cancel");
+	if(.@sel == 1){
+		callfunc "F_HandleGearExchange",.@selected_gear_id,.@gear_requirements_id,.@gear_requirements_count;
+	}
+	else {
+		mes "[Head Gear Comissioner]";
+		mes "Talk to me if you change your mind.";
+		end;
+	}
+}
+
+function	script	F_HeadGear_Low	{
+	.@gear_list$[0] = "^0000CCGentleman's Pipe^000000";
+	.@gear_list$[1] = "Cancel";
+	
+	.@sel = select(implode(.@gear_list$,":"));
+	switch(.@sel){
+		case 1: .@selected_gear_id = 5377;
+				
+				.@gear_requirements$[0] = "10 pcs. ^0000CCPipe^000000";
+				.@gear_requirements_id[0] = 2268;
+				.@gear_requirements_count[0] = 10;
+			break;
+		default: mes "[Head Gear Comissioner]";
+				 mes "Talk to me if you change your mind.";
+				 end;
+			break;
+	}
+	
+	mes "[Head Gear Comissioner]";
+	mes "You can have " + .@gear_list$[.@sel-1] + " if you have: ";
+	
+	for(.@i = 0; .@i < getarraysize(.@gear_requirements$); .@i++){
+		mes "- " + .@gear_requirements$[.@i];
+	}
+	next;
+	
+	.@sel = select("Proceed the exchange:Cancel");
+	if(.@sel == 1){
+		callfunc "F_HandleGearExchange",.@selected_gear_id,.@gear_requirements_id,.@gear_requirements_count;
+	}
+	else {
+		mes "[Head Gear Comissioner]";
+		mes "Talk to me if you change your mind.";
+		end;
+	}
+}
+
+function	script	F_HandleGearExchange	{
+	.@item_id = getarg(0);
+	copyarray .@requirements_id[0], getarg(1), getarraysize(getarg(1));
+	copyarray .@requirements_count[0], getarg(2), getarraysize(getarg(2));
+	.@ret = 0;
+	
+	for(.@i = 0; .@i < getarraysize(.@requirements_id); .@i++){
+		if(countitem(.@requirements_id[.@i]) < .@requirements_count[.@i]){
+			.@ret = -1;
+			break;
+		}
+	}
+	
+	if(.@ret == 0){
+		for(.@i = 0; .@i < getarraysize(getarg(1)); .@i++){
+			delitem .@requirements_id[.@i],.@requirements_count[.@i];
+		}
+		getitem .@item_id,1;
+		
+		mes "[Head Gear Comissioner]";
+		mes "There you go.";
+		mes "Come again if you want another equipment.";
+		end;
+	}
+	else {
+		mes "[Head Gear Comissioner]";
+		mes "You don't have the required items.";
+		mes "Come back when you have them.";
+		end;
+	}
+}
+
+-	script	Quest_Gear_NPC	-1,{
+	mes "[Head Gear Comissioner]";
+	mes "Perharps your looking for a new head gear?";
+	mes "Why don't you check out my collection...";
+	mes "I'm sure you will find what you need.";
+	next;
+	
+	//set .@selected_gear$,"";
+	set .@selected_gear_id, 0;
+	//set .@gear_requirements$[0],"";
+	set .@gear_requirements_id[0], 0;
+	set .@gear_requirements_count[0], 0;
+	
+	set .@sel, select("HeadGear-Upper:HeadGear-Mid:HeadGear-Low:Cancel");
+	switch(.@sel){
+		case 1: callfunc "F_HeadGear_Upper";
+			break;
+		case 2: callfunc "F_HeadGear_Mid";
+			break;
+		case 3: callfunc "F_HeadGear_Low";
+			break;
+		default: mes "[Head Gear Comissioner]";
+				 mes "Talk to me again if you change your mind.";
+				 end;
+			break;
+	}
+}
+
+prontera,150,183,5	duplicate(Quest_Gear_NPC)	Head Gear Comissioner#prt	47

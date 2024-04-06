@@ -2220,8 +2220,9 @@ static void mob_item_drop(struct mob_data *md, struct item_drop_list *dlist, str
 		if ((itemdb_search(ditem->item_data.nameid))->flag.broadcast &&
 			(!p || !(p->party.item & 2)) // Somehow, if party's pickup distribution is 'Even Share', no announcemet
 			)
+		{
 			intif_broadcast_obtain_special_item(sd, ditem->item_data.nameid, md->mob_id, ITEMOBTAIN_TYPE_MONSTER_ITEM);
-
+		}
 		if (party_share_loot(party_search(sd->status.party_id),
 			sd, &ditem->item_data, sd->status.char_id) == 0
 		) {
@@ -2824,6 +2825,10 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 				continue;
 			}
 
+			if (mvp_sd && it->type == IT_CARD) {
+				pc_setparam(mvp_sd, SP_CARDDROPPED, md->db->dropitem[i].nameid);
+			}
+
 			ditem = mob_setdropitem(&md->db->dropitem[i], 1, md->mob_id);
 
 			//A Rare Drop Global Announce by Lupus
@@ -2977,7 +2982,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 		if( !(map_getmapflag(m, MF_NOMVPLOOT) || type&1) ) {
 			//Order might be random depending on item_drop_mvp_mode config setting
 			struct s_mob_drop mdrop[MAX_MVP_DROP_TOTAL];
-
+			
 			memset(&mdrop,0,sizeof(mdrop));
 
 			if(battle_config.item_drop_mvp_mode == 1) {
@@ -3003,63 +3008,82 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 #if defined(RENEWAL_DROP)
 			int penalty = pc_level_penalty_mod( mvp_sd, PENALTY_MVP_DROP, nullptr, md );
 #endif
-
-			for(i = 0; i < MAX_MVP_DROP_TOTAL; i++) {
-				if(mdrop[i].nameid == 0)
+			
+			for (int j = 0; j < DAMAGELOG_SIZE; j++) {
+				if (!tmpsd[j]) {
 					continue;
+				}
 
-				std::shared_ptr<item_data> i_data = item_db.find(mdrop[i].nameid);
+				//if (tmpsd[j]->status.char_id != md->dmglog[j].id) {
+				//	continue;
+				//}
 
-				if (i_data == nullptr)
+				if (mvp_sd->status.party_id != tmpsd[j]->status.party_id) {
 					continue;
+				}
 
-				temp = mdrop[i].rate;
+				for (i = 0; i < MAX_MVP_DROP_TOTAL; i++) {
+					if (mdrop[i].nameid == 0)
+						continue;
+
+					std::shared_ptr<item_data> i_data = item_db.find(mdrop[i].nameid);
+					if (i_data == nullptr)
+						continue;
+
+					temp = mdrop[i].rate;
 
 #if defined(RENEWAL_DROP)
-				temp = cap_value( apply_rate( temp, penalty ), 0, 10000 );
+					temp = cap_value(apply_rate(temp, penalty), 0, 10000);
 #endif
 
-				if (temp != 10000) {
-					if(temp <= 0 && !battle_config.drop_rate0item)
-						temp = 1;
-					if(rnd()%10000 >= temp) //if ==0, then it doesn't drop
-						continue;
+					if (temp != 10000) {
+						if (temp <= 0 && !battle_config.drop_rate0item)
+							temp = 1;
+						if (rnd() % 10000 >= temp) //if ==0, then it doesn't drop
+							continue;
+					}
+
+					struct item item = {};
+					item.nameid = mdrop[i].nameid;
+					item.identify = itemdb_isidentified(item.nameid);
+					clif_mvp_item(tmpsd[j], item.nameid);
+					log_mvp_nameid = item.nameid;
+
+					//A Rare MVP Drop Global Announce by Lupus
+					if (temp <= battle_config.rare_drop_announce) {
+						char message[128];
+						sprintf(message, msg_txt(NULL, 541), tmpsd[j]->status.name, md->name, i_data->ename.c_str(), temp / 100.);
+						//MSG: "'%s' won %s's %s (chance: %0.02f%%)"
+						intif_broadcast(message, strlen(message) + 1, BC_DEFAULT);
+					}
+
+					mob_setdropitem_option(&item, &mdrop[i]);
+
+					if ((temp = pc_additem(tmpsd[j], &item, 1, LOG_TYPE_PICKDROP_PLAYER)) != 0) {
+						clif_additem(tmpsd[j], 0, 0, temp);
+						map_addflooritem(&item, 1, tmpsd[j]->bl.m, tmpsd[j]->bl.x, tmpsd[j]->bl.y, tmpsd[j]->status.char_id, (second_sd ? second_sd->status.char_id : 0), (third_sd ? third_sd->status.char_id : 0), 1, 0, true);
+					}
+
+					if (i_data->flag.broadcast) {
+						intif_broadcast_obtain_special_item(tmpsd[j], item.nameid, md->mob_id, ITEMOBTAIN_TYPE_MONSTER_ITEM);
+					}
+					//Logs items, MVP prizes [Lupus]
+					log_pick_mob(md, LOG_TYPE_MVP, -1, &item);
+					//If item_drop_mvp_mode is not 2, then only one item should be granted
+					if (battle_config.item_drop_mvp_mode != 2) {
+						break;
+					}
 				}
-
-				struct item item = {};
-				item.nameid=mdrop[i].nameid;
-				item.identify= itemdb_isidentified(item.nameid);
-				clif_mvp_item(mvp_sd,item.nameid);
-				log_mvp_nameid = item.nameid;
-
-				//A Rare MVP Drop Global Announce by Lupus
-				if(temp<=battle_config.rare_drop_announce) {
-					char message[128];
-					sprintf (message, msg_txt(NULL,541), mvp_sd->status.name, md->name, i_data->ename.c_str(), temp/100.);
-					//MSG: "'%s' won %s's %s (chance: %0.02f%%)"
-					intif_broadcast(message,strlen(message)+1,BC_DEFAULT);
+				if (mvp_sd->status.char_id == tmpsd[j]->status.char_id) {
+					log_mvpdrop(mvp_sd, md->mob_id, log_mvp_nameid, log_mvp_exp);
 				}
-
-				mob_setdropitem_option(&item, &mdrop[i]);
-
-				if((temp = pc_additem(mvp_sd,&item,1,LOG_TYPE_PICKDROP_PLAYER)) != 0) {
-					clif_additem(mvp_sd,0,0,temp);
-					map_addflooritem(&item,1,mvp_sd->bl.m,mvp_sd->bl.x,mvp_sd->bl.y,mvp_sd->status.char_id,(second_sd?second_sd->status.char_id:0),(third_sd?third_sd->status.char_id:0),1,0,true);
-				}
-
-				if (i_data->flag.broadcast)
-					intif_broadcast_obtain_special_item(mvp_sd, item.nameid, md->mob_id, ITEMOBTAIN_TYPE_MONSTER_ITEM);
-
-				//Logs items, MVP prizes [Lupus]
-				log_pick_mob(md, LOG_TYPE_MVP, -1, &item);
-				//If item_drop_mvp_mode is not 2, then only one item should be granted
-				if(battle_config.item_drop_mvp_mode != 2) {
-					break;
+				else {
+					log_mvpdrop(tmpsd[j], md->mob_id, log_mvp_nameid, 0);
 				}
 			}
 		}
 
-		log_mvpdrop(mvp_sd, md->mob_id, log_mvp_nameid, log_mvp_exp);
+		//log_mvpdrop(mvp_sd, md->mob_id, log_mvp_nameid, log_mvp_exp);
 	}
 
 	if (type&2 && !sd && md->mob_id == MOBID_EMPERIUM)

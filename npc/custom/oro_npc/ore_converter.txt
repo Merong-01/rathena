@@ -1,0 +1,107 @@
+//====== Custom E.Elu and E.Ori Trader =======================
+//============================================================
+prontera,150,179,5	duplicate(Suhnbi#cash)	Suhnbi#prt	85
+
+prontera,150,181,5	script	Enriched Ore Trader	4_M_DWARF,{
+	.@npc_name$ = "[Enriched Ore Trader]";
+	
+	mes .@npc_name$;
+	mes "Yeah, it's me!";
+	mes "I exchange your normal Elunium,";
+	mes "and normal Oridecon to a better,";
+	mes "higer quality, Enriched Elunium";
+	mes "and Enriched Oridecon.";
+	next;
+	
+	mes .@npc_name$;
+	mes "If you have 10 Oridecon ";
+	mes "or 5 Elunium, I will trade";
+	mes "it with my Enriched Oridecon";
+	mes "or Enriched Elunium.";
+	mes "What do you think? Deal?";
+	next;
+	
+	switch(select("Trade for Enriched Oridecon:Trade for Enriched Elunium:No, you look like a scammer.")){
+		case 1: mes .@npc_name$;
+				mes "Let me see...";
+				mes "My Enriched Oridecon for";
+				mes "10 of your Oridecon.";
+				mes "Do you confirm the trade?";
+				next;
+				callfunc "ProcessTrade", 0;
+			break;
+		case 2: mes .@npc_name$;
+				mes "Let me see...";
+				mes "My Enriched Elunium for";
+				mes "5 of your Elunium.";
+				mes "Do you confirm the trade?";
+				next;
+				callfunc "ProcessTrade", 1;
+			break;
+		default: mes .@npc_name$;
+				 .@num = rand(10);
+				 if(.@num < 6){
+					mes "You don't have to say offensive";
+					mes "words if you don't want to trade.";
+					mes "Talk to me again if you change your mind.";
+					emotion ET_SCRATCH;
+					end;
+				 }
+				 else if(.@num < 9){
+					mes "What!? Have you been";
+					mes "lied your whole life to be";
+					mes "so untrusting like that?";
+					mes "You know what, just go on your way.";
+					emotion ET_OHNO;
+					end;
+				 }
+				 else {
+					mes "It's your face that look";
+					mes "like a scammer.  Your whole";
+					mes "family look like a scammer!!";
+					mes "Go away!!!";
+					emotion ET_ANGER;
+					end;
+				 }
+				 
+	}
+}
+
+function	script	ProcessTrade	{
+	.@type = getarg(0);
+	
+	if(select("Proceed...:Cancel") == 2){
+		mes "[Enriched Ore Trader]";
+		mes "Alright, it's your choice.";
+		mes "Talk to me again if you change your mind.";
+		emotion ET_SCRATCH;
+		end;
+	}
+	
+	if(.@type == 0 && countitem(984) >= 10){ //Oridecon
+		getitem(7620, 1);
+		delitem(984, 10);
+	}
+	else if(.@type == 1 && countitem(985) >= 5){ //elunium
+		getitem(7619, 1);
+		delitem(985, 5);
+	}
+	else {
+		mes "[Enriched Ore Trader]";
+		if(.@type == 0){
+			mes "You don't have 10 Oridecon.";
+		}
+		else if(.@type == 1){
+			mes "You don't have 5 Elunium.";
+		}
+		mes "Please count your items again.";
+		end;
+	}
+	
+	mes "[Enriched Ore Trader]";
+	mes "There you go.";
+	mes "If you want more,";
+	mes "talk to me again.";
+	emotion ET_BEST;
+	end;
+}

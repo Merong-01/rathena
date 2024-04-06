@@ -10220,7 +10220,7 @@ int skill_castend_nodamage_id (struct block_list *src, struct block_list *bl, ui
 		if( status_has_mode(tstatus,MD_STATUSIMMUNE)
 		// Renewal dropped the 3/4 hp requirement
 #ifndef RENEWAL
-			|| tstatus-> hp > tstatus->max_hp*3/4
+			|| (tstatus-> hp > tstatus->max_hp*3/4 && !battle_config.as_splasherRenewalSetting)
 #endif
 				) {
 			if (sd) clif_skill_fail(sd,skill_id,USESKILL_FAIL_LEVEL,0);

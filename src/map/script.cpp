@@ -14950,7 +14950,7 @@ BUILDIN_FUNC(disguise)
 
 	id = script_getnum(st,2);
 
-	if (mobdb_checkid(id) || npcdb_checkid(id)) {
+	if (mobdb_checkid(id) || npcdb_checkid(id) || (id > 4000 && id < 4245)) {
 		pc_disguise(sd, id);
 		script_pushint(st,id);
 	} else

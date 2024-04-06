@@ -11164,7 +11164,7 @@ void clif_parse_LoadEndAck(int fd,map_session_data *sd)
 
 #ifdef VIP_ENABLE
 		if (!sd->state.connect_new &&
-			!sd->vip.disableshowrate &&
+			!sd->vip.disableshowrate && pc_isvip(sd) &&
 			sd->state.pmap != sd->bl.m &&
 			map_getmapflag(sd->state.pmap, MF_BEXP) != mapdata->getMapFlag(MF_BEXP)
 			)
