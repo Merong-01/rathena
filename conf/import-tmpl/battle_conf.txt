@@ -1,0 +1,128 @@
+//battle/exp.conf
+base_exp_rate: 500
+job_exp_rate: 500
+
+mvp_exp_rate: 200
+
+multi_level_up: yes
+
+quest_exp_rate: 200
+
+heal_exp: 5
+resurrection_exp: 5
+
+disp_experience: yes
+
+//battle/drops.conf
+// The rate the common items are dropped (Items that are in the ETC tab, besides card)
+item_rate_common: 300
+item_rate_common_boss: 300
+item_rate_common_mvp: 300
+item_drop_common_min: 1
+item_drop_common_max: 10000
+
+// The rate healing items are dropped (items that restore HP or SP)
+item_rate_heal: 300
+item_rate_heal_boss: 300
+item_rate_heal_mvp: 300
+item_drop_heal_min: 1
+item_drop_heal_max: 10000
+
+// The rate at which usable items (in the item tab) other then healing items are dropped.
+item_rate_use: 300
+item_rate_use_boss: 300
+item_rate_use_mvp: 300
+item_drop_use_min: 1
+item_drop_use_max: 10000
+
+// The rate at which equipment is dropped.
+item_rate_equip: 300
+item_rate_equip_boss: 300
+item_rate_equip_mvp: 300
+item_drop_equip_min: 1
+item_drop_equip_max: 10000
+
+// The rate at which cards are dropped
+item_rate_card: 300
+item_rate_card_boss: 300
+item_rate_card_mvp: 300
+item_drop_card_min: 1
+item_drop_card_max: 10000
+
+// The rate adjustment for the MVP items that the MVP gets directly in their inventory
+// Mode: 0 - official order, 1 - random order, 2 - all items
+item_drop_mvp_mode: 0
+
+// The rate adjustment for card-granted item drops.
+item_rate_adddrop: 200
+
+// Rate adjustment for Treasure Box drops (these override all other modifiers)
+item_rate_treasure: 200
+
+// Makes your LUK value affect drop rates on an absolute basis.
+// Setting to 100 means each luk adds 0.01% chance to find items
+// (regardless of item's base drop rate).
+drops_by_luk: 10
+
+// The rate of monsters dropping ores by the skill Ore Discovery (Default is 100)
+finding_ore_rate: 300
+
+// Make broadcast ** Player1 won Pupa's Pupa Card (chance 0.01%) ***
+// This can be set to any value between 0~10000.
+// Note: It also announces STEAL skill usage with rare items
+// 0 = don't show announces at all
+// 1 = show announces for 0.01% drop chance items
+// 333 = show announces for 3.33% or lower drop chance items
+// 10000 = show announces for all items
+rare_drop_announce: 10
+
+//battle/player.conf
+// The amount of HP a player will respawn with, 0 is default.
+// (Unit is in percentage of total HP, 100 is full heal of HP, 0 is respawn with 1HP total.)
+restart_hp_rate: 5
+
+// Maximum atk speed. (Default 190, Highest allowed 199)
+max_aspd: 190
+
+// Players' will drop a 'Skull' when killed?
+// Note: The 'Skull' item (ID 7420) is trade restricted by default. You need
+// to remove the "NoTrade" flag on the item for this feature to work.
+// 0 = Disabled
+// 1 = Dropped only in PvP maps
+// 2 = Dropped in all situations
+bone_drop: 1
+
+//battle/client.conf
+display_version: no
+
+//battle/feature.conf
+feature.achievement: off
+feature.refineui: off
+feature.equipswitch: off
+feature.homunculus_autofeed: off
+feature.attendance: off
+feature.privateairship: off
+feature.barter: off
+feature.barter_extended: off
+feature.mesitemlink: on
+
+//battle/monster.conf
+mob_count_rate: 100
+mob_spawn_delay: 100
+plant_spawn_delay: 100
+boss_spawn_delay: 100
+mob_size_influence: yes
+boss_icewall_walk_block: 1
+mob_nopc_idleskill_rate: 50
+
+//battle/skill.conf
+backstab_bow_penalty: no
+enable_double_attack_critical: yes
+right_hand_mastery_buff: yes
+left_hand_mastery_buff: yes
+katar_mastery_crit_bonus: yes
+venom_splasher_renewal_setting: yes
+spear_mastery_aspd_buff: yes
+mace_mastery_aspd_buff: yes
+spear_quicken_buff: yes
+auto_spell_buff: yes

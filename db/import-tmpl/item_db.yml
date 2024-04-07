@@ -88,7 +88,383 @@ Header:
   Type: ITEM_DB
   Version: 3
 
-#Body:
+Body:
+  - Id: 5471
+    AegisName: Hairband_Of_Reginleif
+    Name: Hairband Of Reginleif
+    Type: Armor
+    Buy: 20
+    Weight: 800
+    Defense: 2
+    Locations:
+      Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 50
+    View: 468
+    Script: |
+      bonus2 bSubEle,Ele_Water,3;
+      bonus2 bSubEle,Ele_Fire,3;
+      bonus2 bSubEle,Ele_Undead,3;
+      bonus2 bSubEle,Ele_Ghost,3;
+  - Id: 5767
+    AegisName: Samurai_Mask
+    Name: Samurai Mask
+    Type: Armor
+    Buy: 20
+    Weight: 300
+    Defense: 1
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 50
+    View: 644
+    Trade:
+      NoDrop: true
+    Script: |
+      bonus2 bAddClass,Class_All,1;
+  - Id: 16267
+    AegisName: HE_Battle_Manual_Box
+    Name: HE Battle Manual Box
+    Type: Usable
+    Buy: 20
+    Weight: 10
+    Script: |
+      getitem 12411,10;
+  - Id: 19698
+    AegisName: C_Bf_Recruiter_Hat
+    Name: Costume Bf Recruiter Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 352
+  - Id: 12622
+    AegisName: Boarding_Halter
+    Name: Reins Of Mount
+    Type: Usable
+    Flags:
+      NoConsume: true
+    Delay:
+      Duration: 3000
+      Status: All_Riding_Reuse_Limit
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      setmounting();
+    UnEquipScript: |
+      if (ismounting())
+         setmounting();
+  - Id: 19699
+    AegisName: C_Gf_Recruiter_Hat
+    Name: Costume Gf Recruiter Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 360
+  - Id: 19740
+    AegisName: C_Guildsman_Recruiter
+    Name: Costume Guildsman Recruiter Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 350
+  - Id: 20052
+    AegisName: C_Notice_Board
+    Name: Costume AFK Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 471
+  - Id: 31918
+    AegisName: C_Party_Recruiter_Hat
+    Name: Costume Party Recruiter Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 351
+  - Id: 31919
+    AegisName: C_Friend_Recruiter_Hat
+    Name: Costume Friend Recruiter Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 353
+  - Id: 19639
+    AegisName: C_sakkat
+    Name: Costume Sakkat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 67
+    Script: | 
+        bonus bAddMaxWeight,10000;
+  - Id: 20462
+    AegisName: C_Cat_Ears_Cape
+    Name: Costume Cat Ears Cape
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1464
+  - Id: 31492
+    AegisName: C_Cat_Ears_Cape_Brown
+    Name: Costume Cat Ears Cape Brown
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1742
+  - Id: 31438
+    AegisName: C_Fluffy_Angel_Cape
+    Name: Costume Fluffy Angel Cape
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1706
+    Script: |
+        bonus2 bExpAddClass,Class_All,20;
+  - Id: 20572
+    AegisName: C_WingOfHeart
+    Name: Costume Wings Of Heart
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 50
+    Script: |
+        bonus bAddMaxWeight,5000;
+        bonus2 bExpAddClass,Class_All,20;
+  - Id: 30001
+    AegisName: Elite_Siege_Supply_Box_
+    Name: Elite Siege Supply Box (PVP)
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getitem 30002,100;
+      getitem 30003,50;
+  - Id: 30002
+    AegisName: Siege_White_Potion_
+    Name: WoE White Potion (PVP)
+    Type: Healing
+    Weight: 100
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      itemheal rand(400,500),0;
+  - Id: 30003
+    AegisName: Siege_Blue_Potion_
+    Name: WoE Blue Potion (PVP)
+    Type: Healing
+    Weight: 100
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      itemheal 0,rand(50,70);
+  - Id: 30004
+    AegisName: Proof_Of_Donation_S
+    Name: Proof Of Donation S
+    Type: Usable
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: false
+      NoMail: true
+      NoAuction: false
+    Script: |
+      atcommand "@cash 100";
+  - Id: 30005
+    AegisName: VIP_1Day_Coin
+    Name: VIP 1Day
+    Type: Usable
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      vip_time 1440;
+  - Id: 30006
+    AegisName: VIP_30Day_Card
+    Name: VIP 30Day
+    Type: Usable
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      vip_time 43200;
+  - Id: 19581
+    AegisName: C_Brabery_Hat
+    Name: Costume Adventurer's Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 891
+    Script: |
+      bonus bSpeedRate,30;
+  - Id: 19954
+    AegisName: C_3D_Glasses
+    Name: Costume 3D Glasses
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 661
+    Script: |
+      skill "AL_TELEPORT",1;
+  - Id: 30100
+    AegisName: C_Analyze_Eye_S
+    Name: Costume Analyze Eye (Streamer ver)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1351
+    Script: |
+        bonus2 bAddMonsterDropItem,603,50;
+  - Id: 30101
+    AegisName: C_Nut_On_Head_S
+    Name: Costume Bolt Ears (Streamer ver)
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 696
+    Script: |
+        bonus2 bAddMonsterDropItem,504,200;
+  - Id: 30102
+    AegisName: C_Engineer_Cap_S
+    Name: Costume Engineer Cap (Streamer ver)
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 608
+    Script: |
+        bonus2 bAddMonsterDropItem,533,200;
+  - Id: 30103
+    AegisName: C_School_Bag_RD_S
+    Name: Costume Backpack Red (Streamer ver)
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 51
+    Script: |
+        bonus2 bAddMonsterDropItem,7139,100;
+  - Id: 30104
+    AegisName: C_Flying_Angel
+    Name: Costume Flapping Angel Wings
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 264
+    Script: |
+        bonus bAddMaxWeight,5000;
+        bonus2 bExpAddClass,Class_All,20;
+  - Id: 30105
+    AegisName: C_Satanic_Chain_P
+    Name: Costume Flapping Evil Wings
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 382
+    Script: |
+        bonus bAddMaxWeight,5000;
+        bonus2 bExpAddClass,Class_All,20;
+  - Id: 30106
+    AegisName: Kafra_Ring_3C
+    Name: Kafra Ring - Third Class Avatar
+    Type: Shadowgear
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      BardDancer: true
+      Blacksmith: true
+      Crusader: true
+      Hunter: true
+      Knight: true
+      Monk: true
+      Priest: true
+      Rogue: true
+      Sage: true
+      Wizard: true
+    Locations:
+      Shadow_Right_Accessory: true
+    EquipLevelMin: 60
+    EquipScript: |
+        setlook 13,1;
+    UnEquipScript: |
+        setlook 13,0;
 # THQ Quest Items
 #=============================================================
 #  - Id: 1998

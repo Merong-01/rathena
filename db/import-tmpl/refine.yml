@@ -48,35 +48,35 @@ Header:
 ###########################################################################
 # Event Refine Rates
 ###########################################################################
-#Body:
-#  - Group: Armor
-#    Levels:
-#      - Level: 1
-#        RefineLevels:
-#          - Level: 5
-#            Chances:
-#              - Type: Enriched
-#                Rate: 9500
-#          - Level: 6
-#            Chances:
-#              - Type: Enriched
-#                Rate: 8000
-#          - Level: 7
-#            Chances:
-#              - Type: Enriched
-#                Rate: 8000
-#          - Level: 8
-#            Chances:
-#              - Type: Enriched
-#                Rate: 5000
-#          - Level: 9
-#            Chances:
-#              - Type: Enriched
-#                Rate: 5000
-#          - Level: 10
-#            Chances:
-#              - Type: Enriched
-#                Rate: 3500
+Body:
+  - Group: Armor
+    Levels:
+      - Level: 1
+        RefineLevels:
+          - Level: 5
+            Chances:
+              - Type: Enriched
+                Rate: 6500
+          - Level: 6
+            Chances:
+              - Type: Enriched
+                Rate: 4500
+          - Level: 7
+            Chances:
+              - Type: Enriched
+                Rate: 4500
+          - Level: 8
+            Chances:
+              - Type: Enriched
+                Rate: 2500
+          - Level: 9
+            Chances:
+              - Type: Enriched
+                Rate: 2500
+          - Level: 10
+            Chances:
+              - Type: Enriched
+                Rate: 1500
 #          - Level: 11
 #            Chances:
 #              - Type: Normal
@@ -241,22 +241,22 @@ Header:
 #                Rate: 1000
 #              - Type: HD
 #                Rate: 1000
-#  - Group: Weapon
-#    Levels:
-#      - Level: 1
-#        RefineLevels:
-#          - Level: 8
-#            Chances:
-#              - Type: Enriched
-#                Rate: 9500
-#          - Level: 9
-#            Chances:
-#              - Type: Enriched
-#                Rate: 8500
-#          - Level: 10
-#            Chances:
-#              - Type: Enriched
-#                Rate: 5500
+  - Group: Weapon
+    Levels:
+      - Level: 1
+        RefineLevels:
+          - Level: 8
+            Chances:
+              - Type: Enriched
+                Rate: 6500
+          - Level: 9
+            Chances:
+              - Type: Enriched
+                Rate: 4500
+          - Level: 10
+            Chances:
+              - Type: Enriched
+                Rate: 2500
 #          - Level: 11
 #            Chances:
 #              - Type: Normal
@@ -305,24 +305,24 @@ Header:
 #                Rate: 2000
 #              - Type: HD
 #                Rate: 2000
-#      - Level: 2
-#        RefineLevels:
-#          - Level: 7
-#            Chances:
-#              - Type: Enriched
-#                Rate: 9500
-#          - Level: 8
-#            Chances:
-#              - Type: Enriched
-#                Rate: 8500
-#          - Level: 9
-#            Chances:
-#              - Type: Enriched
-#                Rate: 6000
-#          - Level: 10
-#            Chances:
-#              - Type: Enriched
-#                Rate: 4500
+      - Level: 2
+        RefineLevels:
+          - Level: 7
+            Chances:
+              - Type: Enriched
+                Rate: 6500
+          - Level: 8
+            Chances:
+              - Type: Enriched
+                Rate: 4500
+          - Level: 9
+            Chances:
+              - Type: Enriched
+                Rate: 2500
+          - Level: 10
+            Chances:
+              - Type: Enriched
+                Rate: 2500
 #          - Level: 11
 #            Chances:
 #              - Type: Normal
@@ -371,28 +371,28 @@ Header:
 #                Rate: 2000
 #              - Type: HD
 #                Rate: 2000
-#      - Level: 3
-#        RefineLevels:
-#          - Level: 6
-#            Chances:
-#              - Type: Enriched
-#                Rate: 9500
-#          - Level: 7
-#            Chances:
-#              - Type: Enriched
-#                Rate: 9000
-#          - Level: 8
-#            Chances:
-#              - Type: Enriched
-#                Rate: 7000
-#          - Level: 9
-#            Chances:
-#              - Type: Enriched
-#                Rate: 6000
-#          - Level: 10
-#            Chances:
-#              - Type: Enriched
-#                Rate: 4500
+      - Level: 3
+        RefineLevels:
+          - Level: 6
+            Chances:
+              - Type: Enriched
+                Rate: 6500
+          - Level: 7
+            Chances:
+              - Type: Enriched
+                Rate: 5500
+          - Level: 8
+            Chances:
+              - Type: Enriched
+                Rate: 3500
+          - Level: 9
+            Chances:
+              - Type: Enriched
+                Rate: 2500
+          - Level: 10
+            Chances:
+              - Type: Enriched
+                Rate: 2500
 #          - Level: 11
 #            Chances:
 #              - Type: Normal
@@ -441,32 +441,32 @@ Header:
 #                Rate: 2000
 #              - Type: HD
 #                Rate: 2000
-#      - Level: 4
-#        RefineLevels:
-#          - Level: 5
-#            Chances:
-#              - Type: Enriched
-#                Rate: 9500
-#          - Level: 6
-#            Chances:
-#              - Type: Enriched
-#                Rate: 8000
-#          - Level: 7
-#            Chances:
-#              - Type: Enriched
-#                Rate: 8000
-#          - Level: 8
-#            Chances:
-#              - Type: Enriched
-#                Rate: 6000
-#          - Level: 9
-#            Chances:
-#              - Type: Enriched
-#                Rate: 5000
-#          - Level: 10
-#            Chances:
-#              - Type: Enriched
-#                Rate: 3500
+      - Level: 4
+        RefineLevels:
+          - Level: 5
+            Chances:
+              - Type: Enriched
+                Rate: 6500
+          - Level: 6
+            Chances:
+              - Type: Enriched
+                Rate: 4500
+          - Level: 7
+            Chances:
+              - Type: Enriched
+                Rate: 4500
+          - Level: 8
+            Chances:
+              - Type: Enriched
+                Rate: 2500
+          - Level: 9
+            Chances:
+              - Type: Enriched
+                Rate: 2500
+          - Level: 10
+            Chances:
+              - Type: Enriched
+                Rate: 1500
 #          - Level: 11
 #            Chances:
 #              - Type: Normal
