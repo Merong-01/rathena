@@ -45,7 +45,7 @@
 -	script	Poring_Healer	-1,{
 
 	// Zeny required for heal
-	.@NPrice = 5000;
+	.@NPrice = 0;
 	.@LPrice = 20000;
 	.@Buffs = 1;	// Also buff players? (1: yes / 0: no)
 	.@Delay = 5;	// Heal delay, in seconds
@@ -55,12 +55,12 @@
 	}
 	
 	mes "[Poring]";
-	mes "blink, blink, blink....";
-	next;
+	mes "(boink), (boink), (boink)....";
+	//next;
 	
 	setarray .@heal_services$[0], "", "", "";
 	
-	.@heal_services$[0] = "Normal Treatment -> " + .@NPrice;
+	.@heal_services$[0] = "Normal Treatment -> Free";
 	.@heal_services$[1] = "^777777Luxury Treatment^000000 -> " + .@LPrice;
 	.@heal_services$[2] = "^0055FFVIP Treatment^000000 -> (free for VIP)";
 	
@@ -75,7 +75,6 @@
 	}
 	else if(.@choice == 3){
 		//check vip status
-		//.@is_vip = vip_status VIP_STATUS_ACTIVE;
 		if(vip_status(VIP_STATUS_ACTIVE) == false){
 			end;
 		}
@@ -107,35 +106,35 @@
 
 // Duplicates
 //============================================================
-alberta,25,240,6	duplicate(Poring_Healer)	Healer#alb	4_ANGELING
-aldebaran,135,118,6	duplicate(Poring_Healer)	Healer#alde	4_ANGELING
-amatsu,200,79,4	duplicate(Poring_Healer)	Healer#ama	4_ANGELING
-ayothaya,207,169,6	duplicate(Poring_Healer)	Healer#ayo	4_ANGELING
-comodo,184,158,6	duplicate(Poring_Healer)	Healer#com	4_ANGELING
-einbech,57,36,6	duplicate(Poring_Healer)	Healer#einbe	4_ANGELING
-einbroch,57,202,6	duplicate(Poring_Healer)	Healer#einbr	4_ANGELING
-geffen,115,72,6	duplicate(Poring_Healer)	Healer#gef	4_ANGELING
-gonryun,156,122,6	duplicate(Poring_Healer)	Healer#gon	4_ANGELING
-hugel,89,150,6	duplicate(Poring_Healer)	Healer#hug	4_ANGELING
-izlude,121,150,6	duplicate(Poring_Healer)	Healer#izl	4_ANGELING	//Pre-RE: (125,118)
-jawaii,250,139,4	duplicate(Poring_Healer)	Healer#jaw	4_ANGELING
-lighthalzen,152,100,6	duplicate(Poring_Healer)	Healer#lhz	4_ANGELING
-louyang,226,103,4	duplicate(Poring_Healer)	Healer#lou	4_ANGELING
-manuk,272,144,6	duplicate(Poring_Healer)	Healer#man	4_ANGELING
-mid_camp,203,289,6	duplicate(Poring_Healer)	Healer#mid	4_ANGELING
-moc_ruins,72,164,4	duplicate(Poring_Healer)	Healer#moc	4_ANGELING
-morocc,153,97,6	duplicate(Poring_Healer)	Healer#mor	4_ANGELING
-moscovia,220,191,4	duplicate(Poring_Healer)	Healer#mos	4_ANGELING
-niflheim,212,182,5	duplicate(Poring_Healer)	Healer#nif	4_ANGELING
-payon,179,106,4	duplicate(Poring_Healer)	Healer#pay	4_ANGELING
-prontera,159,187,4	duplicate(Poring_Healer)	Healer#prt	4_ANGELING
-rachel,125,116,6	duplicate(Poring_Healer)	Healer#rac	4_ANGELING
-splendide,201,153,4	duplicate(Poring_Healer)	Healer#spl	4_ANGELING
-thor_camp,249,74,4	duplicate(Poring_Healer)	Healer#thor	4_ANGELING
-umbala,105,148,3	duplicate(Poring_Healer)	Healer#umb	4_ANGELING
-veins,217,121,4	duplicate(Poring_Healer)	Healer#ve	4_ANGELING
-xmas,143,136,4	duplicate(Poring_Healer)	Healer#xmas	4_ANGELING
-yuno,164,45,4	duplicate(Poring_Healer)	Healer#yuno	4_ANGELING
+alberta,25,240,6	duplicate(Poring_Healer)	Healer#alb	4_ARCHANGELING
+aldebaran,135,118,6	duplicate(Poring_Healer)	Healer#alde	4_ARCHANGELING
+amatsu,200,79,4	duplicate(Poring_Healer)	Healer#ama	4_ARCHANGELING
+ayothaya,207,169,6	duplicate(Poring_Healer)	Healer#ayo	4_ARCHANGELING
+comodo,184,158,6	duplicate(Poring_Healer)	Healer#com	4_ARCHANGELING
+einbech,57,36,6	duplicate(Poring_Healer)	Healer#einbe	4_ARCHANGELING
+einbroch,57,202,6	duplicate(Poring_Healer)	Healer#einbr	4_ARCHANGELING
+geffen,115,72,6	duplicate(Poring_Healer)	Healer#gef	4_ARCHANGELING
+gonryun,156,122,6	duplicate(Poring_Healer)	Healer#gon	4_ARCHANGELING
+hugel,89,150,6	duplicate(Poring_Healer)	Healer#hug	4_ARCHANGELING
+izlude,121,150,6	duplicate(Poring_Healer)	Healer#izl	4_ARCHANGELING	//Pre-RE: (125,118)
+jawaii,250,139,4	duplicate(Poring_Healer)	Healer#jaw	4_ARCHANGELING
+lighthalzen,152,100,6	duplicate(Poring_Healer)	Healer#lhz	4_ARCHANGELING
+louyang,226,103,4	duplicate(Poring_Healer)	Healer#lou	4_ARCHANGELING
+manuk,272,144,6	duplicate(Poring_Healer)	Healer#man	4_ARCHANGELING
+mid_camp,203,289,6	duplicate(Poring_Healer)	Healer#mid	4_ARCHANGELING
+moc_ruins,72,164,4	duplicate(Poring_Healer)	Healer#moc	4_ARCHANGELING
+morocc,153,97,6	duplicate(Poring_Healer)	Healer#mor	4_ARCHANGELING
+moscovia,220,191,4	duplicate(Poring_Healer)	Healer#mos	4_ARCHANGELING
+niflheim,212,182,5	duplicate(Poring_Healer)	Healer#nif	4_ARCHANGELING
+payon,179,106,4	duplicate(Poring_Healer)	Healer#pay	4_ARCHANGELING
+prontera,159,187,4	duplicate(Poring_Healer)	Healer#prt	4_ARCHANGELING
+rachel,125,116,6	duplicate(Poring_Healer)	Healer#rac	4_ARCHANGELING
+splendide,201,153,4	duplicate(Poring_Healer)	Healer#spl	4_ARCHANGELING
+thor_camp,249,74,4	duplicate(Poring_Healer)	Healer#thor	4_ARCHANGELING
+umbala,105,148,3	duplicate(Poring_Healer)	Healer#umb	4_ARCHANGELING
+veins,217,121,4	duplicate(Poring_Healer)	Healer#ve	4_ARCHANGELING
+xmas,143,136,4	duplicate(Poring_Healer)	Healer#xmas	4_ARCHANGELING
+yuno,164,45,4	duplicate(Poring_Healer)	Healer#yuno	4_ARCHANGELING
 
 // Duplicates (Renewal)
 //============================================================

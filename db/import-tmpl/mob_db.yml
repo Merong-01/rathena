@@ -85,103 +85,103 @@ Body:
     Name: Moonlight Flower
     MvpDrops:
       - Item: Whikebain_Ears
-        Rate: 1000
+        Rate: 100
   - Id: 1046
     AegisName: DOPPELGANGER
     Name: Doppelganger
     MvpDrops:
       - Item: Jasper_Crest
-        Rate: 5000
+        Rate: 100
   - Id: 1272
     AegisName: DARK_LORD
     Name: Dark Lord
     MvpDrops:
       - Item: Skull_Cap
-        Rate: 5000
+        Rate: 100
   - Id: 1112
     AegisName: DRAKE
     Name: Drake
     MvpDrops:
       - Item: J_Captain_Hat
-        Rate: 5000
+        Rate: 100
   - Id: 1147
     AegisName: MAYA
     Name: Maya
     MvpDrops:
       - Item: Mercury_Helm
-        Rate: 5000
+        Rate: 100
   - Id: 1039
     AegisName: BAPHOMET
     Name: Baphomet
     MvpDrops:
       - Item: Ribbon_Of_Bride
-        Rate: 5000
+        Rate: 100
   - Id: 1157
     AegisName: PHARAOH
     Name: Pharaoh
     MvpDrops:
       - Item: Anubis_Helm
-        Rate: 5000
+        Rate: 100
   - Id: 1252
     AegisName: GARM
     Name: Garm
     MvpDrops:
       - Item: Scuba_Mask
-        Rate: 5000
+        Rate: 100
   - Id: 1087
     AegisName: ORK_HERO
     Name: Orc Hero
     MvpDrops:
       - Item: Observer
-        Rate: 5000
+        Rate: 100
   - Id: 1059
     AegisName: MISTRESS
     Name: Mistress
     MvpDrops:
       - Item: Robo_Eye
-        Rate: 5000
+        Rate: 100
   - Id: 1251
     AegisName: KNIGHT_OF_WINDSTORM
     Name: Stormy Knight
     MvpDrops:
       - Item: Hairband_Of_Reginleif
-        Rate: 5000
+        Rate: 100
   - Id: 1312
     AegisName: TURTLE_GENERAL
     Name: Turtle General
     MvpDrops:
       - Item: Ninja_Scroll
-        Rate: 5000
+        Rate: 100
   - Id: 1159
     AegisName: PHREEONI
     Name: Phreeoni
     MvpDrops:
       - Item: Pirate_Dagger
-        Rate: 5000
+        Rate: 100
   - Id: 1190
     AegisName: ORC_LORD
     Name: Orc Lord
     MvpDrops:
       - Item: Gang_Scarf
-        Rate: 5000
+        Rate: 100
   - Id: 1492
     AegisName: INCANTATION_SAMURAI
     Name: Incantation Samurai
     MvpDrops:
       - Item: Samurai_Mask
-        Rate: 5000
+        Rate: 100
   - Id: 1086
     AegisName: GOLDEN_BUG
     Name: Golden Thief Bug
     MvpDrops:
       - Item: Spiked_Scarf
-        Rate: 5000
+        Rate: 100
   - Id: 1583
     AegisName: TAO_GUNKA
     Name: Tao Gunka
     MvpDrops:
       - Item: Black_Glasses
-        Rate: 5000
+        Rate: 100
 
 # eAthena Dev Team
 #=============================================================

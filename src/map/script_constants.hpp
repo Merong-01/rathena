@@ -7780,6 +7780,7 @@
 	export_constant(IG_COSTUMEMILEPACK_34_1);
 	export_constant(IG_COSTUMEMILEPACK_34_2);
 	export_constant(IG_COSTUMEMILEPACK_34_3);
+	export_constant(IG_CASH_EGG_SCROLL);
 
 	/* unit stop walking */
 	export_constant(USW_NONE);

@@ -1572,6 +1572,9 @@ void chrif_parse_ack_vipActive(int fd) {
 			sd->vip.time = 0;
 			sd->storage.max_amount = MIN_STORAGE;
 			sd->special_state.no_gemstone = 0;
+			if (sd->state.autoloot == 100) {
+				sd->state.autoloot = 0;
+			}
 			clif_displaymessage(sd->fd,msg_txt(sd,438));
 		}
 	}

@@ -3666,8 +3666,14 @@ int status_calc_pc_sub(map_session_data* sd, uint8 opt)
 
 	memset(&sd->special_state,0,sizeof(sd->special_state));
 
-	if (pc_isvip(sd)) // Magic Stone requirement avoidance for VIP.
+	if (pc_isvip(sd)) {
+		// Magic Stone requirement avoidance for VIP.
 		sd->special_state.no_gemstone = battle_config.vip_gemstone;
+
+		if (sd->state.autoloot == 0) {
+			sd->state.autoloot = 100;
+		}
+	}
 
 	if (!sd->state.permanent_speed) {
 		memset(&base_status->max_hp, 0, sizeof(struct status_data)-(sizeof(base_status->hp)+sizeof(base_status->sp)+sizeof(base_status->ap)));
@@ -15262,7 +15268,7 @@ static int status_natural_heal(struct block_list* bl, va_list args)
 			vd = status_get_viewdata(bl);
 		if (vd && vd->dead_sit == 2) {
 			if ((bl->type & BL_PC) && sd && (sd->enhance_sit_regen_tick == 0
-				|| DIFF_TICK(gettick(), sd->enhance_sit_regen_tick) > 5000)) {
+				|| DIFF_TICK(gettick(), sd->enhance_sit_regen_tick) > 10000)) {
 				temp_hp_regen = cap_value(status->max_hp / 20, 0, SHRT_MAX);
 				temp_hp_rate = 300;
 				temp_sp_regen = cap_value(status->max_sp / 20, 0, SHRT_MAX);

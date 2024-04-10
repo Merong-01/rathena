@@ -122,6 +122,12 @@ Body:
       NoDrop: true
     Script: |
       bonus2 bAddClass,Class_All,1;
+  - Id: 12221
+    AegisName: Megaphone_
+    Name: Megaphone
+    Type: Usable
+    Delay:
+      Duration: 180000
   - Id: 16267
     AegisName: HE_Battle_Manual_Box
     Name: HE Battle Manual Box
@@ -351,6 +357,21 @@ Body:
       NoAuction: true
     Script: |
       vip_time 43200;
+  - Id: 30007
+    AegisName: Egg_Scroll_C
+    Name: Costume Egg Scroll
+    Type: Usable
+    Weight: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getrandgroupitem IG_CASH_EGG_SCROLL, 1, 1;
   - Id: 19581
     AegisName: C_Brabery_Hat
     Name: Costume Adventurer's Hat

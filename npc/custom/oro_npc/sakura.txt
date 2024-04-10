@@ -26,7 +26,8 @@ prontera,161,181,3	script	Card Captor	4_F_BERRYTEA,{
 		case 1: mes .@npcname$;
 				mes "Great! You just have to tell me the monster of the card that you want.";
 				next;
-				input .@mob_id;
+				//input .@mob_id;
+				input .@mob_name$;
 			break;
 		default: mes .@npcname$;
 				 mes "Oh, well...";
@@ -35,20 +36,41 @@ prontera,161,181,3	script	Card Captor	4_F_BERRYTEA,{
 			break;
 	}
 	
+	if(charisalpha(.@mob_name$, 0) == 1){
+		.@mob_id = getmonsterinfo(.@mob_name$, MOB_ID);
+	}
+	else {
+		.@mob_id = atoi(.@mob_name$);
+	}
+	
 	if(.@mob_id == 0){
 		mes .@npcname$;
+		mes "What did you say? " + .@mob_name$;
 		mes "Did you change your mind?";
 		mes "You can talk to me anytime if you want the quest again.";
 		end;
 	}
-	
-	.@ret = getmobdrops(.@mob_id);
-	.@mobDropsCount = $@MobDrop_count;
-	copyarray .@mobDropItem[0],$@MobDrop_item[0],.@mobDropsCount;
-	
-	if(.@ret == 0){
+	else if(.@mob_id == -1){
+		mes .@npcname$;
+		mes "I am sorry, but...";
+		mes "I don't know about the monster you are looking for...";
+		mes "Please check if you had provided the correct name.";
 		end;
 	}
+	
+	.@ret = getmobdrops(.@mob_id);
+	
+	
+	if(.@ret == 0){
+		mes .@npcname$;
+		mes "I am sorry, but...";
+		mes "there is no such monster in my list.";
+		mes "Please check if you had provided the correct mob id.";
+		end;
+	}
+	
+	.@mobDropsCount = $@MobDrop_count;
+	copyarray .@mobDropItem[0],$@MobDrop_item[0],.@mobDropsCount;
 	
 	sakura_quest_state = 2;
 	for(.@i = 0; .@i < .@mobDropsCount; .@i++){
@@ -95,6 +117,7 @@ function	script	Sakura_Start	{
 	mes "You can now start hunting " + getmonsterinfo(.@monster_id, MOB_NAME);
 	end;
 }
+
 function	script	Sakura_Ongoing	{
 	mes "[Card Captor - Sakura]";
 	mes "How was your hunting? Not done yet?";

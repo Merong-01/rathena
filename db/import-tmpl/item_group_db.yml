@@ -46,3 +46,93 @@
 Header:
   Type: ITEM_GROUP_DB
   Version: 3
+
+Body:
+  - Group: CASH_EGG_SCROLL
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: Elite_Siege_Supply_Box
+            Rate: 100
+          - Index: 1
+            Item: Elite_Siege_Supply_Box_
+            Rate: 100
+          - Index: 2
+            Item: Megaphone_
+            Rate: 100
+          - Index: 3
+            Item: F_Megaphone_Box
+            Rate: 100
+          - Index: 4
+            Item: Neuralizer_Box
+            Rate: 10
+          - Index: 5
+            Item: Premium_Reset_Stone
+            Rate: 10
+          - Index: 6
+            Item: VIP_1Day_Coin
+            Rate: 30
+          - Index: 7
+            Item: VIP_30Day_Card
+            Rate: 20
+          - Index: 8
+            Item: Kafra_Card
+            Rate: 100
+          - Index: 9
+            Item: F_Kafra_Card_Box
+            Rate: 100
+          - Index: 10
+            Item: Bubble_Gum
+            Rate: 100
+          - Index: 11
+            Item: Bubble_Gum_Box
+            Rate: 50
+          - Index: 12
+            Item: HE_Battle_Manual
+            Rate: 100
+          - Index: 13
+            Item: HE_Battle_Manual_Box
+            Rate: 50
+          - Index: 14
+            Item: Max_Weight_Up_Scroll
+            Rate: 50
+          - Index: 15
+            Item: Max_Weight_Up_Box
+            Rate: 10
+          - Index: 16
+            Item: Job_Manual50
+            Rate: 100
+          - Index: 17
+            Item: Job_Manual50_Box
+            Rate: 50
+          - Index: 18
+            Item: Vending_Search_Scroll2
+            Rate: 100
+          - Index: 19
+            Item: Universal_Catalog_Gold_Box10
+            Rate: 80
+          - Index: 20
+            Item: Bow_Mercenary_Scroll10
+            Rate: 20
+          - Index: 21
+            Item: SwordMercenary_Scroll10
+            Rate: 20
+          - Index: 22
+            Item: SpearMercenary_Scroll10
+            Rate: 20
+          - Index: 23
+            Item: Cloth_Dye_Coupon3_Box
+            Rate: 10
+          - Index: 24
+            Item: New_Style_Coupon
+            Rate: 20
+          - Index: 25
+            Item: Convex_Mirror
+            Rate: 100
+          - Index: 26
+            Item: Convex_Mirror_Box30
+            Rate: 50
+          - Index: 27
+            Item: Greed_Box50
+            Rate: 80

@@ -1,51 +1,51 @@
 //battle/exp.conf
-base_exp_rate: 500
-job_exp_rate: 500
+base_exp_rate: 700
+job_exp_rate: 700
 
-mvp_exp_rate: 200
+mvp_exp_rate: 100
 
 multi_level_up: yes
 
-quest_exp_rate: 200
+quest_exp_rate: 100
 
-heal_exp: 5
-resurrection_exp: 5
+//heal_exp: 5
+//resurrection_exp: 5
 
 disp_experience: yes
 
 //battle/drops.conf
 // The rate the common items are dropped (Items that are in the ETC tab, besides card)
-item_rate_common: 300
-item_rate_common_boss: 300
-item_rate_common_mvp: 300
+item_rate_common: 200
+item_rate_common_boss: 200
+item_rate_common_mvp: 100
 item_drop_common_min: 1
 item_drop_common_max: 10000
 
 // The rate healing items are dropped (items that restore HP or SP)
-item_rate_heal: 300
-item_rate_heal_boss: 300
-item_rate_heal_mvp: 300
+item_rate_heal: 200
+item_rate_heal_boss: 200
+item_rate_heal_mvp: 100
 item_drop_heal_min: 1
 item_drop_heal_max: 10000
 
 // The rate at which usable items (in the item tab) other then healing items are dropped.
-item_rate_use: 300
-item_rate_use_boss: 300
-item_rate_use_mvp: 300
+item_rate_use: 200
+item_rate_use_boss: 200
+item_rate_use_mvp: 100
 item_drop_use_min: 1
 item_drop_use_max: 10000
 
 // The rate at which equipment is dropped.
-item_rate_equip: 300
-item_rate_equip_boss: 300
-item_rate_equip_mvp: 300
+item_rate_equip: 200
+item_rate_equip_boss: 200
+item_rate_equip_mvp: 100
 item_drop_equip_min: 1
 item_drop_equip_max: 10000
 
 // The rate at which cards are dropped
-item_rate_card: 300
-item_rate_card_boss: 300
-item_rate_card_mvp: 300
+item_rate_card: 200
+item_rate_card_boss: 200
+item_rate_card_mvp: 100
 item_drop_card_min: 1
 item_drop_card_max: 10000
 
@@ -65,7 +65,7 @@ item_rate_treasure: 200
 drops_by_luk: 10
 
 // The rate of monsters dropping ores by the skill Ore Discovery (Default is 100)
-finding_ore_rate: 300
+finding_ore_rate: 200
 
 // Make broadcast ** Player1 won Pupa's Pupa Card (chance 0.01%) ***
 // This can be set to any value between 0~10000.
@@ -92,6 +92,14 @@ max_aspd: 190
 // 2 = Dropped in all situations
 bone_drop: 1
 
+//VIP options
+vip_base_exp_increase: 25
+vip_job_exp_increase: 25
+vip_exp_penalty_base: 0
+vip_exp_penalty_job: 0
+vip_drop_increase: 25
+vip_gemstone: 0
+
 //battle/client.conf
 display_version: no
 
@@ -104,7 +112,7 @@ feature.attendance: off
 feature.privateairship: off
 feature.barter: off
 feature.barter_extended: off
-feature.mesitemlink: on
+feature.mesitemlink: off
 
 //battle/monster.conf
 mob_count_rate: 100
