@@ -822,6 +822,13 @@ function	script	refinemain	{
 
 		if(getequippercentrefinery(.@part) <= rand(100)) {
 			failedrefitem .@part;
+			if((.@itemtype == IT_WEAPON && .@refinerycnt >= 8) ||
+				(.@itemtype == IT_ARMOR && .@refinerycnt >= 6))
+			{
+				announce "Bad Luck! Player [ " + strcharinfo(0) +
+					" ] failed to refine a +" + .@refinerycnt + 
+					" " + getitemname(.@refineitemid), bc_blue|bc_all;
+			}
 			mes "["+ .@npc_name$ +"]";
 			emotion (!rand(5))?ET_MONEY:ET_HUK;
 			.@lose = rand(1,3);
@@ -844,6 +851,13 @@ function	script	refinemain	{
 		}
 		mes "["+getarg(0)+"]";
 		successrefitem .@part;
+		if((.@itemtype == IT_WEAPON && .@refinerycnt >= 8) ||
+			(.@itemtype == IT_ARMOR && .@refinerycnt >= 6))
+		{
+			announce "Good Luck! Player [ " + strcharinfo(0) +
+				" ] successfully refined " + getitemname(.@refineitemid) +
+				" to +" + (.@refinerycnt + 1), bc_blue|bc_all;
+		}
 		emotion ET_SMILE;
 		.@win = rand(1,3);
 		if (.@win == 1) {

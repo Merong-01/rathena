@@ -10,6 +10,7 @@
  **/
  //Enable VIP
 #define VIP_ENABLE
+#define MAX_CHAR_BILLING 4
 
 //#define PACKETVER 20151104
 #define PACKETVER 20190626

@@ -70,6 +70,13 @@ payon,157,146,6	script	Suhnbi#cash	85,{
 	if (getequippercentrefinery(.@part, true) > rand(100)) {
 		successrefitem .@part;
 		next;
+		if((.@itemtype == IT_WEAPON && .@refinerycnt >= 8) ||
+			(.@itemtype == IT_ARMOR && .@refinerycnt >= 6))
+		{
+			announce "Good Luck! Player [" + strcharinfo(0) +
+				"] successfully refined " + getitemname(.@refineitemid) +
+				" to +" + (.@refinerycnt + 1), bc_blue|bc_all;
+		}
 		emotion ET_BEST;
 		mes "[Suhnbi]";
 		mes "There you go! It's done.";
@@ -78,6 +85,13 @@ payon,157,146,6	script	Suhnbi#cash	85,{
 	}
 	failedrefitem .@part;
 	next;
+	if((.@itemtype == IT_WEAPON && .@refinerycnt >= 8) ||
+		(.@itemtype == IT_ARMOR && .@refinerycnt >= 6))
+	{
+		announce "Bad Luck! Player [" + strcharinfo(0) +
+			"] failed to refine a +" + .@refinerycnt + 
+			" " + getitemname(.@refineitemid), bc_blue|bc_all;
+	}
 	emotion (!rand(5))?ET_MONEY:ET_HUK;
 	mes "[Suhnbi]";
 	mes "Uuuuuuuuuummmmmph!!!";

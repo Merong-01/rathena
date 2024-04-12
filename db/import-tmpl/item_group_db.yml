@@ -48,6 +48,35 @@ Header:
   Version: 3
 
 Body:
+  - Group: STREAMER_GIFT_BOX
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: Light_Center_Pot_Box
+            Rate: 100
+          - Index: 1
+            Item: Light_Awakening_Pot_Box
+            Rate: 100
+          - Index: 2
+            Item: Light_Berserk_Pot_Box
+            Rate: 100
+          - Index: 3
+            Item: Kafra_Card
+            Rate: 100
+            Amount: 5
+          - Index: 4
+            Item: Light_White_Pot_Box
+            Rate: 100
+            Amount: 3
+          - Index: 5
+            Item: Light_Blue_Pot_Box
+            Rate: 100
+            Amount: 3
+          - Index: 6
+            Item: Megaphone_
+            Rate: 100
+            Amount: 5
   - Group: CASH_EGG_SCROLL
     SubGroups:
       - SubGroup: 1

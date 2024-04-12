@@ -22839,6 +22839,28 @@ BUILDIN_FUNC(getrandgroupitem) {
 	if (!qty)
 		qty = entry->amount;
 
+	char message[128];
+	//std::string item_name = item_db.find(entry->nameid)->ename;
+	char *item_name = (char *)aMalloc(ITEM_NAME_LENGTH * sizeof(char));
+
+	safestrncpy(item_name, item_db.find(entry->nameid)->ename.c_str(), ITEM_NAME_LENGTH);
+
+	if (group == IG_CASH_EGG_SCROLL){
+		sprintf(message, "Player [ %s ] opened an Egg Scroll and got %d %s.",
+			sd->status.name, qty, item_name);
+		intif_broadcast(message, strlen(message) + 1, BC_DEFAULT);
+	}
+	else if (group == IG_STREAMER_GIFT_BOX) {
+		sprintf(message, "Player [ %s ] opened a Streamer Gift Box and got %d %s.",
+			sd->status.name, qty, item_name);
+		intif_broadcast(message, strlen(message) + 1, BC_DEFAULT);
+	}
+	else if (group == IG_CARDALBUM || group == IG_MAGICCARDALBUM) {
+		sprintf(message, "Player [ %s ] opened a Card Album and got %d %s.",
+			sd->status.name, qty, item_name);
+		intif_broadcast(message, strlen(message) + 1, BC_DEFAULT);
+	}
+
 	//Check if it's stackable.
 	if (!itemdb_isstackable(entry->nameid)) {
 		item_tmp.amount = 1;

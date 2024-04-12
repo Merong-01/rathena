@@ -4348,9 +4348,9 @@ Body:
           - Index: 335
             Item: Vanberk_Card
             Rate: 1
-          - Index: 336
-            Item: Isilla_Card
-            Rate: 1
+#          - Index: 336
+#            Item: Isilla_Card
+#            Rate: 0
           - Index: 337
             Item: Hodremlin_Card
             Rate: 1

@@ -7781,6 +7781,7 @@
 	export_constant(IG_COSTUMEMILEPACK_34_2);
 	export_constant(IG_COSTUMEMILEPACK_34_3);
 	export_constant(IG_CASH_EGG_SCROLL);
+	export_constant(IG_STREAMER_GIFT_BOX);
 
 	/* unit stop walking */
 	export_constant(USW_NONE);

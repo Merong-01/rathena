@@ -1,0 +1,1 @@
+541: Player [ %s ] got %s's %s (chance: %0.02f%%)

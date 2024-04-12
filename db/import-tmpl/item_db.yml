@@ -128,6 +128,24 @@ Body:
     Type: Usable
     Delay:
       Duration: 180000
+  - Id: 13810
+    AegisName: Light_Blue_Pot_Box
+    Name: Light Blue Potion Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      UniqueId: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getitem 11502,25;
   - Id: 16267
     AegisName: HE_Battle_Manual_Box
     Name: HE Battle Manual Box
@@ -372,6 +390,13 @@ Body:
       NoAuction: true
     Script: |
       getrandgroupitem IG_CASH_EGG_SCROLL, 1, 1;
+  - Id: 30008
+    AegisName: Streamer_Gift_Box
+    Name: Streamer Gift Box
+    Type: Usable
+    Weight: 10
+    Script: |
+      getrandgroupitem IG_STREAMER_GIFT_BOX, 1, 1;
   - Id: 19581
     AegisName: C_Brabery_Hat
     Name: Costume Adventurer's Hat

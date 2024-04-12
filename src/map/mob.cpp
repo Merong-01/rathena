@@ -2949,11 +2949,38 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 		add_timer(tick + (!battle_config.delay_battle_damage?500:0), mob_delay_item_drop, 0, (intptr_t)dlist);
 	}
 
-	if( mvp_sd && md->get_bosstype() == BOSSTYPE_MVP ){
+	if( sd && mvp_sd && md->get_bosstype() == BOSSTYPE_MVP ){
 		t_itemid log_mvp_nameid = 0;
 		t_exp log_mvp_exp = 0;
 
-		clif_mvp_effect( mvp_sd );
+		char mvp_message[128]{};
+		party_data *sd_pdata = party_search(sd->status.party_id);
+
+		if (mvp_sd != sd || (mvp_sd->status.party_id != 0 && mvp_sd->status.party_id != sd->status.party_id)) {
+			if (sd_pdata == NULL) {
+				sprintf(mvp_message, "Solo Player [ %s ], kill-stealed MVP %s frome another player.",
+					sd->status.name, md->name);
+			}
+			else {
+				sprintf(mvp_message, "Player [ %s ] of Party [ %s ], kill-stealed MVP %s from another party.",
+					sd->status.name, sd_pdata->party.name, md->name);
+			}
+			intif_broadcast(mvp_message, strlen(mvp_message) + 1, BC_DEFAULT);
+			mvp_sd = sd;
+		}
+		else {
+			if (sd_pdata == NULL) {
+				sprintf(mvp_message, "Solo Player [ %s ], quelled MVP %s.",
+					sd->status.name, md->name);
+			}
+			else {
+				sprintf(mvp_message, "Player [ %s ] of Party [ %s ], quelled MVP %s.",
+					sd->status.name, sd_pdata->party.name, md->name);
+			}
+			intif_broadcast(mvp_message, strlen(mvp_message) + 1, BC_DEFAULT);
+		}
+
+		clif_mvp_effect( sd );
 
 		//mapflag: noexp check [Lorky]
 		if( md->db->mexp > 0 && !( map_getmapflag( m, MF_NOBASEEXP ) || type&2 ) ){
@@ -3018,7 +3045,10 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 				//	continue;
 				//}
 
-				if (mvp_sd->status.party_id != tmpsd[j]->status.party_id) {
+				if (mvp_sd->status.char_id != tmpsd[j]->status.char_id &&
+					(mvp_sd->status.party_id == 0 || 
+					mvp_sd->status.party_id != tmpsd[j]->status.party_id))
+				{
 					continue;
 				}
 

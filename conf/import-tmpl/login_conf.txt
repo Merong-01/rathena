@@ -1,6 +1,7 @@
-new_account: yes
+new_account: no
+vip_char_increase: 0
 use_MD5_passwords: yes
-use_web_auth_token: no
+use_web_auth_token: yes
 
 //client_hash_check: off
 //client_hash: 0, 113e195e6c051bb1cfb12a644bb084c5
