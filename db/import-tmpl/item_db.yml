@@ -122,6 +122,12 @@ Body:
       NoDrop: true
     Script: |
       bonus2 bAddClass,Class_All,1;
+  - Id: 6320
+    AegisName: Premium_Reset_Stone
+    Name: Premium Reset Stone
+    Type: Delayconsume
+    Script: |
+      callfunc F_Item_ResetStats;
   - Id: 12221
     AegisName: Megaphone_
     Name: Megaphone
@@ -389,14 +395,32 @@ Body:
       NoMail: true
       NoAuction: true
     Script: |
-      getrandgroupitem IG_CASH_EGG_SCROLL, 1, 1;
+      getrandgroupitem IG_CASH_EGG_SCROLL, 0, 1;
   - Id: 30008
     AegisName: Streamer_Gift_Box
     Name: Streamer Gift Box
     Type: Usable
     Weight: 10
     Script: |
-      getrandgroupitem IG_STREAMER_GIFT_BOX, 1, 1;
+      getrandgroupitem IG_STREAMER_GIFT_BOX, 0, 1;
+  - Id: 30009
+    AegisName: New_Hairstyle_Coupon_ORO
+    Name: New Hairstyle Coupon
+    Type: Etc
+    Buy: 200
+    Weight: 0
+  - Id: 30010
+    AegisName: New_Hair_Dye_Coupon_ORO
+    Name: New Hair Dye Coupon
+    Type: Etc
+    Buy: 200
+    Weight: 0
+  - Id: 30011
+    AegisName: Cloth_Dye_Coupon_ORO
+    Name: Cloth Dye Coupon
+    Type: Etc
+    Buy: 200
+    Weight: 0
   - Id: 19581
     AegisName: C_Brabery_Hat
     Name: Costume Adventurer's Hat
@@ -421,7 +445,7 @@ Body:
       skill "AL_TELEPORT",1;
   - Id: 30100
     AegisName: C_Analyze_Eye_S
-    Name: Costume Analyze Eye (Streamer ver)
+    Name: Costume Analyze Eye
     Type: Armor
     Locations:
       Costume_Head_Low: true
@@ -429,10 +453,10 @@ Body:
     EquipLevelMin: 1
     View: 1351
     Script: |
-        bonus2 bAddMonsterDropItem,603,50;
+        bonus2 bAddMonsterDropItem,7139,100;
   - Id: 30101
     AegisName: C_Nut_On_Head_S
-    Name: Costume Bolt Ears (Streamer ver)
+    Name: Costume Bolt Ears
     Type: Armor
     Locations:
       Costume_Head_Mid: true
@@ -443,7 +467,7 @@ Body:
         bonus2 bAddMonsterDropItem,504,200;
   - Id: 30102
     AegisName: C_Engineer_Cap_S
-    Name: Costume Engineer Cap (Streamer ver)
+    Name: Costume Engineer Cap
     Type: Armor
     Locations:
       Costume_Head_Top: true
@@ -451,10 +475,11 @@ Body:
     EquipLevelMin: 1
     View: 608
     Script: |
-        bonus2 bAddMonsterDropItem,533,200;
+        bonus2 bExpAddClass,Class_All,20;
+        bonus2 bDropAddClass,Class_All,10;
   - Id: 30103
     AegisName: C_School_Bag_RD_S
-    Name: Costume Backpack Red (Streamer ver)
+    Name: Costume Backpack Red
     Type: Armor
     Locations:
       Costume_Garment: true

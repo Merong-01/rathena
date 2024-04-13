@@ -36,3 +36,4 @@
 // AB_ADORAMUS,BL_PC,6,50,0,10,15 // In PVP and GVG, players deal +50% damage to other players, +0% to mobs, +10% to bosses, and +15% to other with Adoramus.
 HT_LANDMINE,BL_PC,2049,100,100,100,100
 HT_CLAYMORETRAP,BL_PC,2049,100,100,100,100
+HT_BLASTMINE,BL_PC,2049,100,100,100,100

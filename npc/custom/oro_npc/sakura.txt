@@ -4,7 +4,10 @@ prontera,161,181,3	script	Card Captor	4_F_BERRYTEA,{
 	.@npcname$ = "[Card Captor - Sakura]";
 	
 	if(sakura_quest_state > 1){
-		callfunc "Sakura_Ongoing";
+		callfunc "Sakura_Ongoing", .@npcname$, .questTargetNum;
+	}
+	else if(sakura_quest_cd > gettimetick(2)){
+		callfunc "Sakura_Cooldown", .@npcname$;
 	}
 	
 	mes .@npcname$;
@@ -17,8 +20,9 @@ prontera,161,181,3	script	Card Captor	4_F_BERRYTEA,{
 	mes .@npcname$;
 	mes "Don't worry anymore, as long as you accept my quest,";
 	mes "You are guaranted to get the card of the monster you are hunting.";
-	mes "Of course, you have to hunt 5,000 of the said monster for you to get the card.";
-	mes "What do you think, do you want to try it?";
+	mes "Of course, you have to hunt " + .questTargetNum;
+	mes " of the said monster for you to get the card.";
+	mes "What do you think, do you want to try?";
 	next;
 	
 	.@mob_id = 0;
@@ -91,20 +95,29 @@ prontera,161,181,3	script	Card Captor	4_F_BERRYTEA,{
 	sakura_quest_state = 1;
 	end;
 
+OnInit:
+	.questTargetNum = 5000;
+	.coolDownDelay = (3600 * 20);
+	end;
+
 OnNPCKillEvent:
 	if(sakura_quest_state == 2 && sakura_target_id == killedrid){
-		dispbottom "You killed " + strmobinfo(1,killedrid) + ", " + ++sakura_hunt_count + " out of 5000.";
+		dispbottom "You killed " + strmobinfo(1,killedrid) + 
+					", " + ++sakura_hunt_count + " out of " + .questTargetNum;
 		if(CARD_ITEM_ID == sakura_reward_id){
 			dispbottom "Lucky You!! You got the card after all.";
 			sakura_quest_state = 0;
+			sakura_hunt_count = 0;
+			sakura_quest_cd = gettimetick(2) + .coolDownDelay; //20 hours
 		}
 		
-		if(sakura_hunt_count >= 5000){
+		if(sakura_hunt_count >= .questTargetNum){
 			getitem(sakura_reward_id, 1);
 			announce "Congrats!! " + strcharinfo(0) + 
 				" just received a " + getitemname(sakura_reward_id) + 
 				" after finishing a Sakura Quest", bc_blue|bc_all;
 			sakura_quest_state = 0;
+			sakura_quest_cd = gettimetick(2) + .coolDownDelay; //20 hours
 		}
 	}
 	end;
@@ -119,7 +132,33 @@ function	script	Sakura_Start	{
 }
 
 function	script	Sakura_Ongoing	{
+	.@npcname$ = getarg(0);
+	.@qTargetNum = getarg(1);
+	
 	mes "[Card Captor - Sakura]";
 	mes "How was your hunting? Not done yet?";
+	mes "It seems that you have hunted " + sakura_hunt_count + 
+		" out of " + .@qTargetNum + " " + strmobinfo(1, sakura_target_id);
+	mes "Keep it up! I am sure you will finish it soon.";
 	end;
+}
+
+function	script	Sakura_Cooldown	{
+	.@npcname$ = getarg(0);
+	set .@timeInStr$, callfunc ("F_gettimestr", (sakura_quest_cd - gettimetick(2)));
+	mes .@npcname$;
+	mes "I am sorry, but you already have completed a Sakura Quest today.";
+	mes "If you want to take the quest again, please comeback tommorrow.";
+	mes "It should after " + .@timeInStr$ + " from now.";
+	end;
+}
+
+function	script	F_gettimestr	{
+	.@timeInSeconds = getarg(0);
+	.@countHours = .@timeInSeconds / 3600;
+	.@countMin = (.@timeInSeconds % 3600) / 60;
+	.@countSec = (.@timeInSeconds % 3600) % 60;
+	.@timeInStr$ = "" + .@countHours + " Hours, " + .@countMin + " Minutes, " + .@countSec + " Seconds";
+	
+	return .@timeInStr$;
 }

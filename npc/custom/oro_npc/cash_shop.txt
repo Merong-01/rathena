@@ -1,5 +1,47 @@
 //=== Modified Cash Shop NPC =================================
 //============================================================
--	cashshop	Cash_Shop_Employee	-1,14003:4,30001:2,12221:1,14175:8,12911:200,6320:200,30005:10,30006:200,12211:2,14165:8,12210:3,12902:25,12411:5,16267:40,7776:50,13710:400,14592:4,13990:30,12581:1,16677:8,12162:35,12172:35,12182:35,14291:100,7622:100,12214:5,13583:40,13622:10,30007:30
+prontera,150,185,5	cashshop	Kafra Cash Shop Employee	116, 30007:30 // oro egg scroll
 
-prontera,150,185,5	duplicate(Cash_Shop_Employee)	Kafra Shop Employee#prt	116
+-	script	kafra cash shop	-1,{
+
+OnInit:
+	npcshopadditem "Kafra Cash Shop Employee", 14003, 4; // ESSB 
+	npcshopadditem "Kafra Cash Shop Employee", 30001, 2; // ESSB (PVP)
+	npcshopadditem "Kafra Cash Shop Employee", 12221, 1; // megaphone
+	npcshopadditem "Kafra Cash Shop Employee", 14175, 8; // megaphone box 10
+	npcshopadditem "Kafra Cash Shop Employee", 12211, 2; // kafra card
+	npcshopadditem "Kafra Cash Shop Employee", 14165, 8; // kafra card box 10
+	
+	npcshopadditem "Kafra Cash Shop Employee", 12210, 3; // bubble gum
+	npcshopadditem "Kafra Cash Shop Employee", 12902, 25; // bubble gum box 10
+	npcshopadditem "Kafra Cash Shop Employee", 12411, 5; // he battle manual
+	npcshopadditem "Kafra Cash Shop Employee", 16267, 40; // he battle manual 10
+	npcshopadditem "Kafra Cash Shop Employee", 14592, 4; // job manual
+  	npcshopadditem "Kafra Cash Shop Employee", 13990, 30; // job manual box 10
+	
+	npcshopadditem "Kafra Cash Shop Employee", 12214, 5; // convex mirror
+	npcshopadditem "Kafra Cash Shop Employee", 13583, 40; // convex mirror box 30
+	npcshopadditem "Kafra Cash Shop Employee", 13622, 10; // greed scroll box 50
+	
+	npcshopadditem "Kafra Cash Shop Employee", 12911, 200; // neuralizer box 1
+	npcshopadditem "Kafra Cash Shop Employee", 6320, 200; // reset stone
+	
+	npcshopadditem "Kafra Cash Shop Employee", 30005, 10; // VIP_1Day_Coin
+	npcshopadditem "Kafra Cash Shop Employee", 30006, 200; // VIP_30Day_Card
+	
+	npcshopadditem "Kafra Cash Shop Employee", 7776, 50; // gym pass
+	npcshopadditem "Kafra Cash Shop Employee", 13710, 400; // gym pass box 10
+	
+	npcshopadditem "Kafra Cash Shop Employee", 30009, 100; // hairstyle coupon
+	npcshopadditem "Kafra Cash Shop Employee", 30010, 100; // hair dye coupon
+	npcshopadditem "Kafra Cash Shop Employee", 30011, 100; // clothing dye coupon
+	
+	npcshopadditem "Kafra Cash Shop Employee", 12581, 1; // universal gold catalog
+	npcshopadditem "Kafra Cash Shop Employee", 16677, 8; // universal gold catalog box 10
+	
+	npcshopadditem "Kafra Cash Shop Employee", 12162, 35; // bowman scroll lvl 10
+	npcshopadditem "Kafra Cash Shop Employee", 12172, 35; // fencer scroll lvl 10
+	npcshopadditem "Kafra Cash Shop Employee", 12182, 35; // spearman scroll lvl 10
+	
+	end;
+}
