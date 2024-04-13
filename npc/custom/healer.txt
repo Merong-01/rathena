@@ -54,8 +54,8 @@
 		end;
 	}
 	
-	mes "[Poring]";
-	mes "(boink), (boink), (boink)....";
+	mes "[Healer]";
+	mes "(Warf),(Warf),(Warf)....";
 	//next;
 	
 	setarray .@heal_services$[0], "", "", "";
@@ -106,35 +106,35 @@
 
 // Duplicates
 //============================================================
-alberta,25,240,6	duplicate(Poring_Healer)	Healer#alb	4_ARCHANGELING
-aldebaran,135,118,6	duplicate(Poring_Healer)	Healer#alde	4_ARCHANGELING
-amatsu,200,79,4	duplicate(Poring_Healer)	Healer#ama	4_ARCHANGELING
-ayothaya,207,169,6	duplicate(Poring_Healer)	Healer#ayo	4_ARCHANGELING
-comodo,184,158,6	duplicate(Poring_Healer)	Healer#com	4_ARCHANGELING
-einbech,57,36,6	duplicate(Poring_Healer)	Healer#einbe	4_ARCHANGELING
-einbroch,57,202,6	duplicate(Poring_Healer)	Healer#einbr	4_ARCHANGELING
-geffen,115,72,6	duplicate(Poring_Healer)	Healer#gef	4_ARCHANGELING
-gonryun,156,122,6	duplicate(Poring_Healer)	Healer#gon	4_ARCHANGELING
-hugel,89,150,6	duplicate(Poring_Healer)	Healer#hug	4_ARCHANGELING
-izlude,121,150,6	duplicate(Poring_Healer)	Healer#izl	4_ARCHANGELING	//Pre-RE: (125,118)
-jawaii,250,139,4	duplicate(Poring_Healer)	Healer#jaw	4_ARCHANGELING
-lighthalzen,152,100,6	duplicate(Poring_Healer)	Healer#lhz	4_ARCHANGELING
-louyang,226,103,4	duplicate(Poring_Healer)	Healer#lou	4_ARCHANGELING
-manuk,272,144,6	duplicate(Poring_Healer)	Healer#man	4_ARCHANGELING
-mid_camp,203,289,6	duplicate(Poring_Healer)	Healer#mid	4_ARCHANGELING
-moc_ruins,72,164,4	duplicate(Poring_Healer)	Healer#moc	4_ARCHANGELING
-morocc,153,97,6	duplicate(Poring_Healer)	Healer#mor	4_ARCHANGELING
-moscovia,220,191,4	duplicate(Poring_Healer)	Healer#mos	4_ARCHANGELING
-niflheim,212,182,5	duplicate(Poring_Healer)	Healer#nif	4_ARCHANGELING
-payon,179,106,4	duplicate(Poring_Healer)	Healer#pay	4_ARCHANGELING
-prontera,159,187,4	duplicate(Poring_Healer)	Healer#prt	4_ARCHANGELING
-rachel,125,116,6	duplicate(Poring_Healer)	Healer#rac	4_ARCHANGELING
-splendide,201,153,4	duplicate(Poring_Healer)	Healer#spl	4_ARCHANGELING
-thor_camp,249,74,4	duplicate(Poring_Healer)	Healer#thor	4_ARCHANGELING
-umbala,105,148,3	duplicate(Poring_Healer)	Healer#umb	4_ARCHANGELING
-veins,217,121,4	duplicate(Poring_Healer)	Healer#ve	4_ARCHANGELING
-xmas,143,136,4	duplicate(Poring_Healer)	Healer#xmas	4_ARCHANGELING
-yuno,164,45,4	duplicate(Poring_Healer)	Healer#yuno	4_ARCHANGELING
+alberta,25,240,6	duplicate(Poring_Healer)	Healer#alb	4_DOG01
+aldebaran,135,118,6	duplicate(Poring_Healer)	Healer#alde	4_DOG01
+amatsu,200,79,4	duplicate(Poring_Healer)	Healer#ama	4_DOG01
+ayothaya,207,169,6	duplicate(Poring_Healer)	Healer#ayo	4_DOG01
+comodo,184,158,6	duplicate(Poring_Healer)	Healer#com	4_DOG01
+einbech,57,36,6	duplicate(Poring_Healer)	Healer#einbe	4_DOG01
+einbroch,57,202,6	duplicate(Poring_Healer)	Healer#einbr	4_DOG01
+geffen,115,72,6	duplicate(Poring_Healer)	Healer#gef	4_DOG01
+gonryun,156,122,6	duplicate(Poring_Healer)	Healer#gon	4_DOG01
+hugel,89,150,6	duplicate(Poring_Healer)	Healer#hug	4_DOG01
+izlude,121,150,6	duplicate(Poring_Healer)	Healer#izl	4_DOG01	//Pre-RE: (125,118)
+jawaii,250,139,4	duplicate(Poring_Healer)	Healer#jaw	4_DOG01
+lighthalzen,152,100,6	duplicate(Poring_Healer)	Healer#lhz	4_DOG01
+louyang,226,103,4	duplicate(Poring_Healer)	Healer#lou	4_DOG01
+manuk,272,144,6	duplicate(Poring_Healer)	Healer#man	4_DOG01
+mid_camp,203,289,6	duplicate(Poring_Healer)	Healer#mid	4_DOG01
+moc_ruins,72,164,4	duplicate(Poring_Healer)	Healer#moc	4_DOG01
+morocc,153,97,6	duplicate(Poring_Healer)	Healer#mor	4_DOG01
+moscovia,220,191,4	duplicate(Poring_Healer)	Healer#mos	4_DOG01
+niflheim,212,182,5	duplicate(Poring_Healer)	Healer#nif	4_DOG01
+payon,179,106,4	duplicate(Poring_Healer)	Healer#pay	4_DOG01
+prontera,158,187,4	duplicate(Poring_Healer)	Healer#prt	4_DOG01
+rachel,125,116,6	duplicate(Poring_Healer)	Healer#rac	4_DOG01
+splendide,201,153,4	duplicate(Poring_Healer)	Healer#spl	4_DOG01
+thor_camp,249,74,4	duplicate(Poring_Healer)	Healer#thor	4_DOG01
+umbala,105,148,3	duplicate(Poring_Healer)	Healer#umb	4_DOG01
+veins,217,121,4	duplicate(Poring_Healer)	Healer#ve	4_DOG01
+xmas,143,136,4	duplicate(Poring_Healer)	Healer#xmas	4_DOG01
+yuno,164,45,4	duplicate(Poring_Healer)	Healer#yuno	4_DOG01
 
 // Duplicates (Renewal)
 //============================================================

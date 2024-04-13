@@ -1,6 +1,6 @@
 //=====Customized Kafra=======================================
 //============================================================
-prontera,152,187,5	script	Kafra Employee::kaf_prontera6	114,{
+prontera,153,187,5	script	Kafra Employee::kaf_prontera6	114,{
 	cutin "kafra_04",2;
 	callfunc "F_KafSet";
 	mes "[Kafra Employee]";

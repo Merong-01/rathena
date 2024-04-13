@@ -231,4 +231,4 @@ function	script	F_HandleGearExchange	{
 	}
 }
 
-prontera,150,183,5	duplicate(Quest Gear)	Head Gear Comissioner#prt	4_M_MERCAT1
+prontera,147,189,5	duplicate(Quest Gear)	Head Gear Comissioner#prt	4_M_MERCAT1

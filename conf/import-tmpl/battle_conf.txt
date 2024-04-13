@@ -135,3 +135,4 @@ spear_mastery_aspd_buff: yes
 mace_mastery_aspd_buff: yes
 spear_quicken_buff: yes
 auto_spell_buff: yes
+gvg_traps_target_all: 0

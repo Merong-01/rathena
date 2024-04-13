@@ -127,7 +127,7 @@ Body:
     Name: Premium Reset Stone
     Type: Delayconsume
     Script: |
-      callfunc F_Item_ResetStats;
+      callfunc "F_Item_ResetStats";
   - Id: 12221
     AegisName: Megaphone_
     Name: Megaphone

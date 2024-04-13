@@ -75,5 +75,5 @@ function	script	F_SettleBill	{
 	}
 }
 
-payon,184,102,3	duplicate(Coupon_Shop)	Coupon Shop#pay	831
-prontera,161,183,3	duplicate(Coupon_Shop)	Coupon Shop#prt	831
+//payon,184,102,3	duplicate(Coupon_Shop)	Coupon Shop#pay	831
+prontera,161,188,3	duplicate(Coupon_Shop)	Coupon Shop#prt	831

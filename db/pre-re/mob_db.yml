@@ -4109,7 +4109,7 @@ Body:
       - Item: Chonchon_Doll
         Rate: 2000
       - Item: Clip
-        Rate: 3000
+        Rate: 250
       - Item: Lusty_Iron
         Rate: 50
       - Item: Grape_Juice
@@ -7036,7 +7036,7 @@ Body:
       - Item: Stiletto_
         Rate: 150
       - Item: Undershirt
-        Rate: 100
+        Rate: 10
       - Item: Pasana_Card
         Rate: 1
         StealProtected: true
@@ -8127,7 +8127,7 @@ Body:
       - Item: Iron
         Rate: 190
       - Item: G_Strings
-        Rate: 200
+        Rate: 10
       - Item: Ganster_Mask
         Rate: 3
       - Item: Cuffs
@@ -24308,7 +24308,7 @@ Body:
       - Item: Dark_Red_Jewel
         Rate: 1500
       - Item: Boots_
-        Rate: 500
+        Rate: 100
       - Item: Ungoliant_Card
         Rate: 1
         StealProtected: true

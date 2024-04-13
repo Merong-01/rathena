@@ -1,6 +1,6 @@
 //=== Modified Cash Shop NPC =================================
 //============================================================
-prontera,150,185,5	cashshop	Kafra Cash Shop Employee	116, 30007:30 // oro egg scroll
+prontera,151,187,5	cashshop	Kafra Cash Shop Employee	116, 30007:30 // oro egg scroll
 
 -	script	kafra cash shop	-1,{
 

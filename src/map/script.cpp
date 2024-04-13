@@ -22861,6 +22861,8 @@ BUILDIN_FUNC(getrandgroupitem) {
 		intif_broadcast(message, strlen(message) + 1, BC_DEFAULT);
 	}
 
+	aFree(item_name);
+
 	//Check if it's stackable.
 	if (!itemdb_isstackable(entry->nameid)) {
 		item_tmp.amount = 1;

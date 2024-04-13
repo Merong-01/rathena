@@ -1,6 +1,6 @@
 //====== Custom Hunting Quest with Mob Card Reward ===========
 //============================================================
-prontera,161,181,3	script	Card Captor	4_F_BERRYTEA,{
+prontera,163,186,3	script	Card Captor	4_F_BERRYTEA,{
 	.@npcname$ = "[Card Captor - Sakura]";
 	
 	if(sakura_quest_state > 1){

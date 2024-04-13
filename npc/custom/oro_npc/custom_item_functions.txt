@@ -3,7 +3,7 @@
 function	script	F_Item_ResetStats	{
 	if(Weight == 0){
 		resetstatus;
-		if (countitem(12213)) delitem 6320, 1;
+		if (countitem(6320)) delitem 6320, 1;
 	}
 	else {
 		dispbottom "Your weight is greater than 0.";
