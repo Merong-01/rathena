@@ -26,17 +26,17 @@
 //============================================================ 
 
 // Bulletin Board
-new_1-1,66,114,4	script	Bulletin Board#nv	111,{
+new_1-1,66,114,4	script	Bulletin Board#nv	4_BULLETIN_BOARD2,{
 	mes "^FF0000=================================^000000";
 	mes "^FF0000 ^000000 ^E40CAA[Welcome]^CC0000 to ^FF9000Novice^7FFF00 Training ^00FF00Grounds ^E40CAA[Welcome]^FF0000^000000";
 	mes "^FF0000=================================^000000";
 	close;
 }
 
-new_2-1,66,114,4	duplicate(Bulletin Board#nv)	Bulletin Board#nv2	111
-new_3-1,66,114,4	duplicate(Bulletin Board#nv)	Bulletin Board#nv3	111
-new_4-1,66,114,4	duplicate(Bulletin Board#nv)	Bulletin Board#nv4	111
-new_5-1,66,114,4	duplicate(Bulletin Board#nv)	Bulletin Board#nv5	111
+new_2-1,66,114,4	duplicate(Bulletin Board#nv)	Bulletin Board#nv2	4_BULLETIN_BOARD2
+new_3-1,66,114,4	duplicate(Bulletin Board#nv)	Bulletin Board#nv3	4_BULLETIN_BOARD2
+new_4-1,66,114,4	duplicate(Bulletin Board#nv)	Bulletin Board#nv4	4_BULLETIN_BOARD2
+new_5-1,66,114,4	duplicate(Bulletin Board#nv)	Bulletin Board#nv5	4_BULLETIN_BOARD2
 
 new_1-1,144,116,2	script	Guard#nv1	105,{
 	mes "[Training Grounds Guard]";
@@ -259,6 +259,10 @@ new_1-1,53,114,4	script	Shion#nv1	727,{
 		mes "[Shion]";
 		mes "Oh, and before you leave,";
 		mes "learn how to treat a lady nice, okay? Then they might give you gifts like this!";
+		if(#NEWPLAYERGIFT != 1){
+			set #NEWPLAYERGIFT, 1;
+			getitem 30107,1;
+		}
 		set nov_1st_cos,3;
 		getexp 9,0;
 		close;
@@ -276,6 +280,10 @@ new_1-1,53,114,4	script	Shion#nv1	727,{
 		mes "[Shion]";
 		mes "You can even gain";
 		mes "experience like this!";
+		if(#NEWPLAYERGIFT != 1){
+			set #NEWPLAYERGIFT, 1;
+			getitem 30107,1;
+		}
 		set nov_1st_cos,3;
 		getexp 9,0;
 		next;
@@ -4275,31 +4283,31 @@ new_1-4,91,22,4	script	Bruce#nv	57,{
 }
 
 // Training Ground Mobs
-new_1-3,0,0	monster	Poring	1002,10
-new_1-3,0,0	monster	Drops	1113,10
-new_1-3,0,0	monster	Lunatic	1063,10
+new_1-3,0,0	monster	Poring	1002,20
+new_1-3,0,0	monster	Drops	1113,20
+new_1-3,0,0	monster	Lunatic	1063,20
 new_1-3,0,0	monster	ChonChon	1011,10
 new_2-3,0,0	monster	Condor	1009,10
-new_2-3,0,0	monster	Picky	1050,10
-new_2-3,0,0	monster	Willow	1010,10
-new_2-3,0,0	monster	Roda Frog	1012,10
+new_2-3,0,0	monster	Picky	1050,20
+new_2-3,0,0	monster	Willow	1010,20
+new_2-3,0,0	monster	Roda Frog	1012,20
 new_3-3,0,0	monster	Condor	1009,10
-new_3-3,0,0	monster	Picky	1050,10
-new_3-3,0,0	monster	Willow	1010,10
-new_3-3,0,0	monster	Roda Frog	1012,10
-new_4-3,0,0	monster	Rocker	1052,10
+new_3-3,0,0	monster	Picky	1050,20
+new_3-3,0,0	monster	Willow	1010,20
+new_3-3,0,0	monster	Roda Frog	1012,20
+new_4-3,0,0	monster	Rocker	1052,20
 new_4-3,0,0	monster	Thief Bug	1051,10
 new_4-3,0,0	monster	Thief Bug	1053,10
-new_4-3,0,0	monster	Spore	1014,10
-new_5-3,0,0	monster	Rocker	1052,10
+new_4-3,0,0	monster	Spore	1014,20
+new_5-3,0,0	monster	Rocker	1052,20
 new_5-3,0,0	monster	Thief Bug	1051,1
 new_5-3,0,0	monster	Thief Bug	1053,1
-new_5-3,0,0	monster	Spore	1014,1
+new_5-3,0,0	monster	Spore	1014,20
 new_1-3,0,0	monster	Fabre	1184,5
 new_2-3,0,0	monster	Fabre	1184,5
 new_3-3,0,0	monster	Fabre	1184,5
-new_4-3,0,0	monster	Fabre	1184,5
-new_5-3,0,0	monster	Fabre	1184,5
+new_4-3,0,0	monster	Fabre	1184,10
+new_5-3,0,0	monster	Fabre	1184,10
 
 //============================================================ 
 // Old changelog

@@ -1,0 +1,37 @@
+//===== Server Notice Script =================================
+//============================================================
+-	script	Server Notice	-1,{
+
+OnInit:
+OnHour00:
+OnHour01:
+OnHour02:
+OnHour03:
+OnHour04:
+OnHour05:
+OnHour06:
+OnHour07:
+OnHour08:
+OnHour09:
+OnHour10:
+OnHour11:
+OnHour12:
+OnHour13:
+OnHour14:
+OnHour15:
+OnHour16:
+OnHour17:
+OnHour18:
+OnHour19:
+OnHour20:
+OnHour21:
+OnHour22:
+OnHour23:
+	set .@notice1$, "Check our discord and website for detailed server features and updates.\n";
+	//set .@notice2$, "Please leave a review at ratemyserver.net to help promote our server.";
+	
+	if(rand(1,3) != 1){
+		announce .@notice1$ + "Always be nice everyone.",0;
+	}
+	end;
+}

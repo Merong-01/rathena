@@ -1,0 +1,161 @@
+//===== Custom Job Changer NPC ===============================
+//============================================================
+prontera,157,195,4	script	Job Changer	4_M_JOB_WIZARD,{
+	set .@npcName$, "[ Job Changer ]";
+	setarray .@first_job$[0],"Swordsman","Archer","Magician","Acolyte","Thief","Merchant","Super Novice";
+	
+	mes .@npcName$;
+	mes "Hello!...";
+	mes "Is it time for you to change job already?";
+	mes "I offer my service for a small fee, though.";
+	next;
+	
+	mes .@npcName$;
+	mes "Don't worry, for only 10 cash points, you don't have to perform any quest.";
+	mes "What do you think?";
+	next;
+	
+	if(select("Proceed job change:Cancel") == 2){
+		end;
+	}
+	
+	if(Class == Job_Novice && JobLevel == 10){
+		mes .@npcName$;
+		mes "Which job do you want to change to?";
+		next;
+		
+		.@class_select = select(implode(.@first_job$,":"));
+		
+		mes .@npcName$;
+		mes "You selected " + .@first_job$[.@class_select-1];
+		mes "Confirm your selection: ";
+		next;
+		
+		if(select("Confirm:Cancel") == 2){
+			mes .@npcName$;
+			mes "Talk to me again when you are ready.";
+			close;
+		}
+		else if(#CASHPOINTS < 10){
+			mes .@npcName$;
+			mes "You don't have enough cash points.";
+			mes "Sorry but, please come back when you have 10 cash points.";
+			close;
+		}
+		else if(.@class_select == 7 && BaseLevel < 45){
+			mes .@npcName$;
+			mes "Sorry but Super Novice has additional requirement of base level 45 or higher.";
+			mes "You can go to level up some more, or change to another job.";
+			close;
+		}
+		
+		switch(.@class_select){
+			case 1: jobchange Job_Swordman;
+				break;
+			case 2: jobchange Job_Archer;
+				break;
+			case 3: jobchange Job_Mage;
+				break;
+			case 4: jobchange Job_Acolyte;
+				break;
+			case 5: jobchange Job_Thief;
+				break;
+			case 6: jobchange Job_Merchant;
+				break;
+			case 7: jobchange Job_Super_Novice;
+		}
+		
+		#CASHPOINTS -= 10;
+		mes .@npcName$;
+		mes "Congratulations to our new " + jobname(Class);
+		mes "Looking forward to your future adventures with your new class.";
+		close;
+	}
+	else if(Class < Job_Knight && JobLevel >= 40){
+		mes .@npcName$;
+		mes "Which job do you want to change to?";
+		next;
+		
+		switch(Class){
+			case Job_Swordman: .@choice = 10 + select("Knight:Crusader");
+				break;
+			case Job_Archer: 
+				if(Sex == 0){
+					.@choice = 20 + select("Hunter:Dancer");
+				}
+				else {
+					.@choice = 25 + select("Hunter:Bard");
+				}
+				break;
+			case Job_Mage: .@choice = 30 + select("Wizard:Sage");
+				break;
+			case Job_Acolyte: .@choice = 40 + select("Priest:Monk");
+				break;
+			case Job_Thief: .@choice = 50 + select("Assassin:Rogue");
+				break;
+			case Job_Merchant: .@choice = 60 + select("Blacksmith:Alchemist");
+				break;
+		}
+		
+		switch(.@choice){
+			case 11: .@class2_select = Job_Knight;
+				break;
+			case 12: .@class2_select = Job_Crusader;
+				break;
+			case 21:
+			case 26: .@class2_select = Job_Hunter;
+				break;
+			case 22: .@class2_select = Job_Dancer;
+				break;
+			case 27: .@class2_select = Job_Bard;
+				break;
+			case 31: .@class2_select = Job_Wizard;
+				break;
+			case 32: .@class2_select = Job_Sage;
+				break;
+			case 41: .@class2_select = Job_Priest;
+				break;
+			case 42: .@class2_select = Job_Monk;
+				break;
+			case 51: .@class2_select = Job_Assassin;
+				break;
+			case 52: .@class2_select = Job_Rogue;
+				break;
+			case 61: .@class2_select = Job_Blacksmith;
+				break;
+			case 62: .@class2_select = Job_Alchemist;
+				break;
+		}
+		
+		mes .@npcName$;
+		mes "You selected " + jobname(.@class2_select);
+		mes "Confirm your selection: ";
+		next;
+		
+		if(select("Confirm:Cancel") == 2){
+			mes .@npcName$;
+			mes "Talk to me again when you are ready.";
+			close;
+		}
+		else if(#CASHPOINTS < 10){
+			mes .@npcName$;
+			mes "You don't have enough cash points.";
+			mes "Sorry but, please come back when you have 10 cash points.";
+			close;
+		}
+		
+		jobchange .@class2_select;
+		#CASHPOINTS -= 10;
+		mes .@npcName$;
+		mes "Congratulations to our new " + jobname(Class);
+		mes "Looking forward to your future adventures with your new class.";
+		close;
+	}
+	else {
+		mes .@npcName$;
+		mes "Your current job, " + jobname(Class);
+		mes "and job level " + JobLevel + " does not", "meet the requirements to change job.";
+		mes "Please come again when you meet the requirements.";
+		close;
+	}
+}

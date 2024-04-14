@@ -291,7 +291,7 @@ Body:
         bonus2 bExpAddClass,Class_All,20;
   - Id: 30001
     AegisName: Elite_Siege_Supply_Box_
-    Name: Elite Siege Supply Box (PVP)
+    Name: Elite Siege Supply Box (GVG/PVP)
     Type: Cash
     Buy: 20
     Weight: 10
@@ -308,7 +308,7 @@ Body:
       getitem 30003,50;
   - Id: 30002
     AegisName: Siege_White_Potion_
-    Name: WoE White Potion (PVP)
+    Name: WoE White Potion (GVG/PVP)
     Type: Healing
     Weight: 100
     Trade:
@@ -323,7 +323,7 @@ Body:
       itemheal rand(400,500),0;
   - Id: 30003
     AegisName: Siege_Blue_Potion_
-    Name: WoE Blue Potion (PVP)
+    Name: WoE Blue Potion (GVG/PVP)
     Type: Healing
     Weight: 100
     Trade:
@@ -536,6 +536,25 @@ Body:
         setlook 13,1;
     UnEquipScript: |
         setlook 13,0;
+  - Id: 30107
+    AegisName: C_Fine_Sun
+    Name: Costume Shining Sun
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    View: 654
+    Script: |
+        bonus2 bExpAddClass,Class_All,10;
 # THQ Quest Items
 #=============================================================
 #  - Id: 1998
