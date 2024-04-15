@@ -89,6 +89,93 @@ Header:
   Version: 3
 
 Body:
+  - Id: 5286
+    AegisName: Pecopeco_Hairband
+    Name: Pecopeco Hairband
+    Type: Armor
+    Buy: 20
+    Defense: 3
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 314
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bSpeedRate,25;
+      bonus bAspdRate,10;
+      bonus bVariableCastrate,-10;
+  - Id: 5359
+    AegisName: J_Captain_Hat
+    Name: Ship Captain Hat
+    Type: Armor
+    Buy: 20
+    Weight: 300
+    Defense: 3
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 60
+    Refineable: true
+    View: 367
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bDex,1;
+      bonus bLongAtkRate,7;
+      bonus bMaxHP,100;
+      .@r = getrefine();
+      if (.@r >= 7) {
+         bonus bLongAtkRate,3;
+      }
+      if (.@r >= 9) {
+         bonus bLongAtkRate,3;
+      }
+  - Id: 5360
+    AegisName: Whikebain_Ears
+    Name: Hyuke's Black Cat Ears
+    Type: Armor
+    Buy: 20
+    Weight: 200
+    Defense: 4
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 45
+    Refineable: true
+    View: 368
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+    Script: |
+      bonus bFlee,10;
+      bonus bCritical,3;
+      bonus bCritAtkRate,10;
+      bonus bDefRate,-50;
+      bonus bDef2Rate,-50;
+      .@r = getrefine();
+      if (.@r >= 7) {
+         bonus bCritical,3;
+         bonus bCritAtkRate,5;
+      }
+      if (.@r >= 9) {
+         bonus bCritical,6;
+         bonus bCritAtkRate,5;
+      }
   - Id: 5471
     AegisName: Hairband_Of_Reginleif
     Name: Hairband Of Reginleif
@@ -101,11 +188,362 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 50
     View: 468
+    Flags:
+      DropAnnounce: true
     Script: |
       bonus2 bSubEle,Ele_Water,3;
       bonus2 bSubEle,Ele_Fire,3;
       bonus2 bSubEle,Ele_Undead,3;
       bonus2 bSubEle,Ele_Ghost,3;
+  - Id: 5305
+    AegisName: Pirate_Dagger
+    Name: Pirate Dagger
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    View: 327
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bBaseAtk,5;
+  - Id: 5315
+    AegisName: Observer
+    Name: Observer
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Defense: 1
+    Locations:
+      Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 35
+    View: 337
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      skill "WZ_ESTIMATION",1;
+  - Id: 5325
+    AegisName: Robo_Eye
+    Name: Robo Eye
+    Type: Armor
+    Buy: 20
+    Weight: 200
+    Defense: 2
+    Locations:
+      Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 10
+    View: 345
+    Flags:
+      DropAnnounce: true
+    Script: |
+      bonus2 bAddClass,Class_All,2;
+      bonus bMatkRate,2;
+      bonus bDex,1;
+  - Id: 5361
+    AegisName: Gang_Scarf
+    Name: Gangster Scarf
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 60
+    View: 369
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bBaseAtk,5;
+      if (BaseJob == Job_Rogue)
+         skill "RG_GANGSTER",1;
+  - Id: 5362
+    AegisName: Ninja_Scroll
+    Name: Ninja Scroll
+    Type: Armor
+    Buy: 20
+    Weight: 200
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 60
+    View: 370
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bMatkRate,1;
+  - Id: 5396
+    AegisName: Jasper_Crest
+    Name: Jasper Crest
+    Type: Armor
+    Buy: 20
+    Weight: 700
+    Defense: 2
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    Refineable: true
+    View: 399
+    Flags:
+      DropAnnounce: true
+    Script: |
+      bonus bDex,3;
+      bonus bVit,1;
+  - Id: 5397
+    AegisName: Scuba_Mask
+    Name: Scuba Gear
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Locations:
+      Head_Mid: true
+    ArmorLevel: 1
+    View: 400
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus2 bSubEle,Ele_Water, 10;
+      bonus bUnbreakableHelm, 0;
+  - Id: 5401
+    AegisName: Black_Glasses
+    Name: Black Frame Glasses
+    Type: Armor
+    Buy: 20
+    Weight: 200
+    Defense: 1
+    Locations:
+      Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 70
+    View: 404
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bInt,1;
+      bonus bMdef,2;
+      bonus bUnbreakableHelm, 0;
+  - Id: 5462
+    AegisName: Spiked_Scarf
+    Name: Spiked Scarf
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Defense: 1
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 90
+    View: 459
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bVit,1;
+      bonus2 bAddRace,RC_DemiHuman,1;
+      bonus2 bAddRace,RC_Player_Human,1;
+      bonus2 bSubRace,RC_DemiHuman,1;
+      bonus2 bSubRace,RC_Player_Human,1;
+  - Id: 5481
+    AegisName: Hermose_Cap
+    Name: Hermode Cap
+    Type: Armor
+    Buy: 20
+    Weight: 1000
+    Defense: 1
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Refineable: true
+    View: 478
+    Trade:
+      NoDrop: true
+      NoGuildStorage: true
+    Script: |
+      bonus bAspdRate,10;
+      bonus bBaseAtk,-20;
+      bonus bMatkRate,-10;
+      .@r = getrefine();
+      if (.@r >= 7) {
+         bonus bAspdRate,5;
+      }
+      if (.@r >= 9) {
+         bonus bAspdRate,5;
+      }
+  - Id: 5490
+    AegisName: Anubis_Helm
+    Name: Anubis Helm
+    Type: Armor
+    Buy: 20
+    Defense: 3
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 70
+    View: 485
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bMdef,5;
+      bonus2 bSubClass,Class_Boss,10;
+      bonus bHealpower2,10;
+      bonus bAddItemHealRate,10;
+  - Id: 5564
+    AegisName: Crown_Of_Deceit
+    Name: Crown of Deceit
+    Type: Armor
+    Buy: 20
+    Weight: 300
+    Defense: 3
+    Slots: 1
+    Locations:
+      Head_Mid: true
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 85
+    Refineable: true
+    View: 544
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bInt,4;
+      bonus bCastRate,-10;
+      .@r = getrefine();
+      if (.@r >= 7) {
+         bonus bCastRate,-5;
+      }
+      if (.@r >= 9) {
+         bonus bCastRate,-5;
+      }
+  - Id: 5801
+    AegisName: Ribbon_Of_Bride
+    Name: Red Tailed Ribbon
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Defense: 5
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    Refineable: true
+    View: 167
+    Flags:
+      DropAnnounce: true
+    Script: |
+      bonus bAllStats,2;
+      bonus2 bSubRace,RC_DemiHuman,10;
+      bonus2 bSubRace,RC_Player_Human,10;
+      if (getskilllv("AL_HEAL") == 10) {
+         bonus3 bAutoSpellWhenHit,"AL_HEAL",10,20;
+      }
+      else {
+         bonus3 bAutoSpellWhenHit,"AL_HEAL",5,20;
+      }
+  - Id: 18539
+    AegisName: Skull_Cap
+    Name: Skull Cap
+    Type: Armor
+    Buy: 40
+    Weight: 200
+    Defense: 5
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 10
+    Refineable: true
+    View: 713
+    Flags:
+      DropAnnounce: true
+    Script: |
+      bonus bMatkRate,2;
+      .@r = getrefine();
+      if (.@r >= 5) {
+         bonus bMatkRate,3;
+      }
+      if (.@r >= 7) {
+         bonus bMatkRate,3;
+      }
+      if (.@r >= 9) {
+         bonus bMatkRate,3;
+      }
+      if (.@r >= 10) {
+         bonus bVariableCastrate,-10;
+      }
+  - Id: 18597
+    AegisName: Mercury_Helm
+    Name: Mercury Riser
+    Type: Armor
+    Buy: 40
+    Weight: 200
+    Defense: 10
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    Refineable: true
+    View: 759
+    Flags:
+      DropAnnounce: true
+    Script: |
+      bonus bAspdRate,3;
+      bonus bCritical,3;
+      if (getrefine() >= 7) {
+         bonus bAspdRate,2;
+         bonus bCritical,2;
+      }
+      if (getrefine() >= 9) {
+         bonus bAspdRate,2;
+         bonus bCritical,2;
+      }
   - Id: 5767
     AegisName: Samurai_Mask
     Name: Samurai Mask
@@ -118,6 +556,8 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 50
     View: 644
+    Flags:
+      DropAnnounce: true
     Trade:
       NoDrop: true
     Script: |

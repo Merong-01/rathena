@@ -136,3 +136,6 @@ mace_mastery_aspd_buff: yes
 spear_quicken_buff: yes
 auto_spell_buff: yes
 gvg_traps_target_all: 0
+
+//battle/items.conf
+broadcast_hide_name: 0

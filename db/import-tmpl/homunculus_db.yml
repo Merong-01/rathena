@@ -55,3 +55,43 @@
 Header:
   Type: HOMUNCULUS_DB
   Version: 1
+
+Body:
+  - Class: Lif
+    Name: Lif
+    EvolutionClass: Lif_H
+    Race: Demihuman
+  - Class: Amistr
+    Name: Amistr
+    EvolutionClass: Amistr_H
+    Food: Zargon
+    Race: Demihuman
+  - Class: Filir
+    Name: Filir
+    EvolutionClass: Filir_H
+    Food: Garlet
+    Race: Demihuman
+  - Class: Vanilmirth
+    Name: Vanilmirth
+    EvolutionClass: Vanilmirth_H
+    Food: Scell
+    Race: Demihuman
+  - Class: Lif2
+    Name: Lif
+    EvolutionClass: Lif_H2
+    Race: Demihuman
+  - Class: Amistr2
+    Name: Amistr
+    EvolutionClass: Amistr_H2
+    Food: Zargon
+    Race: Demihuman
+  - Class: Filir2
+    Name: Filir
+    EvolutionClass: Filir_H2
+    Food: Garlet
+    Race: Demihuman
+  - Class: Vanilmirth2
+    Name: Vanilmirth
+    EvolutionClass: Vanilmirth_H2
+    Food: Scell
+    Race: Demihuman

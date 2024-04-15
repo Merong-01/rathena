@@ -2685,21 +2685,26 @@ Body:
     Drops:
       - Item: Gungnir
         Rate: 150
+        Index: 0
       - Item: Honey
         Rate: 10000
+        Index: 1
       - Item: Coronet
         Rate: 250
+        Index: 2
       - Item: Old_Card_Album
         Rate: 1000
+        Index: 3
       - Item: Young_Twig
         Rate: 10
+        Index: 4
       - Item: Elunium
         Rate: 4268
-      - Item: Red_Square_Bag
-        Rate: 100
+        Index: 5
       - Item: Mistress_Card
         Rate: 1
         StealProtected: true
+        Index: 7
   - Id: 1060
     AegisName: BIGFOOT
     Name: Bigfoot
@@ -3917,21 +3922,26 @@ Body:
     Drops:
       - Item: Voucher_Of_Orcish_Hero
         Rate: 9700
+        Index: 0
       - Item: Monkey_Circlet
         Rate: 500
+        Index: 1
       - Item: Right_Epsilon
         Rate: 150
+        Index: 2
       - Item: Shield_
         Rate: 250
+        Index: 3
       - Item: Orcish_Sword
         Rate: 1000
+        Index: 4
       - Item: Elunium
         Rate: 4559
-      - Item: Giant_Axe
-        Rate: 100
+        Index: 5
       - Item: Orc_Hero_Card
         Rate: 1
         StealProtected: true
+        Index: 7
   - Id: 1088
     AegisName: VOCAL
     Name: Vocal
@@ -5071,21 +5081,26 @@ Body:
     Drops:
       - Item: Saber_
         Rate: 600
+        Index: 0
       - Item: Ring_Pommel_Saber_
         Rate: 950
+        Index: 1
       - Item: Cutlas
         Rate: 150
+        Index: 2
       - Item: Hae_Dong_Gum_
         Rate: 400
+        Index: 3
       - Item: Corsair
         Rate: 350
+        Index: 4
       - Item: Elunium
         Rate: 3200
-      - Item: Krasnaya
-        Rate: 100
+        Index: 5
       - Item: Drake_Card
         Rate: 1
         StealProtected: true
+        Index: 7
   - Id: 1113
     AegisName: DROPS
     Name: Drops
@@ -6700,21 +6715,26 @@ Body:
     Drops:
       - Item: Queen's_Hair_Ornament
         Rate: 500
+        Index: 0
       - Item: Safety_Ring
         Rate: 200
+        Index: 1
       - Item: Tiara
         Rate: 200
+        Index: 2
       - Item: Armlet_Of_Obedience
         Rate: 500
+        Index: 3
       - Item: Mother's_Nightmare
         Rate: 10
+        Index: 4
       - Item: Elunium
         Rate: 3500
-      - Item: Dea_Staff
-        Rate: 100
+        Index: 5
       - Item: Maya_Card
         Rate: 1
         StealProtected: true
+        Index: 7
   - Id: 1148
     AegisName: MEDUSA
     Name: Medusa
@@ -6853,21 +6873,26 @@ Body:
     Drops:
       - Item: Spectral_Spear
         Rate: 500
+        Index: 0
       - Item: Moonlight_Sword
         Rate: 100
+        Index: 1
       - Item: Long_Mace
         Rate: 150
+        Index: 2
       - Item: Punisher
         Rate: 500
+        Index: 3
       - Item: Silver_Knife_Of_Chaste
         Rate: 650
+        Index: 4
       - Item: Elunium
         Rate: 2600
-      - Item: Staff_Of_Bordeaux
-        Rate: 100
+        Index: 5
       - Item: Moonlight_Flower_Card
         Rate: 1
         StealProtected: true
+        Index: 7
   - Id: 1151
     AegisName: MYST
     Name: Myst
@@ -7273,21 +7298,26 @@ Body:
     Drops:
       - Item: Thin_N'_Long_Tongue
         Rate: 9700
+        Index: 0
       - Item: Forturn_Sword
         Rate: 500
+        Index: 1
       - Item: Sucsamad
         Rate: 150
+        Index: 2
       - Item: Jaws_Of_Ant
         Rate: 5000
+        Index: 3
       - Item: Mr_Scream
         Rate: 300
+        Index: 4
       - Item: Elunium
         Rate: 2900
-      - Item: Weihna
-        Rate: 100
+        Index: 5
       - Item: Phreeoni_Card
         Rate: 1
         StealProtected: true
+        Index: 7
   - Id: 1160
     AegisName: PIERE
     Name: Piere
@@ -8591,21 +8621,23 @@ Body:
     Drops:
       - Item: Brood_Axe
         Rate: 400
+        Index: 0
       - Item: Ring_
         Rate: 400
+        Index: 1
       - Item: Loard_Circlet
         Rate: 400
-      - Item: Doom_Slayer_
-        Rate: 400
+        Index: 2
       - Item: Old_Violet_Box
         Rate: 1000
+        Index: 4
       - Item: Elunium
         Rate: 4268
-      - Item: Erde
-        Rate: 3100
+        Index: 5
       - Item: Orc_Load_Card
         Rate: 1
         StealProtected: true
+        Index: 7
   - Id: 1191
     AegisName: MIMIC
     Name: Mimic
@@ -12266,21 +12298,26 @@ Body:
     Drops:
       - Item: Bone_Wand
         Rate: 800
-      - Item: Kronos
-        Rate: 100
+        Index: 0
       - Item: Grimtooth_
         Rate: 300
+        Index: 2
       - Item: Mage_Coat
         Rate: 300
+        Index: 3
       - Item: Cape_Of_Ancient_Lord
         Rate: 100
+        Index: 4
       - Item: Elunium
         Rate: 5141
+        Index: 5
       - Item: Bone_Helm_
         Rate: 10
+        Index: 6
       - Item: Dark_Lord_Card
         Rate: 1
         StealProtected: true
+        Index: 7
   - Id: 1273
     AegisName: ORC_LADY
     Name: Orc Lady
@@ -16994,19 +17031,23 @@ Body:
     Drops:
       - Item: Yggdrasilberry
         Rate: 4700
+        Index: 0
       - Item: Wizardy_Staff
         Rate: 5
-      - Item: Balistar
-        Rate: 5
+        Index: 1
       - Item: Cape_Of_Ancient_Lord
         Rate: 15
+        Index: 3
       - Item: Ring_
         Rate: 4
+        Index: 4
       - Item: Book_Of_The_Apocalypse
         Rate: 4
+        Index: 5
       - Item: Dracula_Card
         Rate: 1
         StealProtected: true
+        Index: 6
   - Id: 1390
     AegisName: VIOLY
     Name: Violy

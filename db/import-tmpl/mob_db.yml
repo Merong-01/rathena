@@ -86,6 +86,12 @@ Body:
     MvpDrops:
       - Item: Whikebain_Ears
         Rate: 100
+  - Id: 1038
+    AegisName: OSIRIS
+    Name: Osiris
+    MvpDrops:
+      - Item: Crown_Of_Deceit
+        Rate: 100
   - Id: 1046
     AegisName: DOPPELGANGER
     Name: Doppelganger
@@ -151,6 +157,12 @@ Body:
     Name: Turtle General
     MvpDrops:
       - Item: Ninja_Scroll
+        Rate: 100
+  - Id: 1389
+    AegisName: DRACULA
+    Name: Dracula
+    MvpDrops:
+      - Item: Balistar
         Rate: 100
   - Id: 1159
     AegisName: PHREEONI
