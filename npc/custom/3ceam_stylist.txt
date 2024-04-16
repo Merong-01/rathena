@@ -17,7 +17,7 @@
 //= 1.1.1 Hair style of 0 now defaults to 1. Body dye of 1 will now default to 0.
 //= This is due to how certain style and dye values are not usable officially. [Rytech]
 //============================================================
-prontera,161,190,4	script	Super Stylist	509,{
+prontera,145,199,4	script	Super Stylist	509,{
 Lintro:
 	mes "[Super Stylist]";
 	mes "Hey there. Im a super stylist. Want to try out my services?";
@@ -38,9 +38,9 @@ Laccessroom:
 	}
 	else
 	{// Human
-		set @hairstylemax,MaxHairStyle;
-		set @hairdyemax,MaxHairDye;
-		set @bodydyemax,MaxBodyDye;
+		set @hairstylemax,getbattleflag("max_hair_style");
+		set @hairdyemax,getbattleflag("max_hair_color");
+		set @bodydyemax,getbattleflag("max_cloth_color");
 	}
 
 	// Only certain job's have access to a 2nd body style.
@@ -58,10 +58,9 @@ Laccessroom:
 		BaseThird == Job_Wanderer || 
 		BaseThird == Job_Sura || 
 		BaseThird == Job_Genetic || 
-		BaseThird == Job_Shadow_Chaser ||
-		BaseUpper == Job_Monk
+		BaseThird == Job_Shadow_Chaser
 	)
-		set @bodystylemax,MaxBodyStyle;
+		set @bodystylemax,getbattleflag("max_body_style");
 	else
 		set @bodystylemax,0;
 
@@ -69,7 +68,8 @@ Lmain:
 	mes "[Super Stylist]";
 	mes "Ok step this way. A dressing room window should open. Use this to decide what you want and then select in the menu what your interested in.";
 	next;
-	menu "All Dyes And Styles",Lalldyestyle,"Hair Dye Only",Lhairdye,"Hair Style Only",Lhairstyle,"Body Dye Only",Lbodydye,"Body Style Only",Lbodystyle,"Im done.",Lbye;
+	//menu "All Dyes And Styles",Lalldyestyle,"Hair Dye Only",Lhairdye,"Hair Style Only",Lhairstyle,"Body Dye Only",Lbodydye,"Body Style Only",Lbodystyle,"Im done.",Lbye;
+	menu "Hair Dye Only",Lhairdye,"Hair Style Only",Lhairstyle,"Body Dye Only",Lbodydye,"Im done.",Lbye;
 
 Lalldyestyle:
 	mes "[Super Stylist]";
@@ -94,32 +94,74 @@ Lalldyestyle:
 	goto Lmain;
 
 Lhairdye:
+	if(countitem(30010) < 1){
+		goto Lnocoupon;
+	}
 	mes "[Super Stylist]";
 	mes "Enter the dye you want.";
 	mes "Max Hair Dyes = "+@hairdyemax+"";
+	.@prevlook = getlook(LOOK_HAIR_COLOR);
 	input @hairdye;
 	if (@hairdye < 0 || @hairdye > @hairdyemax) set @hairdye,0;
-	setlook 6,@hairdye;
+	changelook 6,@hairdye;
+	next;
+	mes "[Super Stylist]";
+	mes "Is this the correct hair color you are looking for?";
+	if(select("Confirm selection:Revert to original color") == 2){
+		changelook 6, .@prevlook;
+	}
+	else {
+		setlook 6, @hairdye;
+		delitem 30010, 1;
+	}
 	next;
 	goto Lmain;
 
 Lhairstyle:
+	if(countitem(30009) < 1){
+		goto Lnocoupon;
+	}
 	mes "[Super Stylist]";
 	mes "Enter the style you want.";
 	mes "Max Hair Styles = "+@hairstylemax+"";
+	.@prevlook = getlook(LOOK_HAIR);
 	input @hairstyle;
 	if (@hairstyle < 1 || @hairstyle > @hairstylemax) set @hairstyle,1;
-	setlook 1,@hairstyle;
+	changelook 1,@hairstyle;
+	next;
+	mes "[Super Stylist]";
+	mes "Is this the correct hair style you are looking for?";
+	if(select("Confirm selection:Revert to original style") == 2){
+		changelook 1, .@prevlook;
+	}
+	else {
+		setlook 1, @hairstyle;
+		delitem 30009, 1;
+	}
 	next;
 	goto Lmain;
 
 Lbodydye:
+	if(countitem(30011) < 1){
+		goto Lnocoupon;
+	}
 	mes "[Super Stylist]";
 	mes "Enter the dye you want.";
 	mes "Max Body Dyes = "+@bodydyemax+"";
+	.@prevlook = getlook(LOOK_CLOTHES_COLOR);
 	input @bodydye;
-	if (@bodydye < 0 || @bodydye == 1 || @bodydye > @bodydyemax) set @bodydye,0;
-	setlook 7,@bodydye;
+	if (@bodydye < 0 || @bodydye > @bodydyemax) set @bodydye,0;
+	changelook 7,@bodydye+1;
+	next;
+	mes "[Super Stylist]";
+	mes "Is this the correct cloth dye you are looking for?";
+	if(select("Confirm selection:Revert to original color") == 2){
+		changelook 7, .@prevlook;
+	}
+	else {
+		setlook 7, @bodydye+1;
+		delitem 30011, 1;
+	}
 	next;
 	goto Lmain;
 
@@ -139,15 +181,26 @@ Lbye:
 	close;
 	end;
 
+Lnocoupon:
+	mes "[Super Stylist]";
+	mes "I am sorry, but currently I only accept " + 
+		getitemname(30009) + ", " + getitemname(30010) + ", and " + getitemname(30011) +
+		" as payment for my services.";
+	mes "You can get them from Kafra Cash Shop.";
+	close;
+	end;
+
 Lwhoareyou:
 	mes "[Super Stylist]";
 	mes "Never herd of us?";
 	mes "We super stylist are a new generation of stylist that are able to provide character appearance customization to players.";
 	next;
+	mes "[Super Stylist]";
 	mes "But the difference between us and regular stylist is that we have a dressing room that allows you to try out different styles and dyes freely all together.";
 	mes "This allows you to get a full preview of what your char will look like if you applied all the styles and dyes selected before finalizing what you want.";
 	mes "Better then doing one at a time.";
 	next;
+	mes "[Super Stylist]";
 	mes "Super stylist can also change the appearance of the outfit you wear. We call them body styles. However, only 3rd job characters are offered this service at the moment.";
 	mes "Also we don't have outfits ready for all of these jobs yet since this service is still very new and designs are still being worked on.";
 	mes "Be sure to check back later if a style isnt available for your job as were releasing them one by one.";

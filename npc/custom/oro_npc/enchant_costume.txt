@@ -1,0 +1,114 @@
+//====== Specialized Costume Enchanter NPC ===================
+//============================================================
+prontera,167,200,5	script	Costume Enchanter	4_F_CACTUSLADY3,{
+	.@npcName$ = "[ Costume Enchanter ]";
+	
+	mes .@npcName$;
+	mes "I enchant costume equipments to have additional status effects.";
+	mes "For now, I can add ^FF5555+Weight^000000 capacity enchantment.";
+	next;
+	
+	if(select("Enchant Costume:Cancel") == 2){
+		mes .@npcName$;
+		mes "Come again if you have something to enchant.";
+		close;
+	}
+	
+	mes .@npcName$;
+	mes "Currently, I can only do it on ^FF5555" + getitemname(30102) + "^000000";
+	mes "Just bring to me the item and a ^FF5555" + getitemname(7776) + "^000000";
+	mes "For every ^FF5555" + getitemname(7776) + 
+		"^000000, I can enchant ^FF5555+100 Weight^000000 capacity";
+	next;
+	
+	mes .@npcName$;
+	mes "This enchantment is a little special where" + 
+		" you can reenchant the equipment to improve the status effect up to " + 
+		"^FF5555+1000 Weight^000000 capacity";
+	mes "Keep it mind that enchantments other than " + 
+		"^FF5555+Weight^000000 will disappear after the enchantment";
+	next;
+	
+	mes .@npcName$;
+	mes "Do you have the costume and the required materials";
+	mes "so we can do some enchanting?";
+	next;
+	
+	if(select("Sorry, maybe next time.:Yes, let's proceed.") == 1) {
+		mes .@npcName$;
+		mes "Please come back when you have any interest in enchanting your costume.";
+		close;
+	}
+	
+	if(countitem(30102) < 1 || countitem(7776) < 1){
+		mes .@npcName$;
+		mes "Sorry but you don't have the required items.";
+		close;
+	}
+	
+	mes .@npcName$;
+	mes "Another important reminder,";
+	mes "if there are two costumes of the same kind in your" + 
+		" possession, the Enchantment will be applied in the " + 
+		"order they are placed in your inventory.";
+	next;
+	
+	mes .@npcName$;
+	mes "In that case, the Enchantment may" + 
+		" be applied to an item which you didn't " + 
+		"mean to Enchant. So just bring " + 
+		"^5555ffONE Costume^000000 you want enchanted to be safe...";
+	next;
+	
+	mes .@npcName$;
+	mes "I'm not responsible for what " + 
+		"would happen if you have more " + 
+		"than one of the same kind in your inventory.";
+	next;
+	
+	if(select("Wait...let me check my inventory:Go ahead...") == 1){
+		mes .@npcName$;
+		mes "Please come back after you sort out your inventory.";
+		close;
+	}
+	
+	mes .@npcName$;
+	mes "Good! Now, let me perform the enchantment.";
+	close2;
+	
+	specialeffect2 EF_MAPPILLAR;
+	progressbar "FFFF00",5;
+	getinventorylist();
+	for(.@i = 0; .@i < @inventorylist_count; .@i++){
+		if(@inventorylist_id[.@i] == 30102){
+			.@currentEnchant = @inventorylist_card4[.@i];
+			break;
+		}
+	}
+	if(.@currentEnchant == 30120){
+		mes .@npcName$;
+		mes "Oh! It seems that this item can't be enchanted anymore.";
+		close;
+	}
+	if(.@currentEnchant < 30111 || .@currentEnchant > 30120){
+		.@newEnchant = 30111;
+	}
+	else {
+		.@newEnchant = .@currentEnchant + 1;
+	}
+	if(countitem(30102) < 1 || countitem(7776) < 1){
+		mes .@npcName$;
+		mes "Where are the items?";
+		mes "Did you manage to hide it without me noticing?";
+		close;
+	}
+	delitem 30102, 1;
+	delitem 7776, 1;
+	getitem2 30102, 1, 1, 0, 0, 0, 0, 0, .@newEnchant;
+	
+	mes .@npcName$;
+	mes "There you go.";
+	mes "In the future, I should be able to enchant more kind of costumes.";
+	mes "Feel free to check on me for any update.";
+	close;
+}

@@ -102,6 +102,7 @@ vip_gemstone: 0
 
 //battle/client.conf
 display_version: no
+save_body_style: no
 
 //battle/feature.conf
 feature.achievement: off

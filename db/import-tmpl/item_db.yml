@@ -995,6 +995,97 @@ Body:
     View: 654
     Script: |
         bonus2 bExpAddClass,Class_All,10;
+  - Id: 30111
+    AegisName: Weight_100
+    Name: Weight +100
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Script: |
+        bonus bAddMaxWeight,1000;
+  - Id: 30112
+    AegisName: Weight_200
+    Name: Weight +200
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Script: |
+        bonus bAddMaxWeight,2000;
+  - Id: 30113
+    AegisName: Weight_300
+    Name: Weight +300
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Script: |
+        bonus bAddMaxWeight,3000;
+  - Id: 30114
+    AegisName: Weight_400
+    Name: Weight +400
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Script: |
+        bonus bAddMaxWeight,4000;
+  - Id: 30115
+    AegisName: Weight_500
+    Name: Weight +500
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Script: |
+        bonus bAddMaxWeight,5000;
+  - Id: 30116
+    AegisName: Weight_600
+    Name: Weight +600
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Script: |
+        bonus bAddMaxWeight,6000;
+  - Id: 30117
+    AegisName: Weight_700
+    Name: Weight +700
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Script: |
+        bonus bAddMaxWeight,7000;
+  - Id: 30118
+    AegisName: Weight_800
+    Name: Weight +800
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Script: |
+        bonus bAddMaxWeight,8000;
+  - Id: 30119
+    AegisName: Weight_900
+    Name: Weight +900
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Script: |
+        bonus bAddMaxWeight,9000;
+  - Id: 30120
+    AegisName: Weight_1000
+    Name: Weight +1000
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Script: |
+        bonus bAddMaxWeight,10000;
+
 # THQ Quest Items
 #=============================================================
 #  - Id: 1998
