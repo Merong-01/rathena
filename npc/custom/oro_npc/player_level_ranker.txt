@@ -1,0 +1,39 @@
+//====== Player Level Ranker NPC =============================
+//============================================================
+-	script	Player Level Ranker	-1,{
+OnPCBaseLvUpEvent:
+	if(Class == Job_Super_Novice && BaseLevel == 99){
+		announce "Congatulations to Player [ " + strcharinfo(0) + 
+			" ] for reaching base level 99.", 0;
+		if($FirstSuperNovice != 1){
+			.@reward_item = 30104;
+			announce "Congatulations to Player [ " + strcharinfo(0) +
+				" ] for being the first player to reach max base level" +
+				" as a " + jobname(Class) + ". Reward: " + 
+				getitemname(.@reward_item), bc_all,0x00FF00;
+			getitem .@reward_item, 1;
+			set $FirstSuperNovice, 1;
+		}
+	}
+
+OnPCJobLvUpEvent:
+	if(Class != Job_Super_Novice && BaseLevel == 99 && JobLevel == 50 && Class >= Job_Knight){
+		announce "Congatulations to Player [ " + strcharinfo(0) + 
+			" ] for reaching base level 99 and job level 50.", 0;
+		if(getd("$First" + jobname(Class)) != 1){
+			if(Class < Job_Crusader){
+				.@reward_item = 30104;
+			}
+			else {
+				.@reward_item = 30105;
+			}
+			announce "Congatulations to Player [ " + strcharinfo(0) +
+				" ] for being the first player to reach max base level" +
+				" and job level as a " + jobname(Class) + ". Reward: " + 
+				getitemname(.@reward_item), bc_all,0x00FF00;
+			getitem .@reward_item, 1;
+			setd "$First" + jobname(Class), 1;
+		}
+	}
+	end;
+}
