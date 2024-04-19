@@ -2958,7 +2958,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 		char mvp_message[128]{};
 		party_data *sd_pdata = party_search(sd->status.party_id);
 
-		if (mvp_sd != sd || (mvp_sd->status.party_id != 0 && mvp_sd->status.party_id != sd->status.party_id)) {
+		if (mvp_sd != sd && (mvp_sd->status.party_id == 0 || mvp_sd->status.party_id != sd->status.party_id)) {
 			if (sd_pdata == NULL) {
 				sprintf(mvp_message, "Solo Player [ %s ], kill-stealed MVP %s frome another player.",
 					sd->status.name, md->name);
@@ -3043,14 +3043,14 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 					continue;
 				}
 
-				//if (tmpsd[j]->status.char_id != md->dmglog[j].id) {
-				//	continue;
-				//}
-
 				if (mvp_sd->status.char_id != tmpsd[j]->status.char_id &&
 					(mvp_sd->status.party_id == 0 || 
 					mvp_sd->status.party_id != tmpsd[j]->status.party_id))
 				{
+					continue;
+				}
+				else if (mvp_sd->status.char_id != tmpsd[j]->status.char_id &&
+					!check_distance_bl(&md->bl, &tmpsd[j]->bl, 20)) {
 					continue;
 				}
 

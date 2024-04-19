@@ -53,30 +53,69 @@ Body:
       - SubGroup: 1
         List:
           - Index: 0
-            Item: Light_Center_Pot_Box
+            Item: Light_Center_Pot_Box5
             Rate: 100
+            Amount: 1
           - Index: 1
-            Item: Light_Awakening_Pot_Box
+            Item: Light_Awakening_Pot_Box5
             Rate: 100
+            Amount: 1
           - Index: 2
-            Item: Light_Berserk_Pot_Box
+            Item: Light_Berserk_Pot_Box5
             Rate: 100
+            Amount: 1
           - Index: 3
-            Item: Kafra_Card
+            Item: Elite_Siege_Supply_Box
             Rate: 100
-            Amount: 5
+            Amount: 1
           - Index: 4
-            Item: Light_White_Pot_Box
-            Rate: 100
-            Amount: 3
+            Item: Elite_Siege_Supply_Box_
+            Rate: 5
+            Amount: 1
           - Index: 5
-            Item: Light_Blue_Pot_Box
+            Item: Kafra_Card_Box5
             Rate: 100
-            Amount: 3
+            Amount: 1
           - Index: 6
-            Item: Megaphone_
+            Item: Megaphone_Box5
             Rate: 100
-            Amount: 5
+            Amount: 1
+          - Index: 7
+            Item: Bubble_Gum
+            Rate: 100
+            Amount: 1
+          - Index: 8
+            Item: HE_Battle_Manual
+            Rate: 100
+            Amount: 1
+          - Index: 9
+            Item: Job_Manual50
+            Rate: 100
+            Amount: 1
+          - Index: 10
+            Item: Universal_Catalog_Gold_Box10
+            Rate: 100
+            Amount: 1
+          - Index: 11
+            Item: Convex_Mirror
+            Rate: 100
+            Amount: 1
+          - Index: 12
+            Item: VIP_1Day_Coin
+            Rate: 10
+            Amount: 1
+          - Index: 13
+            Item: Greed_Box50
+            Rate: 10
+            Amount: 1
+          - Index: 14
+            Item: C_Sunglasses_S
+            Rate: 1
+            Amount: 1
+          - Index: 15
+            Item: C_Cigarette_S
+            Rate: 1
+            Amount: 1
   - Group: CASH_EGG_SCROLL
     SubGroups:
       - SubGroup: 1

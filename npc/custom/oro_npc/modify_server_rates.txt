@@ -1,0 +1,63 @@
+//======== Modify Server Rate On The Flye ====================
+//============================================================
+-	script	Server Rate Controller	-1,{
+OnInit:
+	bindatcmd("serverrates",strnpcinfo(0)+"::OnCommand",99,99);
+	end;
+OnCommand:
+	if(.@atcmd_numparameters < 1){
+		message strcharinfo(0), "Invalid Syntax: @serverrate mode";
+		end;
+	}
+	
+	.@mode = atoi(.@atcmd_parameters$[0]);
+	if(.@mode == 0){
+		message strcharinfo(0), "Invalid mode!";
+		end;
+	}
+	
+	if(.@mode == 1){
+		set .@brate, 700;
+		set .@jrate, 700;
+		set .@drate, 200;
+		set .@mvpdrate, 100;
+	}
+	else if(.@mode == 2){
+		set .@brate, 3000;
+		set .@jrate, 3000;
+		set .@drate, 1500;
+		set .@mvpdrate, 1500;
+	}
+	else {
+		message strcharinfo(0), "Invalid mode!!";
+		end;
+	}
+	
+	//Base exp
+	setbattleflag("base_exp_rate",.@brate);
+	//Job exp
+	setbattleflag("job_exp_rate",.@jrate);
+	//Drops
+	setbattleflag("item_rate_common",.@drate);
+	setbattleflag("item_rate_common_boss",.@drate);
+	setbattleflag("item_rate_common_mvp",.@mvpdrate);
+	
+	setbattleflag("item_rate_heal",.@drate);
+	setbattleflag("item_rate_heal_boss",.@drate);
+	setbattleflag("item_rate_heal_mvp",.@mvpdrate);
+	
+	setbattleflag("item_rate_use",.@drate);
+	setbattleflag("item_rate_use_boss",.@drate);
+	setbattleflag("item_rate_use_mvp",.@mvpdrate);
+	
+	setbattleflag("item_rate_card",.@drate);
+	setbattleflag("item_rate_card_boss",.@drate);
+	setbattleflag("item_rate_card_mvp",.@mvpdrate);
+	
+	setbattleflag("item_rate_equip",.@drate,true);
+	setbattleflag("item_rate_equip_boss",.@drate,true);
+	setbattleflag("item_rate_equip_mvp",.@mvpdrate,true);
+	
+	announce "Current server rates are: " + (.@brate/100)+"x /" + (.@jrate/100)+"x /" + (.@drate/100)+"x",bc_all;
+	end;
+}

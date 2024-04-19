@@ -105,7 +105,6 @@ Body:
       NoTrade: true
       NoSell: true
       NoCart: true
-      NoStorage: true
       NoGuildStorage: true
       NoMail: true
       NoAuction: true
@@ -161,6 +160,7 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
+      NoSell: true
     Script: |
       bonus bFlee,10;
       bonus bCritical,3;
@@ -190,6 +190,9 @@ Body:
     View: 468
     Flags:
       DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
       bonus2 bSubEle,Ele_Water,3;
       bonus2 bSubEle,Ele_Fire,3;
@@ -251,6 +254,9 @@ Body:
     View: 345
     Flags:
       DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
       bonus2 bAddClass,Class_All,2;
       bonus bMatkRate,2;
@@ -310,6 +316,9 @@ Body:
     View: 399
     Flags:
       DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
       bonus bDex,3;
       bonus bVit,1;
@@ -396,6 +405,7 @@ Body:
     View: 478
     Trade:
       NoDrop: true
+      NoSell: true
       NoGuildStorage: true
     Script: |
       bonus bAspdRate,10;
@@ -477,6 +487,9 @@ Body:
     View: 167
     Flags:
       DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
       bonus bAllStats,2;
       bonus2 bSubRace,RC_DemiHuman,10;
@@ -503,6 +516,9 @@ Body:
     View: 713
     Flags:
       DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
       bonus bMatkRate,2;
       .@r = getrefine();
@@ -533,6 +549,9 @@ Body:
     View: 759
     Flags:
       DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
       bonus bAspdRate,3;
       bonus bCritical,3;
@@ -560,6 +579,7 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
+      NoSell: true
     Script: |
       bonus2 bAddClass,Class_All,1;
   - Id: 6320
@@ -598,6 +618,9 @@ Body:
     Type: Usable
     Buy: 20
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
       getitem 12411,10;
   - Id: 19698
@@ -623,7 +646,6 @@ Body:
       NoTrade: true
       NoSell: true
       NoCart: true
-      NoStorage: true
       NoGuildStorage: true
       NoMail: true
       NoAuction: true
@@ -686,8 +708,6 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 67
-    Script: | 
-        bonus bAddMaxWeight,10000;
   - Id: 20462
     AegisName: C_Cat_Ears_Cape
     Name: Costume Cat Ears Cape
@@ -841,26 +861,103 @@ Body:
     Name: Streamer Gift Box
     Type: Usable
     Weight: 10
+    Trade:
+      NoSell: true
     Script: |
-      getrandgroupitem IG_STREAMER_GIFT_BOX, 0, 1;
+      .@item_id = groupranditem(IG_STREAMER_GIFT_BOX,1);
+      getitembound .@item_id, 1, Bound_Account;
+      announce "Player [ " + strcharinfo(0) + " ] opened Streamer Gift Box and obtained " + getitemname(.@item_id),0;
   - Id: 30009
     AegisName: New_Hairstyle_Coupon_ORO
     Name: New Hairstyle Coupon
     Type: Etc
     Buy: 200
     Weight: 0
+    Trade:
+      NoDrop: true
+      NoSell: true
   - Id: 30010
     AegisName: New_Hair_Dye_Coupon_ORO
     Name: New Hair Dye Coupon
     Type: Etc
     Buy: 200
     Weight: 0
+    Trade:
+      NoDrop: true
+      NoSell: true
   - Id: 30011
     AegisName: Cloth_Dye_Coupon_ORO
     Name: Cloth Dye Coupon
     Type: Etc
     Buy: 200
     Weight: 0
+    Trade:
+      NoDrop: true
+      NoSell: true
+  - Id: 30012
+    AegisName: Light_Center_Pot_Box5
+    Name: Light Concentration Potion Box 5
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getitembound 14509,5,Bound_Account;
+  - Id: 30013
+    AegisName: Light_Awakening_Pot_Box5
+    Name: Light Awakening Potion Box 5
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getitembound 14510,5,Bound_Account;
+  - Id: 30014
+    AegisName: Light_Berserk_Pot_Box5
+    Name: Light Berserk Potion Box 5
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getitembound 14511,5,Bound_Account;
+  - Id: 30015
+    AegisName: Kafra_Card_Box5
+    Name: Kafra Card Box 5
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getitembound 12211,5,Bound_Account;
   - Id: 19581
     AegisName: C_Brabery_Hat
     Name: Costume Adventurer's Hat
@@ -870,6 +967,9 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 891
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
       bonus bSpeedRate,30;
   - Id: 19954
@@ -881,6 +981,9 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 661
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
       skill "AL_TELEPORT",1;
   - Id: 30100
@@ -892,6 +995,9 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 1351
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
         bonus2 bAddMonsterDropItem,7139,100;
   - Id: 30101
@@ -903,17 +1009,25 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 696
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
         bonus2 bAddMonsterDropItem,504,200;
   - Id: 30102
     AegisName: C_Engineer_Cap_S
     Name: Costume Engineer Cap
     Type: Armor
+    Buy: 20
     Locations:
       Costume_Head_Top: true
     ArmorLevel: 1
     EquipLevelMin: 1
+    Weight: 0
     View: 608
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
         bonus2 bExpAddClass,Class_All,20;
         bonus2 bDropAddClass,Class_All,10;
@@ -926,32 +1040,39 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 51
+    Trade:
+      NoDrop: true
+      NoSell: true
     Script: |
         bonus2 bAddMonsterDropItem,7139,100;
   - Id: 30104
     AegisName: C_Flying_Angel
     Name: Costume Flapping Angel Wings
     Type: Armor
+    Buy: 20
     Locations:
       Costume_Head_Top: true
     ArmorLevel: 1
     EquipLevelMin: 1
+    Weight: 10
     View: 264
     Script: |
-        bonus bAddMaxWeight,5000;
         bonus2 bExpAddClass,Class_All,20;
+        bonus2 bDropAddClass,Class_All,10;
   - Id: 30105
     AegisName: C_Satanic_Chain_P
     Name: Costume Flapping Evil Wings
     Type: Armor
+    Buy: 20
     Locations:
       Costume_Head_Top: true
     ArmorLevel: 1
     EquipLevelMin: 1
+    Weight: 10
     View: 382
     Script: |
-        bonus bAddMaxWeight,5000;
         bonus2 bExpAddClass,Class_All,20;
+        bonus2 bDropAddClass,Class_All,10;
   - Id: 30106
     AegisName: Kafra_Ring_3C
     Name: Kafra Ring - Third Class Avatar
@@ -972,6 +1093,9 @@ Body:
     Locations:
       Shadow_Right_Accessory: true
     EquipLevelMin: 60
+    Trade:
+      NoDrop: true
+      NoSell: true
     EquipScript: |
         setlook 13,1;
     UnEquipScript: |
@@ -995,6 +1119,44 @@ Body:
     View: 654
     Script: |
         bonus2 bExpAddClass,Class_All,10;
+  - Id: 30108
+    AegisName: C_Sunglasses_S
+    Name: Costume Sunglasses
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    View: 12
+    Script: |
+        bonus2 bAddMonsterDropItem,509,500;
+  - Id: 30109
+    AegisName: C_Cigarette_S
+    Name: Costume Cigarette
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    View: 54
+    Script: |
+        bonus2 bAddMonsterDropItem,970,100;
   - Id: 30111
     AegisName: Weight_100
     Name: Weight +100
@@ -1002,6 +1164,10 @@ Body:
     SubType: Enchant
     Buy: 20
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
     Script: |
         bonus bAddMaxWeight,1000;
   - Id: 30112
@@ -1011,6 +1177,10 @@ Body:
     SubType: Enchant
     Buy: 20
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
     Script: |
         bonus bAddMaxWeight,2000;
   - Id: 30113
@@ -1020,6 +1190,10 @@ Body:
     SubType: Enchant
     Buy: 20
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
     Script: |
         bonus bAddMaxWeight,3000;
   - Id: 30114
@@ -1029,6 +1203,10 @@ Body:
     SubType: Enchant
     Buy: 20
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
     Script: |
         bonus bAddMaxWeight,4000;
   - Id: 30115
@@ -1038,6 +1216,10 @@ Body:
     SubType: Enchant
     Buy: 20
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
     Script: |
         bonus bAddMaxWeight,5000;
   - Id: 30116
@@ -1047,6 +1229,10 @@ Body:
     SubType: Enchant
     Buy: 20
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
     Script: |
         bonus bAddMaxWeight,6000;
   - Id: 30117
@@ -1056,6 +1242,10 @@ Body:
     SubType: Enchant
     Buy: 20
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
     Script: |
         bonus bAddMaxWeight,7000;
   - Id: 30118
@@ -1065,6 +1255,10 @@ Body:
     SubType: Enchant
     Buy: 20
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
     Script: |
         bonus bAddMaxWeight,8000;
   - Id: 30119
@@ -1074,6 +1268,10 @@ Body:
     SubType: Enchant
     Buy: 20
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
     Script: |
         bonus bAddMaxWeight,9000;
   - Id: 30120
@@ -1083,6 +1281,10 @@ Body:
     SubType: Enchant
     Buy: 20
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
     Script: |
         bonus bAddMaxWeight,10000;
 
