@@ -1,0 +1,71 @@
+//== Training Ground NPC - Starter Package and Other Events ==
+//============================================================
+new_1-1,63,116,3	script	Reward Kafra	117,{
+	.@npcName$ = "[ Kafra Event Employee ]";
+	
+	mes .@npcName$;
+	mes "Currently, we are giving out a Solo Package and Headgear - Pecopeco Hairband.";
+	mes "If you had registered during the event duration, you can clain it here.";
+	next;
+	
+	if(select("Claim Reward:Cancel") == 2){
+		mes .@npcName$;
+		mes "Welcome to Overgeared Ragnarok Online.";
+		mes "I wish your adventures ahead to be an enjoyable experience.";
+		close;
+	}
+	
+	if(#claim_preregister == 1){
+		mes .@npcName$;
+		mes "I am sorry but we only gave reward once per account.";
+		close;
+	}
+	
+	.@acc_id = getcharid(3);
+	.@query_str$ = "select reg_date from cp_createlog where(account_id = " + .@acc_id + ")";
+	.@query_result_num = query_sql(.@query_str$, .@reg_date$);
+	
+	if(.@query_result_num == 0){
+		mes .@npcName$;
+		mes "I can't seem to check your registration date.";
+		mes "Did you somehow manage to get an account other than from the website?";
+		close;
+	}
+	
+	
+	if(compare(.@reg_date$, "2024") == 1){
+		.@month_registered = atoi(charat(.@reg_date$,5)+charat(.@reg_date$,6));
+		.@day_registered = atoi(charat(.@reg_date$,8)+charat(.@reg_date$,9));
+		
+		//if(.@month_registered > 4 || (.@month_registered == 4 && .@day_registered > 20)){
+		//	mes .@npcName$;
+		//	mes "I am sorry, but the date of your registration does not qualify for the reward.";
+		//	close;
+		//}
+		
+		mes .@npcName$;
+		mes "Welcome to Overgeared Ragnarok Online.";
+		mes "Your registration date is on " + .@month_registered + "/" + .@day_registered + "/2024";
+		mes "Here is you event reward.";
+		mes "I wish your adventures ahead to be an enjoyable experience.";
+		getitembound 5286,1,Bound_Account;
+		getitembound 14003,10,Bound_Account;
+		getitembound 12411,10,Bound_Account;
+		getitembound 12210,10,Bound_Account;
+		#claim_preregister = 1;
+		close;
+	}
+
+	mes .@npcName$;
+	mes "I am sorry, but the date of your registration does not qualify for the reward.";
+	close;
+
+OnInit:
+	waitingroom "Claim Pre-Register Reward Here", 0;
+	end;
+}
+
+new_2-1,63,116,3	duplicate(Reward Kafra)	Reward Kafra#new2	117
+new_3-1,63,116,3	duplicate(Reward Kafra)	Reward Kafra#new3	117
+new_4-1,63,116,3	duplicate(Reward Kafra)	Reward Kafra#new4	117
+new_5-1,63,116,3	duplicate(Reward Kafra)	Reward Kafra#new5	117
