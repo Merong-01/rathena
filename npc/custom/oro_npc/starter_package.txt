@@ -4,14 +4,27 @@ new_1-1,63,116,3	script	Reward Kafra	117,{
 	.@npcName$ = "[ Kafra Event Employee ]";
 	
 	mes .@npcName$;
-	mes "Currently, we are giving out a Solo Package and Headgear - Pecopeco Hairband.";
-	mes "If you had registered during the event duration, you can clain it here.";
+	mes "Currently, we are giving out some consumables and Headgear - Pecopeco Hairband as early registration reward.";
+	mes "And a Starter Weapon Box to ease leveling after you get a class.";
 	next;
 	
-	if(select("Claim Reward:Cancel") == 2){
+	.@sel = select("Claim Early Registration Reward:Starter Weapon Box:Cancel");
+	if(.@sel == 3){
 		mes .@npcName$;
 		mes "Welcome to Overgeared Ragnarok Online.";
 		mes "I wish your adventures ahead to be an enjoyable experience.";
+		close;
+	}
+	else if(.@sel == 2){
+		if(starter_weapon == 1){
+			mes .@npcName$;
+			mes "I am sorry but we only give one Starter Weapon Box per character.";
+			close;
+		}
+		mes .@npcName$;
+		mes "Here is you Starter Weapon Box.";
+		getitembound 30016,1,Bound_Char;
+		starter_weapon = 1;
 		close;
 	}
 	
@@ -61,7 +74,7 @@ new_1-1,63,116,3	script	Reward Kafra	117,{
 	close;
 
 OnInit:
-	waitingroom "Claim Pre-Register Reward Here", 0;
+	waitingroom "Claim Starter Package Here", 0;
 	end;
 }
 
