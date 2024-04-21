@@ -10,3 +10,48 @@ function	script	F_Item_ResetStats	{
 	}
 	return;
 }
+
+function	script	F_Starter_Weapon_Box	{
+	.@options$ = "Swordsman Set - Rapier and Tsurugi:";
+	.@options$ += "Archer Set - Composite Bow and Gakkung:";
+	.@options$ += "Thief Set - Stiletto and Damascus:";
+	.@options$ += "Merchant Set - Orcish Axe and Two-handed Axe:";
+	.@options$ += "Mage Set - Staff and Arc Wand:";
+	.@options$ += "Acolyte Set - Flail and Sword Mace";
+	
+	.@sel = prompt(.@options$);
+	switch(.@sel){
+		case 1:
+			getitem 30201,1;
+			getitem 30202,1;
+			break;
+		case 2:
+			getitem 30203,1;
+			getitem 30204,1;
+			break;
+		case 3:
+			getitem 30205,1;
+			getitem 30206,1;
+			break;
+		case 4:
+			getitem 30207,1;
+			getitem 30208,1;
+			break;
+		case 5:
+			getitem 30209,1;
+			getitem 30210,1;
+			break;
+		case 6:
+			getitem 30211,1;
+			getitem 30212,1;
+			break;
+		default:
+			return;
+			break;
+	}
+	
+	if(countitem(30016)){
+		delitem 30016, 1;
+	}
+	end;
+}

@@ -772,7 +772,7 @@ Body:
     AegisName: Siege_White_Potion_
     Name: WoE White Potion (GVG/PVP)
     Type: Healing
-    Weight: 100
+    Weight: 10
     Trade:
       NoDrop: true
       NoTrade: true
@@ -787,7 +787,7 @@ Body:
     AegisName: Siege_Blue_Potion_
     Name: WoE Blue Potion (GVG/PVP)
     Type: Healing
-    Weight: 100
+    Weight: 10
     Trade:
       NoDrop: true
       NoTrade: true
@@ -975,36 +975,37 @@ Body:
       NoMail: true
       NoAuction: true
     Script: |
-      if(BaseClass == Job_Swordman){
-        getitembound 1110,1,Bound_Char;
-        getitembound 1119,1,Bound_Char;
-        delitem 30016,1;
-      }
-      else if(BaseClass == Job_Archer){
-        getitembound 1704,1,Bound_Char;
-        getitembound 1714,1,Bound_Char;
-        delitem 30016,1;
-      }
-      else if(BaseClass == Job_Mage){
-        getitembound 1607,1,Bound_Char;
-        getitembound 1610,1,Bound_Char;
-        delitem 30016,1;
-      }
-      else if(BaseClass == Job_Acolyte){
-        getitembound 1607,1,Bound_Char;
-        getitembound 1522,1,Bound_Char;
-        delitem 30016,1;
-      }
-      else if(BaseClass == Job_Thief){
-        getitembound 1216,1,Bound_Char;
-        getitembound 1222,1,Bound_Char;
-        delitem 30016,1;
-      }
-      else if(BaseClass == Job_Merchant){
-        getitembound 1304,1,Bound_Char;
-        getitembound 1360,1,Bound_Char;
-        delitem 30016,1;
-      }
+      callfunc "F_Starter_Weapon_Box";
+#      if(BaseClass == Job_Swordman){
+#        getitembound 1110,1,Bound_Char;
+#        getitembound 1119,1,Bound_Char;
+#        delitem 30016,1;
+#      }
+#      else if(BaseClass == Job_Archer){
+#        getitembound 1704,1,Bound_Char;
+#        getitembound 1714,1,Bound_Char;
+#        delitem 30016,1;
+#      }
+#      else if(BaseClass == Job_Mage){
+#        getitembound 1607,1,Bound_Char;
+#        getitembound 1610,1,Bound_Char;
+#        delitem 30016,1;
+#      }
+#      else if(BaseClass == Job_Acolyte){
+#        getitembound 1607,1,Bound_Char;
+#        getitembound 1522,1,Bound_Char;
+#        delitem 30016,1;
+#      }
+#      else if(BaseClass == Job_Thief){
+#        getitembound 1216,1,Bound_Char;
+#        getitembound 1222,1,Bound_Char;
+#        delitem 30016,1;
+#      }
+#      else if(BaseClass == Job_Merchant){
+#        getitembound 1304,1,Bound_Char;
+#        getitembound 1360,1,Bound_Char;
+#        delitem 30016,1;
+#      }
   - Id: 19581
     AegisName: C_Brabery_Hat
     Name: Costume Adventurer's Hat
@@ -1334,136 +1335,414 @@ Body:
       NoSell: true
     Script: |
         bonus bAddMaxWeight,10000;
-#  - Id: 30201
-#    AegisName: Rapier_S
-#    Name: Rapier (Starter Weapon)
-#    Type: Weapon
-#    SubType: 1hSword
-#    Buy: 100
-#    Weight: 100
-#    Attack: 60
-#    Range: 1
-#    Slots: 2
-#    Jobs:
-#      Alchemist: true
-#      Assassin: true
-#      Blacksmith: true
-#      Crusader: true
-#      Knight: true
-#      Merchant: true
-#      Novice: true
-#      Rogue: true
-#      SuperNovice: true
-#      Swordman: true
-#      Thief: true
-#    Locations:
-#      Right_Hand: true
-#    WeaponLevel: 2
-#    EquipLevelMin: 12
-#    Refineable: true
-#  - Id: 30202
-#    AegisName: Tsurugi_S
-#    Name: Tsurugi (Starter Weapon)
-#    Type: Weapon
-#    SubType: 1hSword
-#    Buy: 100
-#    Weight: 240
-#    Attack: 110
-#    Range: 1
-#    Slots: 1
-#    Jobs:
-#      Alchemist: true
-#      Assassin: true
-#      Blacksmith: true
-#      Crusader: true
-#      Knight: true
-#      Merchant: true
-#      Rogue: true
-#      Swordman: true
-#      Thief: true
-#    Locations:
-#      Right_Hand: true
-#    WeaponLevel: 3
-#    EquipLevelMin: 25
-#    Refineable: true
-#  - Id: 30203
-#    AegisName: Composite_Bow_S
-#    Name: Composite Bow (Starter Weapon)
-#    Type: Weapon
-#    SubType: Bow
-#    Buy: 100
-#    Weight: 120
-#    Attack: 25
-#    Range: 5
-#    Slots: 3
-#    Jobs:
-#      Archer: true
-#      BardDancer: true
-#      Hunter: true
-#      Rogue: true
-#      Thief: true
-#    Locations:
-#      Both_Hand: true
-#    WeaponLevel: 1
-#    EquipLevelMin: 10
-#    Refineable: true
-#  - Id: 30204
-#    AegisName: Gakkung_S
-#    Name: Gakkung Bow (Starter Weapon)
-#    Type: Weapon
-#    SubType: Bow
-#    Buy: 100
-#    Weight: 220
-#    Attack: 80
-#    Range: 5
-#    Slots: 1
-#    Jobs:
-#      Archer: true
-#      BardDancer: true
-#      Hunter: true
-#      Rogue: true
-#      Thief: true
-#    Locations:
-#      Both_Hand: true
-#    WeaponLevel: 3
-#    EquipLevelMin: 25
-#    Refineable: true
-#  - Id: 30205
-#    AegisName: Stiletto_S
-#    Name: Stiletto (Starter Weapon)
-#    Type: Weapon
-#    SubType: Dagger
-#    Buy: 100
-#    Weight: 140
-#    Attack: 75
-#    Range: 1
-#    Slots: 2
-#    Jobs:
-#      Alchemist: true
-#      Archer: true
-#      Assassin: true
-#      BardDancer: true
-#      Blacksmith: true
-#      Crusader: true
-#      Hunter: true
-#      Knight: true
-#      Mage: true
-#      Merchant: true
-#      Ninja: true
-#      Novice: true
-#      Rogue: true
-#      Sage: true
-#      SoulLinker: true
-#      SuperNovice: true
-#      Swordman: true
-#      Thief: true
-#      Wizard: true
-#    Locations:
-#      Right_Hand: true
-#    WeaponLevel: 2
-#    EquipLevelMin: 12
-#    Refineable: true
-#
+  - Id: 30201
+    AegisName: Rapier_S
+    Name: Rapier (Starter Weapon)
+    Type: Weapon
+    SubType: 1hSword
+    Buy: 100
+    Weight: 100
+    Attack: 60
+    Range: 1
+    Slots: 2
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Novice: true
+      Rogue: true
+      SuperNovice: true
+      Swordman: true
+      Thief: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 2
+    EquipLevelMin: 12
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30202
+    AegisName: Tsurugi_S
+    Name: Tsurugi (Starter Weapon)
+    Type: Weapon
+    SubType: 1hSword
+    Buy: 100
+    Weight: 240
+    Attack: 110
+    Range: 1
+    Slots: 1
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Rogue: true
+      Swordman: true
+      Thief: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 25
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30203
+    AegisName: Composite_Bow_S
+    Name: Composite Bow (Starter Weapon)
+    Type: Weapon
+    SubType: Bow
+    Buy: 100
+    Weight: 120
+    Attack: 25
+    Range: 5
+    Slots: 3
+    Jobs:
+      Archer: true
+      BardDancer: true
+      Hunter: true
+      Rogue: true
+      Thief: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 1
+    EquipLevelMin: 10
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30204
+    AegisName: Gakkung_S
+    Name: Gakkung Bow (Starter Weapon)
+    Type: Weapon
+    SubType: Bow
+    Buy: 100
+    Weight: 220
+    Attack: 80
+    Range: 5
+    Slots: 1
+    Jobs:
+      Archer: true
+      BardDancer: true
+      Hunter: true
+      Rogue: true
+      Thief: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 25
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30205
+    AegisName: Stiletto_S
+    Name: Stiletto (Starter Weapon)
+    Type: Weapon
+    SubType: Dagger
+    Buy: 100
+    Weight: 140
+    Attack: 70
+    Range: 1
+    Slots: 2
+    Jobs:
+      Alchemist: true
+      Archer: true
+      Assassin: true
+      BardDancer: true
+      Blacksmith: true
+      Crusader: true
+      Hunter: true
+      Knight: true
+      Mage: true
+      Merchant: true
+      Ninja: true
+      Novice: true
+      Rogue: true
+      Sage: true
+      SoulLinker: true
+      SuperNovice: true
+      Swordman: true
+      Thief: true
+      Wizard: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 2
+    EquipLevelMin: 12
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30206
+    AegisName: Damascus_S
+    Name: Damascus (Starter Weapon)
+    Type: Weapon
+    SubType: Dagger
+    Buy: 100
+    Weight: 160
+    Attack: 105
+    Range: 1
+    Slots: 1
+    Jobs:
+      Alchemist: true
+      Archer: true
+      Assassin: true
+      BardDancer: true
+      Blacksmith: true
+      Crusader: true
+      Hunter: true
+      Knight: true
+      Mage: true
+      Merchant: true
+      Ninja: true
+      Rogue: true
+      Sage: true
+      SoulLinker: true
+      Swordman: true
+      Thief: true
+      Wizard: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 25
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30207
+    AegisName: Orchish_Axe_S
+    Name: Orcish Axe (Starter Weapon)
+    Type: Weapon
+    SubType: 1hAxe
+    Buy: 100
+    Weight: 300
+    Attack: 75
+    Range: 1
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Novice: true
+      Rogue: true
+      SuperNovice: true
+      Swordman: true
+      Thief: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 12
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30208
+    AegisName: Two_Handed_Axe_S
+    Name: Two-Handed Axe (Starter Weapon)
+    Type: Weapon
+    SubType: 2hAxe
+    Buy: 100
+    Weight: 500
+    Attack: 180
+    Range: 1
+    Slots: 1
+    Jobs:
+      Alchemist: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Swordman: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 25
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30209
+    AegisName: Staff_S
+    Name: Staff (Starter Weapon)
+    Type: Weapon
+    SubType: Staff
+    Buy: 100
+    Weight: 80
+    Attack: 40
+    Range: 1
+    Slots: 2
+    Jobs:
+      Acolyte: true
+      Mage: true
+      Monk: true
+      Priest: true
+      Sage: true
+      SoulLinker: true
+      Wizard: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 2
+    EquipLevelMin: 12
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bInt,1;
+      bonus bMatkRate,15;
+  - Id: 30210
+    AegisName: Arc_Wand_S
+    Name: Arc Wand (Starter Weapon)
+    Type: Weapon
+    SubType: Staff
+    Buy: 100
+    Weight: 80
+    Attack: 60
+    Range: 1
+    Slots: 1
+    Jobs:
+      Acolyte: true
+      Mage: true
+      Monk: true
+      Priest: true
+      Sage: true
+      SoulLinker: true
+      Wizard: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 25
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bInt,2;
+      bonus bMatkRate,15;
+  - Id: 30211
+    AegisName: Flail_S
+    Name: Flail (Starter Weapon)
+    Type: Weapon
+    SubType: Mace
+    Buy: 100
+    Weight: 180
+    Attack: 62
+    Range: 1
+    Slots: 2
+    Jobs:
+      Acolyte: true
+      Alchemist: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Monk: true
+      Priest: true
+      Swordman: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 2
+    EquipLevelMin: 12
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30212
+    AegisName: Sword_Mace_S
+    Name: Sword Mace (Starter Weapon)
+    Type: Weapon
+    SubType: Mace
+    Buy: 100
+    Weight: 240
+    Attack: 130
+    Range: 1
+    Jobs:
+      Acolyte: true
+      Alchemist: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Monk: true
+      Priest: true
+      Swordman: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 25
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+
 # THQ Quest Items
 #=============================================================
 #  - Id: 1998
