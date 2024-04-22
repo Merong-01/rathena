@@ -132,7 +132,8 @@ new_1-2,100,29,4	script	Receptionist#nv1	86,{
 			set nov_3_magician,0;
 			set nov_3_acolyte,0;
 			set nov_3_merchant,0;
-			switch(rand(6)) {
+			//switch(rand(6))
+			switch(7) {
 			case 0:
 				savepoint "prontera",273,354,1,1;
 				warp "prontera",273,354;
@@ -156,6 +157,10 @@ new_1-2,100,29,4	script	Receptionist#nv1	86,{
 			case 5:
 				savepoint "izlude",94,103,1,1;
 				warp "izlude",94,103;
+				break;
+			default:
+				savepoint "prontera",155,182,1,1;
+				warp "prontera",155,182;
 			}
 			end;
 		case 3:
@@ -1321,8 +1326,8 @@ new_1-2,118,108,3	script	Kafra Employee#nv1	117,{
 			case 1:
 				set .@dest$,"Prontera";
 				set .@mapn$,"prontera";
-				set .@saveX,117; set .@saveY,72;
-				set .@warpX,150; set .@warpY,50;
+				set .@saveX,155; set .@saveY,182;
+				set .@warpX,155; set .@warpY,182;
 				break;
 			case 2:
 				set .@dest$,"Morocc";
@@ -3767,10 +3772,11 @@ new_1-4,100,29,1	script	Hanson#nv	46,{
 			set nov_3_magician,0;
 			set nov_3_acolyte,0;
 			set nov_3_merchant,0;
-			set .@startmap,rand(1,6);
+			set .@startmap,1; //rand(1,6);
 			if ((.@startmap > 0) && (.@startmap < 2)) {
-				savepoint "prontera",117,72,1,1;
-				warp "prt_fild08",170,371;
+				savepoint "prontera",155,182,1,1;
+				//warp "prt_fild08",170,371;
+				warp "prontera",155,182;
 			}
 			else if ((.@startmap > 1) && (.@startmap < 3)) {
 				savepoint "geffen",119,37,1,1;
@@ -4268,7 +4274,7 @@ new_1-4,91,22,4	script	Bruce#nv	57,{
 					mes "please visit the official";
 					mes "Ragnarok Online website:";
 					mes " ";
-					mes "^0000FFiro.ragnarokonline.com^000000.";
+					mes "^0000FFprojectovergeared.com^000000.";
 					next;
 					mes "[Bruce]";
 					mes "Hanson is waiting";
