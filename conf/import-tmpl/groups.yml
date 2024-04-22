@@ -39,3 +39,15 @@
 Header:
   Type: PLAYER_GROUP_DB
   Version: 1
+
+Body:
+  - Id: 0
+    # group 0 is the default group for every new account
+    Name: Player
+    Level: 0
+    Commands:
+      commands: true
+      mobinfo: true
+      whereis: true
+      iteminfo: true
+      refresh: true
