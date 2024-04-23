@@ -389,6 +389,30 @@ Body:
       bonus2 bAddRace,RC_Player_Human,1;
       bonus2 bSubRace,RC_DemiHuman,1;
       bonus2 bSubRace,RC_Player_Human,1;
+  - Id: 5463
+    AegisName: Rainbow_Scarf
+    Name: Rainbow Scarf
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Defense: 1
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 90
+    View: 460
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bInt,1;
+      bonus bMdef,2;
+      bonus bMatkRate,1;
   - Id: 5481
     AegisName: Hermose_Cap
     Name: Hermode Cap

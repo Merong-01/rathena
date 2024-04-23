@@ -186,7 +186,7 @@ Body:
     AegisName: GOLDEN_BUG
     Name: Golden Thief Bug
     MvpDrops:
-      - Item: Spiked_Scarf
+      - Item: Rainbow_Scarf
         Rate: 100
   - Id: 1583
     AegisName: TAO_GUNKA

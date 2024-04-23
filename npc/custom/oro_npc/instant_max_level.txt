@@ -1,0 +1,158 @@
+//====== Custom NPC To Set PCs Level 99/50 ===================
+//============================================================
+new_4-4,91,22,5	script	Max Leveler	4_M_FROZEN1,20,20,{
+	.@npcName$ = "[ Max Level Secret NPC ]";
+	
+	if(.gm_nearby == 0){
+		setunitdata getnpcid(0),UNPC_HIT,1000;
+		npcskill 468,20,120,99;
+		end;
+	}
+	mes .@npcName$;
+	mes "Stranger...";
+	mes "What is your WISH?!";
+	next;
+	
+	if(select("Change my level to max level:What are talking about?") == 2){
+		mes .@npcName$;
+		mes "So...a lost lamb,";
+		mes "then you are not suppose to be here.";
+		mes "I advise for you to go away immediately before something bad happens to you.";
+		close;
+	}
+	
+	mes .@npcName$;
+	mes "Sure, but first...";
+	mes "Tell me the class you want to change to.";
+	next;
+	
+	if(Sex == 1){
+		.@bard_or_dancer$ = "Bard";
+	}
+	else {
+		.@bard_or_dancer$ = "Dancer";
+	}
+	.@class_options$ = "Knight:Hunter:Wizard:Priest:Assassin:Blacksmith:";
+	.@class_options$ += "Crusader:" + .@bard_or_dancer$ + ":Sage:Monk:Rogue:Alchemist";
+	.@class_selected = select(.@class_options$);
+	
+	if(Class == 0){
+		set JobLevel,10;
+	}
+	else{
+		resetskill();
+		set SkillPoint,0;
+	}
+	
+	switch(.@class_selected){
+		case 1:
+			jobchange Job_Swordman;
+			set BaseLevel,99;
+			set JobLevel,50;
+			jobchange Job_Knight;
+			set JobLevel,50;
+			break;
+		case 2:
+			jobchange Job_Archer;
+			set BaseLevel,99;
+			set JobLevel,50;
+			jobchange Job_Hunter;
+			set JobLevel,50;
+			break;
+		case 3:
+			jobchange Job_Mage;
+			set BaseLevel,99;
+			set JobLevel,50;
+			jobchange Job_Wizard;
+			set JobLevel,50;
+			break;
+		case 4:
+			jobchange Job_Acolyte;
+			set BaseLevel,99;
+			set JobLevel,50;
+			jobchange Job_Priest;
+			set JobLevel,50;
+			break;
+		case 5:
+			jobchange Job_Thief;
+			set BaseLevel,99;
+			set JobLevel,50;
+			jobchange Job_Assassin;
+			set JobLevel,50;
+			break;
+		case 6:
+			jobchange Job_Merchant;
+			set BaseLevel,99;
+			set JobLevel,50;
+			jobchange Job_Blacksmith;
+			set JobLevel,50;
+			break;
+		case 7:
+			jobchange Job_Swordman;
+			set BaseLevel,99;
+			set JobLevel,50;
+			jobchange Job_Crusader;
+			set JobLevel,50;
+			break;
+		case 8:
+			jobchange Job_Archer;
+			set BaseLevel,99;
+			set JobLevel,50;
+			if(Sex == 1){
+				jobchange Job_Bard;
+			}
+			else {
+				jobchange Job_Dancer;
+			}
+			set JobLevel,50;
+			break;
+		case 9:
+			jobchange Job_Mage;
+			set BaseLevel,99;
+			set JobLevel,50;
+			jobchange Job_Sage;
+			set JobLevel,50;
+			break;
+		case 10:
+			jobchange Job_Acolyte;
+			set BaseLevel,99;
+			set JobLevel,50;
+			jobchange Job_Monk;
+			set JobLevel,50;
+			break;
+		case 11:
+			jobchange Job_Thief;
+			set BaseLevel,99;
+			set JobLevel,50;
+			jobchange Job_Rogue;
+			set JobLevel,50;
+			break;
+		case 12:
+			jobchange Job_Merchant;
+			set BaseLevel,99;
+			set JobLevel,50;
+			jobchange Job_Alchemist;
+			set JobLevel,50;
+			break;
+		default:
+			jobchange (Job_Knight + .@class_selected - 1);
+			set BaseLevel,99;
+			break;
+	}
+	
+	mes .@npcName$;
+	mes "Zimzalabim!!!";
+	mes "You are now a Max Level " + jobname(Class);
+	percentheal 100,100;
+	close;
+	
+OnTouch:
+	if(getgmlevel() == 99){
+		.gm_nearby = 1;
+		.delay = gettimetick(1) + 10;//86400;
+	}
+	else if(.delay < gettimetick(1)){
+		.gm_nearby = 0;
+	}
+	end;
+}
