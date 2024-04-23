@@ -15261,10 +15261,10 @@ static int status_natural_heal(struct block_list* bl, va_list args)
 	}
 
 	int flag_heal = 1;
-	int temp_hp_rate = 0;
-	int temp_sp_rate = 0;
-	unsigned short temp_hp_regen = 0;
-	unsigned short temp_sp_regen = 0;
+	int temp_hp_rate = regen->rate.hp;
+	int temp_sp_rate = regen->rate.sp;
+	unsigned short temp_hp_regen = regen->hp;
+	unsigned short temp_sp_regen = regen->sp;
 
 	if (flag&(RGN_HP|RGN_SP)) {
 		if(!vd)
@@ -15277,13 +15277,6 @@ static int status_natural_heal(struct block_list* bl, va_list args)
 				temp_sp_regen = cap_value(status->max_sp / 20, 0, SHRT_MAX);
 				temp_sp_rate = 400;
 				flag_heal = 3;
-			}
-			else {
-				temp_hp_regen = regen->hp;
-				temp_hp_rate = regen->rate.hp;
-				temp_sp_regen = regen->sp;
-				temp_sp_rate = regen->rate.sp;
-				flag_heal = 1;
 			}
 			multi += 1; //This causes the interval to be halved
 		}
