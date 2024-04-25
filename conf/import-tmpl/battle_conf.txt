@@ -120,12 +120,12 @@ max_body_style: 1
 feature.achievement: off
 feature.refineui: off
 feature.equipswitch: off
-feature.homunculus_autofeed: off
+feature.homunculus_autofeed: on
 feature.attendance: off
 feature.privateairship: off
 feature.barter: off
 feature.barter_extended: off
-feature.mesitemlink: off
+feature.mesitemlink: on
 
 //battle/monster.conf
 mvp_hp_rate: 1000
@@ -149,6 +149,7 @@ mace_mastery_aspd_buff: yes
 spear_quicken_buff: yes
 auto_spell_buff: yes
 gvg_traps_target_all: 0
+skip_teleport_lv1_menu: yes
 
 //battle/items.conf
 broadcast_hide_name: 0
@@ -158,3 +159,7 @@ broadcast_hide_name: 0
 // If you want to change this value, clear the guild alliance table.
 // Default is 3
 max_guild_alliance: 0
+
+//battle/homunc.conf
+// Does autoloot work, when a monster is killed by homunculus only?
+homunculus_autoloot: no

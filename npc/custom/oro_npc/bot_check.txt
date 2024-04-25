@@ -13,7 +13,7 @@ OnHour21:
 	for(.@i = 0; .@i < .@count; .@i++){
 		.@char_id = convertpcinfo(.@account_id[.@i],CPC_CHAR);
 		.@char_name$ = convertpcinfo(.@char_id,CPC_NAME);
-		if(rand(3) != 1){
+		if(rand(2) == 0){
 			continue;
 		}
 		
@@ -28,7 +28,7 @@ OnHour21:
 		}
 		
 		announce "Bot Check will commence in 30 seconds, " + 
-			"prepare yourself for a simple logic math problem---Do not logout!!",
+			"prepare yourself for a simple math problem---Do not logout!!",
 			bc_self,0xF55607,FW_NORMAL,14,0,0,.@char_id;
 		
 		attachrid(.@account_id[.@i]);
@@ -108,6 +108,10 @@ function	script	fx_simple_bot_check	{
 	if(.@answer == .@cor_answer){
 		mes "I guess you are not a robot...yet";
 		close2;
+		specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,1800000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,1800000,10;
 		return;
 	}
 	else if(.@tries < 2){

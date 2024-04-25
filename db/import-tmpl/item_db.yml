@@ -1000,36 +1000,6 @@ Body:
       NoAuction: true
     Script: |
       callfunc "F_Starter_Weapon_Box";
-#      if(BaseClass == Job_Swordman){
-#        getitembound 1110,1,Bound_Char;
-#        getitembound 1119,1,Bound_Char;
-#        delitem 30016,1;
-#      }
-#      else if(BaseClass == Job_Archer){
-#        getitembound 1704,1,Bound_Char;
-#        getitembound 1714,1,Bound_Char;
-#        delitem 30016,1;
-#      }
-#      else if(BaseClass == Job_Mage){
-#        getitembound 1607,1,Bound_Char;
-#        getitembound 1610,1,Bound_Char;
-#        delitem 30016,1;
-#      }
-#      else if(BaseClass == Job_Acolyte){
-#        getitembound 1607,1,Bound_Char;
-#        getitembound 1522,1,Bound_Char;
-#        delitem 30016,1;
-#      }
-#      else if(BaseClass == Job_Thief){
-#        getitembound 1216,1,Bound_Char;
-#        getitembound 1222,1,Bound_Char;
-#        delitem 30016,1;
-#      }
-#      else if(BaseClass == Job_Merchant){
-#        getitembound 1304,1,Bound_Char;
-#        getitembound 1360,1,Bound_Char;
-#        delitem 30016,1;
-#      }
   - Id: 19581
     AegisName: C_Brabery_Hat
     Name: Costume Adventurer's Hat
@@ -1229,6 +1199,25 @@ Body:
     View: 54
     Script: |
         bonus2 bAddMonsterDropItem,970,100;
+  - Id: 30110
+    AegisName: C_Bubblegum_in_Mouth_S
+    Name: Costume Bubblegum-in-Mouth
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    View: 572
+    Script: |
+        bonus2 bExpAddClass,Class_All,10;
   - Id: 30111
     AegisName: Weight_100
     Name: Weight +100
