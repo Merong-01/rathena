@@ -51,3 +51,4 @@ Body:
       whereis: true
       iteminfo: true
       refresh: true
+      whodrops: true
