@@ -163,3 +163,14 @@ max_guild_alliance: 0
 //battle/homunc.conf
 // Does autoloot work, when a monster is killed by homunculus only?
 homunculus_autoloot: no
+
+
+//battle/misc.conf
+// Using duel on pvp-maps
+duel_allow_pvp: no
+
+// Using duel on gvg-maps
+duel_allow_gvg: no
+
+// Delay between using @duel in minutes
+duel_time_interval: 10
