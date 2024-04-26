@@ -1188,6 +1188,10 @@ int mob_spawn (struct mob_data *md)
 	if ( md->tomb_nid )
 		mvptomb_destroy(md);
 
+	if (md->get_bosstype() == BOSSTYPE_MVP) {
+		map_getmapdata(md->bl.m)->setMapFlag(MF_PVP,1);
+	}
+
 	if(map_addblock(&md->bl))
 		return 2;
 	if( map_getmapdata(md->bl.m)->users )
@@ -3114,7 +3118,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 				}
 			}
 		}
-
+		map_getmapdata(md->bl.m)->setMapFlag(MF_PVP,0);
 		//log_mvpdrop(mvp_sd, md->mob_id, log_mvp_nameid, log_mvp_exp);
 	}
 
