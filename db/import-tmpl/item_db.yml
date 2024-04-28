@@ -1755,6 +1755,84 @@ Body:
       NoGuildStorage: true
       NoMail: true
       NoAuction: true
+  - Id: 30220
+    AegisName: C_Akatsuki_Cape
+    Name: Costume Akatsuki Cape
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4000
+    Script: |
+        bonus bFlee,50;
+        bonus2 bExpAddClass,Class_All,10;
+  - Id: 30221
+    AegisName: C_Akatsuki_Hat
+    Name: Costume Akatsuki Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4001
+    Script: |
+        bonus bFlee,10;
+        bonus bCritical,20;
+        bonus2 bExpAddClass,Class_All,10;
+  - Id: 19910
+    AegisName: C_Halloween_Hat
+    Name: Costume Halloween Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    View: 1098
+  - Id: 20514
+    AegisName: C_Thanatos_Sword
+    Name: Costume Thanatos Sword
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 23
+  - Id: 31383
+    AegisName: C_Volume_Low_Twin
+    Name: Costume Volume Low Twin
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1683
+  - Id: 31797
+    AegisName: C_Shih_Tzu_Long
+    Name: Costume Shih Tzu Hair
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1921
+  - Id: 31827
+    AegisName: Durumagi
+    Name: Costume Durumagi
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1936
+  - Id: 480107
+    AegisName: C_Kings_Twin_Sword
+    Name: Costume Kings Twin Sword
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 104
 
 # THQ Quest Items
 #=============================================================
