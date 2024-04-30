@@ -4,18 +4,18 @@ new_1-1,63,116,3	script	Reward Kafra	117,{
 	.@npcName$ = "[ Kafra Event Employee ]";
 	
 	mes .@npcName$;
-	mes "Currently, we are giving out some consumables and Headgear - Pecopeco Hairband as early registration reward.";
-	mes "And a Starter Weapon Box to ease leveling after you get a class.";
+	mes "Currently, we are giving out free items to help novices and the like to start their adventures.";
+	mes "Some are only available for a limited time and some only 1 item per account or IP address.";
 	next;
 	
-	.@sel = select("Claim Early Registration Reward:Starter Weapon Box:Cancel");
-	if(.@sel == 3){
+	.@sel = select("Claim Early Registration Reward:All-in-One Ring and Mount:Starter Weapon Box:Cancel");
+	if(.@sel == 4){
 		mes .@npcName$;
 		mes "Welcome to Overgeared Ragnarok Online.";
 		mes "I wish your adventures ahead to be an enjoyable experience.";
 		close;
 	}
-	else if(.@sel == 2){
+	else if(.@sel == 3){
 		if(starter_weapon == 1){
 			mes .@npcName$;
 			mes "I am sorry but we only give one Starter Weapon Box per character.";
@@ -25,6 +25,25 @@ new_1-1,63,116,3	script	Reward Kafra	117,{
 		mes "Here is you Starter Weapon Box.";
 		getitembound 30016,1,Bound_Char;
 		starter_weapon = 1;
+		close;
+	}
+	else if(.@sel == 2){
+		if(#claim_preregister2 == 1){
+			mes .@npcName$;
+			mes "I am sorry but we only gave reward once per account.";
+			close;
+		}
+		if(getd("$CBTreward" + getcharip()) == 1){
+			mes .@npcName$;
+			mes "I am sorry but we only gave these items once per IP address.";
+			close;
+		}
+		mes .@npcName$;
+		mes "Here is you rental All-in-One Ring and rental Boarding Halter.";
+		rentitem 12622,604800;
+		rentitem 2741,604800;
+		setd "$CBTreward" + getcharip(), 1;
+		#claim_preregister2 = 1;
 		close;
 	}
 	
