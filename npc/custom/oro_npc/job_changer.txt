@@ -1,6 +1,6 @@
 //===== Custom Job Changer NPC ===============================
 //============================================================
-prontera,157,195,4	script	Job Changer	4_M_JOB_WIZARD,{
+prontera,157,196,4	script	Job Changer	4_M_JOB_WIZARD,{
 	set .@npcName$, "[ Job Changer ]";
 	setarray .@first_job$[0],"Swordsman","Archer","Magician","Acolyte","Thief","Merchant","Super Novice";
 	

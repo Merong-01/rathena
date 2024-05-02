@@ -1,21 +1,25 @@
 //====== Bot Check Script ====================================
 //============================================================
 -	script	Bot Check	-1,{
-OnHour00:
-OnHour03:
-OnHour06:
-OnHour09:
-OnHour12:
-OnHour15:
-OnHour18:
-OnHour21:
+OnInit:
+	.checkbot_delay = 0;
+	end;
+OnMinute01:
+OnMinute31:
+	if(.checkbot_delay < 2){
+		.checkbot_delay += 1;
+		end;
+	}
+	.checkbot_delay = 0;
+	
 	.@count = getunits(BL_PC,.@account_id[0]);
 	for(.@i = 0; .@i < .@count; .@i++){
 		.@char_id = convertpcinfo(.@account_id[.@i],CPC_CHAR);
 		.@char_name$ = convertpcinfo(.@char_id,CPC_NAME);
-		if(rand(2) == 0){
-			continue;
-		}
+		
+		//if(rand(2) == 0){
+		//	continue;
+		//}
 		
 		if(checkidle(.@char_name$) > 60){
 			//dispbottom "You are in idle.",0,.@char_id;

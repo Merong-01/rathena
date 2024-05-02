@@ -1,8 +1,8 @@
 //====== Custom E.Elu and E.Ori Trader =======================
 //============================================================
-prontera,141,180,5	duplicate(Suhnbi#cash)	Suhnbi#prt	85
+prontera,139,183,5	duplicate(Suhnbi#cash)	Suhnbi#prt	85
 
-prontera,144,183,5	script	Enriched Ore Trader	4_M_DWARF,{
+prontera,143,179,5	script	Enriched Ore Trader	4_M_DWARF,{
 	.@npc_name$ = "[Enriched Ore Trader]";
 	
 	mes .@npc_name$;
