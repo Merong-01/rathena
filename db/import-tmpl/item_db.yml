@@ -89,6 +89,16 @@ Header:
   Version: 3
 
 Body:
+  - Id: 9069
+    AegisName: Mastering_Egg
+    Name: Mastering Egg
+    Type: Petegg
+    Buy: 20
+  - Id: 9088
+    AegisName: Angeling_Egg
+    Name: Angeling Egg
+    Type: Petegg
+    Buy: 20
   - Id: 5286
     AegisName: Pecopeco_Hairband
     Name: Pecopeco Hairband
@@ -1781,6 +1791,60 @@ Body:
         bonus bFlee,10;
         bonus bCritical,20;
         bonus2 bExpAddClass,Class_All,10;
+  - Id: 30222
+    AegisName: C_Demon_Slayer_M1
+    Name: Cosplay Demon Slayer (Model 1)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4002
+  - Id: 30223
+    AegisName: C_Demon_Slayer_M2
+    Name: Cosplay Demon Slayer (Model 2)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4003
+  - Id: 30224
+    AegisName: C_Demon_Slayer_M3
+    Name: Cosplay Demon Slayer (Model 3)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4004
+  - Id: 30225
+    AegisName: C_Demon_Slayer_M4
+    Name: Cosplay Demon Slayer (Model 4)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4005
+  - Id: 30226
+    AegisName: C_Demon_Slayer_M5
+    Name: Cosplay Demon Slayer (Model 5)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4006
+  - Id: 30227
+    AegisName: C_Demon_Slayer_M6
+    Name: Cosplay Demon Slayer (Model 6)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4007
   - Id: 19910
     AegisName: C_Halloween_Hat
     Name: Costume Halloween Hat
@@ -1798,6 +1862,22 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 23
+  - Id: 20586
+    AegisName: C_Loli_Ruri_Moon
+    Name: "Costume: Loli Ruri's Crescent"
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 64
+  - Id: 20590
+    AegisName: C_Evil_Druid_Cross
+    Name: Costume Evil Druid Cross
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 67
   - Id: 31383
     AegisName: C_Volume_Low_Twin
     Name: Costume Volume Low Twin
@@ -1807,6 +1887,15 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 1683
+  - Id: 31672
+    AegisName: C_Mermaid_Wig
+    Name: C Mermaid Wig
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1866
   - Id: 31797
     AegisName: C_Shih_Tzu_Long
     Name: Costume Shih Tzu Hair

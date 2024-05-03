@@ -17,7 +17,7 @@
 //= 3.0 Migrate/Integrate to Global Functions. [mazvi]
 //============================================================
 
-prontera,154,196,5	script	Platinum Skill NPC	94,{
+prontera,154,196,5	script	Platinum Skill NPC	117,{
 	mes "[Platinum Skill NPC]";
 	mes "I can give you the special skills available to your job.";
 	mes "No quest required, only a small payment of 10 cash points.";
