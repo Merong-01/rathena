@@ -64,45 +64,45 @@ Body:
             Amount: 10
           - Item: Unripe_Apple
             Amount: 3
-  - Mob: MASTERING
-    EggItem: Mastering_Egg
-    FoodItem: Pet_Food
-    Fullness: 2
-    HungryDelay: 120
-    IntimacyFed: 15
-    CaptureRate: 0
-    SpecialPerformance: false
-    AllowAutoFeed: true
-    Script: >
-      .@i = getpetinfo(PETINFO_INTIMATE);
-      
-      if (.@i == PET_INTIMATE_AWKWARD || .@i == PET_INTIMATE_SHY) {
-         bonus bCritical,1;
-         bonus bLuk,2;
-      }
-      else if (.@i == PET_INTIMATE_NEUTRAL) {
-         bonus bCritical,1;
-         bonus bLuk,3;
-      }
-      else if (.@i == PET_INTIMATE_CORDIAL) {
-         bonus bCritical,2;
-         bonus bLuk,3;
-      }
-      else if (.@i == PET_INTIMATE_LOYAL) {
-         bonus bCritical,3;
-         bonus bLuk,3;
-      }
-    Evolution:
-      - Target: ANGELING
-        ItemRequirements:
-          - Item: Yellow_Potion
-            Amount: 20
-          - Item: Spirit_Chain
-            Amount: 1
-          - Item: White_Herb
-            Amount: 50
-          - Item: Jellopy
-            Amount: 200
+#  - Mob: MASTERING
+#    EggItem: Mastering_Egg
+#    FoodItem: Pet_Food
+#    Fullness: 2
+#    HungryDelay: 120
+#    IntimacyFed: 15
+#    CaptureRate: 0
+#    SpecialPerformance: false
+#    AllowAutoFeed: true
+#    Script: >
+#      .@i = getpetinfo(PETINFO_INTIMATE);
+#      
+#      if (.@i == PET_INTIMATE_AWKWARD || .@i == PET_INTIMATE_SHY) {
+#         bonus bCritical,1;
+#         bonus bLuk,2;
+#      }
+#      else if (.@i == PET_INTIMATE_NEUTRAL) {
+#         bonus bCritical,1;
+#         bonus bLuk,3;
+#      }
+#      else if (.@i == PET_INTIMATE_CORDIAL) {
+#         bonus bCritical,2;
+#         bonus bLuk,3;
+#      }
+#      else if (.@i == PET_INTIMATE_LOYAL) {
+#         bonus bCritical,3;
+#         bonus bLuk,3;
+#      }
+#    Evolution:
+#      - Target: ANGELING
+#        ItemRequirements:
+#          - Item: Yellow_Potion
+#            Amount: 20
+#          - Item: Spirit_Chain
+#            Amount: 1
+#          - Item: White_Herb
+#            Amount: 50
+#          - Item: Jellopy
+#            Amount: 200
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
@@ -273,7 +273,7 @@ Body:
 #    SupportScript: >
 #      petskillattack2 "NPC_DARKNESSATTACK",1776,4,0,5;
   - Mob: BON_GUN
-  AllowAutoFeed: true
+    AllowAutoFeed: true
 #    AttackRate: 600
 #    RetaliateRate: 200
 #    ChangeTargetRate: 400
@@ -464,180 +464,180 @@ Body:
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: E_CRAMP
-    AllowAutoFeed: true
+#  - Mob: E_CRAMP
+#    AllowAutoFeed: true
 #    AttackRate: 350
 #    RetaliateRate: 400
 #    ChangeTargetRate: 800
-  - Mob: E_HYDRA
-    AllowAutoFeed: true
+#  - Mob: E_HYDRA
+#    AllowAutoFeed: true
 #    AttackRate: 350
 #    RetaliateRate: 400
 #    ChangeTargetRate: 800
-  - Mob: J_TAINI
-    AllowAutoFeed: true
+#  - Mob: J_TAINI
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: XMAS_LUNATIC
-    AllowAutoFeed: true
+#  - Mob: XMAS_LUNATIC
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: TIKBALANG
-    AllowAutoFeed: true
+#  - Mob: TIKBALANG
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: MARIN
-    AllowAutoFeed: true
+#  - Mob: MARIN
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: LITTLE_PORING
-    AllowAutoFeed: true
+#  - Mob: LITTLE_PORING
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: NINE_TAIL
-    AllowAutoFeed: true
+#  - Mob: NINE_TAIL
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: GREMLIN
-    AllowAutoFeed: true
+#  - Mob: GREMLIN
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: MUMMY
-    AllowAutoFeed: true
+#  - Mob: MUMMY
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: TEDDY_BEAR
-    AllowAutoFeed: true
+#  - Mob: TEDDY_BEAR
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
 
-  - Mob: METALLER
-    AllowAutoFeed: true
+#  - Mob: METALLER
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: ANGELING
-    EggItem: Angeling_Egg
-    FoodItem: Pet_Food
-    Fullness: 1
-    HungryDelay: 120
-    IntimacyFed: 15
-    CaptureRate: 0
-    SpecialPerformance: false
-    AllowAutoFeed: true
-    Script: >
-      .@i = getpetinfo(PETINFO_INTIMATE);
-      
-      if (.@i == PET_INTIMATE_AWKWARD || .@i == PET_INTIMATE_SHY) {
-         bonus bMaxHPrate,1;
-         bonus bHealPower,2;
-      }
-      else if (.@i == PET_INTIMATE_NEUTRAL) {
-         bonus bMaxHPrate,1;
-         bonus bHealPower,4;
-      }
-      else if (.@i == PET_INTIMATE_CORDIAL) {
-         bonus bMaxHPrate,2;
-         bonus bHealPower,6;
-      }
-      else if (.@i == PET_INTIMATE_LOYAL) {
-         bonus bMaxHPrate,2;
-         bonus bHealPower,8;
-      }
+#  - Mob: ANGELING
+#    EggItem: Angeling_Egg
+#    FoodItem: Pet_Food
+#    Fullness: 1
+#    HungryDelay: 120
+#    IntimacyFed: 15
+#    CaptureRate: 0
+#    SpecialPerformance: false
+#    AllowAutoFeed: true
+#    Script: >
+#      .@i = getpetinfo(PETINFO_INTIMATE);
+#      
+#      if (.@i == PET_INTIMATE_AWKWARD || .@i == PET_INTIMATE_SHY) {
+#         bonus bMaxHPrate,1;
+#         bonus bHealPower,2;
+#      }
+#      else if (.@i == PET_INTIMATE_NEUTRAL) {
+#         bonus bMaxHPrate,1;
+#         bonus bHealPower,4;
+#      }
+#      else if (.@i == PET_INTIMATE_CORDIAL) {
+#         bonus bMaxHPrate,2;
+#         bonus bHealPower,6;
+#      }
+#      else if (.@i == PET_INTIMATE_LOYAL) {
+#         bonus bMaxHPrate,2;
+#         bonus bHealPower,8;
+#      }
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: MOONLIGHT
-    AllowAutoFeed: true
+#  - Mob: MOONLIGHT
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: SAVAGE
-    AllowAutoFeed: true
+#  - Mob: SAVAGE
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: HIGH_ORC
-    AllowAutoFeed: true
+#  - Mob: HIGH_ORC
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: CHOCO
-    AllowAutoFeed: true
+#  - Mob: CHOCO
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: ANCIENT_MUMMY
-    AllowAutoFeed: true
+#  - Mob: ANCIENT_MUMMY
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: AM_MUT
-    AllowAutoFeed: true
+#  - Mob: AM_MUT
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: CAT_O_NINE_TAIL
-    AllowAutoFeed: true
+#  - Mob: CAT_O_NINE_TAIL
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: GRAND_PECO
-    AllowAutoFeed: true
+#  - Mob: GRAND_PECO
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: HYEGUN
-    AllowAutoFeed: true
+#  - Mob: HYEGUN
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: HODREMLIN
-    AllowAutoFeed: true
+#  - Mob: HODREMLIN
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: XM_TEDDY_BEAR
-    AllowAutoFeed: true
+#  - Mob: XM_TEDDY_BEAR
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: DR_EGGRING
-    AllowAutoFeed: true
+#  - Mob: DR_EGGRING
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: DR_LUNATIC
-    AllowAutoFeed: true
+#  - Mob: DR_LUNATIC
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: LITTLE_ISIS
-    AllowAutoFeed: true
+#  - Mob: LITTLE_ISIS
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: DIABOLIC2
-    AllowAutoFeed: true
+#  - Mob: DIABOLIC2
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: DELETER_2
-    AllowAutoFeed: true
+#  - Mob: DELETER_2
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
-  - Mob: SWEETS_DROPS
-    AllowAutoFeed: true
+#  - Mob: SWEETS_DROPS
+#    AllowAutoFeed: true
 #    AttackRate: 300
 #    RetaliateRate: 300
 #    ChangeTargetRate: 800
