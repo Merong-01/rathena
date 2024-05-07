@@ -1,0 +1,203 @@
+//======== Costum Reward Manager =============================
+//============================================================
+prontera,147,174,5	script	Reward Manager	4_DR_PEPE,{
+function mainRewardManager;
+function processSGB;
+function addSGBRecipient;
+function viewSGBRecipient;
+function deleteSGBRecipient;
+
+	//process start here when npc is clicked
+	mes "[ Reward Manager ]";
+	mes "Here you can claim rewards from the events you had participated.";
+	mes "You can also redeem ";
+	mes mesitemlink(30008) + " from here.";
+	next;
+	
+	if(select("Redeem Streamer Gift Box:Cancel") == 2){
+		mes "[ Reward Manager ]";
+		mes "Thanks for visiting.";
+		close;
+	}
+	
+	.@acc_id = convertpcinfo(strcharinfo(0),CPC_ACCOUNT);
+	if(getd("$SGB" + .@acc_id) > 0){
+		if(checkweight(30008, getd("$SGB" + .@acc_id)) == 0){
+			mes "[ Reward Manager ]";
+			mes "Please make sure your not overweight first before you claim you rewards.";
+			close;
+		}
+		
+		getitem 30008, getd("$SGB" + .@acc_id);
+		setd "$SGB" + .@acc_id, 0;
+		$SGBrewardlist_count -= 1;
+		
+		mes "[ Reward Manager ]";
+		mes "Here are your " + mesitemlink(30008);
+		mes "Thank you for visiting.";
+		close;
+	}
+	
+	mes "[ Reward Manager ]";
+	mes "I am sorry, but you don't have unclaimed ";
+	mes mesitemlink(30008) + " in this account.";
+	close;
+
+
+	function mainRewardManager {
+		mes "Which type of reward you want to view?";
+		next;
+		
+		if(select("Streamer Gift Box:Cancel") == 2){
+			mes "Reward Manager is closing.";
+			close;
+		}
+		
+		.@ret = processSGB();
+		if(.@ret == -1){
+			mainRewardManager;
+		}
+		
+		return 0;
+	}
+	
+	function processSGB {
+		.@rewardname$ = "[Streamer Gift Box]";
+		
+		do {
+			mes .@rewardname$;
+			mes "There are currently " + $SGBrewardlist_count + " unclaimed rewards.";
+			next;
+			
+			.@sel = prompt("Add Reward Recipient:View Unclaimed Recipient:Delete Reward Recipient:Cancel");
+			if(.@sel == 255){
+				return 0;
+			}
+			switch(.@sel){
+				case 1: .@ret = addSGBRecipient();
+					break;
+				case 2: .@ret = viewSGBRecipient();
+					break;
+				case 3: .@ret = deleteSGBRecipient();
+					break;
+				case 4: return -1;
+					break;
+				default:
+					mes "Invalid selection";
+					.@ret = -1;
+					break;
+			}
+			clear;
+		}while(.@ret == 0);
+		
+		return 0;
+	}
+	
+	function addSGBRecipient {
+		.@rewardname$ = "[Streamer Gift Box]";
+		
+		mes .@rewardname$;
+		mes "Enter the username of the recipient:";
+		input .@username$;
+		
+		.@ret = query_sql("select account_id from login where (userid = '" + .@username$ + "')", .@account_id);
+		if(.@ret == 1){
+			clear;
+			//mes .@rewardname$;
+			mes "How many " + mesitemlink(30008) + " will you reward to this account?";
+			mes "(Enter 0 to cancel)";
+			input .@item_num;
+			
+			if(.@item_num == 0){
+				clear;
+				mes .@rewardname$;
+				mes "No item was added as a reward to the recipient.";
+				next;
+				return 0;
+			}
+			
+			setd "$SGB" + .@account_id[0], getd("$SGB" + .@account_id[0]) + .@item_num;
+			$SGBrewardlist_count += 1;
+			
+			clear;
+			mes .@rewardname$;
+			mes "Successfully added " + .@item_num + " ";
+			mes mesitemlink(30008) + " to [ " + .@username$ + " ]";
+			next;
+		}
+		else {
+			mes "Invalid username";
+			next;
+		}
+		return 0;
+	}
+	
+	function viewSGBRecipient {
+		.@rewardname$ = "[Streamer Gift Box]";
+		
+		.@ret = query_sql("select account_id, userid from login", .@account_id, .@username$);
+		if(.@ret == 0){
+			mes .@rewardname$;
+			mes "Failed to retrieve fromm DB.";
+			next;
+			return 0;
+		}
+		
+		mes .@rewardname$;
+		for(.@i = 0; .@i < .@ret; .@i++){
+			if(getd("$SGB" + .@account_id[.@i]) == 0){
+				continue;
+			}
+			mes "~[ " + .@username$[.@i] + " ] ------ " + getd("$SGB" + .@account_id[.@i]);
+			.@recipient_count += 1;
+		}
+		
+		if($SGBrewardlist_count != .@recipient_count){
+			mes "Warning: local count is " + .@recipient_count + " while global count is " + $SGBrewardlist_count;
+			$SGBrewardlist_count = .@recipient_count;
+		}
+		next;
+		
+		return 0;
+	}
+	
+	function deleteSGBRecipient {
+		.@rewardname$ = "[Streamer Gift Box]";
+		
+		mes .@rewardname$;
+		mes "Enter the username of the recipient you want to delete:";
+		input .@username$;
+		
+		.@ret = query_sql("select account_id from login where (userid = '" + .@username$ + "')", .@account_id);
+		
+		if(.@ret == 1){
+			if(getd("$SGB" + .@account_id[0]) == 0){
+				clear;
+				mes .@rewardname$;
+				mes "Recipient has no unclaimed " + mesitemlink(30008);
+				next;
+				return 0;
+			}
+			
+			setd "$SGB" + .@account_id[0], 0;
+			$SGBrewardlist_count -= 1;
+			clear;
+			mes .@rewardname$;
+			mes "Successfully deleted unclaimed " + mesitemlink(30008) + " from recipient.";
+			next;
+		}
+		else {
+			mes "Invalid username";
+			next;
+		}
+		
+		return 0;
+	}
+
+OnInit:
+	bindatcmd("rewardmanager",strnpcinfo(0)+"::OnCommand",99,99);
+	end;
+OnCommand:
+	mainRewardManager;
+	end;
+}

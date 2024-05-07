@@ -52,6 +52,8 @@ Body:
       iteminfo: true
       refresh: true
       whodrops: true
+      hominfo: true
+      homstats: true
       duel: true
       invite: true
       accept: true

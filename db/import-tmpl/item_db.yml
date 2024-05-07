@@ -89,16 +89,16 @@ Header:
   Version: 3
 
 Body:
-  - Id: 9069
-    AegisName: Mastering_Egg
-    Name: Mastering Egg
-    Type: Petegg
-    Buy: 20
-  - Id: 9088
-    AegisName: Angeling_Egg
-    Name: Angeling Egg
-    Type: Petegg
-    Buy: 20
+#  - Id: 9069
+#    AegisName: Mastering_Egg
+#    Name: Mastering Egg
+#    Type: Petegg
+#    Buy: 20
+#  - Id: 9088
+#    AegisName: Angeling_Egg
+#    Name: Angeling Egg
+#    Type: Petegg
+#    Buy: 20
   - Id: 5286
     AegisName: Pecopeco_Hairband
     Name: Pecopeco Hairband
@@ -1845,6 +1845,98 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 4007
+  - Id: 30228
+    AegisName: C_Hokage_Hat
+    Name: Costume Hokage Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4008
+  - Id: 30229
+    AegisName: C_Tobi_Mask
+    Name: Costume Tobi Mask
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4009
+  - Id: 30230
+    AegisName: C_Leaf_Headband
+    Name: Costume Leaf Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4010
+  - Id: 30231
+    AegisName: C_Grass_Headband
+    Name: Costume Grass Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4011
+  - Id: 30232
+    AegisName: C_Cloud_Headband
+    Name: Costume Cloud Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4012
+  - Id: 30233
+    AegisName: C_Sand_Headband
+    Name: Costume Sand Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4013
+  - Id: 30234
+    AegisName: C_Rock_Headband
+    Name: Costume Rock Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4014
+  - Id: 30235
+    AegisName: C_Waterfall_Headband
+    Name: Costume Waterfall Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4015
+  - Id: 30236
+    AegisName: C_Mist_Headband
+    Name: Costume Mist Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4016
+  - Id: 30237
+    AegisName: C_Sound_Headband
+    Name: Costume Sound Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4017
   - Id: 19910
     AegisName: C_Halloween_Hat
     Name: Costume Halloween Hat
@@ -1864,7 +1956,7 @@ Body:
     View: 23
   - Id: 20586
     AegisName: C_Loli_Ruri_Moon
-    Name: "Costume: Loli Ruri's Crescent"
+    Name: Costume Loli Ruri's Crescent
     Type: Armor
     Locations:
       Costume_Garment: true

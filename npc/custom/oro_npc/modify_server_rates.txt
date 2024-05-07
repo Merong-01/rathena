@@ -1,4 +1,4 @@
-//======== Modify Server Rate On The Flye ====================
+//======== Modify Server Rate On The Fly =====================
 //============================================================
 -	script	Server Rate Controller	-1,{
 OnInit:
