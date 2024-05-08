@@ -146,7 +146,7 @@ katar_mastery_crit_bonus: yes
 venom_splasher_renewal_setting: yes
 spear_mastery_aspd_buff: yes
 mace_mastery_aspd_buff: yes
-spear_quicken_buff: yes
+spear_quicken_buff: no
 auto_spell_buff: yes
 gvg_traps_target_all: 0
 skip_teleport_lv1_menu: yes
@@ -163,7 +163,6 @@ max_guild_alliance: 0
 //battle/homunc.conf
 // Does autoloot work, when a monster is killed by homunculus only?
 homunculus_autoloot: no
-
 
 //battle/misc.conf
 // Using duel on pvp-maps

@@ -181,3 +181,13 @@ Body:
           Amount: 100
         - Level: 10
           Amount: 100
+  - Id: 141
+    Name: AS_SPLASHER
+    Description: Venom Splasher
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      NoDamage: true
+      IgnoreAtkCard: false
+      IgnoreFlee: true

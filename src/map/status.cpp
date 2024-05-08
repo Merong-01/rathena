@@ -4472,7 +4472,7 @@ int status_calc_pc_sub(map_session_data* sd, uint8 opt)
 		(sd->status.weapon == W_1HSPEAR || sd->status.weapon == W_2HSPEAR) &&
 		battle_config.kn_spearMasteryAspdBuff == 1)
 	{
-		base_status->aspd_rate -= 20 * skill;
+		base_status->aspd_rate -= 10 * skill;
 	}
 	if ((skill = pc_checkskill(sd, PR_MACEMASTERY)) > 0 &&
 		sd->status.weapon == W_MACE &&
