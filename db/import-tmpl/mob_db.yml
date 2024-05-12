@@ -80,6 +80,12 @@ Header:
   Version: 3
 
 Body:
+  - Id: 1115
+    AegisName: EDDGA
+    Name: Eddga
+    MvpDrops:
+      - Item: Smoking_Pipe
+        Rate: 100
   - Id: 1150
     AegisName: MOONLIGHT
     Name: Moonlight Flower

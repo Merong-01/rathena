@@ -5231,8 +5231,8 @@ Body:
     Drops:
       - Item: Fire_Brand
         Rate: 150
-      - Item: Smoking_Pipe
-        Rate: 250
+#      - Item: Smoking_Pipe
+#        Rate: 250
       - Item: Honey
         Rate: 10000
       - Item: Katar_Of_Raging_Blaze
