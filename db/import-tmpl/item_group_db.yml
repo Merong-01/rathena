@@ -122,31 +122,40 @@ Body:
         List:
           - Index: 0
             Item: Elite_Siege_Supply_Box
-            Rate: 200
+            Rate: 100
             Amount: 2
+            Bound: Account
+            Announced: true
           - Index: 1
             Item: Elite_Siege_Supply_Box_
-            Rate: 200
+            Rate: 100
             Amount: 3
+            Bound: Account
+            Announced: true
           - Index: 2
             Item: Megaphone_
-            Rate: 200
+            Rate: 100
             Amount: 5
+            Bound: Account
+            Announced: true
 #          - Index: 3
 #            Item: F_Megaphone_Box
 #            Rate: 100
           - Index: 4
             Item: Neuralizer_Box
-            Rate: 20
+            Rate: 5
             Amount: 1
+            Announced: true
           - Index: 5
             Item: Premium_Reset_Stone
-            Rate: 20
+            Rate: 5
             Amount: 1
+            Announced: true
           - Index: 6
             Item: VIP_1Day_Coin
-            Rate: 50
+            Rate: 10
             Amount: 1
+            Announced: true
 #          - Index: 7
 #            Item: VIP_30Day_Card
 #            Rate: 20
@@ -155,40 +164,51 @@ Body:
 #            Rate: 100
           - Index: 9
             Item: F_Kafra_Card_Box
-            Rate: 200
+            Rate: 100
             Amount: 1
+            Bound: Account
+            Announced: true
           - Index: 10
             Item: Bubble_Gum
-            Rate: 200
+            Rate: 100
             Amount: 2
+            Bound: Account
+            Announced: true
 #          - Index: 11
 #            Item: Bubble_Gum_Box
 #            Rate: 50
           - Index: 12
             Item: HE_Battle_Manual
-            Rate: 200
+            Rate: 100
             Amount: 1
+            Bound: Account
+            Announced: true
 #          - Index: 13
 #            Item: HE_Battle_Manual_Box
 #            Rate: 50
           - Index: 14
             Item: Max_Weight_Up_Scroll
-            Rate: 50
+            Rate: 10
             Amount: 1
+            Announced: true
 #          - Index: 15
 #            Item: Max_Weight_Up_Box
 #            Rate: 10
           - Index: 16
             Item: Job_Manual50
-            Rate: 200
+            Rate: 100
             Amount: 2
+            Bound: Account
+            Announced: true
 #          - Index: 17
 #            Item: Job_Manual50_Box
 #            Rate: 50
           - Index: 18
             Item: Vending_Search_Scroll2
-            Rate: 200
+            Rate: 100
             Amount: 5
+            Bound: Account
+            Announced: true
 #          - Index: 19
 #            Item: Universal_Catalog_Gold_Box10
 #            Rate: 50
@@ -203,20 +223,25 @@ Body:
 #            Rate: 20
           - Index: 23
             Item: Cloth_Dye_Coupon_ORO
-            Rate: 20
+            Rate: 10
             Amount: 1
+            Announced: true
           - Index: 24
             Item: New_Hairstyle_Coupon_ORO
-            Rate: 20
+            Rate: 10
             Amount: 1
+            Announced: true
           - Index: 25
             Item: New_Hair_Dye_Coupon_ORO
-            Rate: 20
+            Rate: 10
             Amount: 1
+            Announced: true
           - Index: 26
             Item: Convex_Mirror
-            Rate: 200
+            Rate: 100
             Amount: 3
+            Bound: Account
+            Announced: true
 #          - Index: 27
 #            Item: Convex_Mirror_Box30
 #            Rate: 50
@@ -224,19 +249,28 @@ Body:
             Item: Greed_Box50
             Rate: 100
             Amount: 1
+            Bound: Account
+            Announced: true
           - Index: 29
             Item: Light_Center_Pot_Box
-            Rate: 200
+            Rate: 100
             Amount: 1
+            Bound: Account
+            Announced: true
           - Index: 30
             Item: Light_Awakening_Pot_Box
-            Rate: 200
+            Rate: 100
             Amount: 1
+            Bound: Account
+            Announced: true
           - Index: 31
             Item: Light_Berserk_Pot_Box
-            Rate: 200
+            Rate: 100
             Amount: 1
+            Bound: Account
+            Announced: true
           - Index: 32
             Item: C_Engineer_Cap_S
             Rate: 1
             Amount: 1
+            Announced: true

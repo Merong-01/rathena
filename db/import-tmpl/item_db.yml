@@ -534,6 +534,22 @@ Body:
       else {
          bonus3 bAutoSpellWhenHit,"AL_HEAL",5,20;
       }
+  - Id: 5967
+    AegisName: FlyingGalapago
+    Name: Flying Galapago
+    Type: Armor
+    Weight: 500
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 110
+    View: 1358
+    Script: |
+      set .@bblvl,max(getskilllv("HT_BLITZBEAT"),1);
+      set .@luk,min(readparam(bLuk),120);
+      bonus bAgi,1;
+      bonus3 bAutoSpell,"HT_BLITZBEAT",.@bblvl,50 + (.@luk / 3) + (.@bblvl * 2);
+      bonus2 bSkillAtk,"HT_BLITZBEAT",getskilllv("HT_STEELCROW") * 40;
   - Id: 18539
     AegisName: Skull_Cap
     Name: Skull Cap
@@ -742,6 +758,15 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 67
+  - Id: 20349
+    AegisName: C_FlyingGalapago
+    Name: Costume Flying Galapago
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1358
   - Id: 20462
     AegisName: C_Cat_Ears_Cape
     Name: Costume Cat Ears Cape
@@ -891,7 +916,7 @@ Body:
       NoMail: true
       NoAuction: true
     Script: |
-      getrandgroupitem IG_CASH_EGG_SCROLL, 0, 1;
+      getgroupitem IG_CASH_EGG_SCROLL,1;
   - Id: 30008
     AegisName: Streamer_Gift_Box
     Name: Streamer Gift Box
@@ -1954,6 +1979,15 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 23
+  - Id: 20517
+    AegisName: C_GiantCatBag_TW
+    Name: Costume Giant Cat Bag
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 25
   - Id: 20586
     AegisName: C_Loli_Ruri_Moon
     Name: Costume Loli Ruri's Crescent
@@ -1970,6 +2004,15 @@ Body:
       Costume_Garment: true
     ArmorLevel: 1
     View: 67
+  - Id: 20598
+    AegisName: C_GiantCatBag_JP_BL
+    Name: Costume Giant Cat Bag Black
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 80
   - Id: 31383
     AegisName: C_Volume_Low_Twin
     Name: Costume Volume Low Twin
@@ -2006,6 +2049,14 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 1936
+  - Id: 480071
+    AegisName: Calabash
+    Name: Costume Vial
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 82
   - Id: 480107
     AegisName: C_Kings_Twin_Sword
     Name: Costume Kings Twin Sword

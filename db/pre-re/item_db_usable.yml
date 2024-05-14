@@ -20674,6 +20674,11 @@ Body:
     Type: Usable
     Buy: 800
     Weight: 20
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
     Script: |
       sc_start SC_ASPDPOTION0,1800000,0;
   - Id: 14510
@@ -20682,6 +20687,11 @@ Body:
     Type: Usable
     Buy: 1500
     Weight: 20
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
     Jobs:
       Alchemist: true
       Archer: true
@@ -20714,6 +20724,11 @@ Body:
     Type: Usable
     Buy: 3000
     Weight: 20
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
     Jobs:
       Alchemist: true
       Blacksmith: true

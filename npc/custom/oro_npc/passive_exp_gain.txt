@@ -1,0 +1,59 @@
+//====== Passive Experiece Gain ==============================
+//============================================================
+-	script	Passive Experiece	-1,{
+OnInit:
+	.passiveexptime = 1200000;
+	end;
+OnPCLoginEvent:
+	if(BaseLevel < 60){
+		end;
+	}
+	if(BaseLevel == 99){
+		end;
+	}
+	startpassiveexp = gettimetick(2);
+	addtimer .passiveexptime - prevpassiveexptick, strnpcinfo(0) + "::OnPassiveExpGain";
+	end;
+OnPCLogoutEvent:
+	if(BaseLevel < 60){
+		end;
+	}
+	if(BaseLevel == 99){
+		end;
+	}
+	prevpassiveexptick = (gettimetick(2) - startpassiveexp) * 1000;
+	end;
+OnPCBaseLvUpEvent:
+	if(BaseLevel == 60){
+		deltimer strnpcinfo(0) + "::OnPassiveExpGain";
+		startpassiveexp = gettimetick(2);
+		addtimer .passiveexptime - prevpassiveexptick, strnpcinfo(0) + "::OnPassiveExpGain";
+	}
+	end;
+OnPassiveExpGain:
+	if(BaseLevel < 60){
+		//nothing happens
+		startpassiveexp = 0;
+		prevpassiveexptick = 0;
+		end;
+	}
+	else if(BaseLevel < 70){
+		dispbottom "Gained Passive Experiece: 500,000", 0xffff00;
+		getexp 500000, 0;
+	}
+	else if(BaseLevel < 80){
+		dispbottom "Gained Passive Experiece: 1,000,000", 0xffff00;
+		getexp 1000000, 0;
+	}
+	else if(BaseLevel < 90){
+		dispbottom "Gained Passive Experiece: 2,000,000", 0xffff00;
+		getexp 2000000, 0;
+	}
+	else if(BaseLevel < 100){
+		dispbottom "Gained Passive Experiece: 3,000,000", 0xffff00;
+		getexp 3000000, 0;
+	}
+	startpassiveexp = gettimetick(2);
+	addtimer .passiveexptime, strnpcinfo(0) + "::OnPassiveExpGain";
+	end;
+}
