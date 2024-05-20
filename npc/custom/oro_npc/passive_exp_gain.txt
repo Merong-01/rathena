@@ -1,4 +1,4 @@
-//====== Passive Experiece Gain ==============================
+//====== Passive Experience Gain ==============================
 //============================================================
 -	script	Passive Experiece	-1,{
 OnInit:
@@ -38,20 +38,20 @@ OnPassiveExpGain:
 		end;
 	}
 	else if(BaseLevel < 70){
-		dispbottom "Gained Passive Experiece: 500,000", 0xffff00;
-		getexp 500000, 0;
+		dispbottom "Gained Passive Experience", 0xffff00;
+		getexp 250000, 0;
 	}
 	else if(BaseLevel < 80){
-		dispbottom "Gained Passive Experiece: 1,000,000", 0xffff00;
-		getexp 1000000, 0;
+		dispbottom "Gained Passive Experience", 0xffff00;
+		getexp 500000, 0;
 	}
 	else if(BaseLevel < 90){
-		dispbottom "Gained Passive Experiece: 2,000,000", 0xffff00;
-		getexp 2000000, 0;
+		dispbottom "Gained Passive Experience", 0xffff00;
+		getexp 1000000, 0;
 	}
 	else if(BaseLevel < 100){
-		dispbottom "Gained Passive Experiece: 3,000,000", 0xffff00;
-		getexp 3000000, 0;
+		dispbottom "Gained Passive Experience", 0xffff00;
+		getexp 2000000, 0;
 	}
 	startpassiveexp = gettimetick(2);
 	addtimer .passiveexptime, strnpcinfo(0) + "::OnPassiveExpGain";

@@ -97,10 +97,24 @@ function deleteSGBRecipient;
 		.@rewardname$ = "[Streamer Gift Box]";
 		
 		mes .@rewardname$;
-		mes "Enter the username of the recipient:";
-		input .@username$;
+		mes "Chose the input type.";
+		next;
 		
-		.@ret = query_sql("select account_id from login where (userid = '" + .@username$ + "')", .@account_id);
+		if(select("Username:Player Name") == 2){
+			mes .@rewardname$;
+			mes "Enter the player name of the recipient:";
+			input .@charname$;
+			
+			.@ret = query_sql("select account_id from rathena.char where (name = '" + .@charname$ + "')", .@account_id);
+		}
+		else {
+			mes .@rewardname$;
+			mes "Enter the username of the recipient:";
+			input .@username$;
+		
+			.@ret = query_sql("select account_id from login where (userid = '" + .@username$ + "')", .@account_id);
+		}
+		
 		if(.@ret == 1){
 			clear;
 			//mes .@rewardname$;
@@ -115,18 +129,20 @@ function deleteSGBRecipient;
 				next;
 				return 0;
 			}
+			if(getd("$SGB" + .@account_id[.@i]) == 0){
+				$SGBrewardlist_count += 1;
+			}
 			
 			setd "$SGB" + .@account_id[0], getd("$SGB" + .@account_id[0]) + .@item_num;
-			$SGBrewardlist_count += 1;
 			
 			clear;
 			mes .@rewardname$;
 			mes "Successfully added " + .@item_num + " ";
-			mes mesitemlink(30008) + " to [ " + .@username$ + " ]";
+			mes mesitemlink(30008) + " to recipient.";
 			next;
 		}
 		else {
-			mes "Invalid username";
+			mes "Invalid username/player name";
 			next;
 		}
 		return 0;
