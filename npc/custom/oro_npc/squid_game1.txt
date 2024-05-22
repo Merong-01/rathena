@@ -9,7 +9,7 @@
 	mes "I did not expect for someone to arrive here actually.";
 	mes "But I guess you surpass expectations.";
 	mes "Congratulations! Here is your reward.";
-	getitem "RED_POTION",10;
+	//getitem "RED_POTION",10;
 	close2;
 	@glasstile_p = 4;
 	warp "1@tnm1",92,23;
@@ -17,14 +17,14 @@ end;
 OnTouch:
 	if(@glasstile_p == 0){
 		@glasstile_p = 1;
-		getitem "RED_POTION",1;
+		//getitem "RED_POTION",1;
 		npctalk "Good job for arriving here safely, but this is only the first part!";
 		donpcevent "::OnSGPillarEffect";
 	}
 	
 	if(strnpcinfo(0) == "Team Leader" && @glasstile_p == 1){
 		@glasstile_p = 2;
-		getitem "RED_POTION",2;
+		//getitem "RED_POTION",2;
 		npctalk "Impressive! There is only the last part left.";
 		donpcevent "::OnSGPillarEffect";
 	}
@@ -42,6 +42,9 @@ end;
 1@tnm1,96,20,0	script	01_gc_01::GameCell	139,0,0,{
 end;
 OnTouch:
+	if(getgmlevel()){
+		end;
+	}
 	if(@tilecount > 2){
 		donpcevent "::OnSGPillarEffect";
 		@tilecount = 0;
@@ -49,14 +52,21 @@ OnTouch:
 	@tilecount += 1;
 	
 	if(getd("$@" + strnpcinfo(0) + "flag") == 1){
-		mapannounce "1@tnm1",strcharinfo(0) + ", you stepped on trap. You will be sent back.",bc_map;
-		percentheal -30,0;
-		sc_start SC_CRITICALWOUND, 600000, 0, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF;
-		sc_start SC_BLEEDING, 10000, 0, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF|SCSTART_NOICON;
+		if(@gtiletrapped){
+			mapannounce "1@tnm1", strcharinfo(0) + ", you stepped on a trap, twice. You're out!", bc_map;
+			percentheal -100,0;
+			@gtiletrapped = 0;
+			end;
+		}
+		mapannounce "1@tnm1",strcharinfo(0) + ", you stepped on a trap. You will be sent back.",bc_map;
+		percentheal -99,0;
+		sc_start SC_CRITICALWOUND, 600000, 5, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF;
+		sc_start SC_POISON, 600000, 0, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF;
 		specialeffect2 EF_HIT3;
 		specialeffect2 EF_CRITICALWOUND;
+		@gtiletrapped = 1;
 		warp "1@tnm1",92,23;
-		sleep 500;
+		sleep 300;
 		donpcevent "::OnSGPillarEffect";
 	}
 	else {

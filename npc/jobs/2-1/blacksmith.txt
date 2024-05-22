@@ -42,7 +42,6 @@
 //= 2.8 Removed the need for use of 'goto.' [L0ne_W0lf]
 //= 2.9 Updated with some extra conditions. [Euphy]
 //==============================================================
-
 ein_in01,18,28,4	script	Guildsman#BLS	731,{
 	if (Upper == 1) {
 		mes "[Altiregen]";
@@ -1603,6 +1602,16 @@ geffen_in,109,170,3	script	Blacksmith Guildsman#gef	726,{
 	mes "I thank you for coming this far to visit our guild. However, I regret to inform you that Blacksmith Guild has been";
 	mes "moved to ^3131FF'Einbroch' in the Schwarzwald Republic^000000.";
 	next;
+	if(Class == Job_Merchant && JobLevel >= 40){
+		mes "[Blacksmith Guildsman]";
+		mes "I can see that you are eligible for job change.";
+		mes "If you want, I can warp you there directly.";
+		next;
+		if(select("Teleport to Einbroch:Cancel") == 1){
+			warp "einbroch", 255, 109;
+			end;
+		}
+	}
 	mes "[Blacksmith Guildsman]";
 	mes "You can travel to Schwarzwald Republic by using the airship.";
 	mes "I can provide you a teleport service to Izlude, where you can use the airship.";

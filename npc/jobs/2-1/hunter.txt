@@ -62,6 +62,16 @@ in_hunter,99,99,4	script	Hunter Info#hnt::HntNotice	727,{
 	mes "We would like to inform that the Hunter Job Change Location";
 	mes "has been moved to ^ff0000Hugel^000000 in the Schwarzwald Republic.";
 	next;
+	if(Class == Job_Archer && JobLevel >= 40){
+		mes "I can warp applicants there directly.";
+		mes "Do you want me to warp you now?";
+		next;
+		
+		if(select("Warp to Hugel:Cancel") == 1){
+			warp "hugel", 208, 222;
+			end;
+		}
+	}
 	mes "You can now use the Hugel airline, so please use the airship to visit Hugel.";
 	next;
 	mes "You will find the new Job Change Location at ^ff0000 Hugel 208 222 ^000000.";
