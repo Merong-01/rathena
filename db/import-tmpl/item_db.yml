@@ -1383,6 +1383,24 @@ Body:
       NoSell: true
     Script: |
         bonus bAddMaxWeight,10000;
+  - Id: 30121
+    AegisName: C_Blue_Beret_S
+    Name: Costume Blue Beret
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 652
+  - Id: 30122
+    AegisName: C_Red_Beret_S
+    Name: Costume Red Beret
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 559
   - Id: 30201
     AegisName: Rapier_S
     Name: Rapier (Starter Weapon)
