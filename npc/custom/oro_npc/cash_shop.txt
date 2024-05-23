@@ -1,11 +1,11 @@
 //=== Modified Cash Shop NPC =================================
 //============================================================
-prontera,149,191,5	cashshop	Cash Shop	116, 30007:30 // oro egg scroll
+prontera,149,191,5	cashshop	Cash Shop	116, 14003:4 //30007:30 // oro egg scroll
 
 -	script	kafra cash shop	-1,{
 
 OnInit:
-	npcshopadditem "Cash Shop", 14003, 4; // ESSB 
+	//npcshopadditem "Cash Shop", 14003, 4; // ESSB 
 	npcshopadditem "Cash Shop", 30001, 2; // ESSB (PVP)
 	npcshopadditem "Cash Shop", 12221, 1; // megaphone
 	npcshopadditem "Cash Shop", 14175, 8; // megaphone box 10
@@ -32,6 +32,7 @@ OnInit:
 	npcshopadditem "Cash Shop", 7776, 50; // gym pass
 	npcshopadditem "Cash Shop", 13710, 400; // gym pass box 10
 	
+	npcshopadditem "Cash Shop", 17159, 200; // change name coupon box
 	npcshopadditem "Cash Shop", 30009, 100; // hairstyle coupon
 	npcshopadditem "Cash Shop", 30010, 100; // hair dye coupon
 	npcshopadditem "Cash Shop", 30011, 100; // clothing dye coupon

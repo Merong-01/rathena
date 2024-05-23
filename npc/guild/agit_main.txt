@@ -172,7 +172,8 @@ OnRecvCastle:
 	if (strnpcinfo(0) == "Gld_Agit_Manager") end;
 	// Spawn Monsters if the castle is empty.
 	set .@GID, GetCastleData(strnpcinfo(2),CD_GUILD_ID);
-	if (.@GID == 0) {
+	set .@disableCastleMob, 1;
+	if (.@GID == 0 && .@disableCastleMob != 1) {
 		killmonsterall strnpcinfo(2);
 		if (compare(strnpcinfo(2),"aldeg")) {
 			// Normal Spawns

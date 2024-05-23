@@ -644,6 +644,38 @@ Body:
     Type: Usable
     Delay:
       Duration: 180000
+  - Id: 12790
+    AegisName: Change_Name_Card
+    Name: Character Name Change Coupon
+    Type: Usable
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      CharRename++;
+  - Id: 17159
+    AegisName: Change_Name_Card_Box
+    Name: Name Change Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getitem 12790,1;
   - Id: 13810
     AegisName: Light_Blue_Pot_Box
     Name: Light Blue Potion Box
@@ -758,6 +790,45 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 67
+  - Id: 19294
+    AegisName: C_CatEars_Cyber_HeadP_R
+    Name: Costume Cyber Cat Ear Headphones (Red)
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    View: 1668
+    Script: |
+        bonus2 bExpAddClass,Class_All,10;
+        bonus2 bDropAddClass,Class_All,5; 
+  - Id: 20314
+    AegisName: C_New_Wave_Sunglass
+    Name: Costume New Wave Sunglasses
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    View: 856
+    Script: |
+        bonus2 bExpAddClass,Class_All,10;
+        bonus2 bDropAddClass,Class_All,5; 
   - Id: 20349
     AegisName: C_FlyingGalapago
     Name: Costume Flying Galapago
@@ -1401,6 +1472,18 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 559
+  - Id: 30123
+    AegisName: C_Gigantic_Majestic_Goat_S
+    Name: Costume Gigantic Majestic Goat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 50
+    View: 513
+    Script: |
+        bonus2 bExpAddClass,Class_All,15;
+        bonus2 bDropAddClass,Class_All,5;        
   - Id: 30201
     AegisName: Rapier_S
     Name: Rapier (Starter Weapon)

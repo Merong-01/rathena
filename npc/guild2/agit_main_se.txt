@@ -24,8 +24,9 @@
 -	script	Manager#template	-1,{
 OnAgitInit2:
 OnRecvCastle2:
+	set .@disableCastleMob, 1;
 	if (strnpcinfo(2) == "template") end;
-	if (!getcastledata(strnpcinfo(2),CD_GUILD_ID)) {
+	if (!getcastledata(strnpcinfo(2),CD_GUILD_ID) && .@disableCastleMob != 1) {
 		donpcevent strnpcinfo(0)+"::OnStart";
 		// Monster spawns are identical for all castles.
 		monster strnpcinfo(2),0,0,"Evil Druid",1117,10;
