@@ -105,7 +105,7 @@ function deleteSGBRecipient;
 			mes "Enter the player name of the recipient:";
 			input .@charname$;
 			
-			.@ret = query_sql("select account_id from rathena.char where (name = '" + .@charname$ + "')", .@account_id);
+			.@ret = query_sql("select account_id from ragnaserver.char where (name = '" + .@charname$ + "')", .@account_id);
 		}
 		else {
 			mes .@rewardname$;

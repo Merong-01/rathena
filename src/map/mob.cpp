@@ -2964,11 +2964,11 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 
 		if (mvp_sd != sd && (mvp_sd->status.party_id == 0 || mvp_sd->status.party_id != sd->status.party_id)) {
 			if (sd_pdata == NULL) {
-				sprintf(mvp_message, "Solo Player [ %s ], kill-stealed MVP %s frome another player.",
+				sprintf(mvp_message, "Solo Player [ %s ], kill-stealed MVP %s frome another player",
 					sd->status.name, md->name);
 			}
 			else {
-				sprintf(mvp_message, "Player [ %s ] of Party [ %s ], kill-stealed MVP %s from another party.",
+				sprintf(mvp_message, "Player [ %s ] of Party [ %s ], kill-stealed MVP [ %s ]",
 					sd->status.name, sd_pdata->party.name, md->name);
 			}
 			intif_broadcast(mvp_message, strlen(mvp_message) + 1, BC_DEFAULT);
