@@ -12,7 +12,7 @@
 	//getitem "RED_POTION",10;
 	close2;
 	@glasstile_p = 4;
-	warp "1@tnm1",92,23;
+	//warp "1@tnm1",92,23;
 end;	
 OnTouch:
 	if(@glasstile_p == 0){
