@@ -29,46 +29,90 @@ function viewGengWar;
 		close;
 	}
 	else if(.@sel == 3){
-		if(#GengWarWin == 0){
+		if(countitem(30121) == 0 && countitem(30122) == 0){
 			mes "[ Reward Manager ]";
-			mes "You don't have unclaimed GengWar Prize";
-		}
-		else {
-			.@item_count = 4 * #GengWarWin;
-			if(checkweight(12411,.@item_count,12210,.@item_count,12211,.@item_count,12221,.@item_count) == 0){
-				mes "[ Reward Manager ]";
-				mes "Please make sure your not overweight first before you claim you rewards.";
-				close;
-			}
-			getitem 12411,.@item_count;
-			getitem 12210,.@item_count;
-			getitem 12211,.@item_count;
-			getitem 12221,.@item_count;
-			#GengWarWin = 0;
-			mes "[ Reward Manager ]";
-			mes "Here are your prizes.";
-		}
-		
-		if(#GengWarLost == 0){
+			mes "To claim your prize for GengWar, ";
+			mes "the blue or red beret that was given to you for the event ";
+			mes "should be in your inventory as proof for participating.";
+			mes "Please come back when you have them.";
 			close;
 		}
-		else {
-			next;
-			.@item_count = 2 * #GengWarLost;
-			if(checkweight(12411,.@item_count,12210,.@item_count,12211,.@item_count,12221,.@item_count) == 0){
-				mes "[ Reward Manager ]";
-				mes "Please make sure your not overweight first before you claim you items.";
-				close;
-			}
-			getitem 12411,.@item_count;
-			getitem 12210,.@item_count;
-			getitem 12211,.@item_count;
-			getitem 12221,.@item_count;
-			#GengWarLost = 0;
+		if(#GengWar_1 > 0){
 			mes "[ Reward Manager ]";
-			mes "Here are your consolation prizes.";
+			mes "Your can claim prize for this event only once per account.";
 			close;
 		}
+		if(checkweight(12411,10,12210,10,12211,10,12221,10) == 0){
+			mes "[ Reward Manager ]";
+			mes "Please make sure your not overweight first before you claim you items.";
+			close;
+		}
+		if(countitem(30121) > 0){
+			delitem 30121, 1;
+			getitembound 30121, 1, Bound_Account;
+			getitem 12411,5;
+			getitem 12210,5;
+			getitem 12211,5;
+			getitem 12221,5;
+			#GengWar_1 = 1;
+			mes "[ Reward Manager ]";
+			mes "I see you have " + mesitemlink(30121);
+			mes "Here are your consolation prize as a member of the losing team.";
+			close;
+		}
+		else if(countitem(30122) > 0){
+			delitem 30122, 1;
+			getitembound 30122, 1, Bound_Account;
+			getitem 12411,10;
+			getitem 12210,10;
+			getitem 12211,10;
+			getitem 12221,10;
+			#GengWar_1 = 1;
+			mes "[ Reward Manager ]";
+			mes "I see you have " + mesitemlink(30122);
+			mes "Here are your prize as a member of the winning team.";
+			close;
+		}
+//		if(#GengWarWin == 0){
+//			mes "[ Reward Manager ]";
+//			mes "You don't have unclaimed GengWar Prize";
+//		}
+//		else {
+//			.@item_count = 4 * #GengWarWin;
+//			if(checkweight(12411,.@item_count,12210,.@item_count,12211,.@item_count,12221,.@item_count) == 0){
+//				mes "[ Reward Manager ]";
+//				mes "Please make sure your not overweight first before you claim you rewards.";
+//				close;
+//			}
+//			getitem 12411,.@item_count;
+//			getitem 12210,.@item_count;
+//			getitem 12211,.@item_count;
+//			getitem 12221,.@item_count;
+//			#GengWarWin = 0;
+//			mes "[ Reward Manager ]";
+//			mes "Here are your prizes.";
+//		}
+//		
+//		if(#GengWarLost == 0){
+//			close;
+//		}
+//		else {
+//			next;
+//			.@item_count = 2 * #GengWarLost;
+//			if(checkweight(12411,.@item_count,12210,.@item_count,12211,.@item_count,12221,.@item_count) == 0){
+//				mes "[ Reward Manager ]";
+//				mes "Please make sure your not overweight first before you claim you items.";
+//				close;
+//			}
+//			getitem 12411,.@item_count;
+//			getitem 12210,.@item_count;
+//			getitem 12211,.@item_count;
+//			getitem 12221,.@item_count;
+//			#GengWarLost = 0;
+//			mes "[ Reward Manager ]";
+//			mes "Here are your consolation prizes.";
+//			close;
+//		}
 	}
 	else if(.@sel == 2){
 		if(#discord_register == 0){
@@ -124,8 +168,8 @@ function viewGengWar;
 				break;
 			case 2: .@ret = processDiscordRew();
 				break;
-			case 3: .@ret = processGengWar();
-				break;
+			case 3: //.@ret = processGengWar();
+				//break;
 			case 4: 
 				mes "Reward Manager is closing.";
 				close;
