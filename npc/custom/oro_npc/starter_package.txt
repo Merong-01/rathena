@@ -40,8 +40,10 @@ new_1-1,63,116,3	script	Reward Kafra	117,{
 		}
 		mes .@npcName$;
 		mes "Here is you rental All-in-One Ring and rental Boarding Halter.";
-		rentitem 12622,604800;
-		rentitem 2741,604800;
+		//rentitem 12622,604800;
+		//rentitem 2741,604800;
+		getitem 17162,1;
+		getitem 13953,1;
 		setd "$CBTreward" + getcharip(), 1;
 		#claim_preregister2 = 1;
 		close;

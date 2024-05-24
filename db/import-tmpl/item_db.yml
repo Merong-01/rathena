@@ -736,6 +736,42 @@ Body:
     UnEquipScript: |
       if (ismounting())
          setmounting();
+  - Id: 17162
+    AegisName: Boarding_Halter_Box7
+    Name: Boarding Halter Box7
+    Type: Cash
+    Weight: 10
+    Flags:
+      Container: true
+      UniqueId: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      rentitem 12622,604800;
+  - Id: 13953
+    AegisName: All_In_One_Ring_Box
+    Name: All In One Ring Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      rentitem 2741,604800;
   - Id: 19699
     AegisName: C_Gf_Recruiter_Hat
     Name: Costume Gf Recruiter Hat

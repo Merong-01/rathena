@@ -6,6 +6,14 @@ function processSGB;
 function addSGBRecipient;
 function viewSGBRecipient;
 function deleteSGBRecipient;
+function processDiscordRew;
+function addDiscordRec;
+function viewDiscordRec;
+function deleteDiscordRec;
+function processGengWar;
+function addGengWarWinner;
+function addGengWarLoser;
+function viewGengWar;
 
 	//process start here when npc is clicked
 	mes "[ Reward Manager ]";
@@ -14,9 +22,71 @@ function deleteSGBRecipient;
 	mes mesitemlink(30008) + " from here.";
 	next;
 	
-	if(select("Redeem Streamer Gift Box:Cancel") == 2){
+	.@sel = select("Redeem Streamer Gift Box:Discord Membership Reward:GengWar Prize:Cancel");
+	if(.@sel == 4){
 		mes "[ Reward Manager ]";
 		mes "Thanks for visiting.";
+		close;
+	}
+	else if(.@sel == 3){
+		if(#GengWarWin == 0){
+			mes "[ Reward Manager ]";
+			mes "You don't have unclaimed GengWar Prize";
+		}
+		else {
+			.@item_count = 4 * #GengWarWin;
+			if(checkweight(12411,.@item_count,12210,.@item_count,12211,.@item_count,12221,.@item_count) == 0){
+				mes "[ Reward Manager ]";
+				mes "Please make sure your not overweight first before you claim you rewards.";
+				close;
+			}
+			getitem 12411,.@item_count;
+			getitem 12210,.@item_count;
+			getitem 12211,.@item_count;
+			getitem 12221,.@item_count;
+			#GengWarWin = 0;
+			mes "[ Reward Manager ]";
+			mes "Here are your prizes.";
+		}
+		
+		if(#GengWarLost == 0){
+			close;
+		}
+		else {
+			next;
+			.@item_count = 2 * #GengWarLost;
+			if(checkweight(12411,.@item_count,12210,.@item_count,12211,.@item_count,12221,.@item_count) == 0){
+				mes "[ Reward Manager ]";
+				mes "Please make sure your not overweight first before you claim you items.";
+				close;
+			}
+			getitem 12411,.@item_count;
+			getitem 12210,.@item_count;
+			getitem 12211,.@item_count;
+			getitem 12221,.@item_count;
+			#GengWarLost = 0;
+			mes "[ Reward Manager ]";
+			mes "Here are your consolation prizes.";
+			close;
+		}
+	}
+	else if(.@sel == 2){
+		if(#discord_register == 0){
+			mes "[ Reward Manager ]";
+			mes "You don't have unclaimed discord related reward.";
+			close;
+		}
+		if(checkweight(30110,1) == 0){
+			mes "[ Reward Manager ]";
+			mes "Please make sure your not overweight first before you claim you rewards.";
+			close;
+		}
+		getitem 30110,1;
+		#discord_register = 0;
+		mes "[ Reward Manager ]";
+		mes "Here is your";
+		mes mesitemlink(30110);
+		mes "Thank you for visiting.";
 		close;
 	}
 	
@@ -48,12 +118,22 @@ function deleteSGBRecipient;
 		mes "Which type of reward you want to view?";
 		next;
 		
-		if(select("Streamer Gift Box:Cancel") == 2){
-			mes "Reward Manager is closing.";
-			close;
+		.@sel = select("Streamer Gift Box:Discord Membership Reward:GengWar Prize:Cancel");
+		switch(.@sel){
+			case 1: .@ret = processSGB();
+				break;
+			case 2: .@ret = processDiscordRew();
+				break;
+			case 3: .@ret = processGengWar();
+				break;
+			case 4: 
+				mes "Reward Manager is closing.";
+				close;
+				break;
+			default:
+				break;
 		}
 		
-		.@ret = processSGB();
 		if(.@ret == -1){
 			mainRewardManager;
 		}
@@ -206,6 +286,274 @@ function deleteSGBRecipient;
 			mes "Invalid username";
 			next;
 		}
+		
+		return 0;
+	}
+	
+	function processDiscordRew {
+		.@rewardname$ = "[ Discord Reward ]";
+		do {
+			mes .@rewardname$;
+			mes "Select the operation you want to execute";
+			next;
+			
+			switch(select("Add Recipient:View Recipients:Delete Recipient:Cancel")){
+				case 1: .@ret = addDiscordRec();
+					break;
+				case 2: .@ret = viewDiscordRec();
+					break;
+				case 3: .@ret = deleteDiscordRec();
+					break;
+				default: return -1;
+					break;
+			}
+			clear;
+		}while(.@ret == 0);
+		
+		return 0;
+	}
+	
+	function addDiscordRec {
+		.@rewardname$ = "[ Discord Reward ]";
+		
+		mes .@rewardname$;
+		mes "Enter the player's name:";
+		input .@charname$;
+		
+		.@ret = query_sql("select account_id from ragnaserver.char where (name = '" + .@charname$ + "')", .@account_id);
+		if(.@ret == 0){
+			mes .@rewardname$;
+			mes "Player Name," + .@charname$ + ", does not exist";
+			next;
+			
+			return 0;
+		}
+		
+		clear;
+		mes .@rewardname$;
+		mes "Reward Item List";
+		next;
+		
+		switch(select("Costume Bubblegum-in-Mouth:Cancel")){
+			case 1: //#discord_register = 1;
+				.@ret = query_sql("REPLACE INTO acc_reg_num VALUES (" + .@account_id[0] + ",'#discord_register', 0, 1)");
+				if(.@ret == -1){
+					mes "Failed to add in the database!";
+					next;
+					
+					return 0;
+				}
+				
+				mes .@rewardname$;
+				mes "Successfully added player as recipient";
+				next;
+				break;
+			default:
+				break;
+		}
+		
+		return 0;
+	}
+	
+	function viewDiscordRec {
+		.@rewardname$ = "[ Discord Reward ]";
+		
+		.@ret = query_sql("select account_id from acc_reg_num where (acc_reg_num.key = '#discord_register') and (acc_reg_num.value = 1)", .@account_id);
+		
+		if(.@ret == 0){
+			mes .@rewardname$;
+			mes "There are no unclaimed/recorded recipient.";
+			next;
+			
+			return 0;
+		}
+		
+		mes .@rewardname$;
+		for(.@i = 0; .@i < .@ret; .@i++){
+			.@num = query_sql("select userid from login where (account_id = " + .@account_id[.@i] + ")", .@username$);
+			if(.@num == 1){
+				mes "~[ " + .@username$[.@i] + " ] ------ 1";
+			}
+			if(.@i % 10 == 9){
+				next;
+				mes .@rewardname$;
+			}
+		}
+		next;
+		
+		return 0;
+	}
+	
+	function deleteDiscordRec {
+		.@rewardname$ = "[ Discord Reward ]";
+		
+		mes .@rewardname$;
+		mes "Enter the username of the recipient you want to delete:";
+		input .@username$;
+		
+		.@ret = query_sql("select account_id from login where (userid = '" + .@username$ + "')", .@account_id);
+		if(.@ret == 1){
+			.@num = query_sql("UPDATE acc_reg_num SET acc_reg_num.value = 0 where acc_reg_num.account_id = " + .@account_id[0] + " and acc_reg_num.key = '#discord_register' and acc_reg_num.index = 0");
+		
+			if(.@num == -1){
+				mes "Failed to delete record";
+				next;
+				
+				return 0;
+			}
+			clear;
+			mes .@rewardname$;
+			mes "Successfully deleted recipient.";
+			next;
+		}
+		else {
+			mes .@rewardname$;
+			mes "Invalid username";
+			next;
+		}
+		
+		return 0;
+	}
+	
+	function processGengWar {
+		.@rewardname$ = "[ GengWar ]";
+		
+		do {
+			mes .@rewardname$;
+			mes "Select the operation you want to perform:";
+			next;
+			
+			switch(select("Add GengWar Winner:Add GengWar Loser:View GengWar Record:Cancel")){
+				case 1: addGengWarWinner;
+					break;
+				case 2: addGengWarLoser;
+					break;
+				case 3: viewGengWar;
+					break;
+				default: return -1;
+					break;
+			}
+			clear;
+		}while(.@ret == 0);
+		
+		return 0;
+	}
+	
+	function addGengWarWinner {
+		.@rewardname$ = "[ GengWar ]";
+		
+		mes .@rewardname$;
+		mes "Enter the player name of the GengWar winner:";
+		input .@charname$;
+		
+		.@ret = query_sql("select account_id from ragnaserver.char where (name = '" + .@charname$ + "')", .@account_id);
+		if(.@ret == 0){
+			mes .@rewardname$;
+			mes "Player Name," + .@charname$ + ", does not exist";
+			next;
+			
+			return 0;
+		}
+		clear;
+		.@ret = query_sql("select acc_reg_num.value from acc_reg_num where acc_reg_num.account_id = '" + .@account_id[0] + "' and acc_reg_num.key = '#GengWarWin' and acc_reg_num.index = 0", .@value);
+		.@value[0] += 1;
+		.@ret = query_sql("REPLACE INTO acc_reg_num VALUES (" + .@account_id[0] + ",'#GengWarWin', 0, " + .@value[0] +")");
+		
+		if(.@ret == -1){
+			mes "Failed to add GengWar winner!";
+			next;
+			return 0;
+		}
+		
+		mes .@rewardname$;
+		mes "Successfully added player as GengWar winner.";
+		next;
+		
+		return 0;
+	}
+	
+	function addGengWarLoser {
+		.@rewardname$ = "[ GengWar ]";
+		
+		mes .@rewardname$;
+		mes "Enter the player name of the GengWar loser:";
+		input .@charname$;
+		
+		.@ret = query_sql("select account_id from ragnaserver.char where (name = '" + .@charname$ + "')", .@account_id);
+		if(.@ret == 0){
+			mes .@rewardname$;
+			mes "Player Name," + .@charname$ + ", does not exist";
+			next;
+			
+			return 0;
+		}
+		clear;
+		.@ret = query_sql("select acc_reg_num.value from acc_reg_num where acc_reg_num.account_id = '" + .@account_id[0] + "' and acc_reg_num.key = '#GengWarLost' and acc_reg_num.index = 0", .@value);
+		.@value[0] += 1;
+		.@ret = query_sql("REPLACE INTO acc_reg_num VALUES (" + .@account_id[0] + ",'#GengWarLost', 0, " + .@value[0] +")");
+		
+		if(.@ret == -1){
+			mes "Failed to add GengWar loser!";
+			next;
+			return 0;
+		}
+		
+		mes .@rewardname$;
+		mes "Successfully added player as GengWar loser.";
+		next;
+		
+		return 0;
+	}
+	
+	function viewGengWar {
+		.@rewardname$ = "[ GengWar ]";
+		
+		.@ret = query_sql("select acc_reg_num.account_id, acc_reg_num.value from acc_reg_num where acc_reg_num.key = '#GengWarWin' and acc_reg_num.index = 0 and acc_reg_num.value > 0", .@account_id, .@value);
+		if(.@ret < 1){
+			mes .@rewardname$;
+			mes "The are no unclaimed/recorded GengWar winners";
+			//next;
+		}
+		else {
+			mes .@rewardname$;
+			mes "GengWar Winners:";
+			for(.@i = 0; .@i < .@ret; .@i++){
+				.@num = query_sql("select userid from login where (account_id = " + .@account_id[.@i] + ")", .@username$);
+				if(.@num == 1){
+					mes "~[ " + .@username$[.@i] + " ] ------ " + .@value[.@i];
+				}
+				if(.@i % 10 == 9){
+					next;
+					mes .@rewardname$;
+					mes "GengWar Winners:";
+				}
+			}
+		}
+		next;
+		
+		.@ret = query_sql("select acc_reg_num.account_id, acc_reg_num.value from acc_reg_num where acc_reg_num.key = '#GengWarLost' and acc_reg_num.index = 0 and acc_reg_num.value > 0", .@account_id2, .@value2);
+		if(.@ret < 1){
+			mes .@rewardname$;
+			mes "The are no unclaimed/recorded GengWar losers";
+			next;
+			return 0;
+		}
+		else {
+			mes .@rewardname$;
+			mes "GengWar Losers:";
+			for(.@i = 0; .@i < .@ret; .@i++){
+				.@num = query_sql("select userid from login where (account_id = " + .@account_id2[.@i] + ")", .@username2$);
+				if(.@num == 1){
+					mes "~[ " + .@username2$[.@i] + " ] ------ " + .@value2[.@i];
+				}
+				if(.@i % 10 == 9){
+					next;
+					mes .@rewardname$;
+					mes "GengWar Losers:";
+				}
+			}
+		}
+		next;
 		
 		return 0;
 	}

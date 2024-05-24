@@ -52,6 +52,7 @@ Body:
       iteminfo: true
       refresh: true
       whodrops: true
+      rates: true
       hominfo: true
       homstats: true
       duel: true
