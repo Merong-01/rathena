@@ -53,17 +53,21 @@ Body:
       - SubGroup: 1
         List:
           - Index: 0
-            Item: Light_Center_Pot_Box5
+            Item: ASPD_Potion_Box
             Rate: 100
             Amount: 1
-          - Index: 1
-            Item: Light_Awakening_Pot_Box5
-            Rate: 100
-            Amount: 1
-          - Index: 2
-            Item: Light_Berserk_Pot_Box5
-            Rate: 100
-            Amount: 1
+#          - Index: 0
+#            Item: Light_Center_Pot_Box5
+#            Rate: 100
+#            Amount: 1
+#          - Index: 1
+#            Item: Light_Awakening_Pot_Box5
+#            Rate: 100
+#            Amount: 1
+#          - Index: 2
+#            Item: Light_Berserk_Pot_Box5
+#            Rate: 100
+#            Amount: 1
           - Index: 3
             Item: Elite_Siege_Supply_Box
             Rate: 100

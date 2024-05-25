@@ -1,0 +1,68 @@
+//======== Costum Potion Converter ===========================
+//============================================================
+prontera,164,165,3	script	Potion Converter	2_VENDING_MACHINE1,{
+	.@npcName$ = "Potion Converter";
+	
+	mes .@npcName$;
+	mes "If you have excess potions from " + mesitemlink(14003) + " or from " + mesitemlink(30001);
+	mes "You can exchange it with me for another potion that you may need.";
+	mes "You just have to pay 1 " + mesitemlink(7199) + " every exchange.";
+	next;
+	
+	select("100 Siege White Potions for 50 Siege Blue Potions: 50 Siege Blue Potions for 100 Siege White Potions:Cancel");
+	switch(@menu){
+		case 1:
+			if(countitem(11503) >= 100 && countitem(7199) > 0){
+				delitem 7199, 1;
+				delitem 11503, 100;
+				getitem 11504, 50;
+			}
+			else if(countitem(30002) >= 100 && countitem(7199) > 0){
+				delitem 7199, 1;
+				delitem 30002, 100;
+				getitem 30003, 50;
+			}
+			else {
+				mes .@npcName$;
+				mes "You don't have enough items for the exchange to proceed.";
+				close;
+			}
+			break;
+		case 2:
+			if(countitem(11504) >= 50 && countitem(7199) > 0){
+				if(checkweight(11503,100) == 0){
+					mes .@npcName$;
+					mes "You don't have enough weight capacity to proceed the exchange.";
+					close;
+				}
+				delitem 7199, 1;
+				delitem 11504, 50;
+				getitem 11503, 100;
+			}
+			else if(countitem(30003) >= 50 && countitem(7199) > 0){
+				if(checkweight(30003,100) == 0){
+					mes .@npcName$;
+					mes "You don't have enough weight capacity to proceed the exchange.";
+					close;
+				}
+				delitem 7199, 1;
+				delitem 30003, 50;
+				getitem 30002, 100;
+			}
+			else {
+				mes .@npcName$;
+				mes "You don't have enough items for the exchange to proceed.";
+				close;
+			}
+			break;
+		default:
+			mes .@npcName$;
+			mes "Talk to me again if you want to exchange your potions.";
+			close;
+			break;
+	}
+	mes .@npcName$;
+	mes "Here are your potions.";
+	mes "Talk to me again if you want to exchange more.";
+	close;
+}

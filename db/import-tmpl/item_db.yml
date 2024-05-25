@@ -99,6 +99,11 @@ Body:
 #    Name: Angeling Egg
 #    Type: Petegg
 #    Buy: 20
+  - Id: 7199
+    AegisName: Hourly_Coin
+    Name: Hourly Coin
+    Type: Etc
+    Weight: 0
   - Id: 5286
     AegisName: Pecopeco_Hairband
     Name: Pecopeco Hairband
@@ -1142,6 +1147,41 @@ Body:
       NoAuction: true
     Script: |
       callfunc "F_Starter_Weapon_Box";
+  - Id: 30020
+    AegisName: ASPD_Potion_Box
+    Name: ASPD Potion Box
+    Type: Delayconsume
+    Buy: 20
+    weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+        select("Concentration Potion:Awakening Potion:Berserk Potion");
+        if(@menu == 1 && checkweight(14509,10) != 0){
+            getitembound 14509,10,Bound_Account;
+            delitem 30020, 1;
+            end;
+        }
+        else if(@menu == 2 && checkweight(14510,10) != 0){
+            getitembound 14510,10,Bound_Account;
+            delitem 30020, 1;
+            end;
+        }
+        else if(@menu == 3 && checkweight(14511,10) != 0){
+            getitembound 14511,10,Bound_Account;
+            delitem 30020, 1;
+            end;
+        }
+        else if(@menu < 4){
+            dispbottom "You are overweght", 0xFF0000;
+            end;
+        }
   - Id: 19581
     AegisName: C_Brabery_Hat
     Name: Costume Adventurer's Hat
