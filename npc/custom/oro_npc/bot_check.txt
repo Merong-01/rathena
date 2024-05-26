@@ -3,6 +3,7 @@
 -	script	Bot Check	-1,{
 OnInit:
 	.checkbot_delay = 0;
+	bindatcmd("botcheck",strnpcinfo(0)+"::OnCommand",99,99);
 	end;
 OnMinute01:
 OnMinute31:
@@ -51,12 +52,16 @@ OnPCLoginEvent:
 			setoption 0x40,1,.@char_id;
 			ignoretimeout 1;
 			callfunc "fx_simple_bot_check", .@char_id,1;
+			sc_end SC_FREEZE;
 			setoption 0x40,0,.@char_id;
 			bot_check_flag = 0;
 		}
 	}
 	end;
 
+OnCommand:
+	bot_check_flag = 1;
+	@bot_check_flag2 = 1;
 OnCheckBot:
 	//attachrid(.@account_id[.@i]);
 	.@char_id = convertpcinfo(playerattached(),CPC_CHAR);
@@ -68,8 +73,10 @@ OnCheckBot:
 	}
 	else {
 		setoption 0x40,1,.@char_id;
+		sc_start SC_FREEZE, INFINITE_TICK, 0, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF|SCSTART_NORATEDEF;
 		callfunc "fx_simple_bot_check", .@char_id,0;
 		bot_check_flag = 0;
+		sc_end SC_FREEZE;
 		detachrid;
 		setoption 0x40,0,.@char_id;
 	}
