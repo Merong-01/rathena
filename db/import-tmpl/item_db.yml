@@ -104,6 +104,14 @@ Body:
     Name: Hourly Coin
     Type: Etc
     Weight: 0
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
   - Id: 5286
     AegisName: Pecopeco_Hairband
     Name: Pecopeco Hairband
@@ -1147,6 +1155,21 @@ Body:
       NoAuction: true
     Script: |
       callfunc "F_Starter_Weapon_Box";
+  - Id: 30017
+    AegisName: Cash_Point_Coupon_100
+    Name: Cash Point Coupon
+    Type: Usable
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      atcommand "@cash 100";
   - Id: 30020
     AegisName: ASPD_Potion_Box
     Name: ASPD Potion Box

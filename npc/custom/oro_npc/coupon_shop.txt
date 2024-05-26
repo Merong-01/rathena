@@ -7,12 +7,12 @@ function	script	F_SettleBill	{
 	
 	if (countitem(.@Coupon) >= .@item_price) {
 		
-		mes "[Coupon shop]";
+		mes "[Hourly shop]";
 		
 		.@ret = delitem (.@Coupon,.@item_price);
 		if(.@ret != 0 ) {
 			mes "There's seem to be a problem.";
-			mes "Please check if your coupon is fine, ";
+			mes "Please check if your coin is fine, ";
 			mes "and come back later.";
 			close;
 		}
@@ -30,21 +30,22 @@ function	script	F_SettleBill	{
 		close;
 	}
 	else {
-		mes "[Coupon Shop]";
-		mes "Sorry, you don't have enough coupon.";
+		mes "[Hourly Shop]";
+		mes "Sorry, you don't have enough coin.";
 		close;
 	}
 }
 
 -	script	Coupon_Shop	-1,{
-	mes "[Coupon Shop]";
+	mes "[Hourly Shop]";
 	mes "Hello!";
 	mes "Feel free to browse our items.";
 	mes "All of these can be exchanged with coupons.";
 	next;
 	
-	setarray .@Consumables[0],12211,12221,12004,30001,13534,13810,12210,12208,14592;
-	setarray .@Cons_Prices[0],2,2,1,5,5,5,2,4,2;
+	//			Kafra Card, Megaphone, Quiver, ESSB, ESSB (PVP/GVG), BBG, Field Manual50, JobManual50
+	setarray .@Consumables[0],12211,12221,12004,14003,30001,12210,12208,14592;
+	setarray .@Cons_Prices[0],1,1,1,2,2,2,2,2;
 	setarray .@Costumes[0],19698,19699,19740,31918,31919,20052;
 	setarray .@Costu_Prices[0],50,50,50,50,50,50;
 	set .@Coupon,7199; //tentative use
@@ -52,8 +53,8 @@ function	script	F_SettleBill	{
 	
 	if(.@i == 1){
 		setarray .@item_array$[0],"","","","","","","","","";
-		for(.@j = 0; .@j < 9; .@j += 1){
-			.@item_array$[.@j] = "" + getitemname(.@Consumables[.@j]) + " -> ^3131FF" + .@Cons_Prices[.@j] + " Coupon^000000";
+		for(.@j = 0; .@j < getarraysize(.@Consumables); .@j += 1){
+			.@item_array$[.@j] = "" + getitemname(.@Consumables[.@j]) + " -> ^3131FF" + .@Cons_Prices[.@j] + " Coin^000000";
 		}
 		
 		set .@choice, select(implode(.@item_array$, ":"));
@@ -61,15 +62,15 @@ function	script	F_SettleBill	{
 	}
 	else if(.@i == 2){
 		setarray .@item_array$[0], "","";
-		for(.@j = 0; .@j < 6; .@j += 1){
-			.@item_array$[.@j] = "" + getitemname(.@Costumes[.@j]) + " -> ^3131FF" + .@Costu_Prices[.@j] + " Coupon^000000";
+		for(.@j = 0; .@j < getarraysize(.@Costumes); .@j += 1){
+			.@item_array$[.@j] = "" + getitemname(.@Costumes[.@j]) + " -> ^3131FF" + .@Costu_Prices[.@j] + " Coin^000000";
 		}
 		
 		set .@choice, select(implode(.@item_array$, ":"));
 		callfunc "F_SettleBill",.@Costumes[.@choice-1],.@Costu_Prices[.@choice-1];
 	}
 	else {
-	mes "[Coupon Shop]";
+	mes "[Hourly Shop]";
 	mes "Come again if you change your mind.";
 	close;
 	}
