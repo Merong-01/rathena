@@ -429,11 +429,10 @@ function viewGengWar;
 		for(.@i = 0; .@i < .@ret; .@i++){
 			.@num = query_sql("select userid from login where (account_id = " + .@account_id[.@i] + ")", .@username$);
 			if(.@num < 1){
-				.@username$[.@i] = "";
 				continue;
 			}
 			if(.@num == 1){
-				mes "~[ " + .@username$[.@i] + " ] ------ 1";
+				mes "~[ " + .@username$[0] + " ] ------ 1";
 			}
 			if(.@i % 10 == 9){
 				next;
