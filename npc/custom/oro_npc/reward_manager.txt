@@ -120,13 +120,18 @@ function viewGengWar;
 			mes "You don't have unclaimed discord related reward.";
 			close;
 		}
+		if(#discord_register == 2){
+			mes "[ Reward Manager ]";
+			mes "You already claimed your reward.";
+			close;
+		}
 		if(checkweight(30110,1) == 0){
 			mes "[ Reward Manager ]";
 			mes "Please make sure your not overweight first before you claim you rewards.";
 			close;
 		}
 		getitem 30110,1;
-		#discord_register = 0;
+		#discord_register = 2;
 		mes "[ Reward Manager ]";
 		mes "Here is your";
 		mes mesitemlink(30110);
@@ -380,6 +385,14 @@ function viewGengWar;
 		
 		switch(select("Costume Bubblegum-in-Mouth:Cancel")){
 			case 1: //#discord_register = 1;
+				.@ret = query_sql("select acc_reg_num.value from acc_reg_num where acc_reg_num.account_id = " + .@account_id[0] + " and acc_reg_num.key = '#discord_register' and acc_reg_num.index = 0", .@tmpvalue);
+				if(.@tmpvalue == 2){
+					mes .@rewardname$;
+					mes "Recipient had claimed this reward already.";
+					next;
+					
+					return 0;
+				}
 				.@ret = query_sql("REPLACE INTO acc_reg_num VALUES (" + .@account_id[0] + ",'#discord_register', 0, 1)");
 				if(.@ret == -1){
 					mes "Failed to add in the database!";
@@ -415,6 +428,10 @@ function viewGengWar;
 		mes .@rewardname$;
 		for(.@i = 0; .@i < .@ret; .@i++){
 			.@num = query_sql("select userid from login where (account_id = " + .@account_id[.@i] + ")", .@username$);
+			if(.@num < 1){
+				.@username$[.@i] = "";
+				continue;
+			}
 			if(.@num == 1){
 				mes "~[ " + .@username$[.@i] + " ] ------ 1";
 			}

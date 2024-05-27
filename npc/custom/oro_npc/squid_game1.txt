@@ -9,22 +9,22 @@
 	mes "I did not expect for someone to arrive here actually.";
 	mes "But I guess you surpass expectations.";
 	mes "Congratulations! Here is your reward.";
-	//getitem "RED_POTION",10;
+	//getitem "RED_POTION",10; //sample reward
 	close2;
 	@glasstile_p = 4;
-	//warp "1@tnm1",92,23;
+	//warp "1@tnm1",92,23; //or to "SavePoint"
 end;	
 OnTouch:
 	if(@glasstile_p == 0){
 		@glasstile_p = 1;
-		//getitem "RED_POTION",1;
+		//getitem "RED_POTION",1; //sample reward
 		npctalk "Good job for arriving here safely, but this is only the first part!";
 		donpcevent "::OnSGPillarEffect";
 	}
 	
 	if(strnpcinfo(0) == "Team Leader" && @glasstile_p == 1){
 		@glasstile_p = 2;
-		//getitem "RED_POTION",2;
+		//getitem "RED_POTION",2; //sample reward
 		npctalk "Impressive! There is only the last part left.";
 		donpcevent "::OnSGPillarEffect";
 	}
@@ -54,19 +54,19 @@ OnTouch:
 	if(getd("$@" + strnpcinfo(0) + "flag") == 1){
 		if(@gtiletrapped){
 			mapannounce "1@tnm1", strcharinfo(0) + ", you stepped on a trap, twice. You're out!", bc_map;
-			percentheal -100,0;
+			percentheal -100,0; //participant eliminated
+			specialeffect2 EF_CRITICALWOUND;
 			@gtiletrapped = 0;
 			end;
 		}
 		mapannounce "1@tnm1",strcharinfo(0) + ", you stepped on a trap. You will be sent back.",bc_map;
 		percentheal -99,0;
-		sc_start SC_CRITICALWOUND, 600000, 5, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF;
-		sc_start SC_POISON, 600000, 0, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF;
-		specialeffect2 EF_HIT3;
+		sc_start SC_CRITICALWOUND, 600000, 5, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF; //to disable heal
+		sc_start SC_POISON, 600000, 0, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF; //to disable natural regen
 		specialeffect2 EF_CRITICALWOUND;
 		@gtiletrapped = 1;
 		warp "1@tnm1",92,23;
-		sleep 300;
+		sleep 200;
 		donpcevent "::OnSGPillarEffect";
 	}
 	else {
@@ -79,13 +79,9 @@ OnInit:
 	getmapxy(.@mapname$,.@mapxkor,.@mapykor,BL_NPC);
 	if(checkwall("wall" + strnpcinfo(0))){
 		delwall "wall" + strnpcinfo(0);
-		//setcell .@mapname$,.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_WALKABLE,1;
 	}
-//	if(!checkcell(.@mapname$, .@mapxkor, .@mapykor, cell_chkpass)){
-//		npctalk strnpcinfo(0) + " is not passable.";
-//	}
+
 	if(!checkcell(.@mapname$, .@mapxkor, .@mapykor, cell_chknpc)){
-		//npctalk strnpcinfo(0) + " has no npc, me here.";
 		setcell .@mapname$,.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_NPC,1;
 	}
 end;
@@ -100,13 +96,8 @@ OnSGReset:
 	
 	if(checkwall("wall" + strnpcinfo(0))){
 		delwall "wall" + strnpcinfo(0);
-		//setcell .@mapname$,.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_WALKABLE,1;
 	}
-//	if(!checkcell(.@mapname$, .@mapxkor, .@mapykor, cell_chkpass)){
-//		npctalk strnpcinfo(0) + " is not passable.";
-//	}
 	if(!checkcell(.@mapname$, .@mapxkor, .@mapykor, cell_chknpc)){
-		//npctalk strnpcinfo(0) + " has no npc, me here.";
 		setcell .@mapname$,.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_NPC,1;
 	}
 
@@ -146,13 +137,11 @@ OnSGReset:
 	
 	if(.@random_num == 2){
 		setd ".tileset" + substr(.@npc_name$,0,1), getd(".tileset" + substr(.@npc_name$,0,1)) + 2;
-		//npctalk ".tileset" + substr(.@npc_name$,0,1) + " is set to " + getd(".tileset" + substr(.@npc_name$,0,1));
 		setd "$@" + strnpcinfo(0) + "flag", 1;
 		specialeffect EF_GLASSWALL;
 	}
 	else if(.@random_num == 1){
 		setd ".tileset" + substr(.@npc_name$,0,1), getd(".tileset" + substr(.@npc_name$,0,1)) + 1;
-		//npctalk ".tileset" + substr(.@npc_name$,0,1) + " is set to " + getd(".tileset" + substr(.@npc_name$,0,1));
 		setd "$@" + strnpcinfo(0) + "flag", 0;
 		specialeffect EF_GLASSWALL;
 	}
@@ -181,7 +170,6 @@ OnSGPillarEffect:
 end;
 }
 
-//1@tnm1,96,20,0	duplicate(GameCell)	01_gc_01	139,0,0
 1@tnm1,96,21,0	duplicate(GameCell)	01_gc_02	139,0,0
 1@tnm1,96,22,0	duplicate(GameCell)	01_gc_03	139,0,0
 1@tnm1,96,23,0	duplicate(GameCell)	01_gc_04	139,0,0
