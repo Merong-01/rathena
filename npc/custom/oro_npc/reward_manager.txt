@@ -22,10 +22,40 @@ function viewGengWar;
 	mes mesitemlink(30008) + " from here.";
 	next;
 	
-	.@sel = select("Redeem Streamer Gift Box:Discord Membership Reward:GengWar Prize:Cancel");
-	if(.@sel == 4){
+	.@sel = select("Redeem Streamer Gift Box:Discord Membership Reward:GengWar Prize:Disconnect Compensation:Cancel");
+	if(.@sel == 5){
 		mes "[ Reward Manager ]";
 		mes "Thanks for visiting.";
+		close;
+	}
+	else if(.@sel == 4){
+		if(#compensation == 1){
+			mes "[ Reward Manager ]";
+			mes "You already claimed your compensation items.";
+			mes "We only give once per account.";
+			close;
+		}
+		.@acc_id = getcharid(3);
+		.@query_str$ = "select reg_date from cp_createlog where(account_id = " + .@acc_id + ")";
+		.@query_result_num = query_sql(.@query_str$, .@reg_date$);
+		
+		explode(.@dateStr$,.@reg_date$[0],"-");
+		if(atoi(.@dateStr$[0]) > 2024 || atoi(.@dateStr$[1]) > 5 || atoi(.@dateStr$[2]) > 27){
+			mes "[ Reward Manager ]";
+			mes "It seems that this is a newly created account.";
+			mes "I am sorry but we only gave compensation for accounts registered before today.";
+			close;
+		}
+		if(checkweight(14003,20) == 0){
+			mes "[ Reward Manager ]";
+			mes "Please make sure you are not overweight before you receive your items.";
+			close;
+		}
+		getitembound 14003, 20, Bound_Account;
+		#compensation = 1;
+		mes "[ Reward Manager ]";
+		mes "We are really sorry for the inconveniece that last disconnection has caused.";
+		mes "Here are your items as compensation.";
 		close;
 	}
 	else if(.@sel == 3){
@@ -73,46 +103,6 @@ function viewGengWar;
 			mes "Here are your prize as a member of the winning team.";
 			close;
 		}
-//		if(#GengWarWin == 0){
-//			mes "[ Reward Manager ]";
-//			mes "You don't have unclaimed GengWar Prize";
-//		}
-//		else {
-//			.@item_count = 4 * #GengWarWin;
-//			if(checkweight(12411,.@item_count,12210,.@item_count,12211,.@item_count,12221,.@item_count) == 0){
-//				mes "[ Reward Manager ]";
-//				mes "Please make sure your not overweight first before you claim you rewards.";
-//				close;
-//			}
-//			getitem 12411,.@item_count;
-//			getitem 12210,.@item_count;
-//			getitem 12211,.@item_count;
-//			getitem 12221,.@item_count;
-//			#GengWarWin = 0;
-//			mes "[ Reward Manager ]";
-//			mes "Here are your prizes.";
-//		}
-//		
-//		if(#GengWarLost == 0){
-//			close;
-//		}
-//		else {
-//			next;
-//			.@item_count = 2 * #GengWarLost;
-//			if(checkweight(12411,.@item_count,12210,.@item_count,12211,.@item_count,12221,.@item_count) == 0){
-//				mes "[ Reward Manager ]";
-//				mes "Please make sure your not overweight first before you claim you items.";
-//				close;
-//			}
-//			getitem 12411,.@item_count;
-//			getitem 12210,.@item_count;
-//			getitem 12211,.@item_count;
-//			getitem 12221,.@item_count;
-//			#GengWarLost = 0;
-//			mes "[ Reward Manager ]";
-//			mes "Here are your consolation prizes.";
-//			close;
-//		}
 	}
 	else if(.@sel == 2){
 		if(#discord_register == 0){
