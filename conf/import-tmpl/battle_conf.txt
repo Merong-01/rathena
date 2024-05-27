@@ -59,7 +59,7 @@ item_rate_adddrop: 200
 // Rate adjustment for Treasure Box drops (these override all other modifiers)
 item_rate_treasure: 200
 
-item_logarithmic_drops: yes
+item_logarithmic_drops: no
 
 // Makes your LUK value affect drop rates on an absolute basis.
 // Setting to 100 means each luk adds 0.01% chance to find items
@@ -101,7 +101,7 @@ vip_base_exp_increase: 25
 vip_job_exp_increase: 25
 vip_exp_penalty_base: 0
 vip_exp_penalty_job: 0
-vip_drop_increase: 10
+vip_drop_increase: 25
 vip_gemstone: 0
 
 //battle/client.conf
