@@ -1,5 +1,7 @@
 //====== Squid Game Parody 1 =================================
 //============================================================
+//====== Created by Merong of ProjectOvergearedRO ============
+//====== Last update 20240527 ================================
 1@tnm1,116,24,3	script	Employee::SGNPC	449,3,4,{
 	if(strnpcinfo(0) != "Manager" || @glasstile_p != 3){
 		end;
