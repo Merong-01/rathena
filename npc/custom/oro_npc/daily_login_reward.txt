@@ -1,0 +1,48 @@
+//====== Daily Login Reward Script ===========================
+//============================================================
+prontera,147,169,5	script	Daily Reward	833,{
+	.@npcName$ = "[Daily Login Reward]";
+	.@curr_tick = gettimetick(2);
+	.@coolDownDelay = (3600 * 20); //20 hours
+	
+	if(#daily_login_cd > .@curr_tick){
+		.@timeInStr$ = F_gettimestr(#daily_login_cd - .@curr_tick);
+		mes .@npcName$;
+		mes "I am sorry, but you already claimed you daily reward today.";
+		mes "You can receive another reward in " + .@timeInStr$;
+		close;
+	}
+	
+	mes .@npcName$;
+	mes "Hi! Thank you for visiting today.";
+	mes "Would you like to receive your daily login reward?";
+	next;
+	
+	select("Receive Daily Login Reward:Cancel");
+	
+	if(@menu == 1){
+		if(checkweight(14003,1,12208,1,12210,1,12221,2) == 0){
+			mes .@npcName$;
+			mes "Please make sure you are not overweight before you receive your rewards.";
+			close;
+		}
+		
+		getitembound 14003, 1, Bound_Account;
+		getitembound 12208, 1, Bound_Account;
+		getitembound 12210, 1, Bound_Account;
+		getitembound 12221, 2, Bound_Account;
+		#daily_login_cd = gettimetick(2) + .@coolDownDelay;
+		
+		mes .@npcName$;
+		mes "Here are your rewards.";
+		mes "You can receive another reward tomorrow.";
+		close;
+	}
+	
+	mes .@npcName$;
+	mes "Thank you again for visiting today.";
+	close;
+OnInit:
+	waitingroom "Daily Login Reward Here", 0;
+end;
+}
