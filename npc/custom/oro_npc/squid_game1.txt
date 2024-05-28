@@ -44,7 +44,7 @@ end;
 1@tnm1,96,20,0	script	01_gc_01::GameCell	139,0,0,{
 end;
 OnTouch:
-	if(getgmlevel()){
+	if(getgmlevel() > 0 || getgroupid() == 6){
 		end;
 	}
 	if(@tilecount > 2){
