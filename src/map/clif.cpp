@@ -14385,7 +14385,7 @@ void clif_parse_GuildRequestEmblem(int fd,map_session_data *sd)
 	int guild_id = RFIFOL(fd,packet_db[RFIFOW(fd,0)].pos[0]);
 
 	auto g = guild_search(guild_id);
-
+	
 	if (g)
 		clif_guild_emblem(*sd, g->guild);
 }
@@ -14433,7 +14433,7 @@ void clif_parse_GuildChangeEmblem(int fd,map_session_data *sd){
 	if( sd == nullptr ){
 		return;
 	}
-
+	
 	struct s_packet_db* info = &packet_db[RFIFOW(fd,0)];
 	unsigned long emblem_len = RFIFOW(fd,info->pos[0])-4;
 	const uint8* emblem = RFIFOP(fd,info->pos[1]);
@@ -14468,7 +14468,7 @@ void clif_parse_GuildChangeEmblem2(int fd, map_session_data* sd) {
 		return;
 	}
 
-#if PACKETVER >= 20190724
+#if PACKETVER >= 20190624
 	const PACKET_CZ_REQ_ADD_NEW_EMBLEM* p = (PACKET_CZ_REQ_ADD_NEW_EMBLEM*)RFIFOP(fd, 0);
 	auto &g = sd->guild;
 

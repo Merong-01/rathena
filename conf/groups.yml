@@ -182,7 +182,7 @@ Body:
     Commands:
       rates: true
       who: true
-      shout: true
+      #shout: true
   - Id: 10
     Name: Law Enforcement
     Inherit:

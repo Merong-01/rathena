@@ -1,0 +1,21 @@
+//======== Custom Atcommands =================================
+//============================================================
+-	script	custom atcommands	-1,{
+end;
+OnInit:
+	bindatcmd("shout",strnpcinfo(0)+"::OnCommand",0,99);
+end;
+OnCommand:
+	if(@shout_cd){
+		dispbottom "Shout is still in cool down", 0xFF0000;
+		end;
+	}
+	//announce implode(.@atcmd_parameters$, " "),0;
+	atcommand "@broadcast " + implode(.@atcmd_parameters$, " ");
+	@shout_cd = 1;
+	addtimer 60000,strnpcinfo(0) + "::OnCoolDown";
+end;
+OnCoolDown:
+	@shout_cd = 0;
+end;
+}
