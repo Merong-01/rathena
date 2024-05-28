@@ -40,7 +40,9 @@ function viewGengWar;
 		.@query_result_num = query_sql(.@query_str$, .@reg_date$);
 		
 		explode(.@dateStr$,.@reg_date$[0],"-");
-		if(atoi(.@dateStr$[0]) > 2024 || atoi(.@dateStr$[1]) > 5 || atoi(.@dateStr$[2]) > 27){
+		if(atoi(.@dateStr$[0]) > 2024 || 
+			(atoi(.@dateStr$[0]) == 2024 && atoi(.@dateStr$[1]) > 5) || 
+			(atoi(.@dateStr$[0]) == 2024 && atoi(.@dateStr$[1]) == 5 && atoi(.@dateStr$[2]) > 27)){
 			mes "[ Reward Manager ]";
 			mes "It seems that this is a newly created account.";
 			mes "I am sorry but we only gave compensation for accounts registered before today.";
