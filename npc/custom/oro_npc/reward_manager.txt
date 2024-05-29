@@ -35,6 +35,7 @@ function viewGengWar;
 			mes "We only give once per account.";
 			close;
 		}
+		
 		.@acc_id = getcharid(3);
 		.@query_str$ = "select reg_date from cp_createlog where(account_id = " + .@acc_id + ")";
 		.@query_result_num = query_sql(.@query_str$, .@reg_date$);
@@ -48,17 +49,23 @@ function viewGengWar;
 			mes "I am sorry but we only gave compensation for accounts registered before today.";
 			close;
 		}
-		if(checkweight(14003,20) == 0){
+		else {
 			mes "[ Reward Manager ]";
-			mes "Please make sure you are not overweight before you receive your items.";
+			mes "I am sorry but the duration for claiming the compensation has expired.";
 			close;
 		}
-		getitembound 14003, 20, Bound_Account;
-		#compensation = 1;
-		mes "[ Reward Manager ]";
-		mes "We are really sorry for the inconveniece that last disconnection has caused.";
-		mes "Here are your items as compensation.";
-		close;
+		
+//		if(checkweight(14003,20) == 0){
+//			mes "[ Reward Manager ]";
+//			mes "Please make sure you are not overweight before you receive your items.";
+//			close;
+//		}
+//		getitembound 14003, 20, Bound_Account;
+//		#compensation = 1;
+//		mes "[ Reward Manager ]";
+//		mes "We are really sorry for the inconveniece that last disconnection has caused.";
+//		mes "Here are your items as compensation.";
+//		close;
 	}
 	else if(.@sel == 3){
 		if(countitem(30121) == 0 && countitem(30122) == 0){
