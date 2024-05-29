@@ -3,13 +3,14 @@
 prontera,147,169,5	script	Daily Reward	833,{
 	.@npcName$ = "[Daily Login Reward]";
 	.@curr_tick = gettimetick(2);
-	.@coolDownDelay = (3600 * 20); //20 hours
+	//.@coolDownDelay = (3600 * 20); //20 hours
 	
-	if(#daily_login_cd > .@curr_tick){
+	//if(#daily_login_cd > .@curr_tick){
+	if(#daily_login_cd == .day_id){
 		.@timeInStr$ = F_gettimestr(#daily_login_cd - .@curr_tick);
 		mes .@npcName$;
 		mes "I am sorry, but you already claimed you daily reward today.";
-		mes "You can receive another reward in " + .@timeInStr$;
+		//mes "You can receive another reward in " + .@timeInStr$;
 		close;
 	}
 	
@@ -31,7 +32,8 @@ prontera,147,169,5	script	Daily Reward	833,{
 		getitembound 12208, 1, Bound_Account;
 		getitembound 12210, 1, Bound_Account;
 		getitembound 12221, 2, Bound_Account;
-		#daily_login_cd = gettimetick(2) + .@coolDownDelay;
+		#daily_login_cd = .day_id;
+		//#daily_login_cd = gettimetick(2) + .@coolDownDelay;
 		
 		mes .@npcName$;
 		mes "Here are your rewards.";
@@ -44,5 +46,8 @@ prontera,147,169,5	script	Daily Reward	833,{
 	close;
 OnInit:
 	waitingroom "Daily Login Reward Here", 0;
+
+OnHour16:
+	.day_id = gettime(DT_DAYOFMONTH);
 end;
 }
