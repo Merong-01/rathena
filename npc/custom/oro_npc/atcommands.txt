@@ -4,6 +4,93 @@
 end;
 OnInit:
 	bindatcmd("shout",strnpcinfo(0)+"::OnCommand",0,99);
+	bindatcmd("mapshower",strnpcinfo(0)+"::OnMapShower",99,99);
+end;
+OnMapShower:
+	.@npcLable$ = "[Map Shower Command]";
+	.@current_map$ = strcharinfo(3);
+	
+	mes .@npcLable$;
+	mes "This operation will give items directly to ALL players in the SAME map you are now.";
+	next;
+	
+	mes .@npcLable$;
+	mes "Carefully select which item you want to give.";
+	next;
+	
+	.@item_id[0] = 14003; // ESSB
+	.@item_id[1] = 30001 // ESSB (pvp/gvg)
+	.@item_id[2] = 12411; // HE Battle Manual
+	.@item_id[3] = 14592; // Job Manual50
+	.@item_id[4] = 12210; // Bubble Gum
+	.@item_id[5] = 12211; // Kafra Card
+	.@item_id[6] = 12221; // Megaphone
+	.@item_id[7] = 30005; // 1Day VIP
+	.@item_id[8] = 30007; // Egg Scrool
+	
+	.@item_name_sel$ = "";
+	for(.@i = 0; .@i < getarraysize(.@item_id); .@i++){
+		.@item_name_sel$ += getitemname(.@item_id[.@i]) + ":";
+	}
+	.@item_name_sel$ += "Cancel";
+	
+	.@sel = select(.@item_name_sel$) - 1;
+	if(.@sel >= getarraysize(.@item_id) || .@sel < 0){
+		mes "Map Shower Command is Closing...";
+		close;
+	}
+	
+	mes .@npcLable$;
+	mes "You selected " + mesitemlink(.@item_id[.@sel]);
+	mes "Select the number of items you want to give:";
+	next;
+	
+	if(.@item_id[.@sel] == 30005 || .@item_id[.@sel] == 30007){
+		.@num = select("1");
+	}
+	else {
+		.@num = select("1:2:3:4:5:10");
+	}
+	
+	if(.@num > 5){
+		.@num = 10;
+	}
+	
+	mes .@npcLable$;
+	mes "Are you sure you want to give " + mesitemlink(.@item_id[.@sel]) + " " + .@num + " pcs ea.";
+	mes "to ALL players of map " + .@current_map$ + "?";
+	next;
+	select("Yes, I am sure!:Cancel");
+	if(@menu == 2){
+		mes "Map Shower Command is Closing...";
+		close;
+	}
+	
+	@item_to_give = .@item_id[.@sel];
+	@item_to_give_num = .@num;
+	
+	addtimer 30000, strnpcinfo(0) + "::OnExecuteShower";
+	showdigit 30, 2;
+	
+	mes .@npcLable$;
+	mes .@num + " pcs of " + mesitemlink(.@item_id[.@sel]) + " will be given to ALL players ";
+	mes "of map " + .@current_map$ + " after the countdown ends.";
+	mes "If you change your mind and want to cancel the operation, just logout before the countdown ends.";
+	mes "^FF0000(To avoid errors, close this window before the countdown ends.)^000000";
+	close2;
+end;
+OnExecuteShower:
+	showdigit 0;
+	.@current_map$ = strcharinfo(3);
+	.@player_num = getmapunits(BL_PC, .@current_map$, .@user_id[0]);
+	
+	freeloop(1);
+	
+	for(.@i = 0; .@i < .@player_num; .@i++){
+		getitembound @item_to_give, @item_to_give_num, Bound_Account, .@user_id[.@i];
+	}
+	
+	freeloop(0);
 end;
 OnCommand:
 	if(@shout_cd){
@@ -13,7 +100,7 @@ OnCommand:
 	//announce implode(.@atcmd_parameters$, " "),0;
 	atcommand "@broadcast " + implode(.@atcmd_parameters$, " ");
 	@shout_cd = 1;
-	addtimer 60000,strnpcinfo(0) + "::OnCoolDown";
+	addtimer 120000,strnpcinfo(0) + "::OnCoolDown";
 end;
 OnCoolDown:
 	@shout_cd = 0;

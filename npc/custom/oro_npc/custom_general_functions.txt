@@ -1,0 +1,11 @@
+//====== Custom General Function Scripts =====================
+//============================================================
+function	script	F_gettimestr	{
+	.@timeInSeconds = getarg(0);
+	.@countHours = .@timeInSeconds / 3600;
+	.@countMin = (.@timeInSeconds % 3600) / 60;
+	.@countSec = (.@timeInSeconds % 3600) % 60;
+	.@timeInStr$ = "" + .@countHours + " Hours, " + .@countMin + " Minutes, " + .@countSec + " Seconds";
+	
+	return .@timeInStr$;
+}

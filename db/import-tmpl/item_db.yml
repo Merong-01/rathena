@@ -123,14 +123,6 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 314
-    Trade:
-      NoDrop: true
-      NoTrade: true
-      NoSell: true
-      NoCart: true
-      NoGuildStorage: true
-      NoMail: true
-      NoAuction: true
     Script: |
       bonus bSpeedRate,25;
       bonus bAspdRate,10;
@@ -324,6 +316,24 @@ Body:
       NoGuildStorage: true
     Script: |
       bonus bMatkRate,1;
+  - Id: 5378
+    AegisName: Rabbit_Ear_Hat
+    Name: Bunny Top Hat
+    Type: Armor
+    Buy: 20
+    Weight: 300
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    Refineable: true
+    View: 384
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bAgi,3;
+      bonus3 bAutoSpell,"AL_INCAGI",5,10;
   - Id: 5396
     AegisName: Jasper_Crest
     Name: Jasper Crest
@@ -1168,6 +1178,20 @@ Body:
       NoAuction: true
     Script: |
       atcommand "@cash 100";
+  - Id: 30018
+    AegisName: Costume_Exchange_Coupon
+    Name: Costume Exchange Coupon
+    Type: Etc
+    Buy: 20
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
   - Id: 30020
     AegisName: ASPD_Potion_Box
     Name: ASPD Potion Box
@@ -1576,11 +1600,23 @@ Body:
     Locations:
       Costume_Head_Top: true
     ArmorLevel: 1
-    EquipLevelMin: 50
+    EquipLevelMin: 1
     View: 513
     Script: |
         bonus2 bExpAddClass,Class_All,15;
-        bonus2 bDropAddClass,Class_All,5;        
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30124
+    AegisName: C_Majestic_Horns_Black
+    Name: Costume Majestic Horns Black
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4018
+    Script: |
+        bonus2 bExpAddClass,Class_All,15;
+        bonus2 bDropAddClass,Class_All,5;
   - Id: 30201
     AegisName: Rapier_S
     Name: Rapier (Starter Weapon)
@@ -2160,6 +2196,294 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 4017
+  - Id: 30240
+    AegisName: C_Relic_Knight
+    Name: Relic Costume - Knight
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 205
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30241
+    AegisName: C_Relic_Assassin
+    Name: Relic Costume - Assassin
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 206
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30242
+    AegisName: C_Relic_Hunter
+    Name: Relic Costume - Hunter
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 207
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30243
+    AegisName: C_Relic_Wizard
+    Name: Relic Costume - Wizard
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 208
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30244
+    AegisName: C_Relic_Priest
+    Name: Relic Costume - Priest
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 209
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30245
+    AegisName: C_Relic_BlackSmith
+    Name: Relic Costume - Blacksmith
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 210
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30246
+    AegisName: C_Relic_Crusader
+    Name: Relic Costume - Crusader
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 211
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30247
+    AegisName: C_Relic_Rogue
+    Name: Relic Costume - Rogue
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 212
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30248
+    AegisName: C_Relic_Bard
+    Name: Relic Costume - Bard
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 213
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30249
+    AegisName: C_Relic_Dancer
+    Name: Relic Costume - Dancer
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 214
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30250
+    AegisName: C_Relic_Sage
+    Name: Relic Costume - Sage
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 215
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30251
+    AegisName: C_Relic_Monk
+    Name: Relic Costume - Monk
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 216
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30252
+    AegisName: C_Relic_Alchemist
+    Name: Relic Costume - Alchemist
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 217
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30253
+    AegisName: C_Relic_SuperNovice
+    Name: Relic Costume - SuperNovice
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 218
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30254
+    AegisName: C_Relic_Ninja
+    Name: Relic Costume - Ninja
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 219
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30255
+    AegisName: C_Relic_Gunslinger
+    Name: Relic Costume - Gunslinger
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 220
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30256
+    AegisName: C_Relic_StarGladiator
+    Name: Relic Costume - Star Gladiator
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 221
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30257
+    AegisName: C_Relic_SoulLinker
+    Name: Relic Costume - Soul Linker
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 222
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
   - Id: 19910
     AegisName: C_Halloween_Hat
     Name: Costume Halloween Hat

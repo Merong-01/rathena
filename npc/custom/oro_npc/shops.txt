@@ -1,3 +1,26 @@
 //===== Customized Tool Dealer#prt ===========================
 //============================================================
-prontera,160,193,4	shop	Tool Dealer#prt2	4_F_THAISHAMAN,1750:-1,611:-1,501:-1,502:-1,506:-1,645:-1,656:-1,657:-1,601:-1,602:-1
+prontera,160,193,4	shop	Tool Dealer#prt2	4_F_THAISHAMAN,1750:-1 // arrow
+
+-	script	ToolDealer MidPront	-1,{
+end;
+OnInit:
+	npcshopadditem "Tool Dealer#prt2", 1751, -1; // Silver Arrow
+	npcshopadditem "Tool Dealer#prt2", 1752, -1; // Fire Arrow
+	npcshopadditem "Tool Dealer#prt2", 611, -1; // Magnifier
+	npcshopadditem "Tool Dealer#prt2", 501, -1; // Red Potion
+	npcshopadditem "Tool Dealer#prt2", 502, -1; // Orange Potion
+	npcshopadditem "Tool Dealer#prt2", 503, -1; // Yellow Potion
+	npcshopadditem "Tool Dealer#prt2", 504, -1; // White Potion
+	npcshopadditem "Tool Dealer#prt2", 506, -1; // Green Potion
+	npcshopadditem "Tool Dealer#prt2", 645, -1; // Concentration Potion
+	npcshopadditem "Tool Dealer#prt2", 656, -1; // Awakening Potion
+	npcshopadditem "Tool Dealer#prt2", 657, -1; // Berserk Potion
+	npcshopadditem "Tool Dealer#prt2", 601, -1; // Flywing
+	npcshopadditem "Tool Dealer#prt2", 602, -1; // Butterflywing
+	npcshopadditem "Tool Dealer#prt2", 14582, 5000; // Yellow Butterflywing
+	npcshopadditem "Tool Dealer#prt2", 14583, 5000; // Green Butterflywing
+	npcshopadditem "Tool Dealer#prt2", 14584, 5000; // Red Butterflywing
+	npcshopadditem "Tool Dealer#prt2", 14585, 5000; // Blue Butterflywing
+end;
+}

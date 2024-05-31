@@ -156,6 +156,8 @@ skip_teleport_lv1_menu: yes
 //battle/items.conf
 broadcast_hide_name: 0
 
+allow_bound_sell: 0x1
+
 //battle/guild.conf
 // Limit Guild alliances. Value is 0 to 3.
 // If you want to change this value, clear the guild alliance table.

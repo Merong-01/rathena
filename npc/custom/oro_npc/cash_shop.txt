@@ -1,11 +1,11 @@
 //=== Modified Cash Shop NPC =================================
 //============================================================
-prontera,149,191,5	cashshop	Cash Shop	116, 14003:4 //30007:30 // oro egg scroll
+prontera,149,191,5	cashshop	Cash Shop	116, 30007:10 // oro egg scroll
 
 -	script	kafra cash shop	-1,{
 
 OnInit:
-	//npcshopadditem "Cash Shop", 14003, 4; // ESSB 
+	npcshopadditem "Cash Shop", 14003, 4; // ESSB 
 	npcshopadditem "Cash Shop", 30001, 2; // ESSB (PVP)
 	npcshopadditem "Cash Shop", 12221, 1; // megaphone
 	npcshopadditem "Cash Shop", 14175, 8; // megaphone box 10

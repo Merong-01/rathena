@@ -1,0 +1,90 @@
+//======== Costume Exchange Script ===========================
+//============================================================
+-	marketshop	Costume Exchange	-1,512:-1:1
+
+prontera,170,200,3	script	Designer Sulki	4_F_LEEDSH,{
+	.@npcName$ = "[ Designer Sulki ]";
+	
+	mes .@npcName$;
+	mes "Good day, adventurer!";
+	mes "What can I do for you today?";
+	next;
+	
+	select("I have a Costume Exchange Coupon:May I know who you are?:Nothing...just passing by.");
+	
+	if(@menu == 3){
+		mes .@npcName$;
+		mes "Goodbye! Adventurer.";
+		close;
+	}
+	else if(@menu == 2){
+		mes .@npcName$;
+		mes "I am just a simple NPC who is tasked to give Costume Equipment in exchange for a " + mesitemlink(30018);
+		close;
+	}
+	else if(countitem(30018) == 0){
+		mes .@npcName$;
+		mes "Stop bragging...I can't see any " + mesitemlink(30018) + " in your inventory.";
+		mes "Try to check your other characters or Kafra Storage, if you think you had just misplaced it.";
+		close;
+	}
+	mes .@npcName$;
+	mes "Cool! You can just click the close button to open the Costume Exchange Shop.";
+	close2;
+	
+	callshop "Costume Exchange", 1;
+	npcshopattach "Costume Exchange";
+end;
+OnBuyItem:
+	.@totalprice = getarraysize(@bought_nameid);
+	if(countitem(30018) < .@totalprice){
+		mes "[ Designer Sulki ]";
+		mes "You don't seem to have enough " + mesitemlink(30018) + " in your inventory.";
+		close;
+	}
+	
+	.@accout_id = convertpcinfo(strcharinfo(0),CPC_ACCOUNT);
+	for(.@i = 0; .@i < getarraysize(@bought_nameid); .@i++){
+		delitem 30018, 1;
+		getitem @bought_nameid[.@i], 1;
+		setd "$Costume" + @bought_nameid[.@i], .@accout_id;
+		npcshopupdate "Costume Exchange", @bought_nameid[.@i], 0, 0;
+		announce "Player [" + strcharinfo(0) + "] obtained " + getitemname(@bought_nameid[.@i]) + " from Costume Exchange Shop", bc_all;
+	}
+	deletearray @bought_quantity, getarraysize(@bought_quantity);
+	deletearray @bought_nameid, getarraysize(@bought_nameid);
+	
+	mes "[ Designer Sulki ]";
+	mes "Thank you for your patronage!";
+	
+end;
+OnInit:
+	for(.@i = 0; .@i < getarraysize($Costume4CouponID); .@i++){
+		if(getd("$Costume" + $Costume4CouponID[.@i]) == 0){
+			npcshopadditem "Costume Exchange", $Costume4CouponID[.@i], 1, 1;
+		}
+	}
+	
+	npcshopdelitem "Costume Exchange", 512;
+end;
+OnInterIfInit:
+	$Costume4CouponID[0] = 30240;
+	$Costume4CouponID[1] = 30241;
+	$Costume4CouponID[2] = 30242;
+	$Costume4CouponID[3] = 30243;
+	$Costume4CouponID[4] = 30244;
+	$Costume4CouponID[5] = 30245;
+	$Costume4CouponID[6] = 30246;
+	$Costume4CouponID[7] = 30247;
+	$Costume4CouponID[8] = 30248;
+	$Costume4CouponID[9] = 30249;
+	$Costume4CouponID[10] = 30250;
+	$Costume4CouponID[11] = 30251;
+	$Costume4CouponID[12] = 30252;
+	$Costume4CouponID[13] = 30253;
+	$Costume4CouponID[14] = 30254;
+	$Costume4CouponID[15] = 30255;
+	$Costume4CouponID[16] = 30256;
+	$Costume4CouponID[17] = 30257;
+end;
+}

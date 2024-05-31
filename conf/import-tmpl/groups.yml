@@ -53,7 +53,7 @@ Body:
       refresh: true
       whodrops: true
       rates: true
-      #shout: true
+      showexp: true
       hominfo: true
       homstats: true
       duel: true

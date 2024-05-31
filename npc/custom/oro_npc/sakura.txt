@@ -9,24 +9,35 @@ prontera,163,186,3	script	Sakura	4_F_BERRYTEA,{
 	else if(sakura_quest_cd > gettimetick(2)){
 		callfunc "Sakura_Cooldown", .@npcname$;
 	}
-	
-	mes .@npcname$;
-	mes "Oh! Hello there...";
-	mes "You must be one of those people!";
-	mes "You know, those people who can't seem to pick up cards...";
-	mes "No matter how 'long' they hunt mobs.";
-	next;
-	
-	mes .@npcname$;
-	mes "Don't worry anymore, as long as you accept my quest,";
-	mes "You are guaranted to get the card of the monster you are hunting.";
-	mes "Of course, you have to hunt " + .questTargetNum;
-	mes " of the said monster for you to get the card.";
-	mes "What do you think, do you want to try?";
-	next;
+	else if(sakura_quest_state == 1){
+		mes .@npcname$;
+		mes "Oh! Hello there...";
+		mes "Do you want to try the quest again?";
+		next;
+		
+		.@sel = select("Let me take the quest:Maybe next time");
+	}
+	else {
+		mes .@npcname$;
+		mes "Oh! Hello there...";
+		mes "You must be one of those people!";
+		mes "You know, those people who can't seem to pick up cards...";
+		mes "No matter how 'long' they hunt mobs.";
+		next;
+		
+		mes .@npcname$;
+		mes "Don't worry anymore, as long as you accept my quest,";
+		mes "You are guaranted to get the card of the monster you are hunting.";
+		mes "Of course, you have to hunt " + .questTargetNum;
+		mes " of the said monster for you to get the card.";
+		mes "What do you think, do you want to try?";
+		next;
+		
+		.@sel = select("Let me do the quest!:Nah! I am not one of those people.");
+	}
 	
 	.@mob_id = 0;
-	switch(select("Let me do the quest!:Nah! I am not one of those people.")){
+	switch(.@sel){
 		case 1: mes .@npcname$;
 				mes "Great! You just have to tell me the monster of the card that you want.";
 				next;
@@ -36,7 +47,7 @@ prontera,163,186,3	script	Sakura	4_F_BERRYTEA,{
 		default: mes .@npcname$;
 				 mes "Oh, well...";
 				 mes "If you say so.";
-				 end;
+				 close;
 			break;
 	}
 	
@@ -116,8 +127,9 @@ OnNPCKillEvent:
 			announce "Congrats!! " + strcharinfo(0) + 
 				" just received a " + getitemname(sakura_reward_id) + 
 				" after finishing a Sakura Quest", bc_blue|bc_all;
-			sakura_quest_state = 0;
+			sakura_quest_state = 1;
 			sakura_quest_cd = gettimetick(2) + .coolDownDelay; //20 hours
+			dispbottom "Sakura: Card Captor Quest Successfully Completed!", 0x00FF00;
 		}
 	}
 	end;
@@ -128,6 +140,9 @@ function	script	Sakura_Start	{
 	
 	mes "[Card Captor - Sakura]";
 	mes "You can now start hunting " + getmonsterinfo(.@monster_id, MOB_NAME);
+	close2;
+	
+	dispbottom "Sakura: Card Captor Quest Started!", 0x00FF00;
 	end;
 }
 
@@ -139,7 +154,40 @@ function	script	Sakura_Ongoing	{
 	mes "How was your hunting? Not done yet?";
 	mes "It seems that you have hunted " + sakura_hunt_count + 
 		" out of " + .@qTargetNum + " " + strmobinfo(1, sakura_target_id);
-	mes "Keep it up! I am sure you will finish it soon.";
+	mes "Do you need me for something?";
+	next;
+	
+	select("Nothing...I was just passing by:I want to cancel my sakura quest");
+	if(@menu == 1){
+		mes "[Card Captor - Sakura]";
+		mes "Keep it up! I am sure you will finish it soon.";
+		close;
+	}
+	
+	mes "[Card Captor - Sakura]";
+	mes "I have to ask for you to give me 2 " + mesitemlink(7199) + " to cancel the Sakura Quest.";
+	mes "Are you sure you want to cancel your quest?";
+	next;
+	select("I am sure!:No, I will think about it again");
+	
+	if(@menu == 1){
+		if(countitem(7199) < 2){
+			mes .@npcname$;
+			mes "I am sorry but it seems you don't have enough " + mesitemlink(7199);
+			mes "Please come back when you have enough coins.";
+			close;
+		}
+		sakura_quest_state = 1;
+		sakura_hunt_count = 0;
+		delitem 7199, 2;
+		mes .@npcname$;
+		mes "I understand... you can always come back to take another quest.";
+		close2;
+		dispbottom "Sakura: Card Captor Quest Cancelled!", 0x00FF00;
+		end;
+	}
+	mes .@npcname$;
+	mes "Feel free to talk to me again if you need anything regarding the quest.";
 	end;
 }
 
@@ -148,17 +196,7 @@ function	script	Sakura_Cooldown	{
 	set .@timeInStr$, callfunc ("F_gettimestr", (sakura_quest_cd - gettimetick(2)));
 	mes .@npcname$;
 	mes "I am sorry, but you already have completed a Sakura Quest today.";
-	mes "If you want to take the quest again, please comeback tommorrow.";
-	mes "It should after " + .@timeInStr$ + " from now.";
+	mes "If you want to take the quest again, please comeback ";
+	mes "after " + .@timeInStr$ + " from now.";
 	end;
-}
-
-function	script	F_gettimestr	{
-	.@timeInSeconds = getarg(0);
-	.@countHours = .@timeInSeconds / 3600;
-	.@countMin = (.@timeInSeconds % 3600) / 60;
-	.@countSec = (.@timeInSeconds % 3600) % 60;
-	.@timeInStr$ = "" + .@countHours + " Hours, " + .@countMin + " Minutes, " + .@countSec + " Seconds";
-	
-	return .@timeInStr$;
 }

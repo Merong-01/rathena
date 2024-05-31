@@ -15,7 +15,7 @@ prontera,167,200,5	script	Costume Enchanter	4_F_CACTUSLADY3,{
 	}
 	
 	mes .@npcName$;
-	mes "Currently, I can only do it on ^FF5555" + getitemname(30102) + "^000000";
+	mes "Currently, I can only do it on ^FF5555 Relic Costumes^000000";
 	mes "Just bring to me the item and a ^FF5555" + getitemname(7776) + "^000000";
 	mes "For every ^FF5555" + getitemname(7776) + 
 		"^000000, I can enchant ^FF5555+100 Weight^000000 capacity";
@@ -40,9 +40,36 @@ prontera,167,200,5	script	Costume Enchanter	4_F_CACTUSLADY3,{
 		close;
 	}
 	
-	if(countitem(30102) < 1 || countitem(7776) < 1){
+	setarray .@enchantable_itemid[0], 30240, 30241, 30242, 30243, 30244, 30245; // 2-1 jobs relic garment
+	setarray .@enchantable_itemid[6], 30246, 30247, 30248, 30249, 30250, 30251, 30252; // 22 jobs relic garment
+	setarray .@enchantable_itemid[13], 30253, 30254, 30255, 30256, 30257; // extended jobs relic garment
+	
+	.@sel_itemname$ = "";
+	for(.@i = 0; .@i < getarraysize(.@enchantable_itemid); .@i++){
+		.@sel_itemname$ += getitemname(.@enchantable_itemid[.@i]) + ":";
+	}
+	.@sel_itemname$ += "Cancel";
+	
+	mes .@npcName$;
+	mes "Which costume you want to enchant?";
+	next;
+	
+	.@sel_item = select(.@sel_itemname$) - 1;
+	
+	if(.@sel_item >= getarraysize(.@enchantable_itemid)){
 		mes .@npcName$;
-		mes "Sorry but you don't have the required items.";
+		mes "Talk to me again if you want to enchant your costume.";
+		close;
+	}
+	
+	if(countitem(.@enchantable_itemid[.@sel_item]) < 1){
+		mes .@npcName$;
+		mes "Sorry but I can't see the " + getitemname(.@enchantable_itemid[.@sel_item]) + " in your inventory.";
+		close;
+	}
+	else if(countitem(7776) < 1){
+		mes .@npcName$;
+		mes "Sorry but you don't have the " + getitemname(7776) + " to enchant your costume.";
 		close;
 	}
 	
@@ -80,10 +107,19 @@ prontera,167,200,5	script	Costume Enchanter	4_F_CACTUSLADY3,{
 	progressbar "FFFF00",5;
 	getinventorylist();
 	for(.@i = 0; .@i < @inventorylist_count; .@i++){
-		if(@inventorylist_id[.@i] == 30102){
+		if(@inventorylist_id[.@i] == .@enchantable_itemid[.@sel_item]){
 			.@currentEnchant = @inventorylist_card4[.@i];
+			.@item_index = @inventorylist_idx[.@i];
+			.@is_equiped = @inventorylist_equip[.@i];
 			break;
 		}
+	}
+	if(.@is_equiped != 0){
+		mes .@npcName$;
+		mes "Oh! It seems that the fail safe mechanism was triggered.";
+		mes "Please unequip the costume to enchant first.";
+		mes "You may lost your item if you suddenly become overweight after the enchantment.";
+		close;
 	}
 	if(.@currentEnchant == 30120){
 		mes .@npcName$;
@@ -96,15 +132,17 @@ prontera,167,200,5	script	Costume Enchanter	4_F_CACTUSLADY3,{
 	else {
 		.@newEnchant = .@currentEnchant + 1;
 	}
-	if(countitem(30102) < 1 || countitem(7776) < 1){
+	if(countitem(.@enchantable_itemid[.@sel_item]) < 1 || 
+		countitem(7776) < 1 || @inventorylist_id[.@item_index] != .@enchantable_itemid[.@sel_item])
+	{
 		mes .@npcName$;
 		mes "Where are the items?";
 		mes "Did you manage to hide it without me noticing?";
 		close;
 	}
-	delitem 30102, 1;
+	delitemidx .@item_index, 1;
 	delitem 7776, 1;
-	getitem2 30102, 1, 1, 0, 0, 0, 0, 0, .@newEnchant;
+	getitem2 .@enchantable_itemid[.@sel_item], 1, 1, 0, 0, 0, 0, 0, .@newEnchant;
 	
 	mes .@npcName$;
 	mes "There you go.";
