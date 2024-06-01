@@ -661,7 +661,13 @@ Body:
     Type: Delayconsume
     Trade:
       NoDrop: true
+      NoTrade: false
       NoSell: true
+      NoCart: false
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: false
     Script: |
       callfunc "F_Item_ResetStats";
   - Id: 12221
@@ -793,6 +799,39 @@ Body:
       NoAuction: true
     Script: |
       rentitem 2741,604800;
+  - Id: 14003
+    AegisName: Elite_Siege_Supply_Box
+    Name: Elite Siege Supply Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
+    Script: |
+      getitem 11503,100;
+      getitem 11504,50;
+  - Id: 14175
+    AegisName: F_Megaphone_Box
+    Name: Megaphone 10 Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
+    Script: |
+      getitem 12221,10;
   - Id: 19699
     AegisName: C_Gf_Recruiter_Hat
     Name: Costume Gf Recruiter Hat
@@ -946,12 +985,7 @@ Body:
     Weight: 10
     Trade:
       NoDrop: true
-      NoTrade: true
       NoSell: true
-      NoCart: true
-      NoGuildStorage: true
-      NoMail: true
-      NoAuction: true
     Script: |
       getitem 30002,100;
       getitem 30003,50;
@@ -1200,12 +1234,7 @@ Body:
     weight: 10
     Trade:
       NoDrop: true
-      NoTrade: true
       NoSell: true
-      NoCart: true
-      NoGuildStorage: true
-      NoMail: true
-      NoAuction: true
     Script: |
         select("Concentration Potion:Awakening Potion:Berserk Potion");
         if(@menu == 1 && checkweight(14509,10) != 0){

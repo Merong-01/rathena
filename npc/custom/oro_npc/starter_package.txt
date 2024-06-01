@@ -82,7 +82,7 @@ new_1-1,63,116,3	script	Reward Kafra	117,{
 		mes "Your registration date is on " + .@month_registered + "/" + .@day_registered + "/2024";
 		mes "Here is you event reward.";
 		mes "I wish your adventures ahead to be an enjoyable experience.";
-		getitembound 5286,1,Bound_Account;
+		//getitembound 5286,1,Bound_Account;
 		getitembound 14003,10,Bound_Account;
 		getitembound 12411,10,Bound_Account;
 		getitembound 12210,10,Bound_Account;

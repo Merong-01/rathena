@@ -19,7 +19,7 @@ OnMapShower:
 	next;
 	
 	.@item_id[0] = 14003; // ESSB
-	.@item_id[1] = 30001 // ESSB (pvp/gvg)
+	.@item_id[1] = 30001; // ESSB (pvp/gvg)
 	.@item_id[2] = 12411; // HE Battle Manual
 	.@item_id[3] = 14592; // Job Manual50
 	.@item_id[4] = 12210; // Bubble Gum

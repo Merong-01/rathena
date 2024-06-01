@@ -116,19 +116,16 @@ Body:
             Item: ASPD_Potion_Box
             Rate: 100
             Amount: 1
-            Bound: Account
             Announced: true
           - Index: 1
             Item: Elite_Siege_Supply_Box
             Rate: 100
             Amount: 3
-            Bound: Account
             Announced: true
           - Index: 2
             Item: Elite_Siege_Supply_Box_
             Rate: 100
             Amount: 4
-            Bound: Account
             Announced: true
 #          - Index: 2
 #            Item: Megaphone_
@@ -140,7 +137,6 @@ Body:
             Item: F_Megaphone_Box
             Rate: 100
             Amount: 1
-            Bound: Account
             Announced: true
           - Index: 4
             Item: Kafra_Card
@@ -176,7 +172,6 @@ Body:
             Item: Greed_Box50
             Rate: 100
             Amount: 1
-            Bound: Account
             Announced: true
           - Index: 10
             Item: VIP_1Day_Coin
@@ -188,43 +183,36 @@ Body:
             Item: Max_Weight_Up_Scroll
             Rate: 10
             Amount: 1
-            Bound: Account
             Announced: true
           - Index: 12
             Item: Cloth_Dye_Coupon_ORO
             Rate: 5
             Amount: 1
-            Bound: Account
             Announced: true
           - Index: 13
             Item: New_Hairstyle_Coupon_ORO
             Rate: 5
             Amount: 1
-            Bound: Account
             Announced: true
           - Index: 14
             Item: New_Hair_Dye_Coupon_ORO
             Rate: 5
             Amount: 1
-            Bound: Account
             Announced: true
           - Index: 15
             Item: Neuralizer_Box
             Rate: 3
             Amount: 1
-            Bound: Account
             Announced: true
           - Index: 16
             Item: Premium_Reset_Stone
             Rate: 3
             Amount: 1
-            Bound: Account
             Announced: true
           - Index: 17
             Item: Change_Name_Card_Box
             Rate: 3
             Amount: 1
-            Bound: Account
             Announced: true
           - Index: 18
             Item: Costume_Exchange_Coupon
