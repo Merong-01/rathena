@@ -99,6 +99,29 @@ Body:
 #    Name: Angeling Egg
 #    Type: Petegg
 #    Buy: 20
+  - Id: 2741
+    AegisName: All_In_One_Ring
+    Name: All In One Ring
+    Type: Armor
+    Buy: 20
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bAllStats,1;
+      bonus bNoCastCancel;
+      bonus bCastRate,10;
+      skill "AL_HEAL",1;
+      skill "AL_TELEPORT",1;
   - Id: 7199
     AegisName: Hourly_Coin
     Name: Hourly Coin
@@ -670,6 +693,19 @@ Body:
       NoAuction: false
     Script: |
       callfunc "F_Item_ResetStats";
+  - Id: 7776
+    AegisName: Max_Weight_Up_Scroll
+    Name: Gym Pass
+    Type: Etc
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: true
+      NoMail: false
+      NoAuction: true
   - Id: 12221
     AegisName: Megaphone_
     Name: Megaphone
@@ -752,9 +788,9 @@ Body:
       Status: All_Riding_Reuse_Limit
     Trade:
       NoDrop: true
-      NoTrade: true
+      NoTrade: false
       NoSell: true
-      NoCart: true
+      NoCart: false
       NoGuildStorage: true
       NoMail: true
       NoAuction: true
@@ -1034,6 +1070,7 @@ Body:
       NoAuction: false
     Script: |
       atcommand "@cash 100";
+      callfunc "F_StreamerCode";
   - Id: 30005
     AegisName: VIP_1Day_Coin
     Name: VIP 1Day
@@ -1041,11 +1078,8 @@ Body:
     Weight: 0
     Trade:
       NoDrop: true
-      NoTrade: true
       NoSell: true
-      NoCart: true
       NoGuildStorage: true
-      NoMail: true
       NoAuction: true
     Script: |
       vip_time 1440;

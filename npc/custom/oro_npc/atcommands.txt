@@ -106,3 +106,86 @@ OnCoolDown:
 	@shout_cd = 0;
 end;
 }
+
+-	script	Streamer Code	-1,{
+end;
+OnInit:
+	bindatcmd("streamerredeem",strnpcinfo(0)+"::OnRedeem",99,99);
+	bindatcmd("setstreamercode",strnpcinfo(0)+"::OnSetSCode",99,99);
+	bindatcmd("streamerpoints",strnpcinfo(0)+"::OnStreamerPoints",6,99);
+end;
+OnSetSCode:
+	if(.@atcmd_numparameters < 1){
+		dispbottom "Invalid Parameter", 0x00FF00;
+		dispbottom "@setstreamercode <streamer code>", 0x00FF00;
+		end;
+	}
+	
+	.@streamercode$ = .@atcmd_parameters$[0];
+	
+	if(getstrlen(.@streamercode$) > 12){
+		dispbottom "Streamer Code exceeded the 12 character limit!", 0xFF0000;
+		end;
+	}
+	
+	setd "$" + .@streamercode$, 1;
+	$StreamerCodeCount += 1;
+	
+	dispbottom "Streamer Code " + .@streamercode$ + " successfully registered.", 0x00FF00;
+end;
+OnStreamerPoints:
+	if(.@atcmd_numparameters < 1){
+		dispbottom "Invalid Parameter", 0x00FF00;
+		dispbottom "@streamerpoints <streamer code>", 0x00FF00;
+		end;
+	}
+	.@streamercode$ = .@atcmd_parameters$[0];
+//	if(.@streamercode$ == "ALL"){
+//		for(.@i = 0; .@i < $StreamerCodeCount; .@i++){
+//			dispbottom .@streamercode$ + " current points: " + getd("$SCP_" + .@streamercode$), 0x00FF00;
+//		}
+//		dispbottom "Bonus (common) points: " + $StreamerAll_points, 0x00FF00;
+//		end;
+//	}
+	
+	if(getd("$" + .@streamercode$) == 1){
+		dispbottom .@streamercode$ + " current points: " + getd("$SCP_" + .@streamercode$), 0x00FF00;
+		dispbottom "Bonus (common) points: " + $StreamerAll_points, 0x00FF00;
+	}
+end;
+OnRedeem:
+	.@npcName$ = "[Redeem Streamer Points]";
+	
+	mes .@npcName$;
+	mes "Enter the streamer code of the streamer to redeem:";
+	input .@streamercode$;
+	
+	clear;
+	if(getd("$" + .@streamercode$) == 0){
+		mes .@npcName$;
+		mes "Invalid Streamer Code!";
+		close;
+	}
+	mes .@npcName$;
+	mes .@streamercode$ + " current points: " + getd("$SCP_" + .@streamercode$);
+	mes "Enter the amount to redeem:";
+	mes "^FF0000Note: this amount will deducted from the points of the streamer^000000";
+	input .@amount;
+	
+	clear;
+	if(.@amount == 0){
+		mes .@npcName$;
+		mes "Invalid amount!";
+		close;
+	}
+	if(getd("$SCP_" + .@streamercode$) < .@amount){
+		mes .@npcName$;
+		mes "Amount entered is greater than available points.";
+		close;
+	}
+	setd "$SCP_" + .@streamercode$, getd("$SCP_" + .@streamercode$) - .@amount;
+	mes .@npcName$;
+	mes .@streamercode$ + " remaining points: " + getd("$SCP_" + .@streamercode$);
+	
+end;
+}

@@ -177,7 +177,6 @@ Body:
             Item: VIP_1Day_Coin
             Rate: 100
             Amount: 1
-            Bound: Account
             Announced: true
           - Index: 11
             Item: Max_Weight_Up_Scroll

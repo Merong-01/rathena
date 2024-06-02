@@ -55,3 +55,24 @@ function	script	F_Starter_Weapon_Box	{
 	}
 	end;
 }
+
+function	script	F_StreamerCode	{
+	.@npcName$ = "[Streamer Code]";
+	
+	mes .@npcName$;
+	mes "Support your favorite streamer by inputting their Streamer Code:";
+	mes "^0000FF(Inputting 0 as Streamer Code will add to bonus score that will be shared by all eligible streamers)^000000";
+	input .@streamercode$;
+	
+	if(.@streamercode$ == "0"){
+		$StreamerAll_points += 10;
+	}
+	else if(getd("$" + .@streamercode$) == 1){
+		setd "$SCP_" + .@streamercode$, getd("$SCP_" + .@streamercode$) + 10;
+	}
+	clear;
+	mes .@npcName$;
+	mes "Thank you for your patronage.";
+	close;
+	return;
+}

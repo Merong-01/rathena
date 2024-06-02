@@ -20,6 +20,11 @@ prontera,157,196,4	script	Job Changer	4_M_JOB_WIZARD,{
 	}
 	
 	if(Class == Job_Novice && JobLevel == 10){
+		if(SkillPoint != 0){
+			mes .@npcName$;
+			mes "Please make sure you have no available skill points remaining before you change job.";
+			close;
+		}
 		mes .@npcName$;
 		mes "Which job do you want to change to?";
 		next;
@@ -72,6 +77,11 @@ prontera,157,196,4	script	Job Changer	4_M_JOB_WIZARD,{
 		close;
 	}
 	else if(Class < Job_Knight && JobLevel >= 40){
+		if(SkillPoint != 0){
+			mes .@npcName$;
+			mes "Please make sure you have no available skill points remaining before you change job.";
+			close;
+		}
 		mes .@npcName$;
 		mes "Which job do you want to change to?";
 		next;

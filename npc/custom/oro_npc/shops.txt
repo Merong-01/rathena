@@ -16,11 +16,15 @@ OnInit:
 	npcshopadditem "Tool Dealer#prt2", 645, -1; // Concentration Potion
 	npcshopadditem "Tool Dealer#prt2", 656, -1; // Awakening Potion
 	npcshopadditem "Tool Dealer#prt2", 657, -1; // Berserk Potion
+	npcshopadditem "Tool Dealer#prt2", 610, -1; // Yggdrasil Leaf
 	npcshopadditem "Tool Dealer#prt2", 601, -1; // Flywing
 	npcshopadditem "Tool Dealer#prt2", 602, -1; // Butterflywing
 	npcshopadditem "Tool Dealer#prt2", 14582, 5000; // Yellow Butterflywing
 	npcshopadditem "Tool Dealer#prt2", 14583, 5000; // Green Butterflywing
 	npcshopadditem "Tool Dealer#prt2", 14584, 5000; // Red Butterflywing
 	npcshopadditem "Tool Dealer#prt2", 14585, 5000; // Blue Butterflywing
+	npcshopadditem "Tool Dealer#prt2", 1065, -1; // Trap
+	npcshopadditem "Tool Dealer#prt2", 717, -1; // Blue Gemstone
+	npcshopadditem "Tool Dealer#prt2", 1771, -1; // Venom Knife
 end;
 }

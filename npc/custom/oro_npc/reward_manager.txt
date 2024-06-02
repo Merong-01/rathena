@@ -46,7 +46,7 @@ function viewGengWar;
 			(atoi(.@dateStr$[0]) == 2024 && atoi(.@dateStr$[1]) == 5 && atoi(.@dateStr$[2]) > 27)){
 			mes "[ Reward Manager ]";
 			mes "It seems that this is a newly created account.";
-			mes "I am sorry but we only gave compensation for accounts registered before today.";
+			mes "I am sorry but we only gave compensation for accounts registered before May 28, 2024.";
 			close;
 		}
 		else {
