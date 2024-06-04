@@ -7789,6 +7789,7 @@
 	export_constant(IG_P_COMPENSATION_BOX);
 	export_constant(IG_CASH_EGG_SCROLL);
 	export_constant(IG_STREAMER_GIFT_BOX);
+	export_constant(IG_GUILD_PACKAGE_P);
 
 	/* unit stop walking */
 	export_constant(USW_NONE);

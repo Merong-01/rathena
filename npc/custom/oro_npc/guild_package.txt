@@ -1,0 +1,124 @@
+//======= Guild Package Receptionist NPC =====================
+//============================================================
+prontera,146,232,5	script	Guild Receptionist	4_M_COSTELL,{
+	.@npcName$ = "[ Guild Receptionist ]";
+	
+	mes .@npcName$;
+	mes "To encourage players to create or join a Guild, we are giving free " + 
+		mesitemlink(30019) + " to guilds with 15 or more members.";
+	next;
+	
+	mes .@npcName$;
+	if(strcharinfo(2) == ""){
+		mes "If you ever join or create a guild yourself, make sure to come by to get a free " + 
+		mesitemlink(30019);
+		close;
+	}
+	if(getd("#GuildPack_" + getcharid(3)) == 1){
+		mes "It seems that you already received a " + mesitemlink(30019);
+		mes "I hope the items we gave was of any help.";
+		close;
+	}
+	if(getd("$GuildPack_" + getcharid(2)) == 1){
+		mes "Since your guild have already registered,";
+		mes "would you like to receive your Guild Pack now?";
+		next;
+		
+		select("Yes, please:No, not yet");
+		if(@menu == 2){
+			mes .@npcName$;
+			mes "Sure, no problem.";
+			mes "You can talk to me again anytime.";
+			close;
+		}
+		if(checkweight(30019,1) == 0){
+			mes .@npcName$;
+			mes "hmm...it seems that you don't have enough space in your inventory.";
+			next;
+			
+			mes .@npcName$;
+			mes "You can just talk to me again when your inventory have enough capacity.";
+			close;
+		}
+		
+		getitem 30019, 1;
+		setd "#GuildPack_" + getcharid(3), 1;
+		
+		mes .@npcName$;
+		mes "Here is your Guild Pack.";
+		mes "We hope that these items will you and your guild members to have a great adventures.";
+		close;
+	}
+	if(is_guild_leader()){
+		mes "I see that your a Guild Master, would you like to register your guild to get a free " + 
+		mesitemlink(30019);
+		next;
+		
+		select("Yes, register my guild:No, maybe next time");
+		if(@menu == 2){
+			mes .@npcName$;
+			mes "Sure, no problem.";
+			mes "You can talk to me again anytime.";
+			close;
+		}
+		
+		mes .@npcName$;
+		mes "Let's see...";
+		mes "Your guild is called ^0000FF" + strcharinfo(2) + "^000000";
+		mes "And the current count of your members is...";
+		next;
+		
+		getguildmember getcharid(2), 2, .@guildmembers_aid[0];
+		.@guildmembers_cnt = getarraysize(.@guildmembers_aid);
+		if(.@guildmembers_cnt >= 15){
+			mes .@npcName$;
+			mes "Great! You already have the required members to be eligible for the free Guild Pack.";
+			next;
+			
+			mes .@npcName$;
+			mes "You just have to tell your members to come and claim their Guild Pack from me.";
+			next;
+			
+			mes .@npcName$;
+			mes "Please take ^0000FFnote^000000, that you can ^0000FFonly claim 1 Guild Pack per account.^000000";
+			mes "So if you have a guild member who already claimed a Guild Pack from another guild,";
+			mes "they would not be able to claim another Guild Pack.";
+			next;
+			
+			mes .@npcName$;
+			mes "You and your members also would not be able to claim another Guild Pack,";
+			mes "if you join another guild.";
+			next;
+			
+			setd "$GuildPack_" + getcharid(2), 1;
+			
+			mes .@npcName$;
+			mes "Now that we are done with formalities,";
+			if(checkweight(30019,1) == 0){
+				mes "hmm...it seems that you don't have enough space in your inventory.";
+				next;
+				
+				mes .@npcName$;
+				mes "You can just talk to me again when your inventory have enough capacity.";
+				close;
+			}
+			mes "here is your Guild Pack.";
+			next;
+			
+			getitem 30019, 1;
+			setd "#GuildPack_" + getcharid(3), 1;
+			mes .@npcName$;
+			mes "We hope that these items will you and your guild members to have a great adventures.";
+			close;
+		}
+		
+		mes .@npcName$;
+		mes "It seems that you only have " + .@guildmembers_cnt + " members.";
+		mes "Please come back when you have 15 or more members.";
+		close;
+	}
+	mes "I see that you already joined a guild.";
+	mes "Why don't you message your guild master";
+	mes "to register your guild with me so that you can receive a free Guild Pack";
+	close;
+}

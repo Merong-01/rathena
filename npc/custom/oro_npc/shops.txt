@@ -26,5 +26,6 @@ OnInit:
 	npcshopadditem "Tool Dealer#prt2", 1065, -1; // Trap
 	npcshopadditem "Tool Dealer#prt2", 717, -1; // Blue Gemstone
 	npcshopadditem "Tool Dealer#prt2", 1771, -1; // Venom Knife
+	npcshopadditem "Tool Dealer#prt2", 7433, -1; // Blank Scroll
 end;
 }

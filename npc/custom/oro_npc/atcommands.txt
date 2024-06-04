@@ -112,7 +112,7 @@ end;
 OnInit:
 	bindatcmd("streamerredeem",strnpcinfo(0)+"::OnRedeem",99,99);
 	bindatcmd("setstreamercode",strnpcinfo(0)+"::OnSetSCode",99,99);
-	bindatcmd("streamerpoints",strnpcinfo(0)+"::OnStreamerPoints",6,99);
+	bindatcmd("streamerpoints",strnpcinfo(0)+"::OnStreamerPoints",1,99);
 end;
 OnSetSCode:
 	if(.@atcmd_numparameters < 1){

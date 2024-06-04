@@ -48,6 +48,58 @@ Header:
   Version: 3
 
 Body:
+  - Group: GUILD_PACKAGE_P
+    SubGroups:
+      - SubGroup: 0
+        List:
+          - Index: 0
+            Item: Elite_Siege_Supply_Box
+            Amount: 30
+            Bound: Account
+          - Index: 1
+            Item: Elite_Siege_Supply_Box_
+            Amount: 20
+            Bound: Account
+          - Index: 2
+            Item: HE_Battle_Manual
+            Amount: 15
+            Bound: Account
+          - Index: 3
+            Item: Job_Manual50
+            Amount: 15
+            Bound: Account
+          - Index: 4
+            Item: Bubble_Gum
+            Amount: 15
+            Bound: Account
+          - Index: 5
+            Item: N_Fly_Wing
+            Amount: 150
+            Bound: Account
+          - Index: 6
+            Item: N_Butterfly_Wing
+            Amount: 30
+            Bound: Account
+          - Index: 7
+            Item: F_Megaphone_Box
+            Amount: 5
+            Bound: Account
+          - Index: 8
+            Item: Convex_Mirror
+            Amount: 20
+            Bound: Account
+          - Index: 9
+            Item: All_In_One_Ring_Box
+            Amount: 1
+            Bound: Account
+          - Index: 10
+            Item: Boarding_Halter_Box7
+            Amount: 1
+            Bound: Account
+          - Index: 11
+            Item: ASPD_Potion_Box
+            Amount: 5
+            Bound: Account
   - Group: STREAMER_GIFT_BOX
     SubGroups:
       - SubGroup: 1

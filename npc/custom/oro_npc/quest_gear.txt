@@ -128,7 +128,10 @@ function	script	F_HeadGear_Mid	{
 			break;
 		case 5: 
 				.@gear_requirements_id[0] = 4010;
-				.@gear_requirements_count[0] = 5;
+				.@gear_requirements_count[0] = 1;
+				
+				.@gear_requirements_id[1] = 2296;
+				.@gear_requirements_count[1] = 1;
 			break;
 		default: return 0;
 			break;
@@ -146,7 +149,7 @@ function	script	F_HeadGear_Mid	{
 }
 
 function	script	F_HeadGear_Low	{
-	setarray .@lowGearIdList[0], 5377;
+	setarray .@lowGearIdList[0], 5377, 5967;
 	
 	.@low_gear_name$ = "";
 	for(.@i = 0; .@i < getarraysize(.@lowGearIdList); .@i++){
@@ -159,6 +162,13 @@ function	script	F_HeadGear_Low	{
 		case 1: 
 				.@gear_requirements_id[0] = 2268;
 				.@gear_requirements_count[0] = 10;
+			break;
+		case 2:
+				.@gear_requirements_id[0] = 5111;
+				.@gear_requirements_count[0] = 1;
+				
+				.@gear_requirements_id[1] = 5358;
+				.@gear_requirements_count[1] = 1;
 			break;
 		default: return 0;
 			break;

@@ -588,14 +588,16 @@ Body:
     Locations:
       Head_Low: true
     ArmorLevel: 1
-    EquipLevelMin: 110
+    EquipLevelMin: 75
+    Jobs:
+      Hunter: true
     View: 1358
     Script: |
       set .@bblvl,max(getskilllv("HT_BLITZBEAT"),1);
       set .@luk,min(readparam(bLuk),120);
       bonus bAgi,1;
-      bonus3 bAutoSpell,"HT_BLITZBEAT",.@bblvl,50 + (.@luk / 3) + (.@bblvl * 2);
-      bonus2 bSkillAtk,"HT_BLITZBEAT",getskilllv("HT_STEELCROW") * 40;
+      bonus3 bAutoSpell, "HT_BLITZBEAT", .@bblvl, 20 + (.@luk / 3);
+      bonus2 bSkillAtk, "HT_BLITZBEAT", 40;
   - Id: 18539
     AegisName: Skull_Cap
     Name: Skull Cap
@@ -746,7 +748,7 @@ Body:
     Buy: 20
     Weight: 10
     Flags:
-      UniqueId: true
+      Container: true
     Trade:
       NoDrop: true
       NoTrade: true
@@ -763,6 +765,8 @@ Body:
     Type: Usable
     Buy: 20
     Weight: 10
+    Flags:
+      Container: true
     Trade:
       NoDrop: true
       NoSell: true
@@ -841,6 +845,8 @@ Body:
     Type: Cash
     Buy: 20
     Weight: 10
+    Flags:
+      Container: true
     Trade:
       NoDrop: true
       NoTrade: false
@@ -858,6 +864,8 @@ Body:
     Type: Cash
     Buy: 20
     Weight: 10
+    Flags:
+      Container: true
     Trade:
       NoDrop: true
       NoTrade: false
@@ -940,7 +948,35 @@ Body:
     View: 1668
     Script: |
         bonus2 bExpAddClass,Class_All,10;
-        bonus2 bDropAddClass,Class_All,5; 
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 19581
+    AegisName: C_Brabery_Hat
+    Name: Costume Adventurer's Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 891
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      bonus bSpeedRate,30;
+  - Id: 19954
+    AegisName: C_3D_Glasses
+    Name: Costume 3D Glasses
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 661
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      skill "AL_TELEPORT",1;
   - Id: 20314
     AegisName: C_New_Wave_Sunglass
     Name: Costume New Wave Sunglasses
@@ -1019,6 +1055,8 @@ Body:
     Type: Cash
     Buy: 20
     Weight: 10
+    Flags:
+      Container: true
     Trade:
       NoDrop: true
       NoSell: true
@@ -1103,6 +1141,8 @@ Body:
     Name: Costume Egg Scroll
     Type: Usable
     Weight: 1
+    Flags:
+      Container: true
     Trade:
       NoDrop: true
       NoTrade: false
@@ -1118,6 +1158,8 @@ Body:
     Name: Streamer Gift Box
     Type: Usable
     Weight: 10
+    Flags:
+      Container: true
     Trade:
       NoSell: true
     Script: |
@@ -1157,6 +1199,8 @@ Body:
     Type: Cash
     Buy: 20
     Weight: 10
+    Flags:
+      Container: true
     Trade:
       NoDrop: true
       NoTrade: true
@@ -1173,6 +1217,8 @@ Body:
     Type: Cash
     Buy: 20
     Weight: 10
+    Flags:
+      Container: true
     Trade:
       NoDrop: true
       NoTrade: true
@@ -1189,6 +1235,8 @@ Body:
     Type: Cash
     Buy: 20
     Weight: 10
+    Flags:
+      Container: true
     Trade:
       NoDrop: true
       NoTrade: true
@@ -1205,6 +1253,8 @@ Body:
     Type: Cash
     Buy: 20
     Weight: 10
+    Flags:
+      Container: true
     Trade:
       NoDrop: true
       NoTrade: true
@@ -1221,6 +1271,8 @@ Body:
     Type: Delayconsume
     Buy: 20
     Weight: 10
+    Flags:
+      Container: true
     Trade:
       NoDrop: true
       NoTrade: true
@@ -1260,12 +1312,27 @@ Body:
       NoGuildStorage: true
       NoMail: true
       NoAuction: true
+  - Id: 30019
+    AegisName: Guild_Pack
+    Name: Guild Pack
+    Type: Usable
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      getgroupitem IG_GUILD_PACKAGE_P;
   - Id: 30020
     AegisName: ASPD_Potion_Box
     Name: ASPD Potion Box
     Type: Delayconsume
     Buy: 20
     weight: 10
+    Flags:
+      Container: true
     Trade:
       NoDrop: true
       NoSell: true
@@ -1290,34 +1357,6 @@ Body:
             dispbottom "You are overweght", 0xFF0000;
             end;
         }
-  - Id: 19581
-    AegisName: C_Brabery_Hat
-    Name: Costume Adventurer's Hat
-    Type: Armor
-    Locations:
-      Costume_Head_Top: true
-    ArmorLevel: 1
-    EquipLevelMin: 1
-    View: 891
-    Trade:
-      NoDrop: true
-      NoSell: true
-    Script: |
-      bonus bSpeedRate,30;
-  - Id: 19954
-    AegisName: C_3D_Glasses
-    Name: Costume 3D Glasses
-    Type: Armor
-    Locations:
-      Costume_Head_Mid: true
-    ArmorLevel: 1
-    EquipLevelMin: 1
-    View: 661
-    Trade:
-      NoDrop: true
-      NoSell: true
-    Script: |
-      skill "AL_TELEPORT",1;
   - Id: 30100
     AegisName: C_Analyze_Eye_S
     Name: Costume Analyze Eye
@@ -1646,6 +1685,8 @@ Body:
       Costume_Head_Top: true
     ArmorLevel: 1
     EquipLevelMin: 1
+    Flags:
+      DropEffect: PURPLE_PILLAR
     View: 652
   - Id: 30122
     AegisName: C_Red_Beret_S
