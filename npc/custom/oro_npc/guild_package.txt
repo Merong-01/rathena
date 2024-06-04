@@ -41,7 +41,7 @@ prontera,146,232,5	script	Guild Receptionist	4_M_COSTELL,{
 			close;
 		}
 		
-		getitem 30019, 1;
+		getitembound 30019, 1, Bound_Account;
 		setd "#GuildPack_" + getcharid(3), 1;
 		
 		mes .@npcName$;
@@ -105,7 +105,7 @@ prontera,146,232,5	script	Guild Receptionist	4_M_COSTELL,{
 			mes "here is your Guild Pack.";
 			next;
 			
-			getitem 30019, 1;
+			getitembound 30019, 1, Bound_Account;
 			setd "#GuildPack_" + getcharid(3), 1;
 			mes .@npcName$;
 			mes "We hope that these items will you and your guild members to have a great adventures.";
