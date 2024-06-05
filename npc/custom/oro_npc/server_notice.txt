@@ -1,12 +1,30 @@
 //===== Server Notice Script =================================
 //============================================================
 -	script	Server Notice	-1,{
+end;
 OnMinute01:
-	set .@notice1$, "Check our discord and website for detailed server features and updates.\n";
-	//set .@notice2$, "Please leave a review at ratemyserver.net to help promote our server.";
+OnMinute11:
+OnMinute21:
+OnMinute31:
+OnMinute41:
+OnMinute51:
+	.@notice$[0] = "Check our discord and website 'projectovergeared.com' for detailed server features and updates";
+	.@notice$[1] = "Feature Costume Enchant: +Weight Capacity enchantment for costumes from Eggscroll";
+	.@notice$[2] = "Feature Customized Refined Gears: Added Equipments with enhanced effects according to refine level";
+	.@notice$[3] = "Feature Quest Gears: Gather items or gears to craft equipment with good effects";
+	.@notice$[4] = "Feature Individual MVP Loot: Every member of the party within range of the MVP can get MVP loot";
+	.@notice$[5] = "Feature Enhanced Skills: Improved skill effects or removed skills requirement for balancing purposes";
+	.@notice$[6] = "Feature Jobchange/Skill Quest: Instant jobchange/platinum skills quest for 10cp. ";
+	.@notice$[6] += "Note: Normal jobchange/platinum skill quest is still available";
+	.@notice$[7] = "Feature Enriched Ore: Increase by 5% success rate by using enriched elunium/oridecon.";
+	.@notice$[7] += "Note: Gears will still break when failed";
+	.@notice$[8] = "Feature Sakura Card Captor: A quest that will reward a card after hunting a set number of mobs";
+	.@notice$[9] = "Feature Enhanced Sit Regen: Just by sitting you gain 5% of HP/SP after exiting battle mode";
+	.@notice$[10] = "Feature AFK Leveling: Starting level 60, you will gain base exp every 20 minutes by just staying online";
+	.@notice$[11] = "Feature Play To Earn: You can ask any active GM to turn your PODS to real cash (5% charging fee)";
+	.@notice$[12] = "Please leave a review at ratemyserver.net to help promote our server";
 	
-	if(rand(1,3) != 1){
-		announce .@notice1$ + "Always be nice everyone.",0;
-	}
-	end;
+	announce .@notice$[rand(0,12)], 0;
+	
+end;
 }
