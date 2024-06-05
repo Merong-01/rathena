@@ -1,6 +1,7 @@
 //======= Guild Package Receptionist NPC =====================
 //============================================================
-prontera,146,232,5	script	Guild Receptionist	4_M_COSTELL,{
+//prontera,146,232,5	script	Guild Receptionist	4_M_COSTELL,{
+new_5-1,182,86,3	script	Guild Receptionist	4_M_COSTELL,{
 	.@npcName$ = "[ Guild Receptionist ]";
 	
 	mes .@npcName$;
