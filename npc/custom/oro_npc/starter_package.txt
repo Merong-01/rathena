@@ -71,18 +71,14 @@ new_1-1,63,116,3	script	Reward Kafra	117,{
 		.@month_registered = atoi(charat(.@reg_date$,5)+charat(.@reg_date$,6));
 		.@day_registered = atoi(charat(.@reg_date$,8)+charat(.@reg_date$,9));
 		
-		//if(.@month_registered > 4 || (.@month_registered == 4 && .@day_registered > 20)){
-		//	mes .@npcName$;
-		//	mes "I am sorry, but the date of your registration does not qualify for the reward.";
-		//	close;
-		//}
-		
 		mes .@npcName$;
 		mes "Welcome to Overgeared Ragnarok Online.";
 		mes "Your registration date is on " + .@month_registered + "/" + .@day_registered + "/2024";
 		mes "Here is you event reward.";
 		mes "I wish your adventures ahead to be an enjoyable experience.";
-		//getitembound 5286,1,Bound_Account;
+		if(.@month_registered < 06){
+			getitembound 5286,1,Bound_Account;
+		}
 		getitembound 14003,10,Bound_Account;
 		getitembound 12411,10,Bound_Account;
 		getitembound 12210,10,Bound_Account;
