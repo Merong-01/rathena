@@ -166,103 +166,97 @@ Body:
         List:
           - Index: 0
             Item: ASPD_Potion_Box
-            Rate: 100
+            Rate: 12
             Amount: 1
             Announced: true
           - Index: 1
             Item: Elite_Siege_Supply_Box
-            Rate: 100
+            Rate: 22
             Amount: 3
             Announced: true
           - Index: 2
             Item: Elite_Siege_Supply_Box_
-            Rate: 100
+            Rate: 22
             Amount: 4
             Announced: true
-#          - Index: 2
-#            Item: Megaphone_
-#            Rate: 100
-#            Amount: 5
-#            Bound: Account
-#            Announced: true
           - Index: 3
             Item: F_Megaphone_Box
-            Rate: 100
+            Rate: 12
             Amount: 1
             Announced: true
           - Index: 4
             Item: Kafra_Card
-            Rate: 100
+            Rate: 12
             Amount: 5
             Bound: Account
             Announced: true
           - Index: 5
             Item: Bubble_Gum
-            Rate: 100
+            Rate: 20
             Amount: 3
             Bound: Account
             Announced: true
           - Index: 6
             Item: HE_Battle_Manual
-            Rate: 100
+            Rate: 12
             Amount: 3
             Bound: Account
             Announced: true
           - Index: 7
             Item: Job_Manual50
-            Rate: 100
+            Rate: 12
             Amount: 3
             Bound: Account
             Announced: true
           - Index: 8
             Item: Convex_Mirror
-            Rate: 100
+            Rate: 12
             Amount: 2
             Bound: Account
             Announced: true
           - Index: 9
             Item: Greed_Box50
-            Rate: 100
+            Rate: 22
             Amount: 1
             Announced: true
           - Index: 10
             Item: VIP_1Day_Coin
-            Rate: 100
+            Rate: 15
             Amount: 1
             Announced: true
           - Index: 11
             Item: Max_Weight_Up_Scroll
-            Rate: 10
+            Rate: 8
             Amount: 1
             Announced: true
           - Index: 12
             Item: Cloth_Dye_Coupon_ORO
-            Rate: 5
+            Rate: 4
             Amount: 1
             Announced: true
           - Index: 13
             Item: New_Hairstyle_Coupon_ORO
-            Rate: 5
+            Rate: 4
             Amount: 1
             Announced: true
           - Index: 14
             Item: New_Hair_Dye_Coupon_ORO
-            Rate: 5
+            Rate: 4
             Amount: 1
             Announced: true
           - Index: 15
             Item: Neuralizer_Box
-            Rate: 3
+            Rate: 2
             Amount: 1
             Announced: true
           - Index: 16
             Item: Premium_Reset_Stone
-            Rate: 3
+            Rate: 2
             Amount: 1
             Announced: true
           - Index: 17
             Item: Change_Name_Card_Box
-            Rate: 3
+            Rate: 2
             Amount: 1
             Announced: true
           - Index: 18
@@ -271,6 +265,12 @@ Body:
             Amount: 1
             Bound: Account
             Announced: true
+#          - Index: 2
+#            Item: Megaphone_
+#            Rate: 100
+#            Amount: 5
+#            Bound: Account
+#            Announced: true
 #          - Index: 7
 #            Item: VIP_30Day_Card
 #            Rate: 20

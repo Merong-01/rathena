@@ -191,3 +191,11 @@ Body:
       NoDamage: true
       IgnoreAtkCard: false
       IgnoreFlee: true
+  - Id: 492
+    Name: ITEM_ENCHANTARMS
+    Description: Weapon Enchantment
+    MaxLevel: 10
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Duration1: 600000
