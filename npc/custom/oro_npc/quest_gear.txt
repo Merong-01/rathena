@@ -4,7 +4,7 @@
 	.@ret = 0;
 	
 	while(.@ret == 0){
-		mes "[Head Gear Comissioner]";
+		mes "[Head Gear Commissioner]";
 		mes "Perharps your looking for a new head gear?";
 		mes "Why don't you check out my collection...";
 		mes "I'm sure you will find what you need.";
@@ -23,7 +23,7 @@ function	script	F_DisplayMenuType	{
 			break;
 		case 3: .@ret = callfunc("F_HeadGear_Low");
 			break;
-		default: mes "[Head Gear Comissioner]";
+		default: mes "[Head Gear Commissioner]";
 				 mes "Talk to me again if you change your mind.";
 				 close;
 				 .@ret = -1;
@@ -190,7 +190,7 @@ function	script	F_DisplayGearRequirements	{
 	copyarray .@headGearRequirements_Id[0], getarg(1), getarraysize(getarg(1));
 	copyarray .@headGearRequirements_Count[0], getarg(2), getarraysize(getarg(2));
 	
-	mes "[Head Gear Comissioner]";
+	mes "[Head Gear Commissioner]";
 	mes "You can have ^0000CC" + getitemname(.@headGear_Id) + "^000000 if you have: ";
 	
 	for(.@ii = 0; .@ii < getarraysize(.@headGearRequirements_Id); .@ii++){
@@ -230,17 +230,17 @@ function	script	F_HandleGearExchange	{
 		announce "Player [ " + strcharinfo(0) + 
 			" ] completed HeadGear Quest for " + getitemname(.@item_id), 0;
 		
-		mes "[Head Gear Comissioner]";
+		mes "[Head Gear Commissioner]";
 		mes "There you go.";
 		mes "Come again if you want another equipment.";
 		end;
 	}
 	else {
-		mes "[Head Gear Comissioner]";
+		mes "[Head Gear Commissioner]";
 		mes "You don't have the required items.";
 		mes "Come back when you have them.";
 		end;
 	}
 }
 
-prontera,147,189,5	duplicate(Quest Gear)	Head Gear Comissioner#prt	4_M_MERCAT1
+prontera,147,189,5	duplicate(Quest Gear)	Head Gear Commissioner#prt	4_M_MERCAT1

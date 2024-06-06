@@ -161,6 +161,27 @@ OnRedeem:
 	input .@streamercode$;
 	
 	clear;
+	if(strtolower(.@streamercode$) == "bonus"){
+		mes .@npcLable$;
+		mes "Current Bonus (common) points: " + $StreamerAll_points;
+		mes "Enter amount to redeem: ";
+		input .@amount;
+		clear;
+		if(.@amount == 0){
+			mes .@npcName$;
+			mes "Invalid amount!";
+			close;
+		}
+		if($StreamerAll_points < .@amount){
+			mes .@npcName$;
+			mes "Amount entered is greater than available points.";
+			close;
+		}
+		$StreamerAll_points -= .@amount;
+		mes .@npcLable$;
+		mes "Remaining Bonus (common) points is " + $StreamerAll_points;
+		close;
+	}
 	if(getd("$" + .@streamercode$) == 0){
 		mes .@npcName$;
 		mes "Invalid Streamer Code!";

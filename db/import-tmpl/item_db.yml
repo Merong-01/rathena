@@ -596,7 +596,7 @@ Body:
       set .@bblvl,max(getskilllv("HT_BLITZBEAT"),1);
       set .@luk,min(readparam(bLuk),120);
       bonus bAgi,1;
-      bonus3 bAutoSpell, "HT_BLITZBEAT", .@bblvl, 20 + (.@luk / 3);
+      bonus3 bAutoSpell, "HT_BLITZBEAT", .@bblvl, 100 + (.@luk / 3);
       bonus2 bSkillAtk, "HT_BLITZBEAT", 40;
   - Id: 18539
     AegisName: Skull_Cap
