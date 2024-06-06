@@ -1,0 +1,20 @@
+//======= PVP Warper NPC =====================================
+//============================================================
+prontera,164,169,3	script	PVP Warper	4_M_JOB_KNIGHT1,{
+	.@npcName$ = "[ PVP Warper ]";
+	
+	mes .@npcName$;
+	mes "Hello, adventurer.";
+	mes "Would you like to teleport to Izlude PVP map?";
+	next;
+	
+	select("Yes, teleport to PVP map:Cancel");
+	
+	if(@menu == 2){
+		mes .@npcName$;
+		mes "Just tell me if you want to try PVP.";
+		close;
+	}
+	warp "pvp_y_8-2", 0, 0;
+	end;
+}
