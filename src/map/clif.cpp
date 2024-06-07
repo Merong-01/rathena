@@ -988,7 +988,12 @@ void clif_dropflooritem( struct flooritem_data* fitem, bool canShowEffect ){
 				p.showdropeffect = 0;
 				p.dropeffectmode = DROPEFFECT_NONE;
 			}
-		} else {
+		}
+		if (itemdb_type(fitem->item.nameid) == IT_CARD) {
+			p.showdropeffect = 1;
+			p.dropeffectmode = DROPEFFECT_PURPLE_PILLAR - 1;
+		}
+		else {
 			p.showdropeffect = 0;
 			p.dropeffectmode = DROPEFFECT_NONE;
 		}
