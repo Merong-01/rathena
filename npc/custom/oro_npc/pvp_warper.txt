@@ -16,5 +16,7 @@ prontera,164,169,3	script	PVP Warper	4_M_JOB_KNIGHT1,{
 		close;
 	}
 	warp "pvp_y_8-2", 0, 0;
+	
+	announce strcharinfo(0) +" entered the PVP room.", 0;
 	end;
 }
