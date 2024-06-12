@@ -2,25 +2,34 @@
 //============================================================
 prontera,164,165,3	script	Potion Converter	2_VENDING_MACHINE1,{
 	.@npcName$ = "Potion Converter";
+	.@zenycost = 10000;
 	
 	mes .@npcName$;
 	mes "If you have excess potions from " + mesitemlink(14003) + " or from " + mesitemlink(30001);
 	mes "You can exchange it with me for another potion that you may need.";
-	mes "You just have to pay 1 " + mesitemlink(7199) + " every exchange.";
+	mes "You just have to pay 10,000 zeny every exchange.";
+	//mes "You just have to pay 1 " + mesitemlink(7199) + " every exchange.";
 	next;
 	
 	select("100 Siege White Potions for 50 Siege Blue Potions: 50 Siege Blue Potions for 100 Siege White Potions:Cancel");
 	switch(@menu){
 		case 1:
-			if(countitem(11503) >= 100 && countitem(7199) > 0){
-				delitem 7199, 1;
+			if(countitem(11503) >= 100 && Zeny >= .@zenycost){
+				//delitem 7199, 1;
+				Zeny -= .@zenycost;
 				delitem 11503, 100;
 				getitem 11504, 50;
 			}
-			else if(countitem(30002) >= 100 && countitem(7199) > 0){
-				delitem 7199, 1;
+			else if(countitem(30002) >= 100 && Zeny >= .@zenycost){
+				//delitem 7199, 1;
+				Zeny -= .@zenycost;
 				delitem 30002, 100;
 				getitem 30003, 50;
+			}
+			else if(Zeny < .@zenycost){
+				mes .@npcName$;
+				mes "I am sorry but you don't have enough zeny for the exchange to proceed.";
+				close;
 			}
 			else {
 				mes .@npcName$;
@@ -29,25 +38,32 @@ prontera,164,165,3	script	Potion Converter	2_VENDING_MACHINE1,{
 			}
 			break;
 		case 2:
-			if(countitem(11504) >= 50 && countitem(7199) > 0){
+			if(countitem(11504) >= 50 && Zeny >= .@zenycost){
 				if(checkweight(11503,100) == 0){
 					mes .@npcName$;
 					mes "You don't have enough weight capacity to proceed the exchange.";
 					close;
 				}
-				delitem 7199, 1;
+				//delitem 7199, 1;
+				Zeny -= .@zenycost;
 				delitem 11504, 50;
 				getitem 11503, 100;
 			}
-			else if(countitem(30003) >= 50 && countitem(7199) > 0){
+			else if(countitem(30003) >= 50 && Zeny >= .@zenycost){
 				if(checkweight(30003,100) == 0){
 					mes .@npcName$;
 					mes "You don't have enough weight capacity to proceed the exchange.";
 					close;
 				}
-				delitem 7199, 1;
+				//delitem 7199, 1;
+				Zeny -= .@zenycost;
 				delitem 30003, 50;
 				getitem 30002, 100;
+			}
+			else if(Zeny < .@zenycost){
+				mes .@npcName$;
+				mes "I am sorry but you don't have enough zeny for the exchange to proceed.";
+				close;
 			}
 			else {
 				mes .@npcName$;
