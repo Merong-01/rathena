@@ -1,19 +1,19 @@
 //======Modified Coin Merchant Script=========================
 //============================================================
 
-prontera,161,188,3	itemshop	Hourly Shop	831, 7199, 14003:2 // ESSB
+prontera,161,188,3	itemshop	Hourly Shop	831, 7199, 12211:1	//kafra card
 
 -	script	coupon shop	-1,{
 
 OnInit:
 
-	npcshopadditem "Hourly Shop", 12211, 1;		//kafra card
 	npcshopadditem "Hourly Shop", 12221, 1;		//megaphone
 	npcshopadditem "Hourly Shop", 12004, 1;		//quiver
-	npcshopadditem "Hourly Shop", 30001, 2;		//ESSB(GVG/PVP)
+	npcshopadditem "Hourly Shop", 14003, 2;		//ESSB
 	npcshopadditem "Hourly Shop", 12210, 2;		//bubble gum
 	npcshopadditem "Hourly Shop", 12208, 2;		//battle manual
 	npcshopadditem "Hourly Shop", 14592, 2;		//job manual
+	npcshopadditem "Hourly Shop", 30001, 2;		//ESSB(GVG/PVP)
 	npcshopadditem "Hourly Shop", 19698, 50;	//cos bf rec hat
 	npcshopadditem "Hourly Shop", 19699, 50;	//cos gf rec hat
 	npcshopadditem "Hourly Shop", 19740, 50;	//cos guild mem wanted hat
