@@ -181,6 +181,18 @@ Body:
           Amount: 100
         - Level: 10
           Amount: 100
+  - Id: 136
+    Name: AS_SONICBLOW
+    Description: Sonic Blow
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Attack
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -8
+    Element: Weapon
+    AfterCastActDelay: 1500
+    AfterCastWalkDelay: 1500
   - Id: 141
     Name: AS_SPLASHER
     Description: Venom Splasher

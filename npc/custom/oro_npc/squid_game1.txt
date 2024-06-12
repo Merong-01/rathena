@@ -45,7 +45,6 @@ OnTimer240000:
 end;
 OnTimer300000:
 	.starting_game = 2;
-	stopnpctimer;
 	for(.@i = 0; .@i < getarraysize(.join_char_id); .@i++){
 		if(isloggedin(convertpcinfo(.join_char_id[.@i], CPC_ACCOUNT), .join_char_id[.@i])){
 			instance_enter("Glass Tile", -1, -1, .join_char_id[.@i], .instance_id);
@@ -54,8 +53,11 @@ OnTimer300000:
 	announce "The Glass Tile Mini Game is Starting", 0x0000FF;
 	unbindatcmd "joinglasstilegame";
 	sleep 1000;
-	.instance_id = 0;
 	donpcevent "::OnSGPillarEffect";
+end;
+OnTimer920000:
+	.instance_id = 0;
+	stopnpctimer;
 end;
 OnJoinGame:
 	if(.starting_game == 0){
@@ -99,6 +101,17 @@ end;
 		mes "Congratulations! Here is your reward.";
 		.winner_count += 1;
 		getitem "Egg_Scroll_C", 5;
+		switch(.winner_count){
+			case 1: .@rankstr$ = "first";
+				break;
+			case 2: .@rankstr$ = "second";
+				break;
+			case 3: .@rankstr$ = "third";
+				break;
+			default: .@rankstr$ = "last";
+				break;
+		}
+		announce "Congratulations to " + strcharinfo(0) + ", you are the " + .@rankstr$ + " player to win for today's Glass Tile Mini Game ", 0x0000FF;
 	}
 	close2;
 	@glasstile_p = 4;
@@ -138,11 +151,10 @@ end;
 1@tnm1,96,20,0	script	01_gc_01::GameCell	139,0,0,{
 end;
 OnTouch:
+	donpcevent "::OnSGPillarEffect";
 	if(getgmlevel() > 0 || getgroupid() == 6){
 		end;
 	}
-
-	donpcevent "::OnSGPillarEffect";
 	
 	if(getd("$@" + strnpcinfo(0) + "flag") == 1){
 		//if(@gtiletrapped){
@@ -426,7 +438,7 @@ end;
 
 OnTimer303000:
 	//donpcevent "::OnSGPillarEffect";
-	instance_announce 0, "Reach the other end of the map within 10 minutes, the first 3 players reach and talk to NPC Manager will receive 10 " + getitemname(30007), 0;
+	instance_announce 0, "Reach the other end of the map within 10 minutes, the first 3 players to reach and talk to NPC Manager will receive 5 " + getitemname(30007), 0;
 	//showdigit 0, 1;
 end;
 OnTimer390000:
@@ -446,6 +458,10 @@ OnTimer900000:
 	//showdigit 0, 0;
 	instance_announce 0, "10 minutes has passed, the Game is Over!", 0;
 	//instance_warpall "SavePoint", 0, 0;
+end;
+OnCommand:
+OnCommand2:
+	dispbottom "This is a depreciated command and will be removed next server retart", 0x00FF00;
 end;
 }
 //prontera,187,209,3	script	Dakji	4_EP19_LAZY,{

@@ -2338,8 +2338,8 @@ int skill_additional_effect( struct block_list* src, struct block_list *bl, uint
 			if (skill == PF_SPIDERWEB) //Special case, due to its nature of coding.
 				type = CAST_GROUND;
 #ifndef RENEWAL
-			else if (skill == AS_SONICBLOW)
-				pc_stop_attack(sd); //Special case, Sonic Blow autospell should stop the player attacking.
+			//else if (skill == AS_SONICBLOW)
+				//pc_stop_attack(sd); //Special case, Sonic Blow autospell should stop the player attacking.
 #endif
 
 			sd->state.autocast = 1;
