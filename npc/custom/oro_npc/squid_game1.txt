@@ -1,7 +1,89 @@
 //====== Squid Game Parody 1 =================================
 //============================================================
 //====== Created by Merong of ProjectOvergearedRO ============
-//====== Last update 20240527 ================================
+//====== Last update 20240611 ================================
+-	script	SquidGame1	-1,{
+OnInit:
+	bindatcmd("startglasstilegame",strnpcinfo(0)+"::OnInitGame",99,99);
+end;
+OnHour12:
+OnInitGame:
+	if(.instance_id > 0){
+		dispbottom "An instance of Glass Tile Mini Game is already active", 0x00FF00;
+		end;
+	}
+	bindatcmd("joinglasstilegame",strnpcinfo(0)+"::OnJoinGame",0,99);
+	.instance_id = instance_create("Glass Tile", IM_NONE);
+
+	if(.instance_id == -4){
+		dispbottom "No free instance!", 0xFF0000;
+		end;
+	}
+	else if(.instance_id < 1){
+		dispbottom "Failed to create instance", 0xFF0000;
+		end;
+	}
+	//setmapflag instance_mapname("1@tnm1", .instance_id), mf_noskill;
+	//setmapflag instance_mapname("1@tnm1", .instance_id), mf_noitemconsumption;
+
+	deletearray .join_char_id[0];
+	announce "The Glass Tile Mini Game will start in 5 minutes, to join the game type @joinglasstilegame", 0x0000FF;
+	.starting_game = 1;
+	initnpctimer;
+end;
+OnTimer60000:
+	announce "The Glass Tile Mini Game will start in 4 minutes, to join the game type @joinglasstilegame", 0x0000FF;
+end;
+OnTimer120000:
+	announce "The Glass Tile Mini Game will start in 3 minutes, to join the game type @joinglasstilegame", 0x0000FF;
+end;
+OnTimer180000:
+	announce "The Glass Tile Mini Game will start in 2 minutes, to join the game type @joinglasstilegame", 0x0000FF;
+end;
+OnTimer240000:
+	announce "The Glass Tile Mini Game will start in 1 minute, to join the game type @joinglasstilegame", 0x0000FF;
+end;
+OnTimer300000:
+	.starting_game = 2;
+	stopnpctimer;
+	for(.@i = 0; .@i < getarraysize(.join_char_id); .@i++){
+		if(isloggedin(convertpcinfo(.join_char_id[.@i], CPC_ACCOUNT), .join_char_id[.@i])){
+			instance_enter("Glass Tile", -1, -1, .join_char_id[.@i], .instance_id);
+		}
+	}
+	announce "The Glass Tile Mini Game is Starting", 0x0000FF;
+	unbindatcmd "joinglasstilegame";
+	sleep 1000;
+	.instance_id = 0;
+	donpcevent "::OnSGPillarEffect";
+end;
+OnJoinGame:
+	if(.starting_game == 0){
+		dispbottom "It not yet the time to join the game", 0xFF0000;
+		end;
+	}
+	else if(.starting_game == 2){
+		dispbottom "Registration for the mini game has ended", 0xFF0000;
+		end;
+	}
+
+	.@num = getarraysize(.join_char_id);
+	.@char_id = getcharid(0);
+	for(.@i = 0; .@i < .@num; .@i++){
+		if(.join_char_id[.@i] == .@char_id){
+			dispbottom "You've joined the Glass Tile mini game, you will be teleported to the intance map in " 
+				+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x0000FF;
+			end;
+		}
+	}
+	.join_char_id[.@num] = .@char_id;
+	@glasstile_p = 0;
+	@gtiletrapped = 0;
+	dispbottom "You've joined the Glass Tile mini game, you will be teleported to the intance map in " 
+		+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x0000FF;
+end;
+}
+
 1@tnm1,116,24,3	script	Employee::SGNPC	449,3,4,{
 	if(strnpcinfo(0) != "Manager" || @glasstile_p != 3){
 		end;
@@ -10,12 +92,18 @@
 	mes "[ Manager ]";
 	mes "I did not expect for someone to arrive here actually.";
 	mes "But I guess you surpass expectations.";
-	mes "Congratulations! Here is your reward.";
-	//getitem "RED_POTION",10; //sample reward
+	if(.winner_count >= 3){
+		mes "Although I am sad to say that only the first 3 players can receive the reward.";
+	}
+	else {
+		mes "Congratulations! Here is your reward.";
+		.winner_count += 1;
+		getitem "Egg_Scroll_C", 5;
+	}
 	close2;
 	@glasstile_p = 4;
 	//warp "1@tnm1",92,23; //or to "SavePoint"
-end;	
+end;
 OnTouch:
 	if(@glasstile_p == 0){
 		@glasstile_p = 1;
@@ -36,6 +124,12 @@ OnTouch:
 		npctalk "Congratulations! You manage to arrive here safely. Talk to me for the reward.";
 	}
 end;
+OnInit:
+	disablenpc;
+end;
+OnInstanceDestroy:
+	.winner_count = 0;
+end;
 }
 
 1@tnm1,141,24,3	duplicate(SGNPC)	Team Leader	453,3,4
@@ -47,29 +141,26 @@ OnTouch:
 	if(getgmlevel() > 0 || getgroupid() == 6){
 		end;
 	}
-	if(@tilecount > 2){
-		donpcevent "::OnSGPillarEffect";
-		@tilecount = 0;
-	}
-	@tilecount += 1;
+
+	donpcevent "::OnSGPillarEffect";
 	
 	if(getd("$@" + strnpcinfo(0) + "flag") == 1){
-		if(@gtiletrapped){
+		//if(@gtiletrapped){
 			mapannounce "1@tnm1", strcharinfo(0) + ", you stepped on a trap, twice. You're out!", bc_map;
 			percentheal -100,0; //participant eliminated
 			specialeffect2 EF_CRITICALWOUND;
-			@gtiletrapped = 0;
-			end;
-		}
-		mapannounce "1@tnm1",strcharinfo(0) + ", you stepped on a trap. You will be sent back.",bc_map;
-		percentheal -99,0;
-		sc_start SC_CRITICALWOUND, 600000, 5, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF; //to disable heal
-		sc_start SC_POISON, 600000, 0, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF; //to disable natural regen
-		specialeffect2 EF_CRITICALWOUND;
-		@gtiletrapped = 1;
-		warp "1@tnm1",92,23;
-		sleep 200;
-		donpcevent "::OnSGPillarEffect";
+			//@gtiletrapped = 0;
+			//end;
+		//}
+		//mapannounce "1@tnm1",strcharinfo(0) + ", you stepped on a trap. You will be sent back.",bc_map;
+		//percentheal -99,0;
+		//sc_start SC_CRITICALWOUND, 600000, 5, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF; //to disable heal
+		//sc_start SC_POISON, 600000, 0, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF; //to disable natural regen
+		//specialeffect2 EF_CRITICALWOUND;
+		//@gtiletrapped = 1;
+		//warp strnpcinfo(4),92,23;
+		//sleep 200;
+		//donpcevent "::OnSGPillarEffect";
 	}
 	else {
 		specialeffect EF_HAPGYEOK;
@@ -77,20 +168,25 @@ OnTouch:
 end;
 
 OnInit:
-	setd "$@" + strnpcinfo(0) + "flag", 0;
-	getmapxy(.@mapname$,.@mapxkor,.@mapykor,BL_NPC);
+	disablenpc;
+end;
+OnInstanceDestroy:
 	if(checkwall("wall" + strnpcinfo(0))){
 		delwall "wall" + strnpcinfo(0);
 	}
-
-	if(!checkcell(.@mapname$, .@mapxkor, .@mapykor, cell_chknpc)){
-		setcell .@mapname$,.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_NPC,1;
-	}
-end;
-OnSGReset:
 	disablenpc;
-	sleep 1000;
-	enablenpc;
+end;
+OnInstanceInit:
+//	setd "$@" + strnpcinfo(0) + "flag", 0;
+	//setd "$@" + instance_npcname(strnpcinfo(0)) + "flag", 0;
+//	getmapxy(.@mapname$,.@mapxkor,.@mapykor,BL_NPC);
+//	if(checkwall("wall" + strnpcinfo(0))){
+//		delwall "wall" + strnpcinfo(0);
+//	}
+//	if(!checkcell(instance_mapname(.@mapname$), .@mapxkor, .@mapykor, cell_chknpc)){
+//		setcell instance_mapname(.@mapname$),.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_NPC,1;
+//	}
+//OnSGReset:
 	.@npc_name$ = strnpcinfo(0);
 	.@random_num = rand(0,2);
 	getmapxy(.@mapname$,.@mapxkor,.@mapykor,BL_NPC);
@@ -99,8 +195,8 @@ OnSGReset:
 	if(checkwall("wall" + strnpcinfo(0))){
 		delwall "wall" + strnpcinfo(0);
 	}
-	if(!checkcell(.@mapname$, .@mapxkor, .@mapykor, cell_chknpc)){
-		setcell .@mapname$,.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_NPC,1;
+	if(!checkcell(strnpcinfo(4), .@mapxkor, .@mapykor, cell_chknpc)){
+		setcell strnpcinfo(4),.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_NPC,1;
 	}
 
 	setd ".tileset"+substr(.@npc_name$,0,1)+"_count", getd(".tileset"+substr(.@npc_name$,0,1)+"_count") +1;
@@ -148,7 +244,7 @@ OnSGReset:
 		specialeffect EF_GLASSWALL;
 	}
 	else {
-		setwall .@mapname$, .@mapxkor, .@mapykor, 1, 3, 0, "wall" + strnpcinfo(0);
+		setwall strnpcinfo(4), .@mapxkor, .@mapykor, 1, 3, 0, "wall" + strnpcinfo(0);
 		specialeffect EF_BOTTOM_FOGWALL;
 		setd "$@" + strnpcinfo(0) + "flag", 2;
 	}
@@ -318,27 +414,43 @@ end;
 
 1@tnm1,90,20,0	script	Squid Game Controller	-1,{
 OnInit:
-	bindatcmd("gtilereset",strnpcinfo(0)+"::OnCommand",99,99);
-	bindatcmd("refreshgtile",strnpcinfo(0)+"::OnCommand2",0,0);
+	disablenpc;
 end;
-
-//OnTimer30000:
-OnTimer60000:
-OnTimer120000:
-OnTimer180000:
-	donpcevent "::OnSGPillarEffect";
-end;
-
-OnTimer181000:
-	stopnpctimer;
-end;
-
-OnCommand:
+OnInstanceInit:
+	//bindatcmd("gtilereset",strnpcinfo(0)+"::OnCommand",99,99);
+	//bindatcmd("refreshgtile",strnpcinfo(0)+"::OnCommand2",0,0);
+	setmapflag strnpcinfo(4), mf_noskill;
+	setmapflag strnpcinfo(4), mf_noitemconsumption;
 	initnpctimer;
-	donpcevent "::OnSGReset";
 end;
 
-OnCommand2:
-	donpcevent "::OnSGPillarEffect";
+OnTimer303000:
+	//donpcevent "::OnSGPillarEffect";
+	instance_announce 0, "Reach the other end of the map within 10 minutes, the first 3 players reach and talk to NPC Manager will receive 10 " + getitemname(30007), 0;
+	//showdigit 0, 1;
+end;
+OnTimer390000:
+	instance_announce 0, "1 minute and 30 seconds has passed, summoning monsters to encourage everyone", 0;
+	monster strnpcinfo(4), 92, 24, "Hunter Fly", 1422, 5;
+end;
+OnTimer550000:
+	instance_announce 0, "4 minutes and 10 seconds has passed, summoning more monsters to encourage everyone", 0;
+	monster strnpcinfo(4), 116, 24, "Hunter Fly", 1422, 5;
+end;
+OnTimer700000:
+	instance_announce 0, "6 minutes and 40 seconds has passed, summoning more monsters to encourage everyone", 0;
+	monster strnpcinfo(4), 141, 24, "Hunter Fly", 1422, 5;
+end;
+OnTimer900000:
+	stopnpctimer;
+	//showdigit 0, 0;
+	instance_announce 0, "10 minutes has passed, the Game is Over!", 0;
+	//instance_warpall "SavePoint", 0, 0;
 end;
 }
+//prontera,187,209,3	script	Dakji	4_EP19_LAZY,{
+//	.@npcName$ = "[ Dakji - S* Game Broker ]";
+//	
+//	mes .@npcName$;
+//	
+//}
