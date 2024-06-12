@@ -853,8 +853,21 @@ Body:
     AegisName: Megaphone_
     Name: Megaphone
     Type: Usable
+    Buy: 2
+    Weight: 10
     Delay:
       Duration: 180000
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      input @megaphone$;
+      announce strcharinfo(0) + ": " + @megaphone$, bc_all, 0x00FF99, FW_BOLD, 14;
   - Id: 12790
     AegisName: Change_Name_Card
     Name: Character Name Change Coupon
