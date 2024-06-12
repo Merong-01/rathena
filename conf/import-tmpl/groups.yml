@@ -47,6 +47,7 @@ Body:
     Level: 0
     Commands:
       commands: true
+      time: true
       mobinfo: true
       whereis: true
       iteminfo: true
