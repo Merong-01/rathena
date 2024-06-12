@@ -1,80 +1,32 @@
 //======Modified Coin Merchant Script=========================
 //============================================================
-function	script	F_SettleBill	{
-	set .@Coupon,7199;
-	set .@item_id, getarg(0);
-	set .@item_price, getarg(1);
-	
-	if (countitem(.@Coupon) >= .@item_price) {
-		
-		mes "[Hourly shop]";
-		
-		.@ret = delitem (.@Coupon,.@item_price);
-		if(.@ret != 0 ) {
-			mes "There's seem to be a problem.";
-			mes "Please check if your coin is fine, ";
-			mes "and come back later.";
-			close;
-		}
-		
-		.@ret = getitem (.@item_id,1);
-		if(.@ret != 0) {
-			mes "There's seem to be a problem.";
-			mes "Please come back later, ";
-			mes "after I check our supplies.";
-			close;
-		}
-		
-		mes "Brilliant choice!";
-		mes "Thank you for coming.";
-		close;
-	}
-	else {
-		mes "[Hourly Shop]";
-		mes "Sorry, you don't have enough coin.";
-		close;
-	}
-}
 
--	script	Coupon_Shop	-1,{
-	mes "[Hourly Shop]";
-	mes "Hello!";
-	mes "Feel free to browse our items.";
-	mes "All of these can be exchanged with coupons.";
-	next;
-	
-	//			Kafra Card, Megaphone, Quiver, ESSB, ESSB (PVP/GVG), BBG, Field Manual50, JobManual50
-	setarray .@Consumables[0],12211,12221,12004,14003,30001,12210,12208,14592;
-	setarray .@Cons_Prices[0],1,1,1,2,2,2,2,2;
-	setarray .@Costumes[0],19698,19699,19740,31918,31919,20052;
-	setarray .@Costu_Prices[0],50,50,50,50,50,50;
-	set .@Coupon,7199; //tentative use
-	set .@i, select("Consumables:Costumes:Cancel");
-	
-	if(.@i == 1){
-		setarray .@item_array$[0],"","","","","","","","","";
-		for(.@j = 0; .@j < getarraysize(.@Consumables); .@j += 1){
-			.@item_array$[.@j] = "" + getitemname(.@Consumables[.@j]) + " -> ^3131FF" + .@Cons_Prices[.@j] + " Coin^000000";
-		}
-		
-		set .@choice, select(implode(.@item_array$, ":"));
-		callfunc "F_SettleBill",.@Consumables[.@choice-1],.@Cons_Prices[.@choice-1];
-	}
-	else if(.@i == 2){
-		setarray .@item_array$[0], "","";
-		for(.@j = 0; .@j < getarraysize(.@Costumes); .@j += 1){
-			.@item_array$[.@j] = "" + getitemname(.@Costumes[.@j]) + " -> ^3131FF" + .@Costu_Prices[.@j] + " Coin^000000";
-		}
-		
-		set .@choice, select(implode(.@item_array$, ":"));
-		callfunc "F_SettleBill",.@Costumes[.@choice-1],.@Costu_Prices[.@choice-1];
-	}
-	else {
-	mes "[Hourly Shop]";
-	mes "Come again if you change your mind.";
-	close;
-	}
-}
+prontera,161,188,3	itemshop	Hourly Shop	831, 7199, 14003:2 // ESSB
 
-//payon,184,102,3	duplicate(Coupon_Shop)	Hourly Shop#pay	831
-prontera,161,188,3	duplicate(Coupon_Shop)	Hourly Shop#prt	831
+-	script	coupon shop	-1,{
+
+OnInit:
+
+	npcshopadditem "Hourly Shop", 12211, 1;		//kafra card
+	npcshopadditem "Hourly Shop", 12221, 1;		//megaphone
+	npcshopadditem "Hourly Shop", 12004, 1;		//quiver
+	npcshopadditem "Hourly Shop", 30001, 2;		//ESSB(GVG/PVP)
+	npcshopadditem "Hourly Shop", 12210, 2;		//bubble gum
+	npcshopadditem "Hourly Shop", 12208, 2;		//battle manual
+	npcshopadditem "Hourly Shop", 14592, 2;		//job manual
+	npcshopadditem "Hourly Shop", 19698, 50;	//cos bf rec hat
+	npcshopadditem "Hourly Shop", 19699, 50;	//cos gf rec hat
+	npcshopadditem "Hourly Shop", 19740, 50;	//cos guild mem wanted hat
+	npcshopadditem "Hourly Shop", 31918, 50;	//cos party rec hat
+	npcshopadditem "Hourly Shop", 31919, 50;	//cos friend rec hat
+	npcshopadditem "Hourly Shop", 20052, 50;	//cos afk hat
+	npcshopadditem "Hourly Shop", 2767, 50;		//accolyte figure
+	npcshopadditem "Hourly Shop", 2768, 50;		//mage figure
+	npcshopadditem "Hourly Shop", 2769, 50;		//archer figure
+	npcshopadditem "Hourly Shop", 2770, 50;		//thief figure
+	npcshopadditem "Hourly Shop", 2771, 50;		//merchant figure
+	npcshopadditem "Hourly Shop", 2765, 50;		//novice figure
+	npcshopadditem "Hourly Shop", 2766, 50;		//swordsman figure
+
+end;
+}
