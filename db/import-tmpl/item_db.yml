@@ -161,7 +161,7 @@ Body:
       NoAuction: true
     Script: |
       bonus bVit,1;
-      if (Class == Job_Swordman)
+      if (BaseClass == Job_Swordman)
          bonus bDef,2;
   - Id: 2767
     AegisName: Acolyte_Figure
@@ -181,7 +181,7 @@ Body:
       NoAuction: true
     Script: |
       bonus bInt,1;
-      if (Class == Job_Acolyte)
+      if (BaseClass == Job_Acolyte)
          bonus bMaxSP,50;
   - Id: 2768
     AegisName: Mage_Figure
@@ -201,7 +201,7 @@ Body:
       NoAuction: true
     Script: |
       bonus bInt,1;
-      if (Class == Job_Mage)
+      if (BaseClass == Job_Mage)
          bonus bSPrecovRate,5;
   - Id: 2769
     AegisName: Archer_Figure
@@ -221,7 +221,7 @@ Body:
       NoAuction: true
     Script: |
       bonus bDex,1;
-      if (Class == Job_Archer)
+      if (BaseClass == Job_Archer)
          bonus bBaseAtk,10;
   - Id: 2770
     AegisName: Thief_Figure
@@ -241,7 +241,7 @@ Body:
       NoAuction: true
     Script: |
       bonus bAgi,1;
-      if (Class == Job_Thief)
+      if (BaseClass == Job_Thief)
          bonus bAspdRate,3;
   - Id: 2771
     AegisName: Merchant_Figure
@@ -261,7 +261,7 @@ Body:
       NoAuction: true
     Script: |
       bonus bStr,1;
-      if (Class == Job_Merchant)
+      if (BaseClass == Job_Merchant)
          bonus bCritical,5;
   - Id: 7199
     AegisName: Hourly_Coin
