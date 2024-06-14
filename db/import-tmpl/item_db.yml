@@ -1169,6 +1169,514 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 1464
+  - Id: 18742
+    AegisName: C_MoonStar_Accessory
+    Name: Costume Moon and Stars
+    Type: Armor
+    Buy: 20
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 881
+    Trade:
+      NoDrop: true
+    EquipScript: |
+      sc_start SC_MOONSTAR,INFINITE_TICK,0;
+    UnEquipScript: |
+      sc_end SC_MOONSTAR;
+  - Id: 18744
+    AegisName: C_World_Star
+    Name: Costume Twilight
+    Type: Armor
+    Buy: 20
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 883
+    EquipScript: |
+      sc_start SC_SUPER_STAR,INFINITE_TICK,0;
+    UnEquipScript: |
+      sc_end SC_SUPER_STAR;
+  - Id: 19291
+    AegisName: C_Shiba_Inu
+    Name: Costume Shiba Inu
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 1669
+  - Id: 19509
+    AegisName: Butterfly_Wing_Ear
+    Name: Butterfly Wing Ears
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 695
+    Trade:
+      NoDrop: true
+    Script: |
+      bonus bUnbreakableHelm;
+  - Id: 19871
+    AegisName: C_Music_Decoration
+    Name: Costume Decoration of Music
+    Type: Armor
+    Buy: 20
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 1074
+    EquipScript: |
+      sc_start SC_DECORATION_OF_MUSIC,INFINITE_TICK,0;
+    UnEquipScript: |
+      sc_end SC_DECORATION_OF_MUSIC;
+  - Id: 20131
+    AegisName: C_C_Tower_Manager_Incom
+    Name: Costume Clock Tower Manager
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1266
+  - Id: 20198
+    AegisName: C_Misty_Ears
+    Name: Costume Misty Ears
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1295
+  - Id: 20246
+    AegisName: C_Time_Accessory
+    Name: Costume Decoration Time
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1309
+    EquipScript: |
+      sc_start SC_TIME_ACCESSORY,INFINITE_TICK,0;
+    UnEquipScript: |
+      sc_end SC_TIME_ACCESSORY;
+  - Id: 20255
+    AegisName: C_Love_Cheek
+    Name: Costume Love Cheeks
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1318
+  - Id: 20286
+    AegisName: C_Under_Rim_Glasses_Red
+    Name: Costume Under Rim Glasses Red
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1332
+  - Id: 20298
+    AegisName: C_Happy_Lunatic_Ear
+    Name: Costume Happy Lunatic Hanging Ear
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1340
+  - Id: 20318
+    AegisName: C_Charleston_Antenna
+    Name: Costume Charleston Antenna
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1354
+  - Id: 20325
+    AegisName: C_Little_Aquarium
+    Name: Costume Little Aquarium
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1363
+  - Id: 20335
+    AegisName: C_Teardrop
+    Name: Costume Watery Eyes
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 828
+  - Id: 20379
+    AegisName: C_PocketWatch_Hair_Orna
+    Name: Costume Pocketwatch Hair Ornament
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1404
+  - Id: 20399
+    AegisName: C_Crow_Tengu_Mask
+    Name: Costume Crow Tengu Mask
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1287
+  - Id: 20406
+    AegisName: C_Commandments_Of_Chain
+    Name: Costume Chain of Commandments
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1417
+  - Id: 20430
+    AegisName: C_Morocc_Kid_Servant
+    Name: Costume Loyal Servant of Devil Morocc
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1440
+  - Id: 20459
+    AegisName: C_Valhalla_Idol
+    Name: Costume Valhalla Idol
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1423
+    Script: |
+      hateffect(HAT_EF_VALHALLA_IDOL,true);
+    UnEquipScript: |
+      hateffect(HAT_EF_VALHALLA_IDOL,false);
+  - Id: 20465
+    AegisName: C_Glasses_Without_Lens
+    Name: Costume Glasses Without Lens
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1467
+  - Id: 20479
+    AegisName: C_Costume04_L
+    Name: Rental Costume Fairy Feathers
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 1723
+  - Id: 20486
+    AegisName: C_Twin_Margaret
+    Name: Costume Twin Margaret
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1472
+  - Id: 20488
+    AegisName: C_Pope_Ribbon
+    Name: Costume Pope Ribbon
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1474
+#  - Id: 31056
+#    AegisName: C_Exploding_Wave_Red
+#    Name: Costume Furious Wave
+#    Type: Armor
+#    Locations:
+#      Costume_Head_Mid: true
+#    ArmorLevel: 1
+#    EquipLevelMin: 1
+#    Script: |
+#      hateffect(HAT_EF_BAKURETSU_HADOU,true);
+#    UnEquipScript: |
+#      hateffect(HAT_EF_BAKURETSU_HADOU,false);
+#  - Id: 31089
+#    AegisName: C_Exploding_Wave_Sca
+#    Name: Costume Exploding Crimson Flame
+#    Type: Armor
+#    Locations:
+#      Costume_Head_Mid: true
+#    ArmorLevel: 1
+#    EquipLevelMin: 1
+#    View: 1500
+#    Script: |
+#      hateffect(HAT_EF_BAKURETSU_HADOU,true);
+#      /* Need to confirm this */
+#    UnEquipScript: |
+#      hateffect(HAT_EF_BAKURETSU_HADOU,false);
+  - Id: 31120
+    AegisName: C_Vampire_Familiar
+    Name: Costume Vampire Familiar
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1548
+  - Id: 31122
+    AegisName: C_Bloody_Stop_Bandage
+    Name: Costume Bloody Stop Bandage
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1550
+  - Id: 31133
+    AegisName: C_Gambler_Seal
+    Name: Costume Gambler Seal
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1202
+  - Id: 31167
+    AegisName: C_Lunatic_Ear_Black
+    Name: Costume Hanging Black Lunatic Ears
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1575
+  - Id: 31186
+    AegisName: C_Black_Cat
+    Name: Costume Black Cat
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1582
+  - Id: 31234
+    AegisName: C_Persika_J
+    Name: C Persica
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 659
+  - Id: 31235
+    AegisName: C_Large_Ribbonmuffler_V
+    Name: C Large Ribbon Muffler Mid
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1312
+  - Id: 31236
+    AegisName: C_Subject_Aura_V
+    Name: C Vicious Mind Aura Mid
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1267
+  - Id: 31299
+    AegisName: C_White_Rabbit
+    Name: C White Rabbit
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1656
+  - Id: 31301
+    AegisName: C_Blinking_Eyes
+    Name: C Blinking Eyes
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1658
+  - Id: 31327
+    AegisName: C_Stretched_Nose_M
+    Name: C Wood Goblins Nose
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 737
+  - Id: 31380
+    AegisName: C_Gossip_Raven
+    Name: Costume Crow on Shoulder
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1035
+  - Id: 31416
+    AegisName: C_SeraphimCoronet
+    Name: Costume Seraphim Coronet
+    Type: Armor
+    View: 1487
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+  - Id: 31437
+    AegisName: C_Baby_Penguin
+    Name: C Baby Penguin
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1705
+  - Id: 31439
+    AegisName: C_Fluffy_Heart_Earmuffs
+    Name: C Fluffy Heart Earmuffs
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1707
+  - Id: 31452
+    AegisName: C_White_Cat
+    Name: C White Cat
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1715
+  - Id: 31463
+    AegisName: C_Flying_Drone
+    Name: Costume Flying Drone
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1561
+  - Id: 31472
+    AegisName: C_Fairy_Feathers
+    Name: C Fairy Feathers
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1723
+  - Id: 31512
+    AegisName: C_Panda_Rabbit
+    Name: C Panda Rabbit
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1754
+  - Id: 31538
+    AegisName: C_Love_Feeling_J
+    Name: C Lovely Feeling
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1717
+  - Id: 31542
+    AegisName: C_Clay_Poring_Jar_Jp
+    Name: C Clay Poring Jar
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1634
+  - Id: 31550
+    AegisName: C_Tone_Of_Gold_V
+    Name: C Tone of Gold Mid
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1447
+  - Id: 31553
+    AegisName: C_Wings_Of_Victory_V
+    Name: C Wings Of Victory Mid
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 365
+  - Id: 31561
+    AegisName: C_8Type_PurgatorialWing
+    Name: C Heavenly Dark Flame
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1008
+  - Id: 31574
+    AegisName: C_Cyber_Income
+    Name: C Cyber Income
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1790
+  - Id: 31580
+    AegisName: C_Autumnal_Flavor
+    Name: C Autumn Flavor
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1792
+  - Id: 31600
+    AegisName: C_Kishu_Inu
+    Name: C Kishu Dog
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1804
+  - Id: 31614
+    AegisName: C_Fox
+    Name: C Fox
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1812
   - Id: 31492
     AegisName: C_Cat_Ears_Cape_Brown
     Name: Costume Cat Ears Cape Brown
@@ -1511,6 +2019,12 @@ Body:
             dispbottom "You are overweght", 0xFF0000;
             end;
         }
+  - Id: 30021
+    AegisName: Select_Example1
+    Name: TestA
+    Type: DelayConsume
+    Flags:
+      BuyingStore: true
   - Id: 30100
     AegisName: C_Analyze_Eye_S
     Name: Costume Analyze Eye
