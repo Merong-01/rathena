@@ -300,6 +300,7 @@ function	script	Func_Socket	{
 						delitem .@item_req[1],.@req_amount[1];
 					Zeny = Zeny - .@zeny_req *1000;
 					getitem getarg(1),1;
+					announce strcharinfo(0) +"'s " + getitemname(getarg(1)) +" socket enchanment successfully!",bc_all,0x00FF00;
 					next;
 					mes "[Seiyablem]";
 					mes "See you again, buddy!";
@@ -318,6 +319,7 @@ function	script	Func_Socket	{
 					if (.@item_req[1] != 0 && .@req_amount[1] != 0)
 						delitem .@item_req[1],.@req_amount[1];
 					Zeny = Zeny - .@zeny_req *1000;
+					announce strcharinfo(0) +"'s " + getitemname(getarg(1)) +" socket enchanment fail.",bc_all,0x00FF00;
 					next;
 					mes "[Seiyablem]";
 					mes "I wish you good luck next time!";
