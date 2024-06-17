@@ -86,7 +86,7 @@ thor_camp	mapflag	noteleport
 //============================================================
 // Dungeons
 //============================================================
-ama_dun01	mapflag	noteleport
+//ama_dun01	mapflag	noteleport
 gef_dun03	mapflag	noteleport
 tha_t07	mapflag	noteleport
 tha_t08	mapflag	noteleport

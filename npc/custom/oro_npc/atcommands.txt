@@ -97,8 +97,13 @@ OnCommand:
 		dispbottom "Shout is still in cool down", 0xFF0000;
 		end;
 	}
-	//announce implode(.@atcmd_parameters$, " "),0;
-	atcommand "@broadcast " + implode(.@atcmd_parameters$, " ");
+	if(.@atcmd_numparameters == 0){
+		dispbottom "Invalid Parameter", 0x00FF00;
+		dispbottom "@shout <message here>", 0x00FF00;
+		end;
+	}
+	announce strcharinfo(0) + ": " + implode(.@atcmd_parameters$, " "), bc_all, 0x00FF99, FW_BOLD, 14;
+	//atcommand "@broadcast " + implode(.@atcmd_parameters$, " ");
 	@shout_cd = 1;
 	addtimer 120000,strnpcinfo(0) + "::OnCoolDown";
 end;

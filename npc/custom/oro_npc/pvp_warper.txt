@@ -17,6 +17,12 @@ prontera,164,169,3	script	PVP Warper	4_M_JOB_KNIGHT1,{
 	}
 	warp "pvp_y_8-2", 0, 0;
 	
-	announce strcharinfo(0) +" entered the PVP room.", 0;
+	.@pvp_message$[0] = "Come and Fight!";
+	.@pvp_message$[1] = "The hunt begins!";
+	.@pvp_message$[2] = "Waiting for a challenge.";
+	.@pvp_message$[3] = "Dare to follow?";
+	.@pvp_message$[4] = "Easy target?";
+
+	announce strcharinfo(0) +" entered the PVP room. " + .@pvp_message$[rand(0,4)], 0;
 	end;
 }
