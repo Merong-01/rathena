@@ -49,11 +49,13 @@ OnPCLoginEvent:
 		if(bot_check_flag == 1){
 			.@char_id = convertpcinfo(playerattached(),CPC_CHAR);
 			showdigit 0;
-			setoption 0x40,1,.@char_id;
+		//	setoption 0x40,1,.@char_id;
+			setpcblock PCBLOCK_ALL, TRUE;
 			ignoretimeout 1;
 			callfunc "fx_simple_bot_check", .@char_id,1;
-			sc_end SC_FREEZE;
-			setoption 0x40,0,.@char_id;
+			setpcblock PCBLOCK_ALL, FALSE;
+		//	sc_end SC_FREEZE;
+		//	setoption 0x40,0,.@char_id;
 			bot_check_flag = 0;
 		}
 	}
@@ -72,13 +74,15 @@ OnCheckBot:
 		//end;
 	}
 	else {
-		setoption 0x40,1,.@char_id;
-		sc_start SC_FREEZE, INFINITE_TICK, 0, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF|SCSTART_NORATEDEF;
+	//	setoption 0x40,1,.@char_id;
+	//	sc_start SC_FREEZE, INFINITE_TICK, 0, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF|SCSTART_NORATEDEF;
+		setpcblock PCBLOCK_ALL, TRUE;
 		callfunc "fx_simple_bot_check", .@char_id,0;
 		bot_check_flag = 0;
-		sc_end SC_FREEZE;
+		setpcblock PCBLOCK_ALL, FALSE;
+	//	sc_end SC_FREEZE;
 		detachrid;
-		setoption 0x40,0,.@char_id;
+	//	setoption 0x40,0,.@char_id;
 	}
 	//end;
 }
