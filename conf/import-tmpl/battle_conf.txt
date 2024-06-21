@@ -19,39 +19,39 @@ item_rate_common: 200
 item_rate_common_boss: 200
 item_rate_common_mvp: 100
 item_drop_common_min: 1
-item_drop_common_max: 10000
+item_drop_common_max: 9000
 
 // The rate healing items are dropped (items that restore HP or SP)
 item_rate_heal: 200
 item_rate_heal_boss: 200
 item_rate_heal_mvp: 100
 item_drop_heal_min: 1
-item_drop_heal_max: 10000
+item_drop_heal_max: 9000
 
 // The rate at which usable items (in the item tab) other then healing items are dropped.
 item_rate_use: 200
 item_rate_use_boss: 200
 item_rate_use_mvp: 100
 item_drop_use_min: 1
-item_drop_use_max: 10000
+item_drop_use_max: 9000
 
 // The rate at which equipment is dropped.
 item_rate_equip: 200
 item_rate_equip_boss: 200
 item_rate_equip_mvp: 100
 item_drop_equip_min: 1
-item_drop_equip_max: 10000
+item_drop_equip_max: 9000
 
 // The rate at which cards are dropped
 item_rate_card: 200
-item_rate_card_boss: 200
+item_rate_card_boss: 100
 item_rate_card_mvp: 100
 item_drop_card_min: 1
-item_drop_card_max: 10000
+item_drop_card_max: 9000
 
 // The rate adjustment for the MVP items that the MVP gets directly in their inventory
 // Mode: 0 - official order, 1 - random order, 2 - all items
-item_drop_mvp_mode: 0
+item_drop_mvp_mode: 2
 
 // The rate adjustment for card-granted item drops.
 item_rate_adddrop: 200
@@ -87,6 +87,9 @@ natural_heal_weight_rate: 70
 
 // Maximum atk speed. (Default 190, Highest allowed 199)
 max_aspd: 190
+
+// Display the drained hp/sp values from normal attacks? (Ie: Hunter Fly card)
+show_hp_sp_drain: yes
 
 // Players' will drop a 'Skull' when killed?
 // Note: The 'Skull' item (ID 7420) is trade restricted by default. You need

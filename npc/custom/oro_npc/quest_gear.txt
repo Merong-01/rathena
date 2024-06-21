@@ -34,7 +34,7 @@ function	script	F_DisplayMenuType	{
 }
 
 function	script	F_HeadGear_Upper	{
-	setarray .@gear_list_id[0], 5286,5481,5388,5423,5378;
+	setarray .@gear_list_id[0], 5286,5481,5388,5423,5378,5208;
 	
 	.@gear_list_names$ = "";
 	for(.@i = 0; .@i < getarraysize(.@gear_list_id); .@i++){
@@ -70,10 +70,19 @@ function	script	F_HeadGear_Upper	{
 				.@gear_requirements_id[0] = 949;
 				.@gear_requirements_count[0] = 3000;
 			break;
-//		case 6: 
-//				.@gear_requirements_id[0] = 5053;
-//				.@gear_requirements_count[0] = 3;
-//			break;
+		case 6: 
+				.@gear_requirements_id[0] = 1553;
+				.@gear_requirements_count[0] = 4;
+
+				.@gear_requirements_id[1] = 1554;
+				.@gear_requirements_count[1] = 4;
+
+				.@gear_requirements_id[2] = 1555;
+				.@gear_requirements_count[2] = 2;
+
+				.@gear_requirements_id[3] = 1556;
+				.@gear_requirements_count[3] = 2;
+			break;
 		default: return 0;
 			break;
 	}

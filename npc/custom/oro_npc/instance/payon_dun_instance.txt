@@ -1,0 +1,427 @@
+//======= Custom Payon Dungeon Instance ======================
+//============================================================
+//prontera,187,209,3
+new_3-1,182,86,3	script	Instance Dungeon	4_M_JOB_KNIGHT2,{
+	.@npcName$ = "[ Instance Dungeon ]";
+
+	mes .@npcName$;
+	mes "";
+	mes "Hello adventurer!";
+	mes "I can teleport you to an (party)instance of Payon Dungeon if you want.";
+	mes "Clearing the dungeon also gives item rewards.";
+	next;
+
+	select("Teleport to Payon Dungeon Instance:Cancel");
+	switch(@menu){
+		case 1:
+			if(getcharid(1) == 0){
+				mes .@npcName$;
+				mes "";
+				mes "Sorry, but you are currently not in a party.";
+				close;
+			}
+			if(instance_check_party(getcharid(1)) && is_party_leader()){
+				.@ins_id = instance_create("Payon Dun", IM_PARTY);
+			}
+			else {
+				.@ins_id = -3;
+			}
+			break;
+		case 2:
+			mes .@npcName$;
+			mes "";
+			mes "Talk to me again if you want to try the instance dungeon.";
+			close;
+			break;
+	}
+	if(.@ins_id == -3){
+		.@ins_id = instance_id(IM_PARTY);
+		if(.@ins_id == 0){
+			mes .@npcName$;
+			mes "";
+			mes "Your party leader has not initiated the instance yet.";
+			mes "Ask your party leader to talk to me to initiate the dungeon instance.";
+			close;
+		}
+	}
+	else if(.@ins_id == -4){
+		mes .@npcName$;
+		mes "";
+		mes "^FF0000No free instance!^000000";
+		close;
+	}
+	else if(.@ins_id < 1){
+		mes .@npcName$;
+		mes "";
+		mes "^FF0000Failed to create instance^000000";
+		close;
+	}
+	mes .@npcName$;
+	mes "";
+	mes "You will now be teleported to the instance dungeon.";
+	close2;
+
+	instance_enter("Payon Dun");
+end;
+}
+
+pay_dun00,21,182,5	script	payon dungeon manager	-1,2,2,{
+end;
+OnTouch_:
+	instance_announce 0, "Hunt 25 [ Walking Dead ] to proceed next level", 0, 0x00FFFF, FW_BOLD, 16;
+end;
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	disablenpc instance_npcname("pay005");
+	disablenpc instance_npcname("payd01");
+	monster strnpcinfo(4), 0, 0, "Familiar", "FARMILIAR", 40;
+	monster strnpcinfo(4), 0, 0, "Poporing", "poporing", 40;
+
+	areamonster strnpcinfo(4), 37, 148, 35, 158, "Zombie", "zombie", 10;
+	areamonster strnpcinfo(4), 37, 148, 35, 158, "Walking Dead", "ghoul", 5, instance_npcname("payon dungeon manager") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 130, 146, 150, 125, "Zombie", "zombie", 20;
+	areamonster strnpcinfo(4), 130, 146, 150, 125, "Walking Dead", "ghoul", 10, instance_npcname("payon dungeon manager") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 15, 45, 40, 25, "Zombie", "zombie", 20;
+	areamonster strnpcinfo(4), 15, 45, 40, 25, "Walking Dead", "ghoul", 10, instance_npcname("payon dungeon manager") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 109, 37, 124, 22, "Walking Dead", "ghoul", 5, instance_npcname("payon dungeon manager") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 109, 37, 124, 22, "Walking Dead", "ZOMBIE_PRISONER", 3, instance_npcname("payon dungeon manager") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 165, 38, 175, 30, "Walking Dead", "ZOMBIE_PRISONER", 3, instance_npcname("payon dungeon manager") + "::OnMobKilled";
+end;
+OnMobKilled:
+	'mob_killed_count += 1;
+	if('mob_killed_count <= 25){
+		instance_announce 0, "Current Total Monster(Walking Dead) Killed: " + 'mob_killed_count, 0, 0x00FF00, FW_BOLD, 16;
+	}
+	if('mob_killed_count == 25){
+		enablenpc instance_npcname("payd01");
+		instance_announce 0, "Portal to next level appeared!", 0, 0x00FFFF, FW_BOLD, 16;
+	}
+end;
+}
+
+pay_dun01,20,35,5	script	pay dun1 summoner	-1,2,2,{
+end;
+OnTouch_:
+	instance_announce 0, "Hunt 35 [ Moving Bones ] to proceed next level", 0, 0x00FFFF, FW_BOLD, 16;
+end;
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	disablenpc instance_npcname("payd02");
+	monster strnpcinfo(4), 0, 0, "Drainliar", "DRAINLIAR", 40;
+	monster strnpcinfo(4), 0, 0, "Magnolia", "MAGNOLIA", 40;
+	monster strnpcinfo(4), 0, 0, "Waving Bones", "ARCHER_SKELETON", 40;
+
+	areamonster strnpcinfo(4), 34, 36, 39, 30, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	areamonster strnpcinfo(4), 34, 36, 39, 30, "Waving Bones", "ARCHER_SKELETON", 2;
+	areamonster strnpcinfo(4), 34, 36, 39, 30, "Moving Bones", "ANTIQUE_FIRELOCK", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 48, 60, 56, 51, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	//areamonster strnpcinfo(4), 48, 60, 56, 51, "Waving Bones", "ARCHER_SKELETON", 2;
+	areamonster strnpcinfo(4), 48, 60, 56, 51, "Moving Bones", "ANTIQUE_FIRELOCK", 2, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 98, 80, 112, 65, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	//areamonster strnpcinfo(4), 98, 80, 112, 65, "Waving Bones", "ARCHER_SKELETON", 5;
+	areamonster strnpcinfo(4), 98, 80, 112, 65, "Moving Bones", "ANTIQUE_FIRELOCK", 3, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 98, 80, 112, 65, "Moving Bones", "SKEL_PRISONER", 2, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 152, 72, 180, 55, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	//areamonster strnpcinfo(4), 152, 72, 180, 55, "Waving Bones", "ARCHER_SKELETON", 5;
+	areamonster strnpcinfo(4), 152, 72, 180, 55, "Moving Bones", "ANTIQUE_FIRELOCK", 5, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 152, 72, 180, 55, "Moving Bones", "SKEL_PRISONER", 3, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 124, 134, 160, 128, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	//areamonster strnpcinfo(4), 124, 134, 160, 128, "Waving Bones", "ARCHER_SKELETON", 5;
+	areamonster strnpcinfo(4), 124, 134, 160, 128, "Moving Bones", "ANTIQUE_FIRELOCK", 5, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 124, 134, 160, 128, "Moving Bones", "SKEL_PRISONER", 3, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 86, 140, 105, 123, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	//areamonster strnpcinfo(4), 86, 140, 105, 123, "Waving Bones", "ARCHER_SKELETON", 5;
+	areamonster strnpcinfo(4), 86, 140, 105, 123, "Moving Bones", "ANTIQUE_FIRELOCK", 3, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 86, 140, 105, 123, "Moving Bones", "SKEL_PRISONER", 2, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 24, 101, 40, 85, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	//areamonster strnpcinfo(4), 24, 101, 40, 85, "Waving Bones", "ARCHER_SKELETON", 2;
+	areamonster strnpcinfo(4), 24, 101, 40, 85, "Moving Bones", "ANTIQUE_FIRELOCK", 2, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	
+	areamonster strnpcinfo(4), 32, 165, 48, 150, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	//areamonster strnpcinfo(4), 32, 165, 48, 150, "Waving Bones", "ARCHER_SKELETON", 5;
+	areamonster strnpcinfo(4), 32, 165, 48, 150, "Moving Bones", "ANTIQUE_FIRELOCK", 3, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 32, 165, 48, 150, "Moving Bones", "SKEL_PRISONER", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 34, 213, 55, 194, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	//areamonster strnpcinfo(4), 34, 213, 55, 194, "Waving Bones", "ARCHER_SKELETON", 5;
+	areamonster strnpcinfo(4), 34, 213, 55, 194, "Moving Bones", "ANTIQUE_FIRELOCK", 3, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 34, 213, 55, 194, "Moving Bones", "SKEL_PRISONER", 2, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 49, 265, 72, 255, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	areamonster strnpcinfo(4), 49, 265, 72, 255, "Moving Bones", "ANTIQUE_FIRELOCK", 3, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 49, 265, 72, 255, "Moving Bones", "SKEL_PRISONER", 2, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 95, 270, 114, 256, "Swinging Bones", "SOLDIER_SKELETON", 4;
+	areamonster strnpcinfo(4), 95, 270, 114, 256, "Moving Bones", "ANTIQUE_FIRELOCK", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 95, 270, 114, 256, "Moving Bones", "SKEL_PRISONER", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 145, 270, 155, 260, "Swinging Bones", "SOLDIER_SKELETON", 3;
+	areamonster strnpcinfo(4), 145, 270, 155, 260, "Moving Bones", "ANTIQUE_FIRELOCK", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 145, 270, 155, 260, "Moving Bones", "SKEL_PRISONER", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 160, 245, 170, 230, "Swinging Bones", "SOLDIER_SKELETON", 3;
+	areamonster strnpcinfo(4), 160, 245, 170, 230, "Moving Bones", "ANTIQUE_FIRELOCK", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 160, 245, 170, 230, "Moving Bones", "SKEL_PRISONER", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 233, 270, 254, 254, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	areamonster strnpcinfo(4), 233, 270, 254, 254, "Moving Bones", "ANTIQUE_FIRELOCK", 4, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 233, 270, 254, 254, "Moving Bones", "SKEL_PRISONER", 2, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 190, 190, 208, 180, "Swinging Bones", "SOLDIER_SKELETON", 3;
+	areamonster strnpcinfo(4), 190, 190, 208, 180, "Moving Bones", "ANTIQUE_FIRELOCK", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 190, 190, 208, 180, "Moving Bones", "SKEL_PRISONER", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 188, 142, 208, 134, "Swinging Bones", "SOLDIER_SKELETON", 3;
+	areamonster strnpcinfo(4), 188, 142, 208, 134, "Moving Bones", "ANTIQUE_FIRELOCK", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 188, 142, 208, 134, "Moving Bones", "SKEL_PRISONER", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 212, 110, 230, 100, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	areamonster strnpcinfo(4), 212, 110, 230, 100, "Moving Bones", "ANTIQUE_FIRELOCK", 2, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 212, 110, 230, 100, "Moving Bones", "SKEL_PRISONER", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 256, 222, 272, 204, "Swinging Bones", "SOLDIER_SKELETON", 5;
+	areamonster strnpcinfo(4), 256, 222, 272, 204, "Moving Bones", "ANTIQUE_FIRELOCK", 2, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 256, 222, 272, 204, "Moving Bones", "SKEL_PRISONER", 2, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 260, 139, 267, 131, "Swinging Bones", "SOLDIER_SKELETON", 3;
+	areamonster strnpcinfo(4), 260, 139, 267, 131, "Moving Bones", "ANTIQUE_FIRELOCK", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 260, 139, 267, 131, "Moving Bones", "SKEL_PRISONER", 1, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 215, 75, 252, 22, "Swinging Bones", "SOLDIER_SKELETON", 8;
+	areamonster strnpcinfo(4), 215, 75, 252, 22, "Moving Bones", "ANTIQUE_FIRELOCK", 6, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 215, 75, 252, 22, "Moving Bones", "SKEL_PRISONER", 4, instance_npcname("pay dun1 summoner") + "::OnMobKilled";
+end;
+OnMobKilled:
+	'mob_killed_count2 += 1;
+	if('mob_killed_count2 <= 35){
+		instance_announce 0, "Current Total Monster(Moving Bones) Killed: " + 'mob_killed_count2, 0, 0x00FF00, FW_BOLD, 16;
+	}
+	if('mob_killed_count2 == 35){
+		enablenpc instance_npcname("payd02");
+		instance_announce 0, "Portal to next level appeared!", 0, 0x00FFFF, FW_BOLD, 16;
+	}
+end;
+}
+
+pay_dun02,20,64,5	script	pay dun2 summoner	-1,3,3,{
+end;
+OnTouch_:
+	instance_announce 0, "Hunt 35 [ Floating Corpse ] to proceed next level", 0, 0x00FFFF, FW_BOLD, 16;
+end;
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	disablenpc instance_npcname("payd03");
+	monster strnpcinfo(4), 0, 0, "Poporing", "POPORING", 30;
+	monster strnpcinfo(4), 0, 0, "Jumping Corpse", "MUNAK", 20;
+	monster strnpcinfo(4), 0, 0, "Jumping Corpse", "BON_GUN", 20;
+	monster strnpcinfo(4), 0, 0, "Ninetail Fox", "NINE_TAIL", 5;
+
+	areamonster strnpcinfo(4), 53, 180, 61, 148, "Jumping Corpse", "MUNAK", 3;
+	areamonster strnpcinfo(4), 53, 180, 61, 148, "Jumping Corpse", "BON_GUN", 3;
+	areamonster strnpcinfo(4), 53, 180, 61, 148, "Floating Corpse", "HYEGUN", 3, instance_npcname("pay dun2 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 229, 66, 260, 43, "Jumping Corpse", "MUNAK", 5;
+	areamonster strnpcinfo(4), 229, 66, 260, 43, "Jumping Corpse", "BON_GUN", 5;
+	areamonster strnpcinfo(4), 229, 66, 260, 43, "Floating Corpse", "HYEGUN", 5, instance_npcname("pay dun2 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 125, 119, 165, 85, "Jumping Corpse", "MUNAK", 8;
+	areamonster strnpcinfo(4), 125, 119, 165, 85, "Jumping Corpse", "BON_GUN", 8;
+	areamonster strnpcinfo(4), 125, 119, 165, 85, "Floating Corpse", "HYEGUN", 10, instance_npcname("pay dun2 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 125, 119, 165, 85, "Floating Corpse", "INJUSTICE", 3, instance_npcname("pay dun2 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 101, 216, 125, 178, "Jumping Corpse", "MUNAK", 8;
+	areamonster strnpcinfo(4), 101, 216, 125, 178, "Jumping Corpse", "BON_GUN", 8;
+	areamonster strnpcinfo(4), 101, 216, 125, 178, "Floating Corpse", "HYEGUN", 10, instance_npcname("pay dun2 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 101, 216, 125, 178, "Floating Corpse", "INJUSTICE", 3, instance_npcname("pay dun2 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 171, 196, 198, 178, "Jumping Corpse", "MUNAK", 3;
+	areamonster strnpcinfo(4), 171, 196, 198, 178, "Jumping Corpse", "BON_GUN", 3;
+	areamonster strnpcinfo(4), 171, 196, 198, 178, "Floating Corpse", "HYEGUN", 3, instance_npcname("pay dun2 summoner") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 188, 122, 230, 82, "Jumping Corpse", "MUNAK", 6;
+	areamonster strnpcinfo(4), 188, 122, 230, 82, "Jumping Corpse", "BON_GUN", 6;
+	areamonster strnpcinfo(4), 188, 122, 230, 82, "Floating Corpse", "HYEGUN", 8, instance_npcname("pay dun2 summoner") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 188, 122, 230, 82, "Floating Corpse", "INJUSTICE", 2, instance_npcname("pay dun2 summoner") + "::OnMobKilled";
+end;
+OnMobKilled:
+	'mob_killed_count3 += 1;
+	if('mob_killed_count3 <= 35){
+		instance_announce 0, "Current Total Monster(Floating Corpse) Killed: " + 'mob_killed_count3, 0, 0x00FF00, FW_BOLD, 16;
+	}
+	if('mob_killed_count3 == 35){
+		enablenpc instance_npcname("payd03");
+		instance_announce 0, "Portal to next level appeared!", 0, 0x00FFFF, FW_BOLD, 16;
+	}
+end;
+}
+
+pay_dun03,155,158,5	script	pay dun3 summoner	-1,3,3,{
+end;
+OnTouch_:
+	instance_announce 0, "Hunt 40 [ Dancing Ghost ] to proceed next level", 0, 0x00FFFF, FW_BOLD, 16;
+end;
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	disablenpc instance_npcname("payd04r");
+	disablenpc instance_npcname("payd04r-ins");
+	monster strnpcinfo(4), 0, 0, "Mimic", "MIMIC", 20;
+	monster strnpcinfo(4), 0, 0, "Ninetail Fox", "NINE_TAIL", 10;
+	monster strnpcinfo(4), 0, 0, "Civil Servant", "CIVIL_SERVANT", 5;
+	monster strnpcinfo(4), 0, 0, "Crying Ghost", "SOHEE", 50;
+	monster strnpcinfo(4), 0, 0, "Dancing Ghost", "WICKED_NYMPH", 50, instance_npcname("pay dun3 summoner") + "::OnMobKilled";
+	monster strnpcinfo(4), 0, 0, "Dancing Ghost", "HYLOZOIST", 10, instance_npcname("pay dun3 summoner") + "::OnMobKilled";
+end;
+OnMobKilled:
+	'mob_killed_count4 += 1;
+	if('mob_killed_count4 <= 40){
+		instance_announce 0, "Current Total Monster(Dancing Ghost) Killed: " + 'mob_killed_count4, 0, 0x00FF00, FW_BOLD, 16;
+	}
+	if('mob_killed_count4 == 40){
+		enablenpc instance_npcname("payd04r-ins");
+	//	.@ins_map$ = instance_mapname("pay_dun04");
+	//	switch(rand(4)) {
+	//		case 0: warp .@ins_map$,200,204;
+	//			break;
+	//		case 1: warp .@ins_map$,189,43;
+	//			break;
+	//		case 2: warp .@ins_map$,43,40;
+	//			break;
+	//		case 3: warp .@ins_map$,34,202;
+	//			break;
+	//	}
+		instance_announce 0, "Portal to next level appeared!", 0, 0x00FFFF, FW_BOLD, 16;
+	}
+end;
+}
+
+pay_dun03,126,62,4	script	payd04r-ins	45,2,2,{
+	switch(rand(4)) {
+		case 0: warp .mapName$,200,204; end;
+		case 1: warp .mapName$,189,43; end;
+		case 2: warp .mapName$,43,40; end;
+		case 3: warp .mapName$,34,202; end;
+	}
+OnInit:
+	.mapName$ = "pay_dun04";
+	disablenpc;
+end;
+OnInstanceInit:
+	.mapName$ = instance_mapname("pay_dun04");
+end;
+}
+
+pay_dun04,188,44,5	script	pay dun4 summoner1	-1,3,3,{
+end;
+OnTouch_:
+	instance_announce 0, "Hunt 40 [ Prancing Monster ] for the Dungeon Boss(MVP)", 0, 0x00FFFF, FW_BOLD, 16;
+end;
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	monster strnpcinfo(4), 0, 0, "Ninetail Fox", "NINE_TAIL", 20;
+	monster strnpcinfo(4), 0, 0, "Playing Minion", "DOKEBI", 40;
+	monster strnpcinfo(4), 0, 0, "Playing Minion", "HORONG", 20;
+	monster strnpcinfo(4), 0, 0, "Prancing Monster", "AM_MUT", 20, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+	monster strnpcinfo(4), 0, 0, "Prancing Monster", "SKELETON_GENERAL", 20, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 180, 55, 192, 45, "Prancing Monster", "AM_MUT", 2, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 180, 55, 192, 45, "Prancing Monster", "SKELETON_GENERAL", 2, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 180, 55, 192, 45, "Prancing Monster", "CAT_O_NINE_TAIL", 1, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 42, 52, 60, 35, "Prancing Monster", "AM_MUT", 2, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 42, 52, 60, 35, "Prancing Monster", "SKELETON_GENERAL", 2, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 42, 52, 60, 35, "Prancing Monster", "CAT_O_NINE_TAIL", 1, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 35, 210, 50, 185, "Prancing Monster", "AM_MUT", 2, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 35, 210, 50, 185, "Prancing Monster", "SKELETON_GENERAL", 2, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 35, 210, 50, 185, "Prancing Monster", "CAT_O_NINE_TAIL", 1, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+
+	areamonster strnpcinfo(4), 178, 205, 202, 188, "Prancing Monster", "AM_MUT", 2, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 178, 205, 202, 188, "Prancing Monster", "SKELETON_GENERAL", 2, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+	areamonster strnpcinfo(4), 178, 205, 202, 188, "Prancing Monster", "CAT_O_NINE_TAIL", 1, instance_npcname("pay dun4 summoner1") + "::OnMobKilled";
+end;
+OnMobKilled:
+	'mob_killed_count5 += 1;
+	if('mob_killed_count5 <= 40){
+		instance_announce 0, "Current Total Monster(Prancing Monster) Killed: " + 'mob_killed_count5, 0, 0x00FF00, FW_BOLD, 16;
+	}
+	if('mob_killed_count5 == 40){
+		monster strnpcinfo(4), 120, 116, "Dungeon Boss-Moonlight", 
+			"MOONLIGHT", 1, instance_npcname("pay dun4 summoner1") + "::OnMVPQuiled";
+		instance_announce 0, "Dungeon Boss(MVP) Appeared!", 0, 0x00FFFF, FW_BOLD, 16;
+	}
+end;
+OnMVPQuiled:
+	getpartymember getcharid(1), 2, .@party_mem_acc_id;
+	for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+		getitem 14003, 5, .@party_mem_acc_id[.@i];
+	}
+	sleep 3000;
+	instance_announce 0, "Dungeon Boss(MVP) is now dead!\nCongratulations for Clearing the Payon Dungeon.", 0, 0x00FFFF, FW_BOLD, 16;
+	sleep 3000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 16;
+	sleep 120000;
+	instance_destroy;
+end;
+}
+
+pay_dun04,44,41,5	script	pay dun4 summoner2	-1,3,3,{
+end;
+OnTouch_:
+	instance_announce 0, "Hunt 40 [ Prancing Monster ] for the Dungeon Boss(MVP)", 0, 0x00FFFF, FW_BOLD, 16;
+end;
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+end;
+OnMobKilled:
+end;
+}
+
+pay_dun04,35,201,5	script	pay dun4 summoner3	-1,3,3,{
+end;
+OnTouch_:
+	instance_announce 0, "Hunt 40 [ Prancing Monster ] for the Dungeon Boss(MVP)", 0, 0x00FFFF, FW_BOLD, 16;
+end;
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+end;
+OnMobKilled:
+end;
+}
+
+pay_dun04,199,203,5	script	pay dun4 summoner4	-1,3,3,{
+end;
+OnTouch_:
+	instance_announce 0, "Hunt 40 [ Prancing Monster ] for the Dungeon Boss(MVP)", 0, 0x00FFFF, FW_BOLD, 16;
+end;
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+end;
+OnMobKilled:
+end;
+}

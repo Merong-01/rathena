@@ -50,3 +50,17 @@ Body:
       Map: 1@tnm1
       X: 91
       Y: 23
+  - Id: 102
+    Name: Payon Dun
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Destroyable: true
+    Enter:
+      Map: pay_dun00
+      X: 21
+      Y: 183
+    AdditionalMaps: 
+      pay_dun01: true
+      pay_dun02: true
+      pay_dun03: true
+      pay_dun04: true
