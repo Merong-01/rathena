@@ -27,6 +27,8 @@ OnMapShower:
 	.@item_id[6] = 12221; // Megaphone
 	.@item_id[7] = 30005; // 1Day VIP
 	.@item_id[8] = 30007; // Egg Scrool
+	.@item_id[9] = 12911; // neuralizer box
+	.@item_id[10] = 6320; // reset stone
 	
 	.@item_name_sel$ = "";
 	for(.@i = 0; .@i < getarraysize(.@item_id); .@i++){
@@ -45,7 +47,7 @@ OnMapShower:
 	mes "Select the number of items you want to give:";
 	next;
 	
-	if(.@item_id[.@sel] == 30005 || .@item_id[.@sel] == 30007){
+	if(.@item_id[.@sel] == 30007 || .@item_id[.@sel] == 12911 || .@item_id[.@sel] == 6320){
 		.@num = select("1");
 	}
 	else {
@@ -66,10 +68,11 @@ OnMapShower:
 		close;
 	}
 	
-	@item_to_give = .@item_id[.@sel];
-	@item_to_give_num = .@num;
+	.@index = getarraysize(@item_to_give);
+	@item_to_give[.@index] = .@item_id[.@sel];
+	@item_to_give_num[.@index] = .@num;
 	
-	addtimer 30000, strnpcinfo(0) + "::OnExecuteShower";
+	addtimer 29000, strnpcinfo(0) + "::OnExecuteShower";
 	showdigit 30, 2;
 	
 	mes .@npcLable$;
@@ -80,16 +83,19 @@ OnMapShower:
 	close2;
 end;
 OnExecuteShower:
-	showdigit 0;
 	.@current_map$ = strcharinfo(3);
 	.@player_num = getmapunits(BL_PC, .@current_map$, .@user_id[0]);
 	
 	freeloop(1);
 	
 	for(.@i = 0; .@i < .@player_num; .@i++){
-		getitembound @item_to_give, @item_to_give_num, Bound_Account, .@user_id[.@i];
+		getitembound @item_to_give[0], @item_to_give_num[0], Bound_Account, .@user_id[.@i];
 	}
-	
+	deletearray @item_to_give[0], 1;
+	deletearray @item_to_give_num[0], 1;
+	if(getarraysize(@item_to_give) == 0){
+		showdigit 0;
+	}
 	freeloop(0);
 end;
 OnCommand:

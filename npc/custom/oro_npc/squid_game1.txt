@@ -443,15 +443,30 @@ OnTimer303000:
 end;
 OnTimer390000:
 	instance_announce 0, "1 minute and 30 seconds has passed, summoning monsters to encourage everyone", 0;
-	monster strnpcinfo(4), 92, 24, "Hunter Fly", 1422, 5;
+	switch(rand(1,2)){
+		case 1: monster strnpcinfo(4), 92, 24, "Hunter Fly", 1422, 5;
+			break;
+		case 2: monster strnpcinfo(4), 92, 24, "Gas Cloud", "NOXIOUS", 5;
+			break;
+	}
 end;
 OnTimer550000:
 	instance_announce 0, "4 minutes and 10 seconds has passed, summoning more monsters to encourage everyone", 0;
-	monster strnpcinfo(4), 116, 24, "Hunter Fly", 1422, 5;
+	switch(rand(1,2)){
+		case 1: monster strnpcinfo(4), 116, 24, "Hunter Fly", 1422, 5;
+			break;
+		case 2: monster strnpcinfo(4), 116, 24, "Gas Cloud", "NOXIOUS", 5;
+			break;
+	}
 end;
 OnTimer700000:
 	instance_announce 0, "6 minutes and 40 seconds has passed, summoning more monsters to encourage everyone", 0;
-	monster strnpcinfo(4), 141, 24, "Hunter Fly", 1422, 5;
+	switch(rand(1,2)){
+		case 1: monster strnpcinfo(4), 141, 24, "Hunter Fly", 1422, 5;
+			break;
+		case 2: monster strnpcinfo(4), 141, 24, "Gas Cloud", "NOXIOUS", 5;
+			break;
+	}
 end;
 OnTimer900000:
 	stopnpctimer;
@@ -464,9 +479,3 @@ OnCommand2:
 	dispbottom "This is a depreciated command and will be removed next server retart", 0x00FF00;
 end;
 }
-//prontera,187,209,3	script	Dakji	4_EP19_LAZY,{
-//	.@npcName$ = "[ Dakji - S* Game Broker ]";
-//	
-//	mes .@npcName$;
-//	
-//}
