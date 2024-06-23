@@ -64,3 +64,11 @@ Body:
       pay_dun02: true
       pay_dun03: true
       pay_dun04: true
+  - Id: 111
+    Name: MVP Night Event
+    TimeLimit: 2110
+    IdleTimeOut: 500
+    Enter:
+      Map: 1@def01
+      X: 50
+      Y: 28

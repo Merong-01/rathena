@@ -9,24 +9,24 @@ end;
 OnHour12:
 OnInitGame:
 	if(.instance_id > 0){
-		dispbottom "An instance of Glass Tile Mini Game is already active", 0x00FF00;
+		//dispbottom "An instance of Glass Tile Mini Game is already active", 0x00FF00;
 		end;
 	}
 	bindatcmd("joinglasstilegame",strnpcinfo(0)+"::OnJoinGame",0,99);
 	.instance_id = instance_create("Glass Tile", IM_NONE);
 
 	if(.instance_id == -4){
-		dispbottom "No free instance!", 0xFF0000;
+		//dispbottom "No free instance!", 0xFF0000;
 		end;
 	}
 	else if(.instance_id < 1){
-		dispbottom "Failed to create instance", 0xFF0000;
+		//dispbottom "Failed to create instance", 0xFF0000;
 		end;
 	}
 	//setmapflag instance_mapname("1@tnm1", .instance_id), mf_noskill;
 	//setmapflag instance_mapname("1@tnm1", .instance_id), mf_noitemconsumption;
 
-	deletearray .join_char_id[0];
+	cleararray .join_char_id[0], 0, getarraysize(.join_char_id);
 	announce "The Glass Tile Mini Game will start in 5 minutes, to join the game type @joinglasstilegame", 0x0000FF;
 	.starting_game = 1;
 	initnpctimer;
@@ -50,7 +50,7 @@ OnTimer300000:
 			instance_enter("Glass Tile", -1, -1, .join_char_id[.@i], .instance_id);
 		}
 	}
-	announce "The Glass Tile Mini Game is Starting", 0x0000FF;
+	announce "The Glass Tile Mini Game is Starting, teleporting participants to the Mini Game instance", 0x0000FF;
 	unbindatcmd "joinglasstilegame";
 	sleep 1000;
 	donpcevent "::OnSGPillarEffect";
@@ -61,7 +61,7 @@ OnTimer920000:
 end;
 OnJoinGame:
 	if(.starting_game == 0){
-		dispbottom "It not yet the time to join the game", 0xFF0000;
+		dispbottom "It's not yet the time to join the game", 0xFF0000;
 		end;
 	}
 	else if(.starting_game == 2){
@@ -74,7 +74,7 @@ OnJoinGame:
 	for(.@i = 0; .@i < .@num; .@i++){
 		if(.join_char_id[.@i] == .@char_id){
 			dispbottom "You've joined the Glass Tile mini game, you will be teleported to the intance map in " 
-				+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x0000FF;
+				+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
 			end;
 		}
 	}
@@ -82,7 +82,7 @@ OnJoinGame:
 	@glasstile_p = 0;
 	@gtiletrapped = 0;
 	dispbottom "You've joined the Glass Tile mini game, you will be teleported to the intance map in " 
-		+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x0000FF;
+		+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
 end;
 }
 

@@ -5,7 +5,6 @@ new_3-1,182,86,3	script	Instance Dungeon	4_M_JOB_KNIGHT2,{
 	.@npcName$ = "[ Instance Dungeon ]";
 
 	mes .@npcName$;
-	mes "";
 	mes "Hello adventurer!";
 	mes "I can teleport you to an (party)instance of Payon Dungeon if you want.";
 	mes "Clearing the dungeon also gives item rewards.";
@@ -312,7 +311,8 @@ OnMobKilled:
 end;
 }
 
-pay_dun03,126,62,4	script	payd04r-ins	45,2,2,{
+// made alternative npc with warp sprite for instance use
+pay_dun03,126,62,4	script	payd04r-ins	45,1,1,{
 	switch(rand(4)) {
 		case 0: warp .mapName$,200,204; end;
 		case 1: warp .mapName$,189,43; end;
@@ -367,6 +367,11 @@ OnMobKilled:
 	if('mob_killed_count5 == 40){
 		monster strnpcinfo(4), 120, 116, "Dungeon Boss-Moonlight", 
 			"MOONLIGHT", 1, instance_npcname("pay dun4 summoner1") + "::OnMVPQuiled";
+		.@mobGID = $@mobid[0];
+		getunitdata .@mobGID, .@dun_boss_data;
+		.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 2;
+		setunitdata .@mobGID, UMOB_HP, .@new_boss_hp;
+		setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp;
 		instance_announce 0, "Dungeon Boss(MVP) Appeared!", 0, 0x00FFFF, FW_BOLD, 16;
 	}
 end;
