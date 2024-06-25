@@ -151,13 +151,6 @@ OnStreamerPoints:
 		end;
 	}
 	.@streamercode$ = .@atcmd_parameters$[0];
-//	if(.@streamercode$ == "ALL"){
-//		for(.@i = 0; .@i < $StreamerCodeCount; .@i++){
-//			dispbottom .@streamercode$ + " current points: " + getd("$SCP_" + .@streamercode$), 0x00FF00;
-//		}
-//		dispbottom "Bonus (common) points: " + $StreamerAll_points, 0x00FF00;
-//		end;
-//	}
 	
 	if(getd("$" + .@streamercode$) == 1){
 		dispbottom .@streamercode$ + " current points: " + getd("$SCP_" + .@streamercode$), 0x00FF00;
@@ -218,6 +211,64 @@ OnRedeem:
 	setd "$SCP_" + .@streamercode$, getd("$SCP_" + .@streamercode$) - .@amount;
 	mes .@npcName$;
 	mes .@streamercode$ + " remaining points: " + getd("$SCP_" + .@streamercode$);
-	
 end;
+}
+
+-	script	PvP Battle	-1,{
+OnInit:
+	bindatcmd("battlestart", strnpcinfo(0) + "::OnBattleStart", 99, 99);
+end;
+OnBattleStart:
+	.pvp_flag = getmapflag(strcharinfo(3), mf_pvp);
+	.itemuse_flag = getmapflag(strcharinfo(3), mf_noitemconsumption);
+	unbindatcmd "battlestart";
+	.timer_end = 0;
+	bindatcmd("battleend", strnpcinfo(0) + "::OnBattleEnd", 99, 99);
+	callsub StartCountdown, "Battle will start in", 5;
+	announce "Start!!!", bc_all, 0x00FF00, FW_BOLD, 35;
+	setmapflag strcharinfo(3), mf_pvp;
+	attachnpctimer;
+	initnpctimer;
+end;
+OnTimer300000:
+//OnTimer6000:
+	announce "Five minutes has passed since the battle started.", bc_all, 0x00FF00, FW_BOLD, 20;
+end;
+//OnTimer10000:
+OnTimer301000:
+	callsub StartCountdown, "Disabling item use/consumption in", 10;
+	setmapflag strcharinfo(3), mf_noitemconsumption;
+	announce "Item use/consumption is disabled!", bc_all, 0x00FF00, FW_BOLD, 20;
+end;
+//OnTimer25000:
+OnTimer600000:
+OnBattleEnd:
+	.timer_end = 1;
+	awake strnpcinfo(0);
+	removemapflag strcharinfo(3), mf_noitemconsumption;
+	removemapflag strcharinfo(3), mf_pvp;
+	unbindatcmd "battleend";
+	bindatcmd("battlestart", strnpcinfo(0) + "::OnBattleStart", 99, 99);
+	announce "Battle Ended!", bc_all, 0x00FF00, FW_BOLD, 20;
+	if(.pvp_flag){
+		setmapflag strcharinfo(3), mf_pvp;
+	}
+	if(.itemuse_flag){
+		setmapflag strcharinfo(3), mf_noitemconsumption;
+	}
+	stopnpctimer;
+	detachnpctimer;
+end;
+StartCountdown:
+	for(.@num = getarg(1); .@num > 0; .@num--){
+		if(.timer_end == 1){
+			end;
+		}
+		announce getarg(0) + " " + .@num + "...", bc_all, 0x00FF00, FW_BOLD, 20;
+		sleep2 1000;
+	}
+	if(.timer_end == 1){
+		end;
+	}
+return;
 }
