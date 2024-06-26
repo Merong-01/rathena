@@ -72,3 +72,11 @@ Body:
       Map: 1@def01
       X: 50
       Y: 28
+  - Id: 112
+    Name: MVP 1086
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: prt_sewb4
+      X: 100
+      Y: 92
