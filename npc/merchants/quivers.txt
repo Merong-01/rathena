@@ -173,3 +173,5 @@ S_BuyQuiver:
 		close;
 	}
 }
+
+prontera,173,178,3	duplicate(Inventor Jaax)	Inventor Jaax#prt	89
