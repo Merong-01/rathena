@@ -232,6 +232,121 @@ new_3-1,180,86,3	script	MVP Map Instance	4_M_JOB_KNIGHT1,{
 	end;
 }
 
+prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
+
+	mes "[ MVP Scholar ]";
+	mes "Hello adventurer";
+	mes "I'm studying the behavior of MVP monsters...";
+	mes "So don't disturb me so I can concentrate in my studies...";
+	next;
+	
+	select("I'm looking for some MVP monster maybe you know where it is:Sorry for taking your time... ");
+	if(@menu == 2){
+		mes "[ MVP Scholar]";
+		mes "There still a lot of mysteries about MVP monsters";
+		mes "If only I can put them in a pokeball...";
+		close;
+	}
+	
+	mes "[ MVP Scholar ]";
+	mes "You have some sharp eyes, adventurer...";
+	mes "You got the right person to ask for";
+	mes "If you want to fight MVP monster then";
+	mes "Maybe you can help me in my studies";
+	next;
+	
+	select("I'll gladly help:Maybe next time");
+	if(@menu == 2){
+		close;
+	}
+	close2;
+	setarray .@mvp_id[1],
+		1086,//	Golden Thief Bug
+		1115,//	Eddga
+		1150,//	Moonlight Flower
+		1159,//	Phreeoni
+		1112,//	Drake
+		1583,//	Tao Gunka
+		1492,//	Incantation Samurai
+		1046,//	Doppelganger
+		1252,//	Garm
+		1418,//	Evil Snake Lord
+		1059,//	Mistress
+		1190,//	Orc Lord
+		1087,//	Orc Hero
+		1251,//	Knight of Windstorm
+		1038,//	Osiris
+		1272,//	Dark Lord
+		1039,//	Baphomet
+		1147,//	Maya
+		1389,//	Dracula
+		1511,//	Amon Ra
+		1157,//	Pharaoh
+		1312;//	Turtle General
+	setarray .@mvp_mapname$[1],
+		"prt_sewb4",
+		"pay_fild11",
+		"pay_dun04",
+		"moc_fild17",
+		"treasure02",
+		"beach_dun",
+		"ama_dun03",
+		"gef_dun02",
+		"xmas_fild01",
+		"gon_dun03",
+		"mjolnir_04",
+		"gef_fild10",
+		"gef_fild14",
+		"xmas_dun02",
+		"moc_pryd04",
+		"gl_chyard",
+		"prt_maze03",
+		"anthell02",
+		"gef_dun01",
+		"moc_pryd06",
+		"in_sphinx5",
+		"tur_dun04";
+	
+	.@ins_mode = IM_PARTY;
+	.npc_mapname$ = strnpcinfo(4);
+	for(.@i = 1; .@i <= getarraysize(.@mvp_mapname$); .@i++){
+		if(.@mvp_mapname$[.@i] == .npc_mapname$){
+			.@ret = instance_create("MVP " + .@mvp_id[.@i], .@ins_mode);
+			break;
+		}
+	}
+	instance_enter("MVP " + .@mvp_id[.@i], -1, -1, getcharid(0), .@ret);
+
+OnInit:
+	enablenpc;
+end;
+OnInstanceInit:
+	disablenpc;
+end;
+}
+
+pay_fild11,285,141,4	duplicate(MVPS)	MVP Scholar#2	4_M_ZONDAOYAJI	
+pay_dun04,36,207,5	duplicate(MVPS)	MVP Scholar#3	4_M_ZONDAOYAJI
+moc_fild17,215,360,6	duplicate(MVPS)	MVP Scholar#4	4_M_ZONDAOYAJI
+treasure02,94,33,5	duplicate(MVPS)	MVP Scholar#5	4_M_ZONDAOYAJI
+beach_dun,268,72,4	duplicate(MVPS)	MVP Scholar#6	4_M_ZONDAOYAJI
+ama_dun03,123,16,3	duplicate(MVPS)	MVP Scholar#7	4_M_ZONDAOYAJI
+gef_dun02,111,135,5	duplicate(MVPS)	MVP Scholar#8	4_M_ZONDAOYAJI
+xmas_fild01,93,244,3	duplicate(MVPS)	MVP Scholar#9	4_M_ZONDAOYAJI
+gon_dun03,62,17,6	duplicate(MVPS)	MVP Scholar#10	4_M_ZONDAOYAJI
+mjolnir_04,139,205,3	duplicate(MVPS)	MVP Scholar#11	4_M_ZONDAOYAJI
+gef_fild10,60,332,5	duplicate(MVPS)	MVP Scholar#12	4_M_ZONDAOYAJI
+gef_fild14,362,225,4	duplicate(MVPS)	MVP Scholar#13	4_M_ZONDAOYAJI
+xmas_dun02,135,134,3	duplicate(MVPS)	MVP Scholar#14	4_M_ZONDAOYAJI
+moc_pryd04,16,192,6	duplicate(MVPS)	MVP Scholar#15	4_M_ZONDAOYAJI
+gl_chyard,154,25,4	duplicate(MVPS)	MVP Scholar#16	4_M_ZONDAOYAJI
+prt_maze03,187,98,4	duplicate(MVPS)	MVP Scholar#17	4_M_ZONDAOYAJI
+anthell02,28,263,5	duplicate(MVPS)	MVP Scholar#18	4_M_ZONDAOYAJI
+gef_dun01,125,244,4	duplicate(MVPS)	MVP Scholar#19	4_M_ZONDAOYAJI
+moc_pryd06,192,15,4	duplicate(MVPS)	MVP Scholar#20	4_M_ZONDAOYAJI
+in_sphinx5,103,105,4	duplicate(MVPS)	MVP Scholar#21	4_M_ZONDAOYAJI
+tur_dun04,109,189,3	duplicate(MVPS)	MVP Scholar#22	4_M_ZONDAOYAJI
+
 prt_sewb4,100,93,0	script	mvp gtb spawner1	-1,2,2,{
 OnInit:
 	disablenpc;
@@ -240,6 +355,7 @@ OnInstanceInit:
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("prts05-1");
 
 //	.@owner_id = instance_live_info(ILI_OWNER);
 //	.@ins_mode = instance_live_info(ILI_MODE);
@@ -274,6 +390,1600 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "THIEF_BUG__", 70;
 	monster strnpcinfo(4), 0, 0, "--en--", "DRAINLIAR", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "CRAMP", 5;
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Eddga 
+pay_fild11,295,135,0	script	mvp eddga spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("payf06-1");
+	disablenpc instance_npcname("payf004");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Eddga", 
+		"EDDGA", 1, instance_npcname("mvp eddga spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "GREATEST_GENERAL", 30;
+	monster strnpcinfo(4), 0, 0, "--en--", "NINE_TAIL", 60;
+	monster strnpcinfo(4), 0, 0, "--en--", "DRAGON_TAIL", 50;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Moonlight Flower
+pay_dun04,33,203,0	script	mvp moonlight spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("payd04-1");
+	disablenpc instance_npcname("payd04-2");
+	disablenpc instance_npcname("payd04-3");
+	disablenpc instance_npcname("payd04-4");
+	
+	monster strnpcinfo(4), 120, 115, "Instance Moonlight Flower", 
+		"MOONLIGHT", 1, instance_npcname("mvp moonlight spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "DOKEBI", 40;
+	monster strnpcinfo(4), 0, 0, "--en--", "HORONG", 30;
+	monster strnpcinfo(4), 0, 0, "--en--", "GREATEST_GENERAL", 15;
+	monster strnpcinfo(4), 0, 0, "--en--", "ARCHER_SKELETON", 15;
+	monster strnpcinfo(4), 0, 0, "--en--", "NINE_TAIL", 30;
+	monster strnpcinfo(4), 0, 0, "--en--", "SKELETON_GENERAL", 1;
+	monster strnpcinfo(4), 0, 0, "--en--", "AM_MUT", 1;
+	monster strnpcinfo(4), 0, 0, "--en--", "CAT_O_NINE_TAIL", 1;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Phreeoni
+moc_fild17,218,367,0	script	mvp phreeoni spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("mocf21-1");
+	disablenpc instance_npcname("moc29");
+	disablenpc instance_npcname("mocf28-1");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Phreeoni", 
+		"PHREEONI", 1, instance_npcname("mvp phreeoni spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "HODE", 100;
+	monster strnpcinfo(4), 0, 0, "--en--", "STEEL_CHONCHON", 30;
+	monster strnpcinfo(4), 0, 0, "--en--", "MAGNOLIA", 15;
+	monster strnpcinfo(4), 0, 0, "--en--", "FRILLDORA", 25;
+	monster strnpcinfo(4), 0, 0, "--en--", "ANT_EGG", 10;
+	monster strnpcinfo(4), 0, 0, "--en--", "SCORPION", 5;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Drake
+treasure02,102,26,0	script	mvp drake spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("tre003");
+	
+	monster strnpcinfo(4), 101, 151, "Instance Drake", 
+		"DRAKE", 1, instance_npcname("mvp drake spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "GHOSTRING", 1;
+	monster strnpcinfo(4), 0, 0, "--en--", "WHISPER", 5;
+	monster strnpcinfo(4), 0, 0, "--en--", "WANDER_MAN", 1;
+	monster strnpcinfo(4), 0, 0, "--en--", "PENOMENA", 22;
+	monster strnpcinfo(4), 0, 0, "--en--", "KUKRE", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "PIRATE_SKEL", 5;
+	monster strnpcinfo(4), 0, 0, "--en--", "MIMIC", 3;
+	monster strnpcinfo(4), 95, 57, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 96, 57, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 101, 57, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 102, 57, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 107, 57, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 108, 57, "--en--", "HYDRA", 1;
+	areamonster strnpcinfo(4), 91, 40, 111, 60, "--en--", "PENOMENA", 5;	
+	monster strnpcinfo(4), 102, 68, "--en--", "WHISPER", 1;
+	monster strnpcinfo(4), 102, 80, "--en--", "WHISPER", 1;
+	monster strnpcinfo(4), 102, 88, "--en--", "WHISPER", 1;
+	monster strnpcinfo(4), 100, 85, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 101, 85, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 102, 85, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 103, 85, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 100, 136, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 101, 136, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 102, 136, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 103, 136, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 100, 143, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 101, 143, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 102, 143, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 103, 143, "--en--", "HYDRA", 1;
+	monster strnpcinfo(4), 101, 150, "--en--", "WHISPER", 2;
+	areamonster strnpcinfo(4), 91, 141, 111, 161, "--en--", "MIMIC", 5;		
+	areamonster strnpcinfo(4), 91, 141, 111, 161, "--en--", "PENOMENA", 4;	
+	monster strnpcinfo(4), 101, 126, "--en--", "PENOMENA", 1;
+	monster strnpcinfo(4), 101, 135, "--en--", "PENOMENA", 1;
+	areamonster strnpcinfo(4), 29, 65, 47, 83, "--en--", "PIRATE_SKEL", 3;	
+	areamonster strnpcinfo(4), 29, 65, 47, 83, "--en--", "PENOMENA", 5;		
+	monster strnpcinfo(4), 170, 71, "--en--", "PIRATE_SKEL", 1;
+	monster strnpcinfo(4), 168, 77, "--en--", "PIRATE_SKEL", 1;
+	monster strnpcinfo(4), 164, 67, "--en--", "PIRATE_SKEL", 1;
+	areamonster strnpcinfo(4), 134, 30, 176, 56, "--en--", "PIRATE_SKEL", 6;	
+	monster strnpcinfo(4), 178, 143, "--en--", "PIRATE_SKEL", 1;
+	monster strnpcinfo(4), 178, 140, "--en--", "PIRATE_SKEL", 1;
+	monster strnpcinfo(4), 184, 143, "--en--", "PIRATE_SKEL", 1;
+	monster strnpcinfo(4), 157, 143, "--en--", "WHISPER", 1;
+	monster strnpcinfo(4), 151,138, "--en--", "WHISPER", 1;
+	monster strnpcinfo(4), 45, 144, "--en--", "WHISPER", 1;
+	monster strnpcinfo(4), 52, 139, "--en--", "WHISPER", 1;
+	monster strnpcinfo(4), 23, 142, "--en--", "MARIONETTE", 1;
+	
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Tao Gunka
+beach_dun,267,67,0	script	mvp tao gunka spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("cmd_beach_dun1-2");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Tao Gunka", 
+		"TAO_GUNKA", 1, instance_npcname("mvp tao gunka spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "MEDUSA", 60;
+	monster strnpcinfo(4), 0, 0, "--en--", "MERMAN", 3;
+	monster strnpcinfo(4), 0, 0, "--en--", "NERAID", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "PEST", 20;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Incantaion Samurai 
+ama_dun03,120,11,0	script	mvp incantation samurai spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("ama_dun2-2");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Samurai Specter", 
+		"INCANTATION_SAMURAI", 1, instance_npcname("mvp incantation samurai spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "SHINOBI", 55;
+	monster strnpcinfo(4), 0, 0, "--en--", "ANTIQUE_FIRELOCK", 25;
+	monster strnpcinfo(4), 0, 0, "--en--", "MIYABI_NINGYO", 1;
+	monster strnpcinfo(4), 0, 0, "--en--", "TENGU", 55;
+	monster strnpcinfo(4), 0, 0, "--en--", "MIMIC", 5;
+	monster strnpcinfo(4), 0, 0, "--en--", "THE_PAPER", 20;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Doppelganger 
+gef_dun02,106,133,0	script	mvp doppelganger spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("gefd02-1");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Doppelganger", 
+		"DOPPELGANGER", 1, instance_npcname("mvp doppelganger spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "GHOUL", 10;
+	monster strnpcinfo(4), 0, 0, "--en--", "WHISPER", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "HUNTER_FLY", 10;
+	monster strnpcinfo(4), 0, 0, "--en--", "MARIONETTE", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "DEVIRUCHI", 35;
+	monster strnpcinfo(4), 0, 0, "--en--", "NIGHTMARE", 40;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Garm 
+xmas_fild01,80,249,0	script	mvp garm spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("xmas_fild1-1");
+	disablenpc instance_npcname("xmax_fild1-2");
+	disablenpc instance_npcname("xmas_fild2");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Garm", 
+		"GARM", 1, instance_npcname("mvp garm spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "MARIN", 35;
+	monster strnpcinfo(4), 0, 0, "--en--", "SASQUATCH", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "GARM_BABY", 1;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Evil Snake Lord 
+gon_dun03,68,8,0	script	mvp evil snake lord spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("gon_dun4-2");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Evil Snake Lord", 
+		"DARK_SNAKE_LORD", 1, instance_npcname("mvp evil snake lord spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "WHITE_PLANT", 10;
+	monster strnpcinfo(4), 0, 0, "--en--", "WILD_GINSENG", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "WICKED_NYMPH", 50;
+	monster strnpcinfo(4), 0, 0, "--en--", "EVIL_CLOUD_HERMIT", 30;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Mistress
+mjolnir_04,124,208,0	script	mvp mistress spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("mjol05");
+	disablenpc instance_npcname("mjol05-1");
+	disablenpc instance_npcname("mjol06");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Mistress", 
+		"MISTRESS", 1, instance_npcname("mvp mistress spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "MANTIS", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "HORNET", 70;
+	monster strnpcinfo(4), 0, 0, "--en--", "POPORING", 10;
+	monster strnpcinfo(4), 0, 0, "--en--", "FLORA", 30;
+	monster strnpcinfo(4), 0, 0, "--en--", "ARGIOPE", 20;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Orc Lord
+gef_fild10,51,327,0	script	mvp orc lord spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("geff11-1");
+	disablenpc instance_npcname("geff12");
+	disablenpc instance_npcname("geff05-1");
+	disablenpc instance_npcname("gef018");
+	disablenpc instance_npcname("gef019");
+	disablenpc instance_npcname("gef020");
+	disablenpc instance_npcname("gef021");
+	disablenpc instance_npcname("gef022");
+	disablenpc instance_npcname("geff19-1");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Orc Lord", 
+		"ORC_LORD", 1, instance_npcname("mvp orc lord spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "ORK_WARRIOR", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "ORC_LADY", 70;
+	monster strnpcinfo(4), 0, 0, "--en--", "POPORING", 15;
+	monster strnpcinfo(4), 0, 0, "--en--", "ORC_BABY", 5;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Orc Hero
+gef_fild14,368,219,0	script	mvp orc hero spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("geff17-1");
+	disablenpc instance_npcname("geff19");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Orc Hero", 
+		"ORK_HERO", 1, instance_npcname("mvp orc hero spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "ORC_LADY", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "ORK_WARRIOR", 10;
+	monster strnpcinfo(4), 0, 0, "--en--", "ORC_ARCHER", 30;
+	monster strnpcinfo(4), 0, 0, "--en--", "HIGH_ORC", 70;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Knight of Windstorm
+xmas_dun02,130,130,0	script	mvp knight of windstorm spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("xmas_dun2-2");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Stormy Knight", 
+		"KNIGHT_OF_WINDSTORM", 1, instance_npcname("mvp knight of windstorm spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "COOKIE_XMAS", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "COOKIE", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "CRUISER", 35;
+	monster strnpcinfo(4), 0, 0, "--en--", "MYSTCASE", 50;
+	monster strnpcinfo(4), 0, 0, "--en--", "GARM_BABY", 1;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Osiris
+moc_pryd04,17,187,0	script	mvp osiris spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("mocp04-1");
+	disablenpc instance_npcname("mocp05-1");
+	disablenpc instance_npcname("mocp06-1");
+	disablenpc instance_npcname("mocp07-1");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Osiris", 
+		"OSIRIS", 1, instance_npcname("mvp osiris spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "MUMMY", 25;
+	monster strnpcinfo(4), 0, 0, "--en--", "ANCIENT_MUMMY", 3;
+	monster strnpcinfo(4), 0, 0, "--en--", "ISIS", 50;
+	monster strnpcinfo(4), 0, 0, "--en--", "MIMIC", 15;
+	monster strnpcinfo(4), 0, 0, "--en--", "MATYR", 20;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Dark Lord
+gl_chyard,147,14,0	script	mvp dark lord spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("gl22");
+	disablenpc instance_npcname("gl12-1");
+	disablenpc instance_npcname("gl11-1");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Dark Lord", 
+		"DARK_LORD", 1, instance_npcname("mvp dark lord spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "GHOUL", 35;
+	monster strnpcinfo(4), 0, 0, "--en--", "ZOMBIE", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "WRAITH", 45;
+	monster strnpcinfo(4), 0, 0, "--en--", "EVIL_DRUID", 10;
+	monster strnpcinfo(4), 0, 0, "--en--", "HUNTER_FLY", 3;
+	monster strnpcinfo(4), 0, 0, "--en--", "MIMIC", 3;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Baphomet
+prt_maze03,182,87,0	script	mvp baphomet spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("mazewarp5333");
+	disablenpc instance_npcname("#mazewarp5303");
+	disablenpc instance_npcname("#mazewarp5339");
+	disablenpc instance_npcname("#mazewarp5346");
+	disablenpc instance_npcname("#mazewarp5358");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Baphomet", 
+		"BAPHOMET", 1, instance_npcname("mvp baphomet spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "POPORING", 45;
+	monster strnpcinfo(4), 0, 0, "--en--", "SIDE_WINDER", 10;
+	monster strnpcinfo(4), 0, 0, "--en--", "HUNTER_FLY", 30;
+	monster strnpcinfo(4), 0, 0, "--en--", "GHOSTRING", 1;
+	monster strnpcinfo(4), 0, 0, "--en--", "KILLER_MANTIS", 1;
+	areamonster strnpcinfo(4), 80, 0, 220, 120, "--en--", "SIDE_WINDER", 20;
+	areamonster strnpcinfo(4), 80, 0, 220, 120, "--en--", "VOCAL", 1;
+	areamonster strnpcinfo(4), 0, 80, 120, 220, "--en--", "STEM_WORM", 20;
+	areamonster strnpcinfo(4), 0, 80, 120, 220, "--en--", "VAGABOND_WOLF", 1;
+	areamonster strnpcinfo(4), 100, 100, 240, 240, "--en--", "MANTIS", 30;
+	areamonster strnpcinfo(4), 100, 100, 240, 240, "--en--", "ECLIPSE", 1;
+	areamonster strnpcinfo(4), 0, 0, 93, 93, "--en--", "MASTERING", 1;
+	areamonster strnpcinfo(4), 20, 20, 180, 180, "--en--", "BAPHOMET_", 25;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//---Prontera Maze Warps---
+//-----------------------------------------------------------
+prt_maze03,59,194,0	script	#mazewarp5303-ins	45,1,1,{
+	switch(rand(4)) {
+		case 0: warp .mapName$,98,151; end;	/*To No.3-8*/
+		case 1: warp .mapName$,137,128; end;	/*To No.3-9*/
+		case 2: warp .mapName$,14,71; end;	/*To No.3-16*/
+		case 3: warp .mapName$,54,8; end;	/*To No.3-22*/
+	}
+OnInit:
+	.mapName$ = "prt_maze03";
+	disablenpc;
+end;
+
+OnInstanceInit:
+	.mapName$ = instance_mapname("prt_maze03");
+end;
+}
+
+prt_maze03,73,74,0	script	#mazewarp5339-ins	45,1,1,{
+	switch(rand(4)) {
+		case 0: warp .mapName$,98,151; end;	/*To No.3-8*/
+		case 1: warp .mapName$,137,128; end;	/*To No.3-9*/
+		case 2: warp .mapName$,14,71; end;	/*To No.3-16*/
+		case 3: warp .mapName$,54,8; end;	/*To No.3-22*/
+	}
+OnInit:
+	.mapName$ = "prt_maze03";
+	disablenpc;
+end;
+
+OnInstanceInit:
+	.mapName$ = instance_mapname("prt_maze03");
+end;
+}
+
+prt_maze03,139,46,0	script	#mazewarp5346-ins	45,1,1,{
+	switch(rand(4)) {
+		case 0: warp .mapName$,98,151; end;	/*To No.3-8*/
+		case 1: warp .mapName$,137,128; end;	/*To No.3-9*/
+		case 2: warp .mapName$,14,71; end;	/*To No.3-16*/
+		case 3: warp .mapName$,54,8; end;	/*To No.3-22*/
+	}
+OnInit:
+	.mapName$ = "prt_maze03";
+	disablenpc;
+end;
+
+OnInstanceInit:
+	.mapName$ = instance_mapname("prt_maze03");
+end;
+}
+
+prt_maze03,154,23,0	script	#mazewarp5358-ins	45,1,1,{
+	switch(rand(4)) {
+		case 0: warp .mapName$,98,151; end;	/*To No.3-8*/
+		case 1: warp .mapName$,137,128; end;	/*To No.3-9*/
+		case 2: warp .mapName$,14,71; end;	/*To No.3-16*/
+		case 3: warp .mapName$,54,8; end;	/*To No.3-22*/
+	}
+OnInit:
+	.mapName$ = "prt_maze03";
+	disablenpc;
+end;
+
+OnInstanceInit:
+	.mapName$ = instance_mapname("prt_maze03");
+end;
+}
+//------------------------------------------------------------
+
+//	-Maya
+anthell02,33,264,0	script	mvp maya spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("ant01-1");
+	disablenpc instance_npcname("moc_ant2-2");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Maya", 
+		"MAYA", 1, instance_npcname("mvp maya spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "ANT_EGG", 15;
+	monster strnpcinfo(4), 0, 0, "--en--", "FARMILIAR", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "ANDRE", 50;
+	monster strnpcinfo(4), 0, 0, "--en--", "PIERE", 15;
+	monster strnpcinfo(4), 0, 0, "--en--", "DENIRO", 15;
+	monster strnpcinfo(4), 0, 0, "--en--", "VITATA", 30;
+	monster strnpcinfo(4), 0, 0, "--en--", "GIEARTH", 3;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Dracula
+gef_dun01,115,237,0	script	mvp dracula spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("gefd01-1");
+	disablenpc instance_npcname("gefd02");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Dracula", 
+		"DRACULA", 1, instance_npcname("mvp dracula spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "DRAINLIAR", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "NIGHTMARE", 30;
+	monster strnpcinfo(4), 0, 0, "--en--", "TIRFING", 1;
+	monster strnpcinfo(4), 0, 0, "--en--", "ZOMBIE", 25;
+	monster strnpcinfo(4), 0, 0, "--en--", "GHOUL", 40;
+	monster strnpcinfo(4), 0, 0, "--en--", "JAKK", 40;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Amon Ra
+moc_pryd06,193,10,0	script	mvp amon ra spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("mocp08-1");
+	
+	monster strnpcinfo(4), 102, 85, "Instance Amon Ra", 
+		"AMON_RA", 1, instance_npcname("mvp amon ra spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "VERIT", 10;
+	monster strnpcinfo(4), 0, 0, "--en--", "ARCLOUSE", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "ANCIENT_MUMMY", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "MIMIC", 20;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Pharaoh
+in_sphinx5,100,98,0	script	mvp pharaoh spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("sphx06-1");
+	
+	monster strnpcinfo(4), 0, 0, "Instance Pharaoh", 
+		"PHARAOH", 1, instance_npcname("mvp pharaoh spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "PASANA", 70;
+	monster strnpcinfo(4), 0, 0, "--en--", "MATYR", 10;
+	monster strnpcinfo(4), 0, 0, "--en--", "SIDE_WINDER", 20;
+	monster strnpcinfo(4), 0, 0, "--en--", "ANUBIS", 10;
+	monster strnpcinfo(4), 0, 0, "--en--", "MIMIC", 7;
+
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		getitem 14003, 5; // temporary item reward, will changed to reward box later
+	}
+	else {
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+
+	'set_mvp_hp_flag = 1;
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//	-Turtle General
+tur_dun04,100,193,0	script	mvp turtle general spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	disablenpc instance_npcname("ttl03-1");
+	
+	areamonster strnpcinfo(4), 78, 73, 119, 113, "Instance Turtle General", 
+		"TURTLE_GENERAL", 1, instance_npcname("mvp turtle general spawner1") + "::OnMVPQuiled";
+	'mvp_summon_id = $@mobid[0];
+
+	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+
+	monster strnpcinfo(4), 0, 0, "--en--", "WANDER_MAN", 2;
+	monster strnpcinfo(4), 0, 0, "--en--", "HEATER", 30;
+	monster strnpcinfo(4), 0, 0, "--en--", "ASSULTER", 23;
+	monster strnpcinfo(4), 0, 0, "--en--", "FREEZER", 10;
+	monster strnpcinfo(4), 0, 0, "--en--", "PERMETER", 4;
+	areamonster strnpcinfo(4), 168, 156, 174, 162, "--en--", "WANDER_MAN", 1;
+	areamonster strnpcinfo(4), 168, 146, 174, 158, "--en--", "ASSULTER", 2;
+	areamonster strnpcinfo(4), 25, 156, 31, 162, "--en--", "WANDER_MAN", 1;
+	areamonster strnpcinfo(4), 25, 146, 31, 158, "--en--", "ASSULTER", 2;
+	areamonster strnpcinfo(4), 171, 23, 177, 29, "--en--", "WANDER_MAN", 1;
+	areamonster strnpcinfo(4), 171, 26, 177, 35, "--en--", "ASSULTER", 2;
+	areamonster strnpcinfo(4), 23, 23, 29, 29, "--en--", "WANDER_MAN", 1;
+	areamonster strnpcinfo(4), 23, 26, 29, 35, "--en--", "ASSULTER", 2;
+	areamonster strnpcinfo(4), 89, 82, 109, 102, "--en--", "WANDER_MAN", 1;
+	areamonster strnpcinfo(4), 80, 73, 120, 113, "--en--", "ASSULTER", 10;
+	areamonster strnpcinfo(4), 80, 73, 120, 113, "--en--", "HEATER", 3;
+	areamonster strnpcinfo(4), 80, 73, 120, 113, "--en--", "FREEZER", 5;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
