@@ -80,3 +80,171 @@ Body:
       Map: prt_sewb4
       X: 100
       Y: 92
+  - Id: 113
+    Name: MVP 1115
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: pay_fild11
+      X: 294
+      Y: 135
+  - Id: 114
+    Name: MVP 1150
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: pay_dun04
+      X: 34
+      Y: 202
+  - Id: 115
+    Name: MVP 1159
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: moc_fild17
+      X: 218
+      Y: 366
+  - Id: 116
+    Name: MVP 1112
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: treasure02
+      X: 102
+      Y: 27
+  - Id: 117
+    Name: MVP 1583
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: beach_dun
+      X: 266
+      Y: 67
+  - Id: 118
+    Name: MVP 1492
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: ama_dun03
+      X: 120
+      Y: 12
+  - Id: 119
+    Name: MVP 1046
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: gef_dun02
+      X: 106
+      Y: 132
+  - Id: 120
+    Name: MVP 1252
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: xmas_fild01
+      X: 80
+      Y: 248
+  - Id: 121
+    Name: MVP 1418
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: gon_dun03
+      X: 68
+      Y: 9
+  - Id: 122
+    Name: MVP 1059
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: mjolnir_04
+      X: 125
+      Y: 208
+  - Id: 123
+    Name: MVP 1190
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: gef_fild10
+      X: 52
+      Y: 326
+  - Id: 124
+    Name: MVP 1087
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: gef_fild14
+      X: 367
+      Y: 219
+  - Id: 125
+    Name: MVP 1251
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: xmas_dun02
+      X: 131
+      Y: 130
+  - Id: 126
+    Name: MVP 1038
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: moc_pryd04
+      X: 18
+      Y: 187
+  - Id: 127
+    Name: MVP 1272
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: gl_chyard
+      X: 147
+      Y: 15
+  - Id: 128
+    Name: MVP 1039
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: prt_maze03
+      X: 182
+      Y: 88
+  - Id: 129
+    Name: MVP 1147
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: anthell02
+      X: 34
+      Y: 263
+  - Id: 130
+    Name: MVP 1389
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: gef_dun01
+      X: 115
+      Y: 236
+  - Id: 131
+    Name: MVP 1511
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: moc_pryd06
+      X: 192
+      Y: 10
+  - Id: 132
+    Name: MVP 1157
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: in_sphinx5
+      X: 100
+      Y: 99
+  - Id: 133
+    Name: MVP 1312
+    TimeLimit: 2110
+    IdleTimeOut: 300
+    Enter:
+      Map: tur_dun04
+      X: 100
+      Y: 192
