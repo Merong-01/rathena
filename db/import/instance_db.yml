@@ -1,0 +1,250 @@
+# This file is a part of rAthena.
+#   Copyright(C) 2021 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Instance Database
+###########################################################################
+#
+# Instance Settings
+#
+###########################################################################
+# - Id                Instance ID.
+#   Name              Instance Name.
+#   TimeLimit         Total lifetime of instance in seconds. Use 0 to define infinite time. (Default: 3600)
+#   IdleTimeOut       Time before an idle instance is destroyed in seconds. Use 0 to define infinite idle time. (Default: 300)
+#   NoNpc             Prevent copying NPCs from the source map. (Default: false)
+#   NoMapFlag         Prevent copying Mapflags from the source map. (Default: false)
+#   Destroyable       Toggles the ability to destroy the instance using instance 'Destroy' button. (Default: true)
+#                     Note: the button is displayed based on parties. For any mode, it requires the party leader to be the instance owner to destroy it.
+#   Enter:            Instance entrance coordinates.
+#     Map             Map Name where players start.
+#     X               X Coordinate where players start.
+#     Y               Y Coordinate where players start.
+#   AdditionalMaps:   List of maps that are part of an instance. (Optional)
+###########################################################################
+
+Header:
+  Type: INSTANCE_DB
+  Version: 2
+
+Body:
+  - Id: 101
+    Name: Glass Tile
+    TimeLimit: 905
+    IdleTimeOut: 350
+    Enter:
+      Map: 1@tnm1
+      X: 91
+      Y: 23
+  - Id: 102
+    Name: Payon Dun
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Destroyable: true
+    Enter:
+      Map: pay_dun00
+      X: 21
+      Y: 183
+    AdditionalMaps: 
+      pay_dun01: true
+      pay_dun02: true
+      pay_dun03: true
+      pay_dun04: true
+  - Id: 111
+    Name: MVP Night Event
+    TimeLimit: 2110
+    IdleTimeOut: 500
+    Enter:
+      Map: 1@def01
+      X: 50
+      Y: 28
+  - Id: 112
+    Name: MVP 1086
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: prt_sewb4
+      X: 100
+      Y: 92
+  - Id: 113
+    Name: MVP 1115
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: pay_fild11
+      X: 294
+      Y: 135
+  - Id: 114
+    Name: MVP 1150
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: pay_dun04
+      X: 34
+      Y: 202
+  - Id: 115
+    Name: MVP 1159
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: moc_fild17
+      X: 218
+      Y: 366
+  - Id: 116
+    Name: MVP 1112
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: treasure02
+      X: 102
+      Y: 27
+  - Id: 117
+    Name: MVP 1583
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: beach_dun
+      X: 266
+      Y: 67
+  - Id: 118
+    Name: MVP 1492
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: ama_dun03
+      X: 120
+      Y: 12
+  - Id: 119
+    Name: MVP 1046
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: gef_dun02
+      X: 106
+      Y: 132
+  - Id: 120
+    Name: MVP 1252
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: xmas_fild01
+      X: 80
+      Y: 248
+  - Id: 121
+    Name: MVP 1418
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: gon_dun03
+      X: 68
+      Y: 9
+  - Id: 122
+    Name: MVP 1059
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: mjolnir_04
+      X: 125
+      Y: 208
+  - Id: 123
+    Name: MVP 1190
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: gef_fild10
+      X: 52
+      Y: 326
+  - Id: 124
+    Name: MVP 1087
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: gef_fild14
+      X: 367
+      Y: 219
+  - Id: 125
+    Name: MVP 1251
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: xmas_dun02
+      X: 131
+      Y: 130
+  - Id: 126
+    Name: MVP 1038
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: moc_pryd04
+      X: 18
+      Y: 187
+  - Id: 127
+    Name: MVP 1272
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: gl_chyard
+      X: 147
+      Y: 15
+  - Id: 128
+    Name: MVP 1039
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: prt_maze03
+      X: 182
+      Y: 88
+  - Id: 129
+    Name: MVP 1147
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: anthell02
+      X: 34
+      Y: 263
+  - Id: 130
+    Name: MVP 1389
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: gef_dun01
+      X: 115
+      Y: 236
+  - Id: 131
+    Name: MVP 1511
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: moc_pryd06
+      X: 192
+      Y: 10
+  - Id: 132
+    Name: MVP 1157
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: in_sphinx5
+      X: 100
+      Y: 99
+  - Id: 133
+    Name: MVP 1312
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: tur_dun04
+      X: 100
+      Y: 192

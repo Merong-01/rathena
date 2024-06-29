@@ -1,0 +1,888 @@
+# This file is a part of rAthena.
+#   Copyright(C) 2021 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Item Group Database
+###########################################################################
+#
+# Item Group Settings
+#
+###########################################################################
+# - Group                      Group name of the item.
+#   SubGroups:
+#     - SubGroup:              SubGroup number associated with the list of item. See doc/item_group.txt for more information.
+#       List:                  List of item(s) for the SubGroup.
+#        - Index               Unique number that can be used to add the same Item with different data in the list.
+#          Item                AegisName of item that will be obtained from this item group.
+#          Rate                Probability to get the item. (Default: 0)
+#          Amount              Amount of item that will be obtained. (Default: 1)
+#          Duration            Makes the item a rental item which will expire within the given amount in minutes. Not intended for use with stackable items. (Default: 0)
+#          Announced           If player obtains this item it will be broadcasted to the server. (Default: false)
+#          UniqueId            Makes the given item(s) have a Unique ID. (Default: UniqueId from item_db)
+#          Stacked             Whether stackable items are given stacked or not. (Default: true)
+#          Named               Inscribes the item with the obtainer's name. (Default: false)
+#          Bound               Binds the obtained item. (Default: None)
+#          RandomOptionGroup   Applies random options of this group to all equipable items (Default: None)
+#          RefineMinimum       Applies at least this refine level to all equipable items (Default: 0)
+#          RefineMaximum       Applies at most this refine level to all equipable items (Default: 0)
+#          Clear               Whether the current datas should be removed. (Optional)
+#       Clear                  Remove the given SubGroup. (Optional)
+###########################################################################
+
+Header:
+  Type: ITEM_GROUP_DB
+  Version: 3
+
+Body:
+  - Group: MVP_REWARD_BOX_COMMON
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: Elite_Siege_Supply_Box
+            Rate: 10
+            Amount: 5
+            Announced: true
+          - Index: 1
+            Item: Bubble_Gum
+            Rate: 10
+            Amount: 3
+            Announced: true
+          - Index: 2
+            Item: Kafra_Card
+            Rate: 10
+            Amount: 5
+            Announced: true
+          - Index: 3
+            Item: Gloomy_Box
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 4
+            Item: Sleepy_Box
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 5
+            Item: Box_Of_Grudge
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 6
+            Item: Box_Of_Storm
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 7
+            Item: Box_Of_Sunlight
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 8
+            Item: Painting_Box
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 9
+            Item: Box_Of_Thunder
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 10
+            Item: Water_Of_Darkness
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 11
+            Item: Abrasive
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 12
+            Item: Buche_De_Noel
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 13
+            Item: Chewy_Ricecake
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 14
+            Item: Oriental_Pastry
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 15
+            Item: Sesame_Pastry
+            Rate: 5
+            Amount: 3
+            Announced: true
+  - Group: MVP_REWARD_BOX_UNCOMMON
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: An_Eye_Of_Dullahan
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 1
+            Item: Azoth
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 2
+            Item: Claymore
+            Rate: 8
+            Amount: 1
+            Announced: true
+          - Index: 3
+            Item: Kakkung_
+            Rate: 8
+            Amount: 1
+            Announced: true
+          - Index: 4
+            Item: Ginnungagap
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 5
+            Item: Hell_Fire
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 6
+            Item: Icicle_Fist
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 7
+            Item: Spike
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 8
+            Item: Seismic_Fist
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 9
+            Item: Fricco_Shoes
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 10
+            Item: Goibne's_Armor
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 11
+            Item: Goibne's_Combat_Boots
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 12
+            Item: Goibne's_Helmet
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 13
+            Item: Goibne's_Shoulder_Arms
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 14
+            Item: Magni_Cap
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 15
+            Item: Vali's_Manteau
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 16
+            Item: Vidar's_Boots
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 17
+            Item: Exorcism_Bible
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 18
+            Item: Release_Of_Wish
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 19
+            Item: Ancient_Magic
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 20
+            Item: High_Fashion_Sandals
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 21
+            Item: Odin's_Blessing
+            Rate: 2
+            Amount: 1
+            Announced: true
+  - Group: MVP_REWARD_BOX_RARE
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: Wing_Of_Eagle
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 1
+            Item: Robe_Of_Casting
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 2
+            Item: Memorize_Book
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 3
+            Item: Harp_
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 4
+            Item: Morpheus's_Hood
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 5
+            Item: Morpheus's_Shawl
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 6
+            Item: Morrigane's_Helm
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 7
+            Item: Morrigane's_Manteau
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 12
+            Item: Glittering_Clothes
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 13
+            Item: Lunatic_Brooch
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 14
+            Item: Cross_Shield
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 15
+            Item: Berserk
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 16
+            Item: Burning_Bow
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 17
+            Item: Combo_Battle_Glove
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 18
+            Item: Earth_Bow
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 19
+            Item: Encyclopedia
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 20
+            Item: Frozen_Bow
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 21
+            Item: Gust_Bow
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 22
+            Item: Luna_Bow
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 23
+            Item: Nagan
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 24
+            Item: Principles_Of_Magic
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 25
+            Item: Diary_Of_Great_Sage
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 26
+            Item: Stone_Buckler
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 27
+            Item: Staff_Of_Wing
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 28
+            Item: Windhawk
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 29
+            Item: Skewer
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 30
+            Item: Bloody_Roar
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 31
+            Item: Brionac
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 32
+            Item: Curved_Sword
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 33
+            Item: Counter_Dagger
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 34
+            Item: Dragon_Killer
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 35
+            Item: Mama's_Knife
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 36
+            Item: Longinus's_Spear
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 37
+            Item: Platinum_Shotel
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 38
+            Item: Schweizersabel
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 39
+            Item: Cursed_Lucky_Brooch
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 40
+            Item: Iron_Wrist
+            Rate: 4
+            Amount: 1
+            Announced: true
+  - Group: MVP_REWARD_BOX_EPIC
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: Old_Card_Album
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 1
+            Item: Stone_Of_Intelligence_
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 2
+            Item: Critical_Ring
+            Rate: 5
+            Amount: 1
+            Announced: true
+          - Index: 3
+            Item: Ring_Of_Rogue
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 4
+            Item: Cursed_Hand
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 5
+            Item: Skin_Of_Ventus
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 6
+            Item: Doom_Slayer_
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 7
+            Item: Various_Jur
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 8
+            Item: Survival_Rod_
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 9
+            Item: Combat_Knife
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 10
+            Item: Bloody_Iron_Ball
+            Rate: 1
+            Amount: 1
+            Announced: true
+          - Index: 11
+            Item: Morpheus's_Ring
+            Rate: 5
+            Amount: 1
+            Announced: true
+          - Index: 12
+            Item: Morpheus's_Armlet
+            Rate: 5
+            Amount: 1
+            Announced: true
+          - Index: 13
+            Item: Morrigane's_Belt
+            Rate: 5
+            Amount: 1
+            Announced: true
+          - Index: 14
+            Item: Morrigane's_Pendant
+            Rate: 5
+            Amount: 1
+            Announced: true
+  - Group: GUILD_PACKAGE_P
+    SubGroups:
+      - SubGroup: 0
+        List:
+          - Index: 0
+            Item: Elite_Siege_Supply_Box
+            Amount: 30
+            Bound: Account
+          - Index: 1
+            Item: Elite_Siege_Supply_Box_
+            Amount: 20
+            Bound: Account
+          - Index: 2
+            Item: HE_Battle_Manual
+            Amount: 15
+            Bound: Account
+          - Index: 3
+            Item: Job_Manual50
+            Amount: 15
+            Bound: Account
+          - Index: 4
+            Item: Bubble_Gum
+            Amount: 15
+            Bound: Account
+          - Index: 5
+            Item: N_Fly_Wing
+            Amount: 150
+            Bound: Account
+          - Index: 6
+            Item: N_Butterfly_Wing
+            Amount: 30
+            Bound: Account
+          - Index: 7
+            Item: F_Megaphone_Box
+            Amount: 5
+            Bound: Account
+          - Index: 8
+            Item: Convex_Mirror
+            Amount: 20
+            Bound: Account
+          - Index: 9
+            Item: All_In_One_Ring_Box
+            Amount: 1
+            Bound: Account
+          - Index: 10
+            Item: Boarding_Halter_Box7
+            Amount: 1
+            Bound: Account
+          - Index: 11
+            Item: ASPD_Potion_Box
+            Amount: 5
+            Bound: Account
+  - Group: STREAMER_GIFT_BOX
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: ASPD_Potion_Box
+            Rate: 100
+            Amount: 1
+          - Index: 3
+            Item: Elite_Siege_Supply_Box
+            Rate: 100
+            Amount: 1
+          - Index: 4
+            Item: Elite_Siege_Supply_Box_
+            Rate: 5
+            Amount: 1
+          - Index: 5
+            Item: Kafra_Card_Box5
+            Rate: 100
+            Amount: 1
+          - Index: 6
+            Item: Megaphone_Box5
+            Rate: 100
+            Amount: 1
+          - Index: 7
+            Item: Bubble_Gum
+            Rate: 100
+            Amount: 1
+          - Index: 8
+            Item: HE_Battle_Manual
+            Rate: 100
+            Amount: 1
+          - Index: 9
+            Item: Job_Manual50
+            Rate: 100
+            Amount: 1
+          - Index: 10
+            Item: Universal_Catalog_Gold_Box10
+            Rate: 100
+            Amount: 1
+          - Index: 11
+            Item: Convex_Mirror
+            Rate: 100
+            Amount: 1
+          - Index: 12
+            Item: VIP_1Day_Coin
+            Rate: 10
+            Amount: 1
+          - Index: 13
+            Item: Greed_Box50
+            Rate: 10
+            Amount: 1
+          - Index: 14
+            Item: C_Sunglasses_S
+            Rate: 1
+            Amount: 1
+          - Index: 15
+            Item: C_Cigarette_S
+            Rate: 1
+            Amount: 1
+  - Group: CASH_EGG_SCROLL
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: ASPD_Potion_Box
+            Rate: 12
+            Amount: 1
+            Announced: true
+          - Index: 1
+            Item: Elite_Siege_Supply_Box
+            Rate: 22
+            Amount: 3
+            Announced: true
+          - Index: 2
+            Item: Elite_Siege_Supply_Box_
+            Rate: 22
+            Amount: 4
+            Announced: true
+          - Index: 3
+            Item: F_Megaphone_Box
+            Rate: 12
+            Amount: 1
+            Announced: true
+          - Index: 4
+            Item: Kafra_Card
+            Rate: 12
+            Amount: 5
+            Bound: Account
+            Announced: true
+          - Index: 5
+            Item: Bubble_Gum
+            Rate: 20
+            Amount: 3
+            Bound: Account
+            Announced: true
+          - Index: 6
+            Item: HE_Battle_Manual
+            Rate: 12
+            Amount: 3
+            Bound: Account
+            Announced: true
+          - Index: 7
+            Item: Job_Manual50
+            Rate: 12
+            Amount: 3
+            Bound: Account
+            Announced: true
+          - Index: 8
+            Item: Convex_Mirror
+            Rate: 12
+            Amount: 2
+            Bound: Account
+            Announced: true
+          - Index: 9
+            Item: Greed_Box50
+            Rate: 22
+            Amount: 1
+            Announced: true
+          - Index: 10
+            Item: VIP_1Day_Coin
+            Rate: 15
+            Amount: 1
+            Announced: true
+          - Index: 11
+            Item: Max_Weight_Up_Scroll
+            Rate: 8
+            Amount: 1
+            Announced: true
+          - Index: 12
+            Item: Cloth_Dye_Coupon_ORO
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 13
+            Item: New_Hairstyle_Coupon_ORO
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 14
+            Item: New_Hair_Dye_Coupon_ORO
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 15
+            Item: Neuralizer_Box
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 16
+            Item: Premium_Reset_Stone
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 17
+            Item: Change_Name_Card_Box
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 18
+            Item: Costume_Exchange_Coupon
+            Rate: 1
+            Amount: 1
+            Bound: Account
+            Announced: true
+  - Group: CASH_EGG_SCROLL2
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: ASPD_Potion_Box
+            Rate: 12
+            Amount: 1
+            Announced: true
+          - Index: 1
+            Item: Elite_Siege_Supply_Box
+            Rate: 22
+            Amount: 3
+            Announced: true
+          - Index: 2
+            Item: Elite_Siege_Supply_Box_
+            Rate: 22
+            Amount: 4
+            Announced: true
+          - Index: 3
+            Item: F_Megaphone_Box
+            Rate: 12
+            Amount: 1
+            Announced: true
+          - Index: 4
+            Item: Kafra_Card
+            Rate: 12
+            Amount: 5
+            Bound: Account
+            Announced: true
+          - Index: 5
+            Item: Bubble_Gum
+            Rate: 20
+            Amount: 3
+            Bound: Account
+            Announced: true
+          - Index: 6
+            Item: HE_Battle_Manual
+            Rate: 12
+            Amount: 3
+            Bound: Account
+            Announced: true
+          - Index: 7
+            Item: Job_Manual50
+            Rate: 12
+            Amount: 3
+            Bound: Account
+            Announced: true
+          - Index: 8
+            Item: Convex_Mirror
+            Rate: 12
+            Amount: 2
+            Bound: Account
+            Announced: true
+          - Index: 9
+            Item: Greed_Box50
+            Rate: 22
+            Amount: 1
+            Announced: true
+          - Index: 10
+            Item: VIP_1Day_Coin
+            Rate: 15
+            Amount: 1
+            Announced: true
+          - Index: 11
+            Item: Max_Weight_Up_Scroll
+            Rate: 8
+            Amount: 1
+            Announced: true
+          - Index: 12
+            Item: Cloth_Dye_Coupon_ORO
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 13
+            Item: New_Hairstyle_Coupon_ORO
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 14
+            Item: New_Hair_Dye_Coupon_ORO
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 15
+            Item: Neuralizer_Box
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 16
+            Item: Premium_Reset_Stone
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 17
+            Item: Change_Name_Card_Box
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 18
+            Item: C_Subject_Aura_V
+            Rate: 2
+            Amount: 1
+            Announced: true
+#          - Index: 2
+#            Item: Megaphone_
+#            Rate: 100
+#            Amount: 5
+#            Bound: Account
+#            Announced: true
+#          - Index: 7
+#            Item: VIP_30Day_Card
+#            Rate: 20
+#          - Index: 8
+#            Item: Kafra_Card
+#            Rate: 100
+#          - Index: 9
+#            Item: F_Kafra_Card_Box
+#            Rate: 100
+#            Amount: 1
+#            Bound: Account
+#            Announced: true
+#          - Index: 11
+#            Item: Bubble_Gum_Box
+#            Rate: 50
+#          - Index: 13
+#            Item: HE_Battle_Manual_Box
+#            Rate: 50
+#          - Index: 15
+#            Item: Max_Weight_Up_Box
+#            Rate: 10
+#          - Index: 17
+#            Item: Job_Manual50_Box
+#            Rate: 50
+#          - Index: 18
+#            Item: Vending_Search_Scroll2
+#            Rate: 100
+#            Amount: 5
+#            Bound: Account
+#            Announced: true
+#          - Index: 19
+#            Item: Universal_Catalog_Gold_Box10
+#            Rate: 50
+#          - Index: 20
+#            Item: Bow_Mercenary_Scroll10
+#            Rate: 20
+#          - Index: 21
+#            Item: SwordMercenary_Scroll10
+#            Rate: 20
+#          - Index: 22
+#            Item: SpearMercenary_Scroll10
+#            Rate: 20
+#          - Index: 27
+#            Item: Convex_Mirror_Box30
+#            Rate: 50

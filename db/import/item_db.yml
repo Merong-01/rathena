@@ -1,0 +1,3995 @@
+# This file is a part of rAthena.
+#   Copyright(C) 2021 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Item Database
+###########################################################################
+#
+# Item Settings
+#
+###########################################################################
+# - Id                      Item ID.
+#   AegisName               Server name to reference the item in scripts and lookups, should use no spaces.
+#   Name                    Name in English for displaying as output.
+#   Type                    Item type. (Default: Etc)
+#   SubType                 Weapon, Ammo or Card type. (Default: 0)
+#   Buy                     Buying price. When not specified, becomes double the sell price. (Default: 0)
+#   Sell                    Selling price. When not specified, becomes half the buy price. (Default: 0)
+#   Weight                  Item weight. Each 10 is 1 weight. (Default: 0)
+#   Attack                  Weapon's attack. (Default: 0)
+#   MagicAttack             Weapon's magic attack. (Default: 0)
+#   Defense                 Armor's defense. (Default: 0)
+#   Range                   Weapon's attack range. (Default: 0)
+#   Slots                   Available slots in item. (Default: 0)
+#   Jobs                    Jobs that can equip the item. (Map default is 'All: true')
+#   Classes                 Upper class types that can equip the item. (Map default is 'All: true')
+#   Gender                  Gender that can equip the item. (Default: Both)
+#   Locations               Equipment's placement. (Default: None)
+#   WeaponLevel             Weapon level. (Default: 1 for Weapons)
+#   ArmorLevel              Armor level. (Default: 1 for Armors)
+#   EquipLevelMin           Minimum required level to equip. (Default: 0)
+#   EquipLevelMax           Maximum level that can equip. (Default: 0)
+#   Refineable              If the item can be refined. (Default: false)
+#   Gradable                If the item can be graded. (Default: false)
+#   View                    View sprite of an item. (Default: 0)
+#   AliasName               Another item's AegisName that will be sent to the client instead of this item's AegisName. (Default: null)
+#   Flags:                  Item flags. (Default: null)
+#     BuyingStore           If the item is available for Buyingstores. (Default: false)
+#     DeadBranch            If the item is a Dead Branch. (Default: false)
+#     Container             If the item is part of a container. (Default: false)
+#     UniqueId              If the item is a unique stack. (Default: false)
+#     BindOnEquip           If the item is bound to the character upon equipping. (Default: false)
+#     DropAnnounce          If the item has a special announcement to self on drop. (Default: false)
+#     NoConsume             If the item is consumed on use. (Default: false)
+#     DropEffect            If the item has a special effect on the ground when dropped by a monster. (Default: None)
+#   Delay:                  Item use delay. (Default: null)
+#     Duration              Duration of delay in seconds.
+#     Status                Status Change used to track delay. (Default: None)
+#   Stack:                  Item stack amount. (Default: null)
+#     Amount                Maximum amount that can be stacked.
+#     Inventory             If the stack is applied to player's inventory. (Default: true)
+#     Cart                  If the stack is applied to the player's cart. (Default: false)
+#     Storage               If the stack is applied to the player's storage. (Default: false)
+#     GuildStorage          If the stack is applied to the player's guild storage. (Default: false)
+#   NoUse:                  Conditions when the item is unusable. (Default: null)
+#     Override              Group level to override these conditions. (Default: 100)
+#     Sitting               If the item can not be used while sitting. (Default: false)
+#   Trade:                  Trade restrictions. (Default: null)
+#     Override              Group level to override these conditions. (Default: 100)
+#     NoDrop                If the item can not be dropped. (Default: false)
+#     NoTrade               If the item can not be traded. (Default: false)
+#     TradePartner          If the item can not be traded to the player's partner. (Default: false)
+#     NoSell                If the item can not be sold. (Default: false)
+#     NoCart                If the item can not be put in a cart. (Default: false)
+#     NoStorage             If the item can not be put in a storage. (Default: false)
+#     NoGuildStorage        If the item can not be put in a guild storage. (Default: false)
+#     NoMail                If the item can not be put in a mail. (Default: false)
+#     NoAuction             If the item can not be put in an auction. (Default: false)
+#   Script                  Script to execute when the item is used/equipped. (Default: null)
+#   EquipScript             Script to execute when the item is equipped. (Default: null)
+#   UnEquipScript           Script to execute when the item is unequipped or when a rental item expires. (Default: null)
+###########################################################################
+
+Header:
+  Type: ITEM_DB
+  Version: 3
+
+Body:
+#  - Id: 9069
+#    AegisName: Mastering_Egg
+#    Name: Mastering Egg
+#    Type: Petegg
+#    Buy: 20
+#  - Id: 9088
+#    AegisName: Angeling_Egg
+#    Name: Angeling Egg
+#    Type: Petegg
+#    Buy: 20
+  - Id: 2741
+    AegisName: All_In_One_Ring
+    Name: All In One Ring
+    Type: Armor
+    Buy: 20
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bAllStats,1;
+      bonus bNoCastCancel;
+      bonus bCastRate,10;
+      skill "AL_HEAL",1;
+      skill "AL_TELEPORT",1;
+  - Id: 2765
+    AegisName: Novice_Figure
+    Name: Novice Figure
+    Type: Armor
+    Weight: 100
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bMaxHP,70;
+      if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
+         bonus bMaxHP,30;
+  - Id: 2766
+    AegisName: Swordman_Figure
+    Name: Swordman Figure
+    Type: Armor
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bVit,1;
+      if (BaseClass == Job_Swordman)
+         bonus bDef,2;
+  - Id: 2767
+    AegisName: Acolyte_Figure
+    Name: Acolyte Figure
+    Type: Armor
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bInt,1;
+      if (BaseClass == Job_Acolyte)
+         bonus bMaxSP,50;
+  - Id: 2768
+    AegisName: Mage_Figure
+    Name: Mage Figure
+    Type: Armor
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bInt,1;
+      if (BaseClass == Job_Mage)
+         bonus bSPrecovRate,5;
+  - Id: 2769
+    AegisName: Archer_Figure
+    Name: Archer Figure
+    Type: Armor
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bDex,1;
+      if (BaseClass == Job_Archer)
+         bonus bBaseAtk,10;
+  - Id: 2770
+    AegisName: Thief_Figure
+    Name: Thief Figure
+    Type: Armor
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bAgi,1;
+      if (BaseClass == Job_Thief)
+         bonus bAspdRate,3;
+  - Id: 2771
+    AegisName: Merchant_Figure
+    Name: Merchant Figure
+    Type: Armor
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bStr,1;
+      if (BaseClass == Job_Merchant)
+         bonus bCritical,5;
+  - Id: 7199
+    AegisName: Hourly_Coin
+    Name: Hourly Coin
+    Type: Etc
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: false
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 5208
+    AegisName: Rideword_Hat
+    Name: Rideword Hat
+    Type: Armor
+    Buy: 20
+    Weight: 300
+    Defense: 2
+    Slots: 1
+    Jobs:
+      All: true
+      Novice: false
+      SuperNovice: false
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 40
+    Refineable: true
+    View: 262
+    Script: |
+      .@r = getrefine();
+      if (.@r >= 9) {
+         bonus2 bHPDrainRate,100,16;
+         bonus2 bSPDrainRate,20,8;
+      }
+      else if (.@r >= 7) {
+         bonus2 bHPDrainRate,100,8;
+         bonus2 bSPDrainRate,20,4;
+      }
+      else {
+         bonus2 bHPDrainRate,50,8;
+         bonus2 bSPDrainRate,10,4;
+      }
+      bonus2 bHPLossRate,10,5000;
+  - Id: 5286
+    AegisName: Pecopeco_Hairband
+    Name: Pecopeco Hairband
+    Type: Armor
+    Buy: 20
+    Defense: 3
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 314
+    Script: |
+      bonus bSpeedRate,25;
+      bonus bAspdRate,10;
+      bonus bVariableCastrate,-10;
+  - Id: 5359
+    AegisName: J_Captain_Hat
+    Name: Ship Captain Hat
+    Type: Armor
+    Buy: 20
+    Weight: 300
+    Defense: 3
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 60
+    Refineable: true
+    View: 367
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bDex,1;
+      bonus bLongAtkRate,7;
+      bonus bMaxHP,100;
+      .@r = getrefine();
+      if (.@r >= 7) {
+         bonus bLongAtkRate,3;
+      }
+      if (.@r >= 9) {
+         bonus bLongAtkRate,3;
+      }
+  - Id: 5360
+    AegisName: Whikebain_Ears
+    Name: Hyuke's Black Cat Ears
+    Type: Armor
+    Buy: 20
+    Weight: 200
+    Defense: 4
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 45
+    Refineable: true
+    View: 368
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      bonus bFlee,10;
+      bonus bCritical,3;
+      bonus bCritAtkRate,10;
+      bonus bDefRate,-50;
+      bonus bDef2Rate,-50;
+      .@r = getrefine();
+      if (.@r >= 7) {
+         bonus bCritical,3;
+         bonus bCritAtkRate,5;
+      }
+      if (.@r >= 9) {
+         bonus bCritical,6;
+         bonus bCritAtkRate,5;
+      }
+  - Id: 5471
+    AegisName: Hairband_Of_Reginleif
+    Name: Hairband Of Reginleif
+    Type: Armor
+    Buy: 20
+    Weight: 800
+    Defense: 2
+    Locations:
+      Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 50
+    View: 468
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      bonus2 bSubEle,Ele_Water,3;
+      bonus2 bSubEle,Ele_Fire,3;
+      bonus2 bSubEle,Ele_Undead,3;
+      bonus2 bSubEle,Ele_Ghost,3;
+  - Id: 5305
+    AegisName: Pirate_Dagger
+    Name: Pirate Dagger
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    View: 327
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bBaseAtk,5;
+  - Id: 5315
+    AegisName: Observer
+    Name: Observer
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Defense: 1
+    Locations:
+      Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 35
+    View: 337
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      skill "WZ_ESTIMATION",1;
+  - Id: 5325
+    AegisName: Robo_Eye
+    Name: Robo Eye
+    Type: Armor
+    Buy: 20
+    Weight: 200
+    Defense: 2
+    Locations:
+      Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 10
+    View: 345
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      bonus2 bAddClass,Class_All,2;
+      bonus bMatkRate,2;
+      bonus bDex,1;
+  - Id: 5361
+    AegisName: Gang_Scarf
+    Name: Gangster Scarf
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 60
+    View: 369
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bBaseAtk,5;
+      if (BaseJob == Job_Rogue)
+         skill "RG_GANGSTER",1;
+  - Id: 5362
+    AegisName: Ninja_Scroll
+    Name: Ninja Scroll
+    Type: Armor
+    Buy: 20
+    Weight: 200
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 60
+    View: 370
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bMatkRate,1;
+  - Id: 5378
+    AegisName: Rabbit_Ear_Hat
+    Name: Bunny Top Hat
+    Type: Armor
+    Buy: 20
+    Weight: 300
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    Refineable: true
+    View: 384
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bAgi,3;
+      bonus3 bAutoSpell,"AL_INCAGI",5,10;
+  - Id: 5396
+    AegisName: Jasper_Crest
+    Name: Jasper Crest
+    Type: Armor
+    Buy: 20
+    Weight: 700
+    Defense: 2
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    Refineable: true
+    View: 399
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      bonus bDex,3;
+      bonus bVit,1;
+  - Id: 5397
+    AegisName: Scuba_Mask
+    Name: Scuba Gear
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Locations:
+      Head_Mid: true
+    ArmorLevel: 1
+    View: 400
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus2 bSubEle,Ele_Water, 10;
+      bonus bUnbreakableHelm, 0;
+  - Id: 5401
+    AegisName: Black_Glasses
+    Name: Black Frame Glasses
+    Type: Armor
+    Buy: 20
+    Weight: 200
+    Defense: 1
+    Locations:
+      Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 70
+    View: 404
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bInt,1;
+      bonus bMdef,2;
+      bonus bUnbreakableHelm, 0;
+  - Id: 5462
+    AegisName: Spiked_Scarf
+    Name: Spiked Scarf
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Defense: 1
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 90
+    View: 459
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bVit,1;
+      bonus2 bAddRace,RC_DemiHuman,1;
+      bonus2 bAddRace,RC_Player_Human,1;
+      bonus2 bSubRace,RC_DemiHuman,1;
+      bonus2 bSubRace,RC_Player_Human,1;
+  - Id: 5463
+    AegisName: Rainbow_Scarf
+    Name: Rainbow Scarf
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Defense: 1
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 90
+    View: 460
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bInt,1;
+      bonus bMdef,2;
+      bonus bMatkRate,1;
+  - Id: 5481
+    AegisName: Hermose_Cap
+    Name: Hermode Cap
+    Type: Armor
+    Buy: 20
+    Weight: 1000
+    Defense: 1
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Refineable: true
+    View: 478
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bAspdRate,10;
+      bonus bBaseAtk,-20;
+      bonus bMatkRate,-10;
+      .@r = getrefine();
+      if (.@r >= 7) {
+         bonus bAspdRate,5;
+      }
+      if (.@r >= 9) {
+         bonus bAspdRate,5;
+      }
+  - Id: 5490
+    AegisName: Anubis_Helm
+    Name: Anubis Helm
+    Type: Armor
+    Buy: 20
+    Defense: 3
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 70
+    View: 485
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bMdef,5;
+      bonus2 bSubClass,Class_Boss,10;
+      bonus bHealpower2,10;
+      bonus bAddItemHealRate,10;
+  - Id: 5564
+    AegisName: Crown_Of_Deceit
+    Name: Crown of Deceit
+    Type: Armor
+    Buy: 20
+    Weight: 300
+    Defense: 3
+    Slots: 1
+    Locations:
+      Head_Mid: true
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 85
+    Refineable: true
+    View: 544
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      bonus bInt,4;
+      bonus bCastRate,-10;
+      .@r = getrefine();
+      if (.@r >= 7) {
+         bonus bCastRate,-5;
+      }
+      if (.@r >= 9) {
+         bonus bCastRate,-5;
+      }
+  - Id: 5801
+    AegisName: Ribbon_Of_Bride
+    Name: Red Tailed Ribbon
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Defense: 5
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    Refineable: true
+    View: 167
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      bonus bAllStats,2;
+      bonus2 bSubRace,RC_DemiHuman,10;
+      bonus2 bSubRace,RC_Player_Human,10;
+      if (getskilllv("AL_HEAL") == 10) {
+         bonus3 bAutoSpellWhenHit,"AL_HEAL",10,20;
+      }
+      else {
+         bonus3 bAutoSpellWhenHit,"AL_HEAL",5,20;
+      }
+  - Id: 5967
+    AegisName: FlyingGalapago
+    Name: Flying Galapago
+    Type: Armor
+    Weight: 500
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 75
+    Jobs:
+      Hunter: true
+    View: 1358
+    Script: |
+      set .@bblvl,max(getskilllv("HT_BLITZBEAT"),1);
+      set .@luk,min(readparam(bLuk),120);
+      bonus bAgi,1;
+      bonus3 bAutoSpell, "HT_BLITZBEAT", .@bblvl, 100 + (.@luk / 3);
+      bonus2 bSkillAtk, "HT_BLITZBEAT", 40;
+  - Id: 18539
+    AegisName: Skull_Cap
+    Name: Skull Cap
+    Type: Armor
+    Buy: 40
+    Weight: 200
+    Defense: 5
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 10
+    Refineable: true
+    View: 713
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      bonus bMatkRate,2;
+      .@r = getrefine();
+      if (.@r >= 5) {
+         bonus bMatkRate,3;
+      }
+      if (.@r >= 7) {
+         bonus bMatkRate,3;
+      }
+      if (.@r >= 9) {
+         bonus bMatkRate,3;
+      }
+      if (.@r >= 10) {
+         bonus bVariableCastrate,-10;
+      }
+  - Id: 18597
+    AegisName: Mercury_Helm
+    Name: Mercury Riser
+    Type: Armor
+    Buy: 40
+    Weight: 200
+    Defense: 10
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    Refineable: true
+    View: 759
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      bonus bAspdRate,3;
+      bonus bCritical,3;
+      if (getrefine() >= 7) {
+         bonus bAspdRate,2;
+         bonus bCritical,2;
+      }
+      if (getrefine() >= 9) {
+         bonus bAspdRate,2;
+         bonus bCritical,2;
+      }
+  - Id: 5767
+    AegisName: Samurai_Mask
+    Name: Samurai Mask
+    Type: Armor
+    Buy: 20
+    Weight: 300
+    Defense: 1
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 50
+    View: 644
+    Flags:
+      DropAnnounce: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      bonus2 bAddClass,Class_All,1;
+  - Id: 6320
+    AegisName: Premium_Reset_Stone
+    Name: Premium Reset Stone
+    Type: Delayconsume
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: false
+    Script: |
+      callfunc "F_Item_ResetStats";
+  - Id: 7776
+    AegisName: Max_Weight_Up_Scroll
+    Name: Gym Pass
+    Type: Etc
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: true
+      NoMail: false
+      NoAuction: true
+  - Id: 12221
+    AegisName: Megaphone_
+    Name: Megaphone
+    Type: Usable
+    Buy: 2
+    Weight: 10
+    Delay:
+      Duration: 180000
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      input @megaphone$;
+      announce strcharinfo(0) + ": " + @megaphone$, bc_all, 0x00FF99, FW_BOLD, 14;
+  - Id: 12354
+    AegisName: Buche_De_Noel
+    Name: Buche De Noel
+    Type: Usable
+    Buy: 2
+    Weight: 50
+    Flags:
+      BuyingStore: true
+    Script: |
+      specialeffect2 EF_ANGELUS;
+      sc_start SC_INCMHPRATE,1800000,3;
+      sc_start SC_INCMSPRATE,1800000,3;
+      sc_start SC_INCHITRATE,1800000,3;
+      sc_start SC_INCCRI,1800000,7;
+  - Id: 12790
+    AegisName: Change_Name_Card
+    Name: Character Name Change Coupon
+    Type: Usable
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      CharRename++;
+  - Id: 17159
+    AegisName: Change_Name_Card_Box
+    Name: Name Change Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      getitem 12790,1;
+  - Id: 13810
+    AegisName: Light_Blue_Pot_Box
+    Name: Light Blue Potion Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getitem 11502,25;
+  - Id: 16267
+    AegisName: HE_Battle_Manual_Box
+    Name: HE Battle Manual Box
+    Type: Usable
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      getitem 12411,10;
+  - Id: 19698
+    AegisName: C_Bf_Recruiter_Hat
+    Name: Costume Bf Recruiter Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 352
+  - Id: 12622
+    AegisName: Boarding_Halter
+    Name: Reins Of Mount
+    Type: Usable
+    Flags:
+      NoConsume: true
+    Delay:
+      Duration: 3000
+      Status: All_Riding_Reuse_Limit
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      setmounting();
+    UnEquipScript: |
+      if (ismounting())
+         setmounting();
+  - Id: 17162
+    AegisName: Boarding_Halter_Box7
+    Name: Boarding Halter Box7
+    Type: Cash
+    Weight: 10
+    Flags:
+      Container: true
+      UniqueId: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      rentitem 12622,604800;
+  - Id: 13953
+    AegisName: All_In_One_Ring_Box
+    Name: All In One Ring Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      rentitem 2741,604800;
+  - Id: 14003
+    AegisName: Elite_Siege_Supply_Box
+    Name: Elite Siege Supply Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
+    Script: |
+      getitem 11503,100;
+      getitem 11504,50;
+  - Id: 14175
+    AegisName: F_Megaphone_Box
+    Name: Megaphone 10 Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
+    Script: |
+      getitem 12221,10;
+  - Id: 19699
+    AegisName: C_Gf_Recruiter_Hat
+    Name: Costume Gf Recruiter Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 360
+  - Id: 19740
+    AegisName: C_Guildsman_Recruiter
+    Name: Costume Guildsman Recruiter Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 350
+  - Id: 20052
+    AegisName: C_Notice_Board
+    Name: Costume AFK Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 471
+  - Id: 31918
+    AegisName: C_Party_Recruiter_Hat
+    Name: Costume Party Recruiter Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 351
+  - Id: 31919
+    AegisName: C_Friend_Recruiter_Hat
+    Name: Costume Friend Recruiter Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 353
+  - Id: 19639
+    AegisName: C_sakkat
+    Name: Costume Sakkat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 67
+  - Id: 19294
+    AegisName: C_CatEars_Cyber_HeadP_R
+    Name: Costume Cyber Cat Ear Headphones (Red)
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    View: 1668
+    Script: |
+        bonus2 bExpAddClass,Class_All,10;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 19581
+    AegisName: C_Brabery_Hat
+    Name: Costume Adventurer's Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 891
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      bonus bSpeedRate,30;
+  - Id: 19954
+    AegisName: C_3D_Glasses
+    Name: Costume 3D Glasses
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 661
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      skill "AL_TELEPORT",1;
+  - Id: 20314
+    AegisName: C_New_Wave_Sunglass
+    Name: Costume New Wave Sunglasses
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    View: 856
+    Script: |
+        bonus2 bExpAddClass,Class_All,10;
+        bonus2 bDropAddClass,Class_All,5; 
+  - Id: 20349
+    AegisName: C_FlyingGalapago
+    Name: Costume Flying Galapago
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1358
+  - Id: 20462
+    AegisName: C_Cat_Ears_Cape
+    Name: Costume Cat Ears Cape
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1464
+  - Id: 18742
+    AegisName: C_MoonStar_Accessory
+    Name: Costume Moon and Stars
+    Type: Armor
+    Buy: 20
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 881
+    Trade:
+      NoDrop: true
+    EquipScript: |
+      sc_start SC_MOONSTAR,INFINITE_TICK,0;
+    UnEquipScript: |
+      sc_end SC_MOONSTAR;
+  - Id: 18744
+    AegisName: C_World_Star
+    Name: Costume Twilight
+    Type: Armor
+    Buy: 20
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 883
+    EquipScript: |
+      sc_start SC_SUPER_STAR,INFINITE_TICK,0;
+    UnEquipScript: |
+      sc_end SC_SUPER_STAR;
+  - Id: 19291
+    AegisName: C_Shiba_Inu
+    Name: Costume Shiba Inu
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 1669
+  - Id: 19509
+    AegisName: Butterfly_Wing_Ear
+    Name: Butterfly Wing Ears
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 695
+    Trade:
+      NoDrop: true
+    Script: |
+      bonus bUnbreakableHelm;
+  - Id: 19871
+    AegisName: C_Music_Decoration
+    Name: Costume Decoration of Music
+    Type: Armor
+    Buy: 20
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 1074
+    EquipScript: |
+      sc_start SC_DECORATION_OF_MUSIC,INFINITE_TICK,0;
+    UnEquipScript: |
+      sc_end SC_DECORATION_OF_MUSIC;
+  - Id: 20131
+    AegisName: C_C_Tower_Manager_Incom
+    Name: Costume Clock Tower Manager
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1266
+  - Id: 20198
+    AegisName: C_Misty_Ears
+    Name: Costume Misty Ears
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1295
+  - Id: 20246
+    AegisName: C_Time_Accessory
+    Name: Costume Decoration Time
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1309
+    EquipScript: |
+      sc_start SC_TIME_ACCESSORY,INFINITE_TICK,0;
+    UnEquipScript: |
+      sc_end SC_TIME_ACCESSORY;
+  - Id: 20255
+    AegisName: C_Love_Cheek
+    Name: Costume Love Cheeks
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1318
+  - Id: 20286
+    AegisName: C_Under_Rim_Glasses_Red
+    Name: Costume Under Rim Glasses Red
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1332
+  - Id: 20298
+    AegisName: C_Happy_Lunatic_Ear
+    Name: Costume Happy Lunatic Hanging Ear
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1340
+  - Id: 20318
+    AegisName: C_Charleston_Antenna
+    Name: Costume Charleston Antenna
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1354
+  - Id: 20325
+    AegisName: C_Little_Aquarium
+    Name: Costume Little Aquarium
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1363
+  - Id: 20335
+    AegisName: C_Teardrop
+    Name: Costume Watery Eyes
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 828
+  - Id: 20379
+    AegisName: C_PocketWatch_Hair_Orna
+    Name: Costume Pocketwatch Hair Ornament
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1404
+  - Id: 20399
+    AegisName: C_Crow_Tengu_Mask
+    Name: Costume Crow Tengu Mask
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1287
+  - Id: 20406
+    AegisName: C_Commandments_Of_Chain
+    Name: Costume Chain of Commandments
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1417
+  - Id: 20430
+    AegisName: C_Morocc_Kid_Servant
+    Name: Costume Loyal Servant of Devil Morocc
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1440
+  - Id: 20459
+    AegisName: C_Valhalla_Idol
+    Name: Costume Valhalla Idol
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1423
+    Script: |
+      hateffect(HAT_EF_VALHALLA_IDOL,true);
+    UnEquipScript: |
+      hateffect(HAT_EF_VALHALLA_IDOL,false);
+  - Id: 20465
+    AegisName: C_Glasses_Without_Lens
+    Name: Costume Glasses Without Lens
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1467
+  - Id: 20479
+    AegisName: C_Costume04_L
+    Name: Rental Costume Fairy Feathers
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 1723
+  - Id: 20486
+    AegisName: C_Twin_Margaret
+    Name: Costume Twin Margaret
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1472
+  - Id: 20488
+    AegisName: C_Pope_Ribbon
+    Name: Costume Pope Ribbon
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1474
+#  - Id: 31056
+#    AegisName: C_Exploding_Wave_Red
+#    Name: Costume Furious Wave
+#    Type: Armor
+#    Locations:
+#      Costume_Head_Mid: true
+#    ArmorLevel: 1
+#    EquipLevelMin: 1
+#    Script: |
+#      hateffect(HAT_EF_BAKURETSU_HADOU,true);
+#    UnEquipScript: |
+#      hateffect(HAT_EF_BAKURETSU_HADOU,false);
+#  - Id: 31089
+#    AegisName: C_Exploding_Wave_Sca
+#    Name: Costume Exploding Crimson Flame
+#    Type: Armor
+#    Locations:
+#      Costume_Head_Mid: true
+#    ArmorLevel: 1
+#    EquipLevelMin: 1
+#    View: 1500
+#    Script: |
+#      hateffect(HAT_EF_BAKURETSU_HADOU,true);
+#      /* Need to confirm this */
+#    UnEquipScript: |
+#      hateffect(HAT_EF_BAKURETSU_HADOU,false);
+  - Id: 31120
+    AegisName: C_Vampire_Familiar
+    Name: Costume Vampire Familiar
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1548
+  - Id: 31122
+    AegisName: C_Bloody_Stop_Bandage
+    Name: Costume Bloody Stop Bandage
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1550
+  - Id: 31133
+    AegisName: C_Gambler_Seal
+    Name: Costume Gambler Seal
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1202
+  - Id: 31167
+    AegisName: C_Lunatic_Ear_Black
+    Name: Costume Hanging Black Lunatic Ears
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1575
+  - Id: 31186
+    AegisName: C_Black_Cat
+    Name: Costume Black Cat
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1582
+  - Id: 31234
+    AegisName: C_Persika_J
+    Name: C Persica
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 659
+  - Id: 31235
+    AegisName: C_Large_Ribbonmuffler_V
+    Name: C Large Ribbon Muffler Mid
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1312
+  - Id: 31236
+    AegisName: C_Subject_Aura_V
+    Name: C Vicious Mind Aura Mid
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 1267
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 31299
+    AegisName: C_White_Rabbit
+    Name: C White Rabbit
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1656
+  - Id: 31301
+    AegisName: C_Blinking_Eyes
+    Name: C Blinking Eyes
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1658
+  - Id: 31327
+    AegisName: C_Stretched_Nose_M
+    Name: C Wood Goblins Nose
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 737
+  - Id: 31380
+    AegisName: C_Gossip_Raven
+    Name: Costume Crow on Shoulder
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1035
+  - Id: 31416
+    AegisName: C_SeraphimCoronet
+    Name: Costume Seraphim Coronet
+    Type: Armor
+    View: 1487
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+  - Id: 31437
+    AegisName: C_Baby_Penguin
+    Name: C Baby Penguin
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1705
+  - Id: 31439
+    AegisName: C_Fluffy_Heart_Earmuffs
+    Name: C Fluffy Heart Earmuffs
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1707
+  - Id: 31452
+    AegisName: C_White_Cat
+    Name: C White Cat
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1715
+  - Id: 31463
+    AegisName: C_Flying_Drone
+    Name: Costume Flying Drone
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1561
+  - Id: 31472
+    AegisName: C_Fairy_Feathers
+    Name: C Fairy Feathers
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1723
+  - Id: 31512
+    AegisName: C_Panda_Rabbit
+    Name: C Panda Rabbit
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1754
+  - Id: 31538
+    AegisName: C_Love_Feeling_J
+    Name: C Lovely Feeling
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1717
+  - Id: 31542
+    AegisName: C_Clay_Poring_Jar_Jp
+    Name: C Clay Poring Jar
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1634
+  - Id: 31550
+    AegisName: C_Tone_Of_Gold_V
+    Name: C Tone of Gold Mid
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1447
+  - Id: 31553
+    AegisName: C_Wings_Of_Victory_V
+    Name: C Wings Of Victory Mid
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 365
+  - Id: 31561
+    AegisName: C_8Type_PurgatorialWing
+    Name: C Heavenly Dark Flame
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1008
+  - Id: 31574
+    AegisName: C_Cyber_Income
+    Name: C Cyber Income
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1790
+  - Id: 31580
+    AegisName: C_Autumnal_Flavor
+    Name: C Autumn Flavor
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1792
+  - Id: 31600
+    AegisName: C_Kishu_Inu
+    Name: C Kishu Dog
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1804
+  - Id: 31614
+    AegisName: C_Fox
+    Name: C Fox
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1812
+  - Id: 31492
+    AegisName: C_Cat_Ears_Cape_Brown
+    Name: Costume Cat Ears Cape Brown
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1742
+  - Id: 31438
+    AegisName: C_Fluffy_Angel_Cape
+    Name: Costume Fluffy Angel Cape
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Buy: 20
+    Weight: 0
+    View: 1706
+    Script: |
+        bonus2 bExpAddClass,Class_All,10;
+  - Id: 20572
+    AegisName: C_WingOfHeart
+    Name: Costume Wings Of Heart
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 50
+    Script: |
+        bonus bAddMaxWeight,5000;
+        bonus2 bExpAddClass,Class_All,20;
+  - Id: 30001
+    AegisName: Elite_Siege_Supply_Box_
+    Name: Elite Siege Supply Box (GVG/PVP)
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      getitem 30002,100;
+      getitem 30003,50;
+  - Id: 30002
+    AegisName: Siege_White_Potion_
+    Name: WoE White Potion (GVG/PVP)
+    Type: Healing
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      itemheal rand(400,500),0;
+  - Id: 30003
+    AegisName: Siege_Blue_Potion_
+    Name: WoE Blue Potion (GVG/PVP)
+    Type: Healing
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      itemheal 0,rand(50,70);
+  - Id: 30004
+    AegisName: Proof_Of_Donation_S
+    Name: Proof Of Donation S
+    Type: Usable
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: false
+      NoMail: true
+      NoAuction: false
+    Script: |
+      atcommand "@cash 100";
+      callfunc "F_StreamerCode";
+  - Id: 30005
+    AegisName: VIP_1Day_Coin
+    Name: VIP 1Day
+    Type: Usable
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+      NoAuction: true
+    Script: |
+      vip_time 1440;
+  - Id: 30006
+    AegisName: VIP_30Day_Card
+    Name: VIP 30Day
+    Type: Usable
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
+    Script: |
+      vip_time 43200;
+  - Id: 30007
+    AegisName: Egg_Scroll_C
+    Name: Costume Egg Scroll
+    Type: Usable
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
+    Script: |
+      getgroupitem IG_CASH_EGG_SCROLL,1;
+  - Id: 30008
+    AegisName: Streamer_Gift_Box
+    Name: Streamer Gift Box
+    Type: Usable
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoSell: true
+    Script: |
+      .@item_id = groupranditem(IG_STREAMER_GIFT_BOX,1);
+      getitembound .@item_id, 1, Bound_Account;
+      announce "Player [ " + strcharinfo(0) + " ] opened Streamer Gift Box and obtained " + getitemname(.@item_id),0;
+  - Id: 30009
+    AegisName: New_Hairstyle_Coupon_ORO
+    Name: New Hairstyle Coupon
+    Type: Etc
+    Buy: 200
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoSell: true
+  - Id: 30010
+    AegisName: New_Hair_Dye_Coupon_ORO
+    Name: New Hair Dye Coupon
+    Type: Etc
+    Buy: 200
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoSell: true
+  - Id: 30011
+    AegisName: Cloth_Dye_Coupon_ORO
+    Name: Cloth Dye Coupon
+    Type: Etc
+    Buy: 200
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoSell: true
+  - Id: 30012
+    AegisName: Light_Center_Pot_Box5
+    Name: Light Concentration Potion Box 5
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getitembound 14509,5,Bound_Account;
+  - Id: 30013
+    AegisName: Light_Awakening_Pot_Box5
+    Name: Light Awakening Potion Box 5
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getitembound 14510,5,Bound_Account;
+  - Id: 30014
+    AegisName: Light_Berserk_Pot_Box5
+    Name: Light Berserk Potion Box 5
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getitembound 14511,5,Bound_Account;
+  - Id: 30015
+    AegisName: Kafra_Card_Box5
+    Name: Kafra Card Box 5
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getitembound 12211,5,Bound_Account;
+  - Id: 30016
+    AegisName: Starter_Weapon_Box_1st
+    Name: Starter Weapon Box (First Job)
+    Type: Delayconsume
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      callfunc "F_Starter_Weapon_Box";
+  - Id: 30017
+    AegisName: Cash_Point_Coupon_100
+    Name: Cash Point Coupon
+    Type: Usable
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      atcommand "@cash 100";
+  - Id: 30018
+    AegisName: Costume_Exchange_Coupon
+    Name: Costume Exchange Coupon
+    Type: Etc
+    Buy: 20
+    Weight: 0
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30019
+    AegisName: Guild_Pack
+    Name: Guild Pack
+    Type: Usable
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      getgroupitem IG_GUILD_PACKAGE_P;
+  - Id: 30020
+    AegisName: ASPD_Potion_Box
+    Name: ASPD Potion Box
+    Type: Delayconsume
+    Buy: 20
+    weight: 10
+    Flags:
+      Container: true
+      Delay_Consume: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+        select("Concentration Potion:Awakening Potion:Berserk Potion");
+        if(@menu == 1 && checkweight(14509,10) != 0){
+            getitembound 14509,10,Bound_Account;
+            delitem 30020, 1;
+            end;
+        }
+        else if(@menu == 2 && checkweight(14510,10) != 0){
+            getitembound 14510,10,Bound_Account;
+            delitem 30020, 1;
+            end;
+        }
+        else if(@menu == 3 && checkweight(14511,10) != 0){
+            getitembound 14511,10,Bound_Account;
+            delitem 30020, 1;
+            end;
+        }
+        else if(@menu < 4){
+            dispbottom "You are overweght", 0xFF0000;
+            end;
+        }
+  - Id: 30021
+    AegisName: Select_Example1
+    Name: TestA
+    Type: DelayConsume
+    Flags:
+      BuyingStore: true
+  - Id: 30022
+    AegisName: MVP_Reward_Box_Bronze
+    Name: MVP Reward Box (Bronze)
+    Type: Usable
+    Weight: 0
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      .@num = rand(1,100);
+      if(.@num <= 60){ // 60% chance
+        getgroupitem IG_MVP_REWARD_BOX_COMMON,1;
+      }
+      else if(.@num > 60 && .@num <= 85){ // 25% chance
+        getgroupitem IG_MVP_REWARD_BOX_UNCOMMON,1;
+      }
+      else if(.@num > 85 && .@num <= 97){ // 12% chance
+        getgroupitem IG_MVP_REWARD_BOX_RARE,1;
+      }
+      else { //.@num > 97 && .@num <= 100 , 3% chance
+        getgroupitem IG_MVP_REWARD_BOX_EPIC,1;
+      }
+  - Id: 30023
+    AegisName: MVP_Reward_Box_Silver
+    Name: MVP Reward Box (Silver)
+    Type: Usable
+    Weight: 0
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      .@num = rand(1,100);
+      if(.@num <= 50){ // 50% chance
+        getgroupitem IG_MVP_REWARD_BOX_COMMON,1;
+      }
+      else if(.@num > 50 && .@num <= 80){ // 30% chance
+        getgroupitem IG_MVP_REWARD_BOX_UNCOMMON,1;
+      }
+      else if(.@num > 80 && .@num <= 95){ // 15% chance
+        getgroupitem IG_MVP_REWARD_BOX_RARE,1;
+      }
+      else { //.@num > 95 && .@num <= 100 , 5% chance
+        getgroupitem IG_MVP_REWARD_BOX_EPIC,1;
+      }
+  - Id: 30024
+    AegisName: MVP_Reward_Box_Gold
+    Name: MVP Reward Box (Gold)
+    Type: Usable
+    Weight: 0
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      .@num = rand(1,100);
+      if(.@num <= 40){ // 40% chance
+        getgroupitem IG_MVP_REWARD_BOX_COMMON,1;
+      }
+      else if(.@num > 40 && .@num <= 75){ // 35% chance
+        getgroupitem IG_MVP_REWARD_BOX_UNCOMMON,1;
+      }
+      else if(.@num > 75 && .@num <= 93){ // 18% chance
+        getgroupitem IG_MVP_REWARD_BOX_RARE,1;
+      }
+      else { //.@num > 93 && .@num <= 100 , 7% chance
+        getgroupitem IG_MVP_REWARD_BOX_EPIC,1;
+      }
+  - Id: 30025
+    AegisName: Egg_Scroll_C_Mid
+    Name: Costume Mid Egg Scroll
+    Type: Usable
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
+    Script: |
+      getgroupitem IG_CASH_EGG_SCROLL2,1;
+  - Id: 30100
+    AegisName: C_Analyze_Eye_S
+    Name: Costume Analyze Eye
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1351
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+        bonus2 bAddMonsterDropItem,7139,100;
+  - Id: 30101
+    AegisName: C_Nut_On_Head_S
+    Name: Costume Bolt Ears
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 696
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+        bonus2 bAddMonsterDropItem,504,200;
+  - Id: 30102
+    AegisName: C_Engineer_Cap_S
+    Name: Costume Engineer Cap
+    Type: Armor
+    Buy: 20
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Weight: 0
+    View: 608
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+        bonus2 bExpAddClass,Class_All,20;
+        bonus2 bDropAddClass,Class_All,10;
+  - Id: 30103
+    AegisName: C_School_Bag_RD_S
+    Name: Costume Backpack Red
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 51
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+        bonus2 bAddMonsterDropItem,7139,100;
+  - Id: 30104
+    AegisName: C_Flying_Angel
+    Name: Costume Flapping Angel Wings
+    Type: Armor
+    Buy: 20
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Weight: 10
+    View: 264
+    Script: |
+        bonus2 bExpAddClass,Class_All,20;
+        bonus2 bDropAddClass,Class_All,10;
+  - Id: 30105
+    AegisName: C_Satanic_Chain_P
+    Name: Costume Flapping Evil Wings
+    Type: Armor
+    Buy: 20
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Weight: 10
+    View: 382
+    Script: |
+        bonus2 bExpAddClass,Class_All,20;
+        bonus2 bDropAddClass,Class_All,10;
+  - Id: 30106
+    AegisName: Kafra_Ring_3C
+    Name: Kafra Ring - Third Class Avatar
+    Type: Shadowgear
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      BardDancer: true
+      Blacksmith: true
+      Crusader: true
+      Hunter: true
+      Knight: true
+      Monk: true
+      Priest: true
+      Rogue: true
+      Sage: true
+      Wizard: true
+    Locations:
+      Shadow_Right_Accessory: true
+    EquipLevelMin: 60
+    Trade:
+      NoDrop: true
+      NoSell: true
+    EquipScript: |
+        setlook 13,1;
+    UnEquipScript: |
+        setlook 13,0;
+  - Id: 30107
+    AegisName: C_Fine_Sun
+    Name: Costume Shining Sun
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    View: 654
+    Script: |
+        bonus2 bExpAddClass,Class_All,10;
+  - Id: 30108
+    AegisName: C_Sunglasses_S
+    Name: Costume Sunglasses
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    View: 12
+    Script: |
+        bonus2 bAddMonsterDropItem,509,500;
+  - Id: 30109
+    AegisName: C_Cigarette_S
+    Name: Costume Cigarette
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    View: 54
+    Script: |
+        bonus2 bAddMonsterDropItem,970,100;
+  - Id: 30110
+    AegisName: C_Bubblegum_in_Mouth_S
+    Name: Costume Bubblegum-in-Mouth
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    View: 572
+    Script: |
+        bonus2 bExpAddClass,Class_All,10;
+  - Id: 30111
+    AegisName: Weight_100
+    Name: Weight +100
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+    Script: |
+        bonus bAddMaxWeight,1000;
+  - Id: 30112
+    AegisName: Weight_200
+    Name: Weight +200
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+    Script: |
+        bonus bAddMaxWeight,2000;
+  - Id: 30113
+    AegisName: Weight_300
+    Name: Weight +300
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+    Script: |
+        bonus bAddMaxWeight,3000;
+  - Id: 30114
+    AegisName: Weight_400
+    Name: Weight +400
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+    Script: |
+        bonus bAddMaxWeight,4000;
+  - Id: 30115
+    AegisName: Weight_500
+    Name: Weight +500
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+    Script: |
+        bonus bAddMaxWeight,5000;
+  - Id: 30116
+    AegisName: Weight_600
+    Name: Weight +600
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+    Script: |
+        bonus bAddMaxWeight,6000;
+  - Id: 30117
+    AegisName: Weight_700
+    Name: Weight +700
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+    Script: |
+        bonus bAddMaxWeight,7000;
+  - Id: 30118
+    AegisName: Weight_800
+    Name: Weight +800
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+    Script: |
+        bonus bAddMaxWeight,8000;
+  - Id: 30119
+    AegisName: Weight_900
+    Name: Weight +900
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+    Script: |
+        bonus bAddMaxWeight,9000;
+  - Id: 30120
+    AegisName: Weight_1000
+    Name: Weight +1000
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+    Script: |
+        bonus bAddMaxWeight,10000;
+  - Id: 30121
+    AegisName: C_Blue_Beret_S
+    Name: Costume Blue Beret
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 652
+  - Id: 30122
+    AegisName: C_Red_Beret_S
+    Name: Costume Red Beret
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 559
+  - Id: 30123
+    AegisName: C_Gigantic_Majestic_Goat_S
+    Name: Costume Gigantic Majestic Goat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 513
+    Script: |
+        bonus2 bExpAddClass,Class_All,15;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30124
+    AegisName: C_Majestic_Horns_Black
+    Name: Costume Majestic Horns Black
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4018
+    Script: |
+        bonus2 bExpAddClass,Class_All,15;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30125
+    AegisName: C_Blue_Streamer_Circle
+    Name: Costume Blue Streamer Circle
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoTrade: true
+      NoCart: true
+      NoMail: true
+      NoGuildStorage: true
+      NoAuction: true
+    View: 4019
+    Script: |
+        bonus2 bExpAddClass,Class_All,10;
+        bonus2 bDropAddClass,Class_All,5; 
+  - Id: 30201
+    AegisName: Rapier_S
+    Name: Rapier (Starter Weapon)
+    Type: Weapon
+    SubType: 1hSword
+    Buy: 100
+    Weight: 100
+    Attack: 60
+    Range: 1
+    Slots: 2
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Novice: true
+      Rogue: true
+      SuperNovice: true
+      Swordman: true
+      Thief: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 2
+    EquipLevelMin: 12
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30202
+    AegisName: Tsurugi_S
+    Name: Tsurugi (Starter Weapon)
+    Type: Weapon
+    SubType: 1hSword
+    Buy: 100
+    Weight: 240
+    Attack: 110
+    Range: 1
+    Slots: 1
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Rogue: true
+      Swordman: true
+      Thief: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 25
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30203
+    AegisName: Composite_Bow_S
+    Name: Composite Bow (Starter Weapon)
+    Type: Weapon
+    SubType: Bow
+    Buy: 100
+    Weight: 120
+    Attack: 25
+    Range: 5
+    Slots: 3
+    Jobs:
+      Archer: true
+      BardDancer: true
+      Hunter: true
+      Rogue: true
+      Thief: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 1
+    EquipLevelMin: 10
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30204
+    AegisName: Gakkung_S
+    Name: Gakkung Bow (Starter Weapon)
+    Type: Weapon
+    SubType: Bow
+    Buy: 100
+    Weight: 220
+    Attack: 80
+    Range: 5
+    Slots: 1
+    Jobs:
+      Archer: true
+      BardDancer: true
+      Hunter: true
+      Rogue: true
+      Thief: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 25
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30205
+    AegisName: Stiletto_S
+    Name: Stiletto (Starter Weapon)
+    Type: Weapon
+    SubType: Dagger
+    Buy: 100
+    Weight: 140
+    Attack: 70
+    Range: 1
+    Slots: 2
+    Jobs:
+      Alchemist: true
+      Archer: true
+      Assassin: true
+      BardDancer: true
+      Blacksmith: true
+      Crusader: true
+      Hunter: true
+      Knight: true
+      Mage: true
+      Merchant: true
+      Ninja: true
+      Novice: true
+      Rogue: true
+      Sage: true
+      SoulLinker: true
+      SuperNovice: true
+      Swordman: true
+      Thief: true
+      Wizard: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 2
+    EquipLevelMin: 12
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30206
+    AegisName: Damascus_S
+    Name: Damascus (Starter Weapon)
+    Type: Weapon
+    SubType: Dagger
+    Buy: 100
+    Weight: 160
+    Attack: 105
+    Range: 1
+    Slots: 1
+    Jobs:
+      Alchemist: true
+      Archer: true
+      Assassin: true
+      BardDancer: true
+      Blacksmith: true
+      Crusader: true
+      Hunter: true
+      Knight: true
+      Mage: true
+      Merchant: true
+      Ninja: true
+      Rogue: true
+      Sage: true
+      SoulLinker: true
+      Swordman: true
+      Thief: true
+      Wizard: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 25
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30207
+    AegisName: Orchish_Axe_S
+    Name: Orcish Axe (Starter Weapon)
+    Type: Weapon
+    SubType: 1hAxe
+    Buy: 100
+    Weight: 300
+    Attack: 75
+    Range: 1
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Novice: true
+      Rogue: true
+      SuperNovice: true
+      Swordman: true
+      Thief: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 12
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30208
+    AegisName: Two_Handed_Axe_S
+    Name: Two-Handed Axe (Starter Weapon)
+    Type: Weapon
+    SubType: 2hAxe
+    Buy: 100
+    Weight: 500
+    Attack: 180
+    Range: 1
+    Slots: 1
+    Jobs:
+      Alchemist: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Swordman: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 25
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30209
+    AegisName: Staff_S
+    Name: Staff (Starter Weapon)
+    Type: Weapon
+    SubType: Staff
+    Buy: 100
+    Weight: 80
+    Attack: 40
+    Range: 1
+    Slots: 2
+    Jobs:
+      Acolyte: true
+      Mage: true
+      Monk: true
+      Priest: true
+      Sage: true
+      SoulLinker: true
+      Wizard: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 2
+    EquipLevelMin: 12
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bInt,1;
+      bonus bMatkRate,15;
+  - Id: 30210
+    AegisName: Arc_Wand_S
+    Name: Arc Wand (Starter Weapon)
+    Type: Weapon
+    SubType: Staff
+    Buy: 100
+    Weight: 80
+    Attack: 60
+    Range: 1
+    Slots: 1
+    Jobs:
+      Acolyte: true
+      Mage: true
+      Monk: true
+      Priest: true
+      Sage: true
+      SoulLinker: true
+      Wizard: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 25
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bInt,2;
+      bonus bMatkRate,15;
+  - Id: 30211
+    AegisName: Flail_S
+    Name: Flail (Starter Weapon)
+    Type: Weapon
+    SubType: Mace
+    Buy: 100
+    Weight: 180
+    Attack: 62
+    Range: 1
+    Slots: 2
+    Jobs:
+      Acolyte: true
+      Alchemist: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Monk: true
+      Priest: true
+      Swordman: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 2
+    EquipLevelMin: 12
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30212
+    AegisName: Sword_Mace_S
+    Name: Sword Mace (Starter Weapon)
+    Type: Weapon
+    SubType: Mace
+    Buy: 100
+    Weight: 240
+    Attack: 130
+    Range: 1
+    Jobs:
+      Acolyte: true
+      Alchemist: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Monk: true
+      Priest: true
+      Swordman: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 3
+    EquipLevelMin: 25
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 30220
+    AegisName: C_Akatsuki_Cape
+    Name: Costume Akatsuki Cape
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4000
+    Script: |
+        bonus bFlee,50;
+        bonus2 bExpAddClass,Class_All,10;
+  - Id: 30221
+    AegisName: C_Akatsuki_Hat
+    Name: Costume Akatsuki Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4001
+    Script: |
+        bonus bFlee,10;
+        bonus bCritical,20;
+        bonus2 bExpAddClass,Class_All,10;
+  - Id: 30222
+    AegisName: C_Demon_Slayer_M1
+    Name: Cosplay Demon Slayer (Model 1)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4002
+  - Id: 30223
+    AegisName: C_Demon_Slayer_M2
+    Name: Cosplay Demon Slayer (Model 2)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4003
+  - Id: 30224
+    AegisName: C_Demon_Slayer_M3
+    Name: Cosplay Demon Slayer (Model 3)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4004
+  - Id: 30225
+    AegisName: C_Demon_Slayer_M4
+    Name: Cosplay Demon Slayer (Model 4)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4005
+  - Id: 30226
+    AegisName: C_Demon_Slayer_M5
+    Name: Cosplay Demon Slayer (Model 5)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4006
+  - Id: 30227
+    AegisName: C_Demon_Slayer_M6
+    Name: Cosplay Demon Slayer (Model 6)
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4007
+  - Id: 30228
+    AegisName: C_Hokage_Hat
+    Name: Costume Hokage Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4008
+  - Id: 30229
+    AegisName: C_Tobi_Mask
+    Name: Costume Tobi Mask
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4009
+  - Id: 30230
+    AegisName: C_Leaf_Headband
+    Name: Costume Leaf Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4010
+  - Id: 30231
+    AegisName: C_Grass_Headband
+    Name: Costume Grass Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4011
+  - Id: 30232
+    AegisName: C_Cloud_Headband
+    Name: Costume Cloud Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4012
+  - Id: 30233
+    AegisName: C_Sand_Headband
+    Name: Costume Sand Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4013
+  - Id: 30234
+    AegisName: C_Rock_Headband
+    Name: Costume Rock Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4014
+  - Id: 30235
+    AegisName: C_Waterfall_Headband
+    Name: Costume Waterfall Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4015
+  - Id: 30236
+    AegisName: C_Mist_Headband
+    Name: Costume Mist Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4016
+  - Id: 30237
+    AegisName: C_Sound_Headband
+    Name: Costume Sound Headband
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 4017
+  - Id: 30240
+    AegisName: C_Relic_Knight
+    Name: Relic Costume - Knight
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 205
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30241
+    AegisName: C_Relic_Assassin
+    Name: Relic Costume - Assassin
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 206
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30242
+    AegisName: C_Relic_Hunter
+    Name: Relic Costume - Hunter
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 207
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30243
+    AegisName: C_Relic_Wizard
+    Name: Relic Costume - Wizard
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 208
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30244
+    AegisName: C_Relic_Priest
+    Name: Relic Costume - Priest
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 209
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30245
+    AegisName: C_Relic_BlackSmith
+    Name: Relic Costume - Blacksmith
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 210
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30246
+    AegisName: C_Relic_Crusader
+    Name: Relic Costume - Crusader
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 211
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30247
+    AegisName: C_Relic_Rogue
+    Name: Relic Costume - Rogue
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 212
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30248
+    AegisName: C_Relic_Bard
+    Name: Relic Costume - Bard
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 213
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30249
+    AegisName: C_Relic_Dancer
+    Name: Relic Costume - Dancer
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 214
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30250
+    AegisName: C_Relic_Sage
+    Name: Relic Costume - Sage
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 215
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30251
+    AegisName: C_Relic_Monk
+    Name: Relic Costume - Monk
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 216
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30252
+    AegisName: C_Relic_Alchemist
+    Name: Relic Costume - Alchemist
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 217
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30253
+    AegisName: C_Relic_SuperNovice
+    Name: Relic Costume - SuperNovice
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 218
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30254
+    AegisName: C_Relic_Ninja
+    Name: Relic Costume - Ninja
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 219
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30255
+    AegisName: C_Relic_Gunslinger
+    Name: Relic Costume - Gunslinger
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 220
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30256
+    AegisName: C_Relic_StarGladiator
+    Name: Relic Costume - Star Gladiator
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 221
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30257
+    AegisName: C_Relic_SoulLinker
+    Name: Relic Costume - Soul Linker
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 222
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 19910
+    AegisName: C_Halloween_Hat
+    Name: Costume Halloween Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    View: 1098
+  - Id: 20514
+    AegisName: C_Thanatos_Sword
+    Name: Costume Thanatos Sword
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 23
+  - Id: 20517
+    AegisName: C_GiantCatBag_TW
+    Name: Costume Giant Cat Bag
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 25
+  - Id: 20586
+    AegisName: C_Loli_Ruri_Moon
+    Name: Costume Loli Ruri's Crescent
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 64
+  - Id: 20590
+    AegisName: C_Evil_Druid_Cross
+    Name: Costume Evil Druid Cross
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 67
+  - Id: 20598
+    AegisName: C_GiantCatBag_JP_BL
+    Name: Costume Giant Cat Bag Black
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 80
+  - Id: 31383
+    AegisName: C_Volume_Low_Twin
+    Name: Costume Volume Low Twin
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1683
+  - Id: 31672
+    AegisName: C_Mermaid_Wig
+    Name: C Mermaid Wig
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1866
+  - Id: 31797
+    AegisName: C_Shih_Tzu_Long
+    Name: Costume Shih Tzu Hair
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1921
+  - Id: 31827
+    AegisName: Durumagi
+    Name: Costume Durumagi
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 1936
+  - Id: 480071
+    AegisName: Calabash
+    Name: Costume Vial
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 82
+  - Id: 480107
+    AegisName: C_Kings_Twin_Sword
+    Name: Costume Kings Twin Sword
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 104
+
+# THQ Quest Items
+#=============================================================
+#  - Id: 1998
+#    AegisName: Jeramiah's_Jur
+#    Name: Jeramiah's Jur
+#    Type: Etc
+#    Sell: 10
+#    Weight: 10
+#    AliasName: Jur
+#  - Id: 1999
+#    AegisName: Zed's_Staff
+#    Name: Zed's Staff
+#    Type: Etc
+#    Sell: 10
+#    Weight: 10
+#    AliasName: Staff_Of_Soul
+#  - Id: 7950
+#    AegisName: THG_Membership
+#    Name: THG Membership
+#    Type: Etc
+#    Sell: 10
+#    Weight: 10
+#    AliasName: Foolishness_Of_Blind
+#  - Id: 7951
+#    AegisName: Gold_Tulip
+#    Name: Token Bag
+#    Type: Etc
+#    Sell: 10
+#    Weight: 10
+#    AliasName: Leather_Bag_Of_Infinity
+
+# Official Event Items that had their Effects removed after the event was completed
+#=============================================================
+#  - Id: 585
+#    AegisName: Wurst
+#    Name: Brusti
+#    Type: Delayconsume
+#    Buy: 2
+#    Weight: 40
+#    Script: |
+#      itemheal rand(15,20),0; itemskill "PR_MAGNIFICAT",3;
+#  - Id: 679
+#    AegisName: Gold_Pill
+#    Name: Pilule
+#    Type: Healing
+#    Buy: 5000
+#    Weight: 300
+#    Script: |
+#      percentheal 50,50;
+#  - Id: 2681
+#    AegisName: Republic_Ring
+#    Name: Republic Anniversary Ring
+#    Type: Armor
+#    Buy: 20
+#    Weight: 100
+#    Locations:
+#      Right_Accessory: true
+#      Left_Accessory: true
+#    Script: |
+#      bonus bAllStats,3;
+#  - Id: 5134
+#    AegisName: Pumpkin_Hat
+#    Name: Pumpkin-Head
+#    Type: Armor
+#    Buy: 20
+#    Weight: 200
+#    Defense: 2
+#    Locations:
+#      Head_Top: true
+#    Refineable: true
+#    View: 206
+#    Script: |
+#      bonus2 bSubRace,RC_Demon,5;
+#  - Id: 5136
+#    AegisName: Santa's_Hat_
+#    Name: Louise's Santa Hat
+#    Type: Armor
+#    Buy: 20
+#    Weight: 100
+#    Defense: 3
+#    Locations:
+#      Head_Top: true
+#    Refineable: true
+#    View: 20
+#    Script: |
+#      bonus bMdef,1; bonus bLuk,1; bonus3 bAutoSpellWhenHit,"AL_HEAL",3,50; bonus3 bAutoSpellWhenHit,"AL_BLESSING",10,50;
+#  - Id: 5145
+#    AegisName: Carnival_Joker_Jester
+#    Name: Carnival Jester
+#    Type: Armor
+#    Buy: 10
+#    Weight: 100
+#    Locations:
+#      Head_Top: true
+#    Refineable: true
+#    View: 89
+#    Script: |
+#      bonus bAllStats,3;
+#  - Id: 5147
+#    AegisName: Baseball_Cap
+#    Name: Baseball Cap
+#    Type: Armor
+#    Weight: 200
+#    Defense: 3
+#    Locations:
+#      Head_Top: true
+#    Refineable: true
+#    View: 216
+#    Script: |
+#      bonus2 bExpAddRace,RC_Boss,50; bonus2 bExpAddRace,RC_NonBoss,50;
+#  - Id: 5201
+#    AegisName: Party_Hat_B
+#    Name: 2nd Anniversary Party Hat
+#    Type: Armor
+#    Buy: 20
+#    Weight: 300
+#    Defense: 3
+#    Locations:
+#      Head_Top: true
+#    Refineable: true
+#    View: 144
+#    Script: |
+#      bonus bAllStats,3;
+#  - Id: 5202
+#    AegisName: Pumpkin_Hat_
+#    Name: Pumpkin Hat
+#    Type: Armor
+#    Buy: 20
+#    Weight: 200
+#    Defense: 2
+#    Locations:
+#      Head_Top: true
+#    Refineable: true
+#    View: 206
+#    Script: |
+#      bonus bAllStats,2; bonus2 bSubRace,RC_Demon,5; bonus3 bAddMonsterDropItem,529,RC_DemiHuman,1500;
+#  - Id: 5204
+#    AegisName: Event_Pierrot_Nose
+#    Name: Rudolf's Red Nose
+#    Type: Armor
+#    Buy: 20
+#    Weight: 100
+#    Locations:
+#      Head_Low: true
+#    View: 49
+#    Script: |
+#      bonus2 bResEff,Eff_Blind,3000; bonus2 bAddMonsterDropItem,12130,30;
+#  - Id: 5264
+#    AegisName: Aussie_Flag_Hat
+#    Name: Australian Flag Hat
+#    Type: Armor
+#    Buy: 20
+#    Weight: 500
+#    Defense: 4
+#    Locations:
+#      Head_Top: true
+#    Refineable: true
+#    View: 304
+#    Script: |
+#      bonus bAllStats,2;
+#  - Id: 5356
+#    AegisName: Pumpkin_Hat_H
+#    Name: Pumpkin Hat
+#    Type: Armor
+#    Buy: 20
+#    Weight: 200
+#    Defense: 2
+#    Locations:
+#      Head_Top: true
+#    Refineable: true
+#    View: 206
+#    Script: |
+#      bonus bAllStats,2; bonus2 bSubRace,RC_Demon,5; bonus2 bMagicAddRace,RC_Demon,5;
+#  - Id: 5384
+#    AegisName: Santa_Hat_1
+#    Name: Twin Pompom By JB
+#    Type: Armor
+#    Buy: 20
+#    Weight: 200
+#    Defense: 2
+#    Slots: 1
+#    Locations:
+#      Head_Top: true
+#    EquipLevelMin: 20
+#    Refineable: true
+#    View: 390
+#    Script: |
+#      bonus bLuk,3; bonus2 bResEff,Eff_Curse,2000; bonus bVariableCastrate,-2; bonus bAspdRate,4; bonus2 bAddMonsterDropItem,539,100; bonus2 bAddMonsterDropItem,529,200; bonus2 bAddMonsterDropItem,530,200; autobonus "{ bonus bCritical,10; }",10,5000;
+#  - Id: 5811
+#    AegisName: Santa_Beard
+#    Name: Santa Beard
+#    Type: Armor
+#    Buy: 20
+#    Weight: 100
+#    Defense: 5
+#    Locations:
+#      Head_Low: true
+#    View: 25
+#    Script: |
+#      bonus2 bSubRace,RC_Brute,5; bonus2 bSubRace,RC_Player_Doram,5;
+#  - Id: 11702
+#    AegisName: Moon_Cookie
+#    Name: Moon Cookie
+#    Type: Delayconsume
+#    Weight: 10
+#    Script: |
+#      sc_end SC_POISON; sc_end SC_SILENCE; sc_end SC_BLIND; sc_end SC_CONFUSION; sc_end SC_CURSE; sc_end SC_HALLUCINATION; itemskill "AL_BLESSING",7;
+#  - Id: 12131
+#    AegisName: Lucky_Potion
+#    Name: Lucky Potion
+#    Type: Healing
+#    Buy: 2
+#    Weight: 100
+#    Script: |
+#      sc_start SC_LUKFOOD,180000,15;
+#  - Id: 12143
+#    AegisName: Red_Can
+#    Name: Red Can
+#    Type: Usable
+#    Buy: 50000
+#    Weight: 300
+#    Script: |
+#      percentheal 25,25;
+
+# Event effect: Summon monster? Probably Rice_Cake. x_x
+#=============================================================
+#  - Id: 12199
+#    AegisName: Rice_Scroll
+#    Name: Rice Scroll
+#    Type: Usable
+#  - Id: 12200
+#    AegisName: Event_Cake
+#    Name: Event Cake
+#    Type: Usable
+#    Buy: 20
+#    Weight: 50
+#    Script: |
+#      itemskill "PR_MAGNIFICAT",3;
+#  - Id: 12238
+#    AegisName: New_Year_Rice_Cake_1
+#    Name: New Year Rice Cake
+#    Type: Healing
+#    Buy: 20
+#    Weight: 100
+#    Script: |
+#      percentheal 20,15; sc_start SC_STRFOOD,1200000,3; sc_start SC_INTFOOD,1200000,3; sc_start SC_LUKFOOD,1200000,3; sc_start SC_SPEEDUP1,5000,0;
+#  - Id: 12239
+#    AegisName: New_Year_Rice_Cake_2
+#    Name: New Year Rice Cake
+#    Type: Healing
+#    Buy: 20
+#    Weight: 100
+#    Script: |
+#      percentheal 20,15; sc_start SC_DEXFOOD,1200000,3; sc_start SC_AGIFOOD,1200000,3; sc_start SC_VITFOOD,1200000,3; sc_start SC_SPEEDUP1,5000,0;
+
+# iRO St. Patrick's Day Event 2008
+#=============================================================
+#  - Id: 7915
+#    AegisName: Copper_Coin_
+#    Name: Bronze Coin
+#    Type: Etc
+#    Weight: 10
+#    AliasName: Copper_Coin
+#  - Id: 7916
+#    AegisName: Silver_Coin_
+#    Name: Silver Coin
+#    Type: Etc
+#    Weight: 10
+#    AliasName: Silver_Coin
+#  - Id: 12715
+#    AegisName: Black_Treasure_Box
+#    Name: Black Treasure Chest
+#    Type: Usable
+#    Weight: 200
+#    AliasName: Treasure_Box_
+#    Script: |
+#      callfunc "F_08stpattyseventbox";
+
+# iRO Valentine's Day Event 2009
+#=============================================================
+#  - Id: 5817
+#    AegisName: Valentine_Pledge
+#    Name: Valentine's Emblem
+#    Type: Armor
+#    Buy: 10
+#    Defense: 3
+#    Locations:
+#      Right_Accessory: true
+#      Left_Accessory: true
+#    Script: |
+#      bonus bAtkRate,3; bonus bMatkRate,3; bonus bAllStats,2; bonus bFlee,10; bonus bAspd,1; bonus bMdef,3; bonus2 bSkillAtk,"AL_HEAL",10; bonus2 bSkillHeal,"AL_HEAL",10; bonus2 bSkillHeal,"AM_POTIONPITCHER",10; bonus2 bAddItemGroupHealRate,IG_Potion,10;
+#  - Id: 7946
+#    AegisName: Gold_Ring_Of_Valentine
+#    Name: Gold Ring Of Valentine
+#    Type: Etc
+#    Buy: 10
+#  - Id: 7947
+#    AegisName: Silver_Ring_Of_Valentine
+#    Name: Silver Ring Of Valentine
+#    Type: Etc
+#    Buy: 10
+#  - Id: 7948
+#    AegisName: Box
+#    Name: Box
+#    Type: Etc
+#    Buy: 10
+#    Weight: 10
+#  - Id: 12742
+#    AegisName: Valentine_Gift_Box_M
+#    Name: Valentine Gift Box
+#    Type: Usable
+#    Buy: 10
+#    Script: |
+#      getitem 7946,1;
+#  - Id: 12743
+#    AegisName: Valentine_Gift_Box_F
+#    Name: Valentine Gift Box
+#    Type: Usable
+#    Buy: 10
+#    Script: |
+#      getitem 7947,1;
+#  - Id: 12744
+#    AegisName: Chocolate_Box
+#    Name: Chocolate Box
+#    Type: Usable
+#    Buy: 10
+#    Script: |
+#      getitem 558,1;
+#  - Id: 14466
+#    AegisName: Valentine's_Emblem_Box
+#    Name: Valentine's Emblem Box
+#    Type: Usable
+#    Buy: 10
+#    Script: |
+#      getitem 5817,1;
+
+# iRO Halloween Event 2009
+#=============================================================
+#  - Id: 5668
+#    AegisName: Weird_Pumpkin_Hat
+#    Name: Weird Pumpkin Hat
+#    Type: Armor
+#    Buy: 20
+#    Defense: 5
+#    Locations:
+#      Head_Top: true
+#    Refineable: true
+#    View: 206
+#    Script: |
+#      bonus bMdef,5; bonus2 bAddMonsterDropItem,12192,2500;
+#  - Id: 6298
+#    AegisName: Pumpkin_Head_Crushed
+#    Name: Crushed Pumpkin
+#    Type: Etc
+#  - Id: 6299
+#    AegisName: Worn_Cloth_Piece
+#    Name: Worn Fabric
+#    Type: Etc
+
+# Old Tuxedo and Wedding Dress, will display the outfit when worn.
+#==================================================================
+#  - Id: 2338
+#    AegisName: Wedding_Dress
+#    Name: Wedding Dress
+#    Type: Armor
+#    Buy: 43000
+#    Weight: 500
+#    Jobs:
+#      All: true
+#      Novice: false
+#    Gender: Female
+#    Locations:
+#      Armor: true
+#    Refineable: true
+#    EquipScript: |
+#      sc_start SC_WEDDING,INFINITE_TICK,0;
+#    UnEquipScript: |
+#      sc_end SC_WEDDING;
+#  - Id: 7170
+#    AegisName: Tuxedo
+#    Name: Tuxedo
+#    Type: Armor
+#    Buy: 43000
+#    Weight: 10
+#    Jobs:
+#      All: true
+#      Novice: false
+#    Gender: Male
+#    Locations:
+#      Armor: true
+#    ArmorLevel: 1
+#    Refineable: true
+#    EquipScript: |
+#      sc_start SC_WEDDING,INFINITE_TICK,0;
+#    UnEquipScript: |
+#      sc_end SC_WEDDING;
+
+# Non-kRO Eden Group Mark effect
+#=============================================================
+#  - Id: 22508
+#    AegisName: Para_Team_Mark_
+#    Name: Eden Group Mark
+#    Type: Delayconsume
+#    Script: |
+#      unitskilluseid getcharid(3),"AL_TELEPORT",3;
+
+# Gender restrictions that were removed on official servers
+#=============================================================
+#  - Id: 2206
+#    Gender: Female
+#  - Id: 2208
+#    Gender: Female
+#  - Id: 2209
+#    Gender: Female
+#  - Id: 2234
+#    Gender: Female
+#  - Id: 2235
+#    Gender: Male
+#  - Id: 2407
+#    Gender: Female
+#  - Id: 2415
+#    Gender: Female
+#  - Id: 2494
+#    Gender: Female
+#  - Id: 5143
+#    Gender: Male
+#  - Id: 5164
+#    Gender: Female
+#  - Id: 5165
+#    Gender: Male
+#  - Id: 5191
+#    Gender: Female
+#  - Id: 5192
+#    Gender: Female
+#  - Id: 5193
+#    Gender: Female
+#  - Id: 5194
+#    Gender: Female
+#  - Id: 5195
+#    Gender: Female
+#  - Id: 5196
+#    Gender: Female
+#  - Id: 5197
+#    Gender: Female
+#  - Id: 5221
+#    Gender: Female
+#  - Id: 5354
+#    Gender: Male
+#  - Id: 5355
+#    Gender: Female
+#  - Id: 5400
+#    Gender: Female
+#  - Id: 5681
+#    Gender: Female
+#  - Id: 5735
+#    Gender: Female
