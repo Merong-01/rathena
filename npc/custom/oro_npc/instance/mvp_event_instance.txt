@@ -38,26 +38,26 @@ OnInitEvent:
 	}
 
 	cleararray .join_char_id[0], 0, getarraysize(.join_char_id);
-	announce "The MVP Boss Random Summon Event will start in 5 minutes, to join the event type @joinmvpbosshunt", 0x0000FF;
+	announce "The MVP Boss Random Summon Event will start in 5 minutes, to join the event type @joinmvpbosshunt", bc_all, 0x00FFFF;
 	.mvp_event_status = 1;
 	initnpctimer;
 end;
 OnTimer60000:
-	announce "The MVP Boss Random Summon Event will start in 4 minutes, to join the event type @joinmvpbosshunt", 0x0000FF;
+	announce "The MVP Boss Random Summon Event will start in 4 minutes, to join the event type @joinmvpbosshunt", bc_all, 0x00FFFF;
 end;
 OnTimer120000:
-	announce "The MVP Boss Random Summon Event will start in 3 minutes, to join the event type @joinmvpbosshunt", 0x0000FF;
+	announce "The MVP Boss Random Summon Event will start in 3 minutes, to join the event type @joinmvpbosshunt", bc_all, 0x00FFFF;
 end;
 OnTimer180000:
-	announce "The MVP Boss Random Summon Event will start in 2 minutes, to join the event type @joinmvpbosshunt", 0x0000FF;
+	announce "The MVP Boss Random Summon Event will start in 2 minutes, to join the event type @joinmvpbosshunt", bc_all, 0x00FFFF;
 end;
 OnTimer240000:
-	announce "The MVP Boss Random Summon Event will start in 1 minute, to join the event type @joinmvpbosshunt", 0x0000FF;
+	announce "The MVP Boss Random Summon Event will start in 1 minute, to join the event type @joinmvpbosshunt", bc_all, 0x00FFFF;
 end;
 OnTimer300000:
 	.mvp_event_status = 2;
 	announce "A total of " + getarraysize(.join_char_id) + " players have registered to join the event." +
-		"The MVP Boss Random Summon Event is Starting, teleporting participants to Event Map instance.", 0x0000FF;
+		"The MVP Boss Random Summon Event is Starting, teleporting participants to Event Map instance.", bc_all, 0x00FFFF;
 	
 	for(.@i = 0; .@i < getarraysize(.join_char_id); .@i++){
 		if(isloggedin(convertpcinfo(.join_char_id[.@i], CPC_ACCOUNT), .join_char_id[.@i])){
@@ -83,12 +83,12 @@ OnTimer2100000:
 end;
 OnJoinEvent:
 	if(.mvp_event_status == 0){
-		dispbottom "It's not yet the time to join the event", 0x0000FF;
+		dispbottom "It's not yet the time to join the event", 0x00FFFF;
 		end;
 	}
 	else if(.mvp_event_status == 2){
 		//instance_enter("MVP Night Event", -1, -1, getcharid(0), .ins_id);
-		dispbottom "Registration for the event has ended", 0x0000FF;
+		dispbottom "Registration for the event has ended", 0x00FFFF;
 		end;
 	}
 
@@ -113,7 +113,7 @@ OnTouch_:
 		end;
 	}
 	'welcome_flag = 1;
-	instance_announce 0, "Welcome to MVP Boss Random Summon Event!", 0, 0x00FFFF, FW_BOLD, 16;
+	instance_announce 0, "Welcome to MVP Boss Random Summon Event!", 0, 0x00FFFF, FW_BOLD, 20;
 end;
 OnInit:
 	disablenpc;
@@ -136,7 +136,7 @@ OnInstanceInit:
 		1251,//	Knight of Windstorm
 		1038,//	Osiris
 //		1658,//	Ygnizem
-		1272,//	Dark Lord
+//		1272,//	Dark Lord
 //		1871,//	Fallen Bishop
 		1039,//	Baphomet
 		1147,//	Maya
@@ -171,7 +171,7 @@ SummonRandomMVP:
 		.@random_mvpid = rand(0, getarraysize(.mvpid)-1);
 	}
 	if(.mvpid[.@random_mvpid] == 0){
-		announce "No More MVP Boss to Summon.", 0, 0x00FFFF, FW_BOLD, 16;
+		announce "No More MVP Boss to Summon.", bc_all, 0x00FFFF, FW_BOLD, 16;
 		end;
 	}
 	monster strnpcinfo(4), 50, 50, "--en--", 
@@ -179,7 +179,7 @@ SummonRandomMVP:
 	removemapflag strnpcinfo(4), mf_pvp;
 	.@mobGID = $@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
-	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 2;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 5;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp;
 	deletearray .mvpid[.@random_mvpid], 1;
@@ -199,10 +199,10 @@ OnMVPQuiled:
 
 	sleep 5000;
 	if(getarraysize(.mvpid) == 0){
-		instance_announce 0, "Can't believe it, but it seems you have finished all the available MVP Bosses.", 0, 0x00FFFF, FW_BOLD, 16;
+		instance_announce 0, "Can't believe it, but it seems you have finished all the available MVP Bosses.", 0, 0x00FFFF, FW_BOLD, 20;
 	}
 	else {
-		instance_announce 0, "The next MVP Boss will be summoned in 5 seconds.", 0, 0x00FFFF, FW_BOLD, 16;
+		instance_announce 0, "The next MVP Boss will be summoned in 5 seconds.", 0, 0x00FFFF, FW_BOLD, 20;
 		sleep 5000;
 		callsub SummonRandomMVP;
 	}

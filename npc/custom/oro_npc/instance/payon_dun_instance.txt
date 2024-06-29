@@ -337,6 +337,10 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "Payon Dun"){
+		disablenpc;
+		end;
+	}
 	monster strnpcinfo(4), 0, 0, "Ninetail Fox", "NINE_TAIL", 20;
 	monster strnpcinfo(4), 0, 0, "Playing Minion", "DOKEBI", 40;
 	monster strnpcinfo(4), 0, 0, "Playing Minion", "HORONG", 20;
@@ -398,6 +402,10 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "Payon Dun"){
+		disablenpc;
+		end;
+	}
 end;
 OnMobKilled:
 end;
@@ -412,6 +420,10 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "Payon Dun"){
+		disablenpc;
+		end;
+	}
 end;
 OnMobKilled:
 end;
@@ -426,6 +438,10 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "Payon Dun"){
+		disablenpc;
+		end;
+	}
 end;
 OnMobKilled:
 end;

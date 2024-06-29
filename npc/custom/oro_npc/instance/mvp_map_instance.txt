@@ -1,6 +1,7 @@
 //======= MVP Map Instance ===================================
 //============================================================
-new_3-1,180,86,3	script	MVP Map Instance	4_M_JOB_KNIGHT1,{
+//new_3-1,180,86,3
+-	script	MVP Map Instance	4_M_JOB_KNIGHT1,{
 	.@npcName$ = "[ MVP Map Instance ]";
 
 	mes .@npcName$;
@@ -13,7 +14,7 @@ new_3-1,180,86,3	script	MVP Map Instance	4_M_JOB_KNIGHT1,{
 	if(.@ins_id == 0){
 		.@ins_id = instance_id(IM_PARTY);
 	}
-	if(.@ins_id > 0 && getd("#InsId" + .@ins_id + "flag") == 0){
+	if(.@ins_id > 0){
 		mes .@npcName$;
 		mes "Your MVP Map instance is now ready.";
 		mes "Do you want to enter the instance now?";
@@ -29,7 +30,7 @@ new_3-1,180,86,3	script	MVP Map Instance	4_M_JOB_KNIGHT1,{
 		mes .@npcName$;
 		mes "You will now be teleported to the instance dungeon.";
 		close2;
-		//setd "#InsId" + .@ins_id + "flag", 1;
+
 		instance_enter(instance_live_info(ILI_NAME, .@ins_id), -1, -1, getcharid(0), .@ins_id);
 		end;
 	}
@@ -233,22 +234,54 @@ new_3-1,180,86,3	script	MVP Map Instance	4_M_JOB_KNIGHT1,{
 }
 
 prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
+	.@npcName$ = "[ MVP Scholar ]";
+	
+	.@ins_id = instance_id(IM_CHAR);
+	if(.@ins_id == 0){
+		.@ins_id = instance_id(IM_PARTY);
+	}
+	if(.@ins_id > 0){
+		if(getd(setchar(instance_live_info(ILI_NAME, .@ins_id), "_", 3) + "_CD") == .day_id){
+			mes .@npcName$;
+			mes "You already completed this Instance MVP Map today.";
+			mes "Wait until tomorrow to try again.";
+			close;
+		}
+		mes .@npcName$;
+		mes "Your MVP Map instance is now ready.";
+		mes "Do you want to enter the instance now?";
+		next;
 
-	mes "[ MVP Scholar ]";
+		select("Yes, I want to enter the instance now:Not yet, let me check my inventory again");
+		if(@menu == 2){
+			mes .@npcName$;
+			mes "Talk to me again when you are ready.";
+			close;
+		}
+		
+		mes .@npcName$;
+		mes "You will now be teleported to the instance dungeon.";
+		close2;
+
+		instance_enter(instance_live_info(ILI_NAME, .@ins_id), -1, -1, getcharid(0), .@ins_id);
+		end;
+	}
+
+	mes .@npcName$;
 	mes "Hello adventurer";
 	mes "I'm studying the behavior of MVP monsters...";
 	mes "So don't disturb me so I can concentrate in my studies...";
 	next;
-	
+
 	select("I'm looking for some MVP monster maybe you know where it is:Sorry for taking your time... ");
 	if(@menu == 2){
-		mes "[ MVP Scholar]";
+		mes .@npcName$;
 		mes "There still a lot of mysteries about MVP monsters";
 		mes "If only I can put them in a pokeball...";
 		close;
 	}
 	
-	mes "[ MVP Scholar ]";
+	mes .@npcName$;
 	mes "You have some sharp eyes, adventurer...";
 	mes "You got the right person to ask for";
 	mes "If you want to fight MVP monster then";
@@ -257,9 +290,58 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 	
 	select("I'll gladly help:Maybe next time");
 	if(@menu == 2){
+		mes .@npcName$;
+		mes "Well, next time...sure.";
 		close;
 	}
-	close2;
+
+	mes .@npcName$;
+	mes "I can send you to an intance mvp map";
+	mes "of our current location where you can";
+	mes "fight the MVP alone or with your party.";
+	next;
+
+	mes .@npcName$;
+	mes "It's just, to create this instance mvp map";
+	mes "I need you to provide " + mesitemlink(7199) + " 5 pcs. ea";
+	mes "or ^0000FF100,000 Zeny^000000 to fund my research.";
+	next;
+
+	mes .@npcName$;
+	mes "Don't look at me like I'm scamming you or something.";
+	mes "This amount is already a bargain.";
+	mes "So, what do you say?";
+	next;
+
+	select("Alright, I'll believe you this time:Let me think about it");
+	if(@menu == 2){
+		mes .@npcName$;
+		mes "Oh, well...be sure to come back if you change your mind.";
+		close;
+	}
+
+	.@ins_mode = IM_PARTY;
+	if(getcharid(1) == 0){
+		mes .@npcName$;
+		mes "It seems that you are not in a party,";
+		mes "do you want to proceed in a Solo Instance?";
+		next;
+
+		select("Continue as Solo:No, let me call my party");
+		if(@menu == 2){
+			mes .@npcName$;
+			mes "Talk to me again when your party is ready.";
+			close;
+		}
+		.@ins_mode = IM_CHAR;
+	}
+	else if(is_party_leader() == false){
+		mes .@npcName$;
+		mes "It seems that you are not the leader of your party,";
+		mes "please ask your party leader to talk to me to proceed.";
+		close;
+	}
+
 	setarray .@mvp_id[1],
 		1086,//	Golden Thief Bug
 		1115,//	Eddga
@@ -307,25 +389,142 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 		"in_sphinx5",
 		"tur_dun04";
 	
-	.@ins_mode = IM_PARTY;
 	.npc_mapname$ = strnpcinfo(4);
 	for(.@i = 1; .@i <= getarraysize(.@mvp_mapname$); .@i++){
 		if(.@mvp_mapname$[.@i] == .npc_mapname$){
-			.@ret = instance_create("MVP " + .@mvp_id[.@i], .@ins_mode);
+			.@sel_mvp_id = .@mvp_id[.@i];
+			//.@ret = instance_create("MVP " + .@mvp_id[.@i], .@ins_mode);
 			break;
 		}
 	}
-	instance_enter("MVP " + .@mvp_id[.@i], -1, -1, getcharid(0), .@ret);
+	mes .@npcName$;
+	mes "Great! Let's see...";
+	mes "The MVP Boss monster of our current location is";
+	if(.@sel_mvp_id == 0){
+		mes "Huh? It seems that our current map has no MVP monster.";
+		mes "Weird...that means that I should not be staying here.";
+		close;
+	}
+	if(getd("MVP_" + .@sel_mvp_id + "_CD") == .day_id){
+		mes "Oh! You ^FF0000already completed^000000 this Instance MVP Map today.";
+		mes "Wait until tomorrow to try again.";
+		close;
+	}
+	mes "the MVP " + strmobinfo(1, .@sel_mvp_id) + ". By the way";
+	mes "how do you want to provide funds for my research?";
+	next;
+	
+	select("5 Hourly Coins:100,000 Zeny");
+	if(@menu == 1){
+		if(countitem(7199) < 5){
+			mes .@npcName$;
+			mes "It seems that you don't have enough " + mesitemlink(7199);
+			close;
+		}
 
+		mes .@npcName$;
+		mes "You selected to provide " + mesitemlink(7199) + " 5 pcs.";
+		mes "Do you want to proceed and confirm your selection?";
+		next;
+
+		select("Yes, proceed and confirm:No, I change my mind");
+		if(@menu == 2){
+			mes .@npcName$;
+			mes "Okay, see you around.";
+			close;
+		}
+		.@ret = instance_create("MVP " + .@sel_mvp_id, .@ins_mode);
+		if(.@ret > 0){
+			delitem 7199, 5;
+		}
+		else {
+			mes .@npcName$;
+			switch(.@ret){
+				case -1: mes "Invalid intance type";
+					break;
+				case -2: mes "Character/Party/Guild/Clan not found";
+					break;
+				case -3: mes "Instance already exists";
+					break;
+				case -4: mes "No free instances (MAX_INSTANCE exceeded)";
+					break;
+				default: mes "Returned Instance Id is " + .@ret;
+					break;
+			}
+			close;
+		}
+	}
+	else {
+		if(Zeny < 100000){
+			mes .@npcName$;
+			mes "It seems that you don't have enough zeny.";
+			mes "You can talk to me again when you have enough zeny or " + mesitemlink(7199);
+			close;
+		}
+
+		mes .@npcName$;
+		mes "You selected to provide 100,000 Zeny.";
+		mes "Do you want to proceed and confirm your selection?";
+		next;
+
+		select("Yes, proceed and confirm:No, I change my mind");
+		if(@menu == 2){
+			mes .@npcName$;
+			mes "Okay, see you around.";
+			close;
+		}
+
+		.@ret = instance_create("MVP " + .@sel_mvp_id, .@ins_mode);
+		if(.@ret > 0){
+			Zeny -= 100000;
+		}
+		else {
+			mes .@npcName$;
+			switch(.@ret){
+				case -1: mes "Invalid intance type";
+					break;
+				case -2: mes "Character/Party/Guild/Clan not found";
+					break;
+				case -3: mes "Instance already exists";
+					break;
+				case -4: mes "No free instances (MAX_INSTANCE exceeded)";
+					break;
+				default: mes "Returned Instance Id is " + .@ret;
+					break;
+			}
+			close;
+		}
+	}
+
+	mes .@npcName$;
+	mes "Your instance is now ready";
+	mes "Do you to enter the instance now?";
+	next;
+
+	select("Yes, I want to enter instance now:No, let me prepare my party first");
+	if(@menu == 2){
+		mes .@npcName$;
+		mes "^FF0000Please take note the the instance will be destroyed if there are no players inside for 5 minutes.^000000";
+		close;
+	}
+	mes .@npcName$;
+	mes "You will now be teleported to the instance dungeon.";
+	close2;
+	//setd "#MVP_" + .@sel_mvp_id + "_cd", .day_id;
+	instance_enter("MVP " + .@sel_mvp_id, -1, -1, getcharid(0), .@ret);
+end;
 OnInit:
 	enablenpc;
+// slide down
+OnHour16:
+	.day_id = gettime(DT_DAYOFMONTH);
 end;
 OnInstanceInit:
 	disablenpc;
 end;
 }
 
-pay_fild11,285,141,4	duplicate(MVPS)	MVP Scholar#2	4_M_ZONDAOYAJI	
+pay_fild11,285,141,4	duplicate(MVPS)	MVP Scholar#2	4_M_ZONDAOYAJI
 pay_dun04,36,207,5	duplicate(MVPS)	MVP Scholar#3	4_M_ZONDAOYAJI
 moc_fild17,215,360,6	duplicate(MVPS)	MVP Scholar#4	4_M_ZONDAOYAJI
 treasure02,94,33,5	duplicate(MVPS)	MVP Scholar#5	4_M_ZONDAOYAJI
@@ -334,7 +533,7 @@ ama_dun03,123,16,3	duplicate(MVPS)	MVP Scholar#7	4_M_ZONDAOYAJI
 gef_dun02,111,135,5	duplicate(MVPS)	MVP Scholar#8	4_M_ZONDAOYAJI
 xmas_fild01,93,244,3	duplicate(MVPS)	MVP Scholar#9	4_M_ZONDAOYAJI
 gon_dun03,62,17,6	duplicate(MVPS)	MVP Scholar#10	4_M_ZONDAOYAJI
-mjolnir_04,139,205,3	duplicate(MVPS)	MVP Scholar#11	4_M_ZONDAOYAJI
+mjolnir_04,146,210,3	duplicate(MVPS)	MVP Scholar#11	4_M_ZONDAOYAJI
 gef_fild10,60,332,5	duplicate(MVPS)	MVP Scholar#12	4_M_ZONDAOYAJI
 gef_fild14,362,225,4	duplicate(MVPS)	MVP Scholar#13	4_M_ZONDAOYAJI
 xmas_dun02,135,134,3	duplicate(MVPS)	MVP Scholar#14	4_M_ZONDAOYAJI
@@ -352,6 +551,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1086"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -393,12 +597,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -424,6 +657,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2; // changed to fix the MVP HP to x2 only
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -431,16 +665,21 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
-//	-Eddga 
+//	Eddga 
 pay_fild11,295,135,0	script	mvp eddga spawner1	-1,2,2,{
 OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1115"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -460,12 +699,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -491,6 +759,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -498,16 +767,21 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
-//	-Moonlight Flower
+//	Moonlight Flower
 pay_dun04,33,203,0	script	mvp moonlight spawner1	-1,2,2,{
 OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1150"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -534,12 +808,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -565,6 +868,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -572,7 +876,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -582,6 +886,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1159"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -605,12 +914,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -636,6 +974,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -643,7 +982,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -653,6 +992,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1112"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -717,12 +1061,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -748,6 +1121,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -755,7 +1129,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -765,6 +1139,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1583"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -784,12 +1163,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -815,6 +1223,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -822,7 +1231,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -832,6 +1241,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1492"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -853,12 +1267,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -884,6 +1327,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -891,7 +1335,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -901,6 +1345,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1046"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -922,12 +1371,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -953,6 +1431,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -960,7 +1439,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -970,6 +1449,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1252"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -990,12 +1474,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1021,6 +1534,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1028,7 +1542,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1038,6 +1552,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1418"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1057,12 +1576,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1088,6 +1636,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1095,7 +1644,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1105,10 +1654,15 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1059"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
-	disablenpc instance_npcname("mjol05");
+	disablenpc instance_npcname("mjol07");
 	disablenpc instance_npcname("mjol05-1");
 	disablenpc instance_npcname("mjol06");
 	
@@ -1127,12 +1681,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1158,6 +1741,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1165,7 +1749,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1175,6 +1759,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1190"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1202,12 +1791,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1233,6 +1851,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1240,7 +1859,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1250,6 +1869,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1087"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1270,12 +1894,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1301,6 +1954,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1308,7 +1962,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1318,6 +1972,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1251"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1338,12 +1997,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1369,6 +2057,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1376,7 +2065,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1386,6 +2075,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1038"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1409,12 +2103,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1440,6 +2163,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1447,7 +2171,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1457,6 +2181,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1272"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1480,12 +2209,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1511,6 +2269,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1518,7 +2277,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1528,6 +2287,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1039"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1560,12 +2324,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1591,6 +2384,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1598,7 +2392,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1679,6 +2473,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1147"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1702,12 +2501,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1733,6 +2561,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1740,7 +2569,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1750,6 +2579,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1389"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1772,12 +2606,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1803,6 +2666,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1810,7 +2674,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1820,6 +2684,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1511"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1839,12 +2708,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1870,6 +2768,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1877,7 +2776,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1887,6 +2786,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1157"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1907,12 +2811,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -1938,6 +2871,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -1945,7 +2879,7 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
 
@@ -1955,6 +2889,11 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1312"){
+		disablenpc;
+		end;
+	}
+	.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1987,12 +2926,41 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		getitem 14003, 5; // temporary item reward, will changed to reward box later
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
 	}
 	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
-			getitem 14003, 5, .@party_mem_acc_id[.@i]; // temporary item reward, will changed to reward box later
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
 		}
 	}
 
@@ -2018,6 +2986,7 @@ OnTouch_:
 	else { //normally code doesn't reach here
 		.@party_count = 10;
 	}
+	.@party_count = 2;
 
 	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
@@ -2025,6 +2994,6 @@ OnTouch_:
 	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
 	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
 	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
-	viewpointmap strnpcinfo(4), 0, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }

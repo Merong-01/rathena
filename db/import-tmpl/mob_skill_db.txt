@@ -138,3 +138,8 @@
 //3014,Halloween Whisper@NPC_EMOTION,chase,197,1,200,0,5000,yes,self,always,0,19,0x81,,,,,
 
 // Here you can place your custom mob skills
+1046,Doppelganger@AL_HEAL,idle,28,11,10000,0,5000,yes,self,myhpltmaxrate,50,,,,,,,
+1059,Mistress@AL_HEAL,idle,28,11,10000,0,5000,yes,self,myhpltmaxrate,50,,,,,,,
+1086,GoldenBug@AL_HEAL,idle,28,11,10000,0,5000,yes,self,myhpltmaxrate,50,,,,,,,
+1147,Maya@AL_HEAL,idle,28,11,10000,0,5000,yes,self,myhpltmaxrate,50,,,,,,,
+1150,Moonlight@AL_HEAL,idle,28,11,10000,0,5000,yes,self,myhpltmaxrate,50,,,,,,,

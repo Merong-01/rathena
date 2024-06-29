@@ -7788,8 +7788,16 @@
 	export_constant(IG_P_BOOSTER_CALL_PACKAGE);
 	export_constant(IG_P_COMPENSATION_BOX);
 	export_constant(IG_CASH_EGG_SCROLL);
+	export_constant(IG_CASH_EGG_SCROLL2);
 	export_constant(IG_STREAMER_GIFT_BOX);
 	export_constant(IG_GUILD_PACKAGE_P);
+	export_constant(IG_MVP_REWARD_BOX_BRONZE);
+	export_constant(IG_MVP_REWARD_BOX_SILVER);
+	export_constant(IG_MVP_REWARD_BOX_GOLD);
+	export_constant(IG_MVP_REWARD_BOX_COMMON);
+	export_constant(IG_MVP_REWARD_BOX_UNCOMMON);
+	export_constant(IG_MVP_REWARD_BOX_RARE);
+	export_constant(IG_MVP_REWARD_BOX_EPIC);
 
 	/* unit stop walking */
 	export_constant(USW_NONE);

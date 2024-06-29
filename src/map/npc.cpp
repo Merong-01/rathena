@@ -4663,6 +4663,9 @@ int npc_duplicate4instance(struct npc_data *snd, int16 m) {
 		ShowError("npc_duplicate4instance: the npcname (%s) is already in use while trying to duplicate npc %s in instance %d.\n", newname, snd->exname, mapdata->instance_id);
 		return 1;
 	}
+	if (snd->subtype == NPCTYPE_TOMB) {
+		return 0; // do not duplicate MVP Tomb
+	}
 
 	if( snd->subtype == NPCTYPE_WARP ) { // Adjust destination, if instanced
 		struct npc_data *wnd = nullptr; // New NPC

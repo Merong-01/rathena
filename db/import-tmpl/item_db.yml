@@ -276,6 +276,39 @@ Body:
       NoGuildStorage: true
       NoMail: true
       NoAuction: true
+  - Id: 5208
+    AegisName: Rideword_Hat
+    Name: Rideword Hat
+    Type: Armor
+    Buy: 20
+    Weight: 300
+    Defense: 2
+    Slots: 1
+    Jobs:
+      All: true
+      Novice: false
+      SuperNovice: false
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 40
+    Refineable: true
+    View: 262
+    Script: |
+      .@r = getrefine();
+      if (.@r >= 9) {
+         bonus2 bHPDrainRate,100,16;
+         bonus2 bSPDrainRate,20,8;
+      }
+      else if (.@r >= 7) {
+         bonus2 bHPDrainRate,100,8;
+         bonus2 bSPDrainRate,20,4;
+      }
+      else {
+         bonus2 bHPDrainRate,50,8;
+         bonus2 bSPDrainRate,10,4;
+      }
+      bonus2 bHPLossRate,10,5000;
   - Id: 5286
     AegisName: Pecopeco_Hairband
     Name: Pecopeco Hairband
@@ -868,6 +901,20 @@ Body:
     Script: |
       input @megaphone$;
       announce strcharinfo(0) + ": " + @megaphone$, bc_all, 0x00FF99, FW_BOLD, 14;
+  - Id: 12354
+    AegisName: Buche_De_Noel
+    Name: Buche De Noel
+    Type: Usable
+    Buy: 2
+    Weight: 50
+    Flags:
+      BuyingStore: true
+    Script: |
+      specialeffect2 EF_ANGELUS;
+      sc_start SC_INCMHPRATE,1800000,3;
+      sc_start SC_INCMSPRATE,1800000,3;
+      sc_start SC_INCHITRATE,1800000,3;
+      sc_start SC_INCCRI,1800000,7;
   - Id: 12790
     AegisName: Change_Name_Card
     Name: Character Name Change Coupon
@@ -1493,11 +1540,18 @@ Body:
     AegisName: C_Subject_Aura_V
     Name: C Vicious Mind Aura Mid
     Type: Armor
+    Weight: 10
     Locations:
       Costume_Head_Mid: true
     ArmorLevel: 1
     EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
     View: 1267
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
   - Id: 31299
     AegisName: C_White_Rabbit
     Name: C White Rabbit
@@ -1802,7 +1856,7 @@ Body:
     AegisName: Egg_Scroll_C
     Name: Costume Egg Scroll
     Type: Usable
-    Weight: 1
+    Weight: 10
     Flags:
       Container: true
     Trade:
@@ -1995,6 +2049,7 @@ Body:
     weight: 10
     Flags:
       Container: true
+      Delay_Consume: true
     Trade:
       NoDrop: true
       NoSell: true
@@ -2025,6 +2080,110 @@ Body:
     Type: DelayConsume
     Flags:
       BuyingStore: true
+  - Id: 30022
+    AegisName: MVP_Reward_Box_Bronze
+    Name: MVP Reward Box (Bronze)
+    Type: Usable
+    Weight: 0
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      .@num = rand(1,100);
+      if(.@num <= 60){ // 60% chance
+        getgroupitem IG_MVP_REWARD_BOX_COMMON,1;
+      }
+      else if(.@num > 60 && .@num <= 85){ // 25% chance
+        getgroupitem IG_MVP_REWARD_BOX_UNCOMMON,1;
+      }
+      else if(.@num > 85 && .@num <= 97){ // 12% chance
+        getgroupitem IG_MVP_REWARD_BOX_RARE,1;
+      }
+      else { //.@num > 97 && .@num <= 100 , 3% chance
+        getgroupitem IG_MVP_REWARD_BOX_EPIC,1;
+      }
+  - Id: 30023
+    AegisName: MVP_Reward_Box_Silver
+    Name: MVP Reward Box (Silver)
+    Type: Usable
+    Weight: 0
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      .@num = rand(1,100);
+      if(.@num <= 50){ // 50% chance
+        getgroupitem IG_MVP_REWARD_BOX_COMMON,1;
+      }
+      else if(.@num > 50 && .@num <= 80){ // 30% chance
+        getgroupitem IG_MVP_REWARD_BOX_UNCOMMON,1;
+      }
+      else if(.@num > 80 && .@num <= 95){ // 15% chance
+        getgroupitem IG_MVP_REWARD_BOX_RARE,1;
+      }
+      else { //.@num > 95 && .@num <= 100 , 5% chance
+        getgroupitem IG_MVP_REWARD_BOX_EPIC,1;
+      }
+  - Id: 30024
+    AegisName: MVP_Reward_Box_Gold
+    Name: MVP Reward Box (Gold)
+    Type: Usable
+    Weight: 0
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      .@num = rand(1,100);
+      if(.@num <= 40){ // 40% chance
+        getgroupitem IG_MVP_REWARD_BOX_COMMON,1;
+      }
+      else if(.@num > 40 && .@num <= 75){ // 35% chance
+        getgroupitem IG_MVP_REWARD_BOX_UNCOMMON,1;
+      }
+      else if(.@num > 75 && .@num <= 93){ // 18% chance
+        getgroupitem IG_MVP_REWARD_BOX_RARE,1;
+      }
+      else { //.@num > 93 && .@num <= 100 , 7% chance
+        getgroupitem IG_MVP_REWARD_BOX_EPIC,1;
+      }
+  - Id: 30025
+    AegisName: Egg_Scroll_C_Mid
+    Name: Costume Mid Egg Scroll
+    Type: Usable
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
+    Script: |
+      getgroupitem IG_CASH_EGG_SCROLL2,1;
   - Id: 30100
     AegisName: C_Analyze_Eye_S
     Name: Costume Analyze Eye

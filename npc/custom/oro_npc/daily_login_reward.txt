@@ -7,7 +7,7 @@ prontera,147,169,5	script	Daily Reward	833,{
 	
 	//if(#daily_login_cd > .@curr_tick){
 	if(#daily_login_cd == .day_id){
-		.@timeInStr$ = F_gettimestr(#daily_login_cd - .@curr_tick);
+		//.@timeInStr$ = F_gettimestr(#daily_login_cd - .@curr_tick);
 		mes .@npcName$;
 		mes "I am sorry, but you already claimed you daily reward today.";
 		//mes "You can receive another reward in " + .@timeInStr$;
