@@ -930,7 +930,7 @@ void mmo_send_global_accreg(AccountDB* self, int fd, uint32 account_id, uint32 c
 	Sql* sql_handle = ((AccountDB_SQL*)self)->accounts;
 	AccountDB_SQL* db = (AccountDB_SQL*)self;
 	char* data;
-	int plen = 0;
+	int16 plen = 0;
 	size_t len;
 
 	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT `key`, `index`, `value` FROM `%s` WHERE `account_id`='%" PRIu32 "'", db->global_acc_reg_str_table, account_id) )
@@ -960,7 +960,7 @@ void mmo_send_global_accreg(AccountDB* self, int fd, uint32 account_id, uint32 c
 		plen += 1;
 
 		safestrncpy(WFIFOCP(fd,plen), data, len);
-		plen += len;
+		plen += static_cast<decltype(plen)>( len );
 
 		Sql_GetData(sql_handle, 1, &data, nullptr);
 
@@ -974,7 +974,7 @@ void mmo_send_global_accreg(AccountDB* self, int fd, uint32 account_id, uint32 c
 		plen += 1;
 
 		safestrncpy(WFIFOCP(fd,plen), data, len);
-		plen += len;
+		plen += static_cast<decltype(plen)>( len );
 
 		WFIFOW(fd, 14) += 1;
 
@@ -1027,7 +1027,7 @@ void mmo_send_global_accreg(AccountDB* self, int fd, uint32 account_id, uint32 c
 		plen += 1;
 
 		safestrncpy(WFIFOCP(fd,plen), data, len);
-		plen += len;
+		plen += static_cast<decltype(plen)>( len );
 
 		Sql_GetData(sql_handle, 1, &data, nullptr);
 
