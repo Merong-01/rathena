@@ -1,93 +1,236 @@
 //======= MVP Map Instance ===================================
 //============================================================
-new_3-1,180,86,3	script	MVP Map Instance	4_M_JOB_KNIGHT1,{
+//new_3-1,180,86,3
+-	script	MVP Map Instance	4_M_JOB_KNIGHT1,{
 	.@npcName$ = "[ MVP Map Instance ]";
 
 	mes .@npcName$;
-	mes "Select the MVP Map you want to teleport to:";
+	mes "Hello, adventurer!";
+	mes "If you or your party are ready and is up for some MVP Boss hunting,";
+	mes "then you are talking to the right guy!";
 	next;
 
-	setarray .@mvp_mapname$[1],
-		"prt_sewb4",
-		"pay_fild11",
-		"pay_dun04",
-		"moc_fild17",
-		"treasure02",
-		"beach_dun",
-		"ama_dun03",
-		"gef_dun02",
-		"xmas_fild01",
-		//"gon_dun03",
-		"mjolnir_04",
-		"gef_fild10",
-		"gef_fild14",
-		"xmas_dun02",
-		"moc_pryd04",
-		"gl_chyard",
-		"prt_maze03",
-		"anthell02",
-		"gef_dun01",
-		"moc_pryd06",
-		"in_sphinx5",
-		"tur_dun04",
-		"Cancel";
-	setarray .@mvp_map_x[1],
-		95,
-		285,
-		36,
-		215,
-		94,
-		268,
-		123,
-		111,
-		93,
-		//62,
-		146,
-		60,
-		362,
-		135,
-		16,
-		154,
-		187,
-		28,
-		125,
-		192,
-		103,
-		109;
-	setarray .@mvp_map_y[1],
-		94,
-		141,
-		207,
-		360,
-		33,
-		72,
-		16,
-		135,
-		244,
-		//17,
-		210,
-		332,
-		225,
-		134,
-		192,
-		25,
-		98,
-		263,
-		244,
-		15,
-		105,
-		189;
-	select(implode(.@mvp_mapname$, ":"));
-	if(@menu >= getarraysize(.@mvp_mapname$)){
+	.@ins_id = instance_id(IM_CHAR);
+	if(.@ins_id == 0){
+		.@ins_id = instance_id(IM_PARTY);
+	}
+	if(.@ins_id > 0){
 		mes .@npcName$;
-		mes "Goodbye...";
+		mes "Your MVP Map instance is now ready.";
+		mes "Do you want to enter the instance now?";
+		next;
+
+		select("Yes, I want to enter the instance now:Not yet, let me check my inventory again");
+		if(@menu == 2){
+			mes .@npcName$;
+			mes "Talk to me again when you are ready.";
+			close;
+		}
+		
+		mes .@npcName$;
+		mes "You will now be teleported to the instance dungeon.";
+		close2;
+
+		instance_enter(instance_live_info(ILI_NAME, .@ins_id), -1, -1, getcharid(0), .@ins_id);
+		end;
+	}
+
+	mes .@npcName$;
+	mes "I can create an intance of the map of the MVP Boss of your choice.";
+	mes "I only ask for you to pay me " + mesitemlink(7199) + " 5 pcs. ea or 100,000 Zeny.";
+	next;
+
+	mes .@npcName$;
+	mes "What you say?";
+	mes "This is already a bargain price.";
+	next;
+
+	select("Proceed...:Cancel");
+	if(@menu == 2){
+		mes .@npcName$;
+		mes "Oh, well...you can always comeback if you change your mind.";
+		close;
+	}
+
+	mes .@npcName$;
+	mes "Good!";
+	mes "Now, select which MVP Boss you want to hunt?";
+	next;
+
+	setarray .@mvp_id[1],
+		1086,//	Golden Thief Bug
+		1115,//	Eddga
+		1150,//	Moonlight Flower
+		1159,//	Phreeoni
+		1112,//	Drake
+		1583,//	Tao Gunka
+		1492,//	Incantation Samurai
+		1046,//	Doppelganger
+		1252,//	Garm
+		1418,//	Evil Snake Lord
+		1059,//	Mistress
+		1190,//	Orc Lord
+		1087,//	Orc Hero
+		1251,//	Knight of Windstorm
+		1038,//	Osiris
+		1272,//	Dark Lord
+		1039,//	Baphomet
+		1147,//	Maya
+		1389,//	Dracula
+		1511,//	Amon Ra
+		1157,//	Pharaoh
+		1312;//	Turtle General
+	
+	.@mvp_sel_str$ = "";
+	for(.@i = 1; .@i < getarraysize(.@mvp_id); .@i++){
+		.@mvp_sel_str$ += strmobinfo(1, .@mvp_id[.@i]) + ":";
+	}
+	.@mvp_sel_str$ += "Cancel";
+
+	.@sel = select(.@mvp_sel_str$);
+	if(.@sel >= getarraysize(.@mvp_id)){
+		mes .@npcName$;
+		mes "Talk to me again if you have an MVP Boss you want to hunt.";
+		close;
+	}
+
+	.@ins_mode = IM_PARTY;
+	if(getcharid(1) == 0){
+		mes .@npcName$;
+		mes "It seems that you are not in a party,";
+		mes "do you want to proceed in a Solo Instance?";
+		next;
+
+		select("Continue as Solo:No, let me call my party");
+		if(@menu == 2){
+			mes .@npcName$;
+			mes "Talk to me again when your party is ready.";
+			close;
+		}
+		.@ins_mode = IM_CHAR;
+	}
+	else if(is_party_leader() == false){
+		mes .@npcName$;
+		mes "It seems that you are not the leader of your party,";
+		mes "please ask your party leader to talk to me to proceed.";
 		close;
 	}
 	mes .@npcName$;
-	mes "You will now be teleported...";
-	close2;
-	warp .@mvp_mapname$[@menu-1], .@mvp_map_x[@menu-1], .@mvp_map_y[@menu-1];
-end;
+	mes "You selected the MVP " + strmobinfo(1, .@mvp_id[.@sel]);
+	mes "Please select the mode of payment you want to create the instance.";
+	next;
+
+	select("5 Hourly Coins:100,000 Zeny");
+	if(@menu == 1){
+		if(countitem(7199) >= 5){
+			mes .@npcName$;
+			mes "You selected to pay with " + mesitemlink(7199) + " 5 pcs.";
+			mes "Do you want to proceed and confirm your payment?";
+			next;
+
+			select("Proceed and confirm:Let me think about it again");
+			if(@menu == 2){
+				mes .@npcName$;
+				mes "Oh, well...you can always comeback if you change your mind.";
+				close;
+			}
+			.@ret = instance_create("MVP " + .@mvp_id[.@sel], .@ins_mode);
+			if(.@ret > 0){
+				delitem 7199, 5;
+				mes .@npcName$;
+				mes "Your instance is now ready";
+				mes "Do you to enter the instance now?";
+				next;
+
+				select("Yes, I want to enter instance now:No, let me prepare my party first");
+				if(@menu == 2){
+					mes .@npcName$;
+					mes "^FF0000Please take note the the instance will be destroyed if there are no players inside for 5 minutes.^000000";
+					close;
+				}
+				mes .@npcName$;
+				mes "You will now be teleported to the instance dungeon.";
+				close2;
+				instance_enter("MVP " + .@mvp_id[.@sel], -1, -1, getcharid(0), .@ret);
+				end;
+			}
+			mes .@npcName$;
+			switch(.@ret){
+				case -1: mes "Invalid intance type";
+					break;
+				case -2: mes "Character/Party/Guild/Clan not found";
+					break;
+				case -3: mes "Instance already exists";
+					break;
+				case -4: mes "No free instances (MAX_INSTANCE exceeded)";
+					break;
+			}
+			close;
+		}
+		mes .@npcName$;
+		mes "It seems that you don't have enough " + mesitemlink(7199);
+		mes "Do you want to proceed and pay zeny instead?";
+		next;
+
+		select("No, let me check my storage first:Yes, let me pay with zeny");
+		if(@menu == 1){
+			mes .@npcName$;
+			mes "Talk to me again when you are ready.";
+			close;
+		}
+	}
+	if(@menu == 2){
+		if(Zeny < 100000){
+			mes .@npcName$;
+			mes "It seems that you don't have enough zeny.";
+			mes "You can talk to me again when you have enough zeny or " + mesitemlink(7199);
+			close;
+		}
+		mes .@npcName$;
+		mes "You selected to pay with 100,000 Zeny.";
+		mes "Do you want to proceed and confirm your payment?";
+		next;
+
+		select("Proceed and confirm:Let me think about it again");
+		if(@menu == 2){
+			mes .@npcName$;
+			mes "Oh, well...you can always comeback if you change your mind.";
+			close;
+		}
+		.@ret = instance_create("MVP " + .@mvp_id[.@sel], .@ins_mode);
+		if(.@ret > 0){
+			Zeny -= 100000;
+			mes .@npcName$;
+			mes "Your instance is now ready";
+			mes "Do you to enter the instance now?";
+			next;
+
+			select("Yes, I want to enter instance now:No, let me prepare my party first");
+			if(@menu == 2){
+				mes .@npcName$;
+				mes "^FF0000Please take note the the instance will be destroyed if there are no players inside for 5 minutes.^000000";
+				close;
+			}
+			mes .@npcName$;
+			mes "You will now be teleported to the instance dungeon.";
+			close2;
+			instance_enter("MVP " + .@mvp_id[.@sel], -1, -1, getcharid(0), .@ret);
+			end;
+		}
+		mes .@npcName$;
+		switch(.@ret){
+			case -1: mes "Invalid intance type";
+				break;
+			case -2: mes "Character/Party/Guild/Clan not found";
+				break;
+			case -3: mes "Instance already exists";
+				break;
+			case -4: mes "No free instances (MAX_INSTANCE exceeded)";
+				break;
+		}
+		close;
+	}
+	end;
 }
 
 prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
@@ -418,11 +561,32 @@ OnInstanceInit:
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("prts05-1");
 
+//	.@owner_id = instance_live_info(ILI_OWNER);
+//	.@ins_mode = instance_live_info(ILI_MODE);
+
+//	if(.@ins_mode == IM_CHAR){
+//		.@party_count = 1;
+//	}
+//	else if(.@ins_mode == IM_PARTY){
+//		getpartymember .@owner_id;
+//		.@party_count = cap_value($@partymembercount, 1, 10);
+//	}
+//	else { //normally code doesn't reach here
+//		.@party_count = 10;
+//	}
+
 	monster strnpcinfo(4), 0, 0, "Instance Golden Bug", 
 		"GOLDEN_BUG", 1, instance_npcname("mvp gtb spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
 
 	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
+//	.@mobGID = $@mobid[0];
+//	getunitdata .@mobGID, .@dun_boss_data;
+//	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+//	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+//	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
+//	'mvp_mob_x = .@dun_boss_data[UMOB_X];
+//	'mvp_mob_y = .@dun_boss_data[UMOB_Y];
 
 	monster strnpcinfo(4), 0, 0, "--en--", "THIEF_BUG_EGG", 10;
 	monster strnpcinfo(4), 0, 0, "--en--", "THIEF_BUG", 20;
@@ -477,8 +641,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2; // changed to fix the MVP HP to x2 only
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -509,6 +695,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "GREATEST_GENERAL", 30;
 	monster strnpcinfo(4), 0, 0, "--en--", "NINE_TAIL", 60;
 	monster strnpcinfo(4), 0, 0, "--en--", "DRAGON_TAIL", 50;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -556,8 +743,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -595,6 +804,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "SKELETON_GENERAL", 1;
 	monster strnpcinfo(4), 0, 0, "--en--", "AM_MUT", 1;
 	monster strnpcinfo(4), 0, 0, "--en--", "CAT_O_NINE_TAIL", 1;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -642,8 +852,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -678,6 +910,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "FRILLDORA", 25;
 	monster strnpcinfo(4), 0, 0, "--en--", "ANT_EGG", 10;
 	monster strnpcinfo(4), 0, 0, "--en--", "SCORPION", 5;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -725,8 +958,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -801,6 +1056,8 @@ OnInstanceInit:
 	monster strnpcinfo(4), 45, 144, "--en--", "WHISPER", 1;
 	monster strnpcinfo(4), 52, 139, "--en--", "WHISPER", 1;
 	monster strnpcinfo(4), 23, 142, "--en--", "MARIONETTE", 1;
+	
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -848,8 +1105,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -880,6 +1159,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "MERMAN", 3;
 	monster strnpcinfo(4), 0, 0, "--en--", "NERAID", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "PEST", 20;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -927,8 +1207,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -961,6 +1263,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "TENGU", 55;
 	monster strnpcinfo(4), 0, 0, "--en--", "MIMIC", 5;
 	monster strnpcinfo(4), 0, 0, "--en--", "THE_PAPER", 20;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -1008,8 +1311,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -1042,6 +1367,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "MARIONETTE", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "DEVIRUCHI", 35;
 	monster strnpcinfo(4), 0, 0, "--en--", "NIGHTMARE", 40;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -1089,8 +1415,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -1122,6 +1470,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "MARIN", 35;
 	monster strnpcinfo(4), 0, 0, "--en--", "SASQUATCH", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "GARM_BABY", 1;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -1169,8 +1518,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -1201,6 +1572,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "WILD_GINSENG", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "WICKED_NYMPH", 50;
 	monster strnpcinfo(4), 0, 0, "--en--", "EVIL_CLOUD_HERMIT", 30;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -1248,8 +1620,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -1283,6 +1677,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "POPORING", 10;
 	monster strnpcinfo(4), 0, 0, "--en--", "FLORA", 30;
 	monster strnpcinfo(4), 0, 0, "--en--", "ARGIOPE", 20;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -1330,8 +1725,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -1370,6 +1787,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "ORC_LADY", 70;
 	monster strnpcinfo(4), 0, 0, "--en--", "POPORING", 15;
 	monster strnpcinfo(4), 0, 0, "--en--", "ORC_BABY", 5;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -1417,8 +1835,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -1450,6 +1890,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "ORK_WARRIOR", 10;
 	monster strnpcinfo(4), 0, 0, "--en--", "ORC_ARCHER", 30;
 	monster strnpcinfo(4), 0, 0, "--en--", "HIGH_ORC", 70;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -1497,8 +1938,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -1530,6 +1993,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "CRUISER", 35;
 	monster strnpcinfo(4), 0, 0, "--en--", "MYSTCASE", 50;
 	monster strnpcinfo(4), 0, 0, "--en--", "GARM_BABY", 1;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -1577,8 +2041,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -1613,6 +2099,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "ISIS", 50;
 	monster strnpcinfo(4), 0, 0, "--en--", "MIMIC", 15;
 	monster strnpcinfo(4), 0, 0, "--en--", "MATYR", 20;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -1660,8 +2147,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -1696,6 +2205,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "EVIL_DRUID", 10;
 	monster strnpcinfo(4), 0, 0, "--en--", "HUNTER_FLY", 3;
 	monster strnpcinfo(4), 0, 0, "--en--", "MIMIC", 3;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -1743,8 +2253,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -1788,6 +2320,7 @@ OnInstanceInit:
 	areamonster strnpcinfo(4), 100, 100, 240, 240, "--en--", "ECLIPSE", 1;
 	areamonster strnpcinfo(4), 0, 0, 93, 93, "--en--", "MASTERING", 1;
 	areamonster strnpcinfo(4), 20, 20, 180, 180, "--en--", "BAPHOMET_", 25;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -1835,8 +2368,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -1942,6 +2497,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "DENIRO", 15;
 	monster strnpcinfo(4), 0, 0, "--en--", "VITATA", 30;
 	monster strnpcinfo(4), 0, 0, "--en--", "GIEARTH", 3;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -1989,8 +2545,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -2024,6 +2602,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "ZOMBIE", 25;
 	monster strnpcinfo(4), 0, 0, "--en--", "GHOUL", 40;
 	monster strnpcinfo(4), 0, 0, "--en--", "JAKK", 40;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -2071,8 +2650,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -2103,6 +2704,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "ARCLOUSE", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "ANCIENT_MUMMY", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "MIMIC", 20;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -2150,8 +2752,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -2183,6 +2807,7 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "--en--", "SIDE_WINDER", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "ANUBIS", 10;
 	monster strnpcinfo(4), 0, 0, "--en--", "MIMIC", 7;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -2230,8 +2855,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }
@@ -2275,6 +2922,7 @@ OnInstanceInit:
 	areamonster strnpcinfo(4), 80, 73, 120, 113, "--en--", "ASSULTER", 10;
 	areamonster strnpcinfo(4), 80, 73, 120, 113, "--en--", "HEATER", 3;
 	areamonster strnpcinfo(4), 80, 73, 120, 113, "--en--", "FREEZER", 5;
+
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
@@ -2322,8 +2970,30 @@ OnMVPQuiled:
 	instance_destroy;
 end;
 OnTouch_:
+	if('set_mvp_hp_flag == 1){
+		end;
+	}
+	.@owner_id = instance_live_info(ILI_OWNER);
+	.@ins_mode = instance_live_info(ILI_MODE);
+
+	if(.@ins_mode == IM_CHAR){
+		.@party_count = 1;
+	}
+	else if(.@ins_mode == IM_PARTY){
+		getpartymember .@owner_id;
+		.@party_count = cap_value($@partymembercount, 1, 10);
+	}
+	else { //normally code doesn't reach here
+		.@party_count = 10;
+	}
+	.@party_count = 2;
+
+	'set_mvp_hp_flag = 1;
 	.@mobGID = 'mvp_summon_id; //$@mobid[0];
 	getunitdata .@mobGID, .@dun_boss_data;
+	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 10;
+	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp * .@party_count;
+	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp * .@party_count;
 	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 end;
 }

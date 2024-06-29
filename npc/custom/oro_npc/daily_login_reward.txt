@@ -5,7 +5,7 @@ prontera,147,169,5	script	Daily Reward	833,{
 	.@curr_tick = gettimetick(2);
 	//.@coolDownDelay = (3600 * 20); //20 hours
 	
-	//if(#daily_login_cd > .@curr_tick){
+	//if(#daily_login_cd > .@curr_tick)
 	if(#daily_login_cd == .day_id){
 		//.@timeInStr$ = F_gettimestr(#daily_login_cd - .@curr_tick);
 		mes .@npcName$;

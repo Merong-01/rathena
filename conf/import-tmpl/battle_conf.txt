@@ -133,7 +133,7 @@ feature.barter_extended: off
 feature.mesitemlink: on
 
 //battle/monster.conf
-mvp_hp_rate: 1000
+mvp_hp_rate: 200
 mob_count_rate: 100
 mob_spawn_delay: 100
 plant_spawn_delay: 100

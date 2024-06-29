@@ -373,9 +373,10 @@ OnMobKilled:
 			"MOONLIGHT", 1, instance_npcname("pay dun4 summoner1") + "::OnMVPQuiled";
 		.@mobGID = $@mobid[0];
 		getunitdata .@mobGID, .@dun_boss_data;
-		.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 2;
-		setunitdata .@mobGID, UMOB_HP, .@new_boss_hp;
-		setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp;
+		//.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 2;
+		//setunitdata .@mobGID, UMOB_HP, .@new_boss_hp;
+		//setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp;
+		viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
 		instance_announce 0, "Dungeon Boss(MVP) Appeared!", 0, 0x00FFFF, FW_BOLD, 16;
 	}
 end;

@@ -177,11 +177,11 @@ SummonRandomMVP:
 	monster strnpcinfo(4), 50, 50, "--en--", 
 			.mvpid[.@random_mvpid], 1, instance_npcname("MVPBossRandomiser") + "::OnMVPQuiled";
 	removemapflag strnpcinfo(4), mf_pvp;
-	.@mobGID = $@mobid[0];
-	getunitdata .@mobGID, .@dun_boss_data;
-	.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 5;
-	setunitdata .@mobGID, UMOB_HP, .@new_boss_hp;
-	setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp;
+	//.@mobGID = $@mobid[0];
+	//getunitdata .@mobGID, .@dun_boss_data;
+	//.@new_boss_hp = .@dun_boss_data[UMOB_MAXHP] / 5;
+	//setunitdata .@mobGID, UMOB_HP, .@new_boss_hp;
+	//setunitdata .@mobGID, UMOB_MAXHP, .@new_boss_hp;
 	deletearray .mvpid[.@random_mvpid], 1;
 end;
 OnMVPQuiled:
