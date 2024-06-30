@@ -20,6 +20,7 @@
 // 4096 - restricted in zone 8
 // 8192 - restricted in zone 9
 // 16384 - restricted in zone 10 - overgeared custom zone
+// 32768 - restricted in zone 11 - overgeared custom zone
 //
 // Passing negative value as flag will unset the flag instead.
 //
@@ -37,4 +38,7 @@
 
 //Zone 10
 4105,16384 // Marc Card
+4141,16384 // Evil Druid Card
+
+//Zone 11
 4141,16384 // Evil Druid Card

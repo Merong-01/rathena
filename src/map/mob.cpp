@@ -2911,45 +2911,45 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 		dlist->first_charid = (mvp_sd ? mvp_sd->status.char_id : 0);
 		dlist->second_charid = (second_sd ? second_sd->status.char_id : 0);
 		dlist->third_charid = (third_sd ? third_sd->status.char_id : 0);
-		dlist->item = nullptr;
+		//dlist->item = nullptr;
 
-		for (i = 0; i < MAX_MOB_DROP_TOTAL; i++) {
-			if (md->db->dropitem[i].nameid == 0)
-				continue;
+		//for (i = 0; i < MAX_MOB_DROP_TOTAL; i++) {
+		//	if (md->db->dropitem[i].nameid == 0)
+		//		continue;
 
-			std::shared_ptr<item_data> it = item_db.find(md->db->dropitem[i].nameid);
+		//	std::shared_ptr<item_data> it = item_db.find(md->db->dropitem[i].nameid);
 
-			if ( it == nullptr )
-				continue;
+		//	if ( it == nullptr )
+		//		continue;
 			
-			drop_rate = mob_getdroprate(src, md->db, md->db->dropitem[i].rate, drop_modifier, md);
+		//	drop_rate = mob_getdroprate(src, md->db, md->db->dropitem[i].rate, drop_modifier, md);
 
 			// attempt to drop the item
-			if (rnd() % 10000 >= drop_rate)
-				continue;
+		//	if (rnd() % 10000 >= drop_rate)
+		//		continue;
 
-			if( mvp_sd && it->type == IT_PETEGG ) {
-				pet_create_egg(mvp_sd, md->db->dropitem[i].nameid);
-				continue;
-			}
+		//	if( mvp_sd && it->type == IT_PETEGG ) {
+		//		pet_create_egg(mvp_sd, md->db->dropitem[i].nameid);
+		//		continue;
+		//	}
 
-			if (mvp_sd && it->type == IT_CARD) {
-				pc_setparam(mvp_sd, SP_CARDDROPPED, md->db->dropitem[i].nameid);
-			}
+		//	if (mvp_sd && it->type == IT_CARD) {
+		//		pc_setparam(mvp_sd, SP_CARDDROPPED, md->db->dropitem[i].nameid);
+		//	}
 
-			ditem = mob_setdropitem(&md->db->dropitem[i], 1, md->mob_id);
+		//	ditem = mob_setdropitem(&md->db->dropitem[i], 1, md->mob_id);
 
 			//A Rare Drop Global Announce by Lupus
-			if( mvp_sd && md->db->dropitem[i].rate <= battle_config.rare_drop_announce ) {
-				char message[128];
-				sprintf (message, msg_txt(nullptr,541), mvp_sd->status.name, md->name, it->ename.c_str(), (float)drop_rate/100);
+		//	if( mvp_sd && md->db->dropitem[i].rate <= battle_config.rare_drop_announce ) {
+		//		char message[128];
+		//		sprintf (message, msg_txt(nullptr,541), mvp_sd->status.name, md->name, it->ename.c_str(), (float)drop_rate/100);
 				//MSG: "'%s' won %s's %s (chance: %0.02f%%)"
-				intif_broadcast(message,strlen(message)+1,BC_DEFAULT);
-			}
+		//		intif_broadcast(message,strlen(message)+1,BC_DEFAULT);
+		//	}
 			// Announce first, or else ditem will be freed. [Lance]
 			// By popular demand, use base drop rate for autoloot code. [Skotlex]
-			mob_item_drop(md, dlist, ditem, 0, battle_config.autoloot_adjust ? drop_rate : md->db->dropitem[i].rate, homkillonly || merckillonly);
-		}
+		//	mob_item_drop(md, dlist, ditem, 0, battle_config.autoloot_adjust ? drop_rate : md->db->dropitem[i].rate, homkillonly || merckillonly);
+		//}
 
 		// Ore Discovery [Celest]
 		if (sd == mvp_sd && pc_checkskill(sd,BS_FINDINGORE)>0 && battle_config.finding_ore_rate/10 >= rnd()%10000) {
@@ -3025,6 +3025,10 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 			if (mvp_sd && it->type == IT_PETEGG) {
 				pet_create_egg(mvp_sd, md->db->dropitem[i].nameid);
 				continue;
+			}
+
+			if (mvp_sd && it->type == IT_CARD) {
+				pc_setparam(mvp_sd, SP_CARDDROPPED, md->db->dropitem[i].nameid);
 			}
 
 			std::shared_ptr<s_item_drop> ditem = mob_setdropitem(md->db->dropitem[i], 1, md->mob_id);
@@ -3214,11 +3218,11 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 							continue;
 					}
 
-					struct item item = {};
-					item.nameid = mdrop[i].nameid;
-					item.identify = itemdb_isidentified(item.nameid);
-					clif_mvp_item(tmpsd[j], item.nameid);
-					log_mvp_nameid = item.nameid;
+					struct item item1 = {};
+					item1.nameid = mdrop[i].nameid;
+					item1.identify = itemdb_isidentified(item1.nameid);
+					clif_mvp_item(tmpsd[j], item1.nameid);
+					log_mvp_nameid = item1.nameid;
 
 					//A Rare MVP Drop Global Announce by Lupus
 					if(temp<=battle_config.rare_drop_announce) {
@@ -3228,18 +3232,18 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 						intif_broadcast(message,strlen(message)+1,BC_DEFAULT);
 					}
 
-					mob_setdropitem_option(&item, mdrop[i]);
+					mob_setdropitem_option(item1, mdrop[i]);
 
-					if ((temp = pc_additem(tmpsd[j], &item, 1, LOG_TYPE_PICKDROP_PLAYER)) != 0) {
+					if ((temp = pc_additem(tmpsd[j], &item1, 1, LOG_TYPE_PICKDROP_PLAYER)) != 0) {
 						clif_additem(tmpsd[j], 0, 0, temp);
-						map_addflooritem(&item, 1, tmpsd[j]->bl.m, tmpsd[j]->bl.x, tmpsd[j]->bl.y, tmpsd[j]->status.char_id, (second_sd ? second_sd->status.char_id : 0), (third_sd ? third_sd->status.char_id : 0), 1, 0, true,DIR_CENTER);
+						map_addflooritem(&item1, 1, tmpsd[j]->bl.m, tmpsd[j]->bl.x, tmpsd[j]->bl.y, tmpsd[j]->status.char_id, (second_sd ? second_sd->status.char_id : 0), (third_sd ? third_sd->status.char_id : 0), 1, 0, true,DIR_CENTER);
 					}
 
 					if (i_data->flag.broadcast) {
-						intif_broadcast_obtain_special_item(tmpsd[j], item.nameid, md->mob_id, ITEMOBTAIN_TYPE_MONSTER_ITEM);
+						intif_broadcast_obtain_special_item(tmpsd[j], item1.nameid, md->mob_id, ITEMOBTAIN_TYPE_MONSTER_ITEM);
 					}
 					//Logs items, MVP prizes [Lupus]
-					log_pick_mob(md, LOG_TYPE_MVP, -1, &item);
+					log_pick_mob(md, LOG_TYPE_MVP, -1, &item1);
 					//If item_drop_mvp_mode is not 2, then only one item should be granted
 					if (battle_config.item_drop_mvp_mode != 2) {
 						break;
