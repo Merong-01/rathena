@@ -227,6 +227,7 @@ OnBattleStart:
 	callsub StartCountdown, "Battle will start in", 5;
 	announce "Start!!!", bc_all, 0x00FF00, FW_BOLD, 35;
 	setmapflag strcharinfo(3), mf_pvp;
+	
 	attachnpctimer;
 	initnpctimer;
 end;
@@ -247,6 +248,7 @@ OnBattleEnd:
 	awake strnpcinfo(0);
 	removemapflag strcharinfo(3), mf_noitemconsumption;
 	removemapflag strcharinfo(3), mf_pvp;
+
 	unbindatcmd "battleend";
 	bindatcmd("battlestart", strnpcinfo(0) + "::OnBattleStart", 99, 99);
 	announce "Battle Ended!", bc_all, 0x00FF00, FW_BOLD, 20;
@@ -271,4 +273,34 @@ StartCountdown:
 		end;
 	}
 return;
+}
+
+-	script	Restrict Unfrozen	-1,{
+OnInit:
+	bindatcmd("evildruidoff", strnpcinfo(0) + "::OnEvilDruidOff", 99, 99);
+	bindatcmd("evildruidon", strnpcinfo(0) + "::OnEvilDruidOn", 99, 99);
+	bindatcmd("marcevildruidoff", strnpcinfo(0) + "::OnMarcEvilDruidOff", 99, 99);
+	bindatcmd("marcevildruidon", strnpcinfo(0) + "::OnMarcEvilDruidOn", 99, 99);
+end;
+OnEvilDruidOff:
+	//if(getmapflag(strcharinfo(3), mf_restricted) == 11){
+	//	dispbottom "@evildruidoff failed...", 0x00FF00;
+	//	dispbottom "Evil Druid Card is already disabled on this map.", 0x00FF00;
+	//	end;
+	//}
+	setmapflag strcharinfo(3), mf_restricted, 11;
+	dispbottom "Evil Druid Card is now disabled on this map.", 0x00FF00;
+end;
+OnEvilDruidOn:
+	removemapflag strcharinfo(3), mf_restricted, 11;
+	dispbottom "Evil Druid Card is now enabled on this map.", 0x00FF00;
+end;
+OnMarcEvilDruidOff:
+	setmapflag strcharinfo(3), mf_restricted, 10;
+	dispbottom "Marc and Evil Druid Card is now disabled on this map.", 0x00FF00;
+end;
+OnMarcEvilDruidOn:
+	removemapflag strcharinfo(3), mf_restricted, 10;
+	dispbottom "Marc and Evil Druid Card is now enabled on this map.", 0x00FF00;
+end;
 }

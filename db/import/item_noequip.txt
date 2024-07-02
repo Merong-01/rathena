@@ -41,4 +41,4 @@
 4141,16384 // Evil Druid Card
 
 //Zone 11
-4141,16384 // Evil Druid Card
+4141,32768 // Evil Druid Card

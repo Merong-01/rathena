@@ -98,7 +98,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 		.@ins_id = instance_id(IM_PARTY);
 	}
 	if(.@ins_id > 0){
-		if(getd(setchar(instance_live_info(ILI_NAME, .@ins_id), "_", 3) + "_CD") == .day_id){
+		if(getd(setchar(instance_live_info(ILI_NAME, .@ins_id), "_", 3) + "_CD") == $MVP_MAP_INS_CD){
 			mes .@npcName$;
 			mes "You already completed this Instance MVP Map today.";
 			mes "Wait until tomorrow to try again.";
@@ -262,7 +262,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 		mes "Weird...that means that I should not be staying here.";
 		close;
 	}
-	if(getd("MVP_" + .@sel_mvp_id + "_CD") == .day_id){
+	if(getd("MVP_" + .@sel_mvp_id + "_CD") == $MVP_MAP_INS_CD){
 		mes "Oh! You ^FF0000already completed^000000 this Instance MVP Map today.";
 		mes "Wait until tomorrow to try again.";
 		close;
@@ -367,14 +367,18 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 	mes .@npcName$;
 	mes "You will now be teleported to the instance dungeon.";
 	close2;
-	//setd "#MVP_" + .@sel_mvp_id + "_cd", .day_id;
+	//setd "#MVP_" + .@sel_mvp_id + "_cd", $MVP_MAP_INS_CD;
 	instance_enter("MVP " + .@sel_mvp_id, -1, -1, getcharid(0), .@ret);
 end;
 OnInit:
 	enablenpc;
-// slide down
+	if($MVP_MAP_INS_CD == 0){
+		$MVP_MAP_INS_CD = gettime(DT_DAYOFMONTH);
+	}
+end;
 OnHour16:
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
+	$MVP_MAP_INS_CD += 1;
 end;
 OnInstanceInit:
 	disablenpc;
@@ -412,7 +416,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -433,7 +437,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -457,7 +461,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -493,7 +497,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -512,7 +516,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -536,7 +540,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -572,7 +576,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -598,7 +602,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -622,7 +626,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -658,7 +662,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -681,7 +685,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -705,7 +709,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -741,7 +745,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -804,7 +808,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -828,7 +832,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -864,7 +868,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -883,7 +887,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -907,7 +911,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -943,7 +947,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -964,7 +968,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -988,7 +992,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -1024,7 +1028,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1045,7 +1049,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -1069,7 +1073,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -1105,7 +1109,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1125,7 +1129,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -1149,7 +1153,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -1185,7 +1189,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1204,7 +1208,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -1228,7 +1232,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -1264,7 +1268,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1286,7 +1290,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -1310,7 +1314,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -1346,7 +1350,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1373,7 +1377,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -1397,7 +1401,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -1433,7 +1437,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1453,7 +1457,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -1477,7 +1481,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -1513,7 +1517,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1533,7 +1537,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -1557,7 +1561,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -1593,7 +1597,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1616,7 +1620,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -1640,7 +1644,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -1676,7 +1680,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1699,7 +1703,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -1723,7 +1727,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -1759,7 +1763,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1791,7 +1795,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -1815,7 +1819,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -1922,7 +1926,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -1945,7 +1949,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -1969,7 +1973,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -2005,7 +2009,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -2027,7 +2031,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -2051,7 +2055,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -2087,7 +2091,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -2106,7 +2110,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -2130,7 +2134,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -2166,7 +2170,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -2186,7 +2190,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -2210,7 +2214,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];
@@ -2246,7 +2250,7 @@ OnInstanceInit:
 		disablenpc;
 		end;
 	}
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
@@ -2278,7 +2282,7 @@ OnInstanceInit:
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
-		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id;
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
 		.@num = rand(1,100);
 		if(.@num <= 60){
 			getitem 30022, 1;
@@ -2302,7 +2306,7 @@ OnMVPQuiled:
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
 			}
-			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", .day_id, .@party_mem_char_id[.@i];
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
 			.@num = rand(1,100);
 			if(.@num <= 60){
 				getitem 30022, 1, .@party_mem_acc_id[.@i];

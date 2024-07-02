@@ -1,21 +1,32 @@
 //====== Specialized Costume Enchanter NPC ===================
 //============================================================
 prontera,167,200,5	script	Costume Enchanter	4_F_CACTUSLADY3,{
-	.@npcName$ = "[ Costume Enchanter ]";
+	//.@npcName$ = "[ Costume Enchanter ]";
 	
-	mes .@npcName$;
+	mes "[ Costume Enchanter ]";
 	mes "I enchant costume equipments to have additional status effects.";
-	mes "For now, I can add ^FF5555+Weight^000000 capacity enchantment.";
+	mes "For now, I can add ^FF5555+Weight^000000 capacity enchantment,";
+	mes "and ^FF5555teleport^000000 skill enchantment.";
 	next;
 	
-	if(select("Enchant Costume:Cancel") == 2){
-		mes .@npcName$;
+	select("Enchant Costume - Weight:Enchant Costume - Teleport:Cancel");
+	if(@menu == 1){
+		callsub S_Enchant_Weight;
+	}
+	else if(@menu == 2){
+		callsub S_Enchant_Teleport;
+	}
+	else {
+		mes "[ Costume Enchanter ]";
 		mes "Come again if you have something to enchant.";
 		close;
 	}
-	
+end;
+S_Enchant_Weight:
+	.@npcName$ = "[ Costume Enchanter ]";
+
 	mes .@npcName$;
-	mes "Currently, I can only do it on ^FF5555 Relic Costumes^000000";
+	mes "Currently, I can only do Weight enchantment on ^FF5555 Relic Costumes^000000";
 	mes "Just bring to me the item and a ^FF5555" + getitemname(7776) + "^000000";
 	mes "For every ^FF5555" + getitemname(7776) + 
 		"^000000, I can enchant ^FF5555+100 Weight^000000 capacity";
@@ -140,6 +151,7 @@ prontera,167,200,5	script	Costume Enchanter	4_F_CACTUSLADY3,{
 		mes "Did you manage to hide it without me noticing?";
 		close;
 	}
+	specialeffect2 EF_LORD;
 	delitemidx .@item_index, 1;
 	delitem 7776, 1;
 	getitem2 .@enchantable_itemid[.@sel_item], 1, 1, 0, 0, 0, 0, 0, .@newEnchant;
@@ -148,5 +160,108 @@ prontera,167,200,5	script	Costume Enchanter	4_F_CACTUSLADY3,{
 	mes "There you go.";
 	mes "In the future, I should be able to enchant more kind of costumes.";
 	mes "Feel free to check on me for any update.";
-	close;
+	close2;
+end;
+S_Enchant_Teleport:
+	.@npcName$ = "[ Costume Enchanter ]";
+
+	mes .@npcName$;
+	mes "Currently, I can only do Teleport enchantment on ^FF5555 Costume Vicious Aura Mid^000000";
+	mes "Just bring to me the costume and a ^FF5555" + getitemname("Creamy_Card") + "^000000";
+	mes "so that I can enchant it with the teleport skill.";	
+	next;
+
+	mes .@npcName$;
+	mes "This enchantment is looks simple but very effective.";
+	mes "It will save you a accessory slot intended for creamy card that you can use to slot other useful cards.";
+	mes "Keep it mind that enchantments other than " + 
+		"^FF5555Teleport^000000 will disappear after the enchantment";
+	next;
+	
+	mes .@npcName$;
+	mes "Do you have the costume and the required materials";
+	mes "so we can do some enchanting?";
+	next;
+
+	if(select("Sorry, maybe next time.:Yes, let's proceed.") == 1) {
+		mes .@npcName$;
+		mes "Please come back when you have any interest in enchanting your costume.";
+		close;
+	}
+	if(countitem(31236) < 1){
+		mes .@npcName$;
+		mes "Sorry but I can't see the " + getitemname(31236) + " in your inventory.";
+		close;
+	}
+	else if(countitem(4040) < 1){
+		mes .@npcName$;
+		mes "Sorry but you don't have the " + getitemname(4040) + " to enchant your costume.";
+		close;
+	}
+	mes .@npcName$;
+	mes "Another important reminder,";
+	mes "if there are two costumes of the same kind in your" + 
+		" possession, the Enchantment will be applied in the " + 
+		"order they are placed in your inventory.";
+	next;
+	
+	mes .@npcName$;
+	mes "In that case, the Enchantment may" + 
+		" be applied to an item which you didn't " + 
+		"mean to Enchant. So just bring " + 
+		"^5555ffONE Costume^000000 you want enchanted to be safe...";
+	next;
+	
+	mes .@npcName$;
+	mes "I'm not responsible for what " + 
+		"would happen if you have more " + 
+		"than one of the same kind in your inventory.";
+	next;
+	
+	if(select("Wait...let me check my inventory:Go ahead...") == 1){
+		mes .@npcName$;
+		mes "Please come back after you sort out your inventory.";
+		close;
+	}
+	mes .@npcName$;
+	mes "Good! Now, let me perform the enchantment.";
+	close2;
+	
+	specialeffect2 EF_MAPPILLAR;
+	progressbar "FFFF00",5;
+	getinventorylist();
+	for(.@i = 0; .@i < @inventorylist_count; .@i++){
+		if(@inventorylist_id[.@i] == 31236){
+			.@currentEnchant = @inventorylist_card4[.@i];
+			.@item_index = @inventorylist_idx[.@i];
+			break;
+		}
+	}
+	if(.@currentEnchant == 4040){
+		mes .@npcName$;
+		mes "Oh! It seems that this costume already has a teleport enchantment.";
+		close;
+	}
+	else {
+		.@newEnchant = 4040;
+	}
+	if(countitem(31236) < 1 || 
+		countitem(4040) < 1 || @inventorylist_id[.@item_index] != 31236)
+	{
+		mes .@npcName$;
+		mes "Where are the items?";
+		mes "Did you manage to hide it without me noticing?";
+		close;
+	}
+	specialeffect2 EF_LORD;
+	delitemidx .@item_index, 1;
+	delitem 4040, 1;
+	getitem2 31236, 1, 1, 0, 0, 0, 0, 0, .@newEnchant;
+	
+	mes .@npcName$;
+	mes "There you go.";
+	mes "In the future, I should be able to enchant more kind of costumes.";
+	mes "Feel free to check on me for any update.";
+	close2;
+end;
 }

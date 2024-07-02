@@ -6,7 +6,7 @@ prontera,147,169,5	script	Daily Reward	833,{
 	//.@coolDownDelay = (3600 * 20); //20 hours
 	
 	//if(#daily_login_cd > .@curr_tick)
-	if(#daily_login_cd == .day_id){
+	if(#daily_login_cd == $DAILY_REW_CD){
 		//.@timeInStr$ = F_gettimestr(#daily_login_cd - .@curr_tick);
 		mes .@npcName$;
 		mes "I am sorry, but you already claimed you daily reward today.";
@@ -32,7 +32,7 @@ prontera,147,169,5	script	Daily Reward	833,{
 		getitembound 12208, 1, Bound_Account;
 		getitembound 12210, 1, Bound_Account;
 		getitembound 12221, 2, Bound_Account;
-		#daily_login_cd = .day_id;
+		#daily_login_cd = $DAILY_REW_CD;
 		//#daily_login_cd = gettimetick(2) + .@coolDownDelay;
 		
 		mes .@npcName$;
@@ -45,9 +45,13 @@ prontera,147,169,5	script	Daily Reward	833,{
 	mes "Thank you again for visiting today.";
 	close;
 OnInit:
+	if($DAILY_REW_CD == 0){
+		$DAILY_REW_CD = gettime(DT_DAYOFMONTH);
+	}
 	waitingroom "Daily Login Reward Here", 0;
-
+end;
 OnHour16:
-	.day_id = gettime(DT_DAYOFMONTH);
+	//.day_id = gettime(DT_DAYOFMONTH);
+	$DAILY_REW_CD += 1;
 end;
 }
