@@ -342,8 +342,8 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
-      NoSell: true
-      NoGuildStorage: true
+      NoSell: false
+      NoGuildStorage: false
     Script: |
       bonus bDex,1;
       bonus bLongAtkRate,7;
@@ -424,12 +424,12 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
-      NoTrade: true
-      NoSell: true
-      NoCart: true
-      NoGuildStorage: true
-      NoMail: true
-      NoAuction: true
+      NoTrade: false
+      NoSell: false
+      NoCart: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
     Script: |
       bonus bBaseAtk,5;
   - Id: 5315
@@ -448,8 +448,8 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
-      NoSell: true
-      NoGuildStorage: true
+      NoSell: false
+      NoGuildStorage: false
     Script: |
       skill "WZ_ESTIMATION",1;
   - Id: 5325
@@ -488,8 +488,8 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
-      NoSell: true
-      NoGuildStorage: true
+      NoSell: false
+      NoGuildStorage: false
     Script: |
       bonus bBaseAtk,5;
       if (BaseJob == Job_Rogue)
@@ -509,8 +509,8 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
-      NoSell: true
-      NoGuildStorage: true
+      NoSell: false
+      NoGuildStorage: false
     Script: |
       bonus bMatkRate,1;
   - Id: 5378
@@ -526,8 +526,8 @@ Body:
     View: 384
     Trade:
       NoDrop: true
-      NoSell: true
-      NoGuildStorage: true
+      NoSell: false
+      NoGuildStorage: false
     Script: |
       bonus bAgi,3;
       bonus3 bAutoSpell,"AL_INCAGI",5,10;
@@ -566,8 +566,8 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
-      NoSell: true
-      NoGuildStorage: true
+      NoSell: false
+      NoGuildStorage: false
     Script: |
       bonus2 bSubEle,Ele_Water, 10;
       bonus bUnbreakableHelm, 0;
@@ -587,8 +587,8 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
-      NoSell: true
-      NoGuildStorage: true
+      NoSell: false
+      NoGuildStorage: false
     Script: |
       bonus bInt,1;
       bonus bMdef,2;
@@ -609,10 +609,10 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
-      NoSell: true
-      NoGuildStorage: true
-      NoMail: true
-      NoAuction: true
+      NoSell: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
     Script: |
       bonus bVit,1;
       bonus2 bAddRace,RC_DemiHuman,1;
@@ -635,10 +635,10 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
-      NoSell: true
-      NoGuildStorage: true
-      NoMail: true
-      NoAuction: true
+      NoSell: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
     Script: |
       bonus bInt,1;
       bonus bMdef,2;
@@ -659,8 +659,8 @@ Body:
     View: 478
     Trade:
       NoDrop: true
-      NoSell: true
-      NoGuildStorage: true
+      NoSell: false
+      NoGuildStorage: false
     Script: |
       bonus bAspdRate,10;
       bonus bBaseAtk,-20;
@@ -687,10 +687,10 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
-      NoSell: true
-      NoGuildStorage: true
-      NoMail: true
-      NoAuction: true
+      NoSell: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
     Script: |
       bonus bMdef,5;
       bonus2 bSubClass,Class_Boss,10;
@@ -715,8 +715,8 @@ Body:
       DropAnnounce: true
     Trade:
       NoDrop: true
-      NoSell: true
-      NoGuildStorage: true
+      NoSell: false
+      NoGuildStorage: false
     Script: |
       bonus bInt,4;
       bonus bCastRate,-10;
