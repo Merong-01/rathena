@@ -104,6 +104,14 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 			mes "Wait until tomorrow to try again.";
 			close;
 		}
+		
+		for(.@i = 0; .@i < getarraysize(getinstancevar('paid_char_id, .@ins_id)); .@i++){
+			if(getinstancevar('paid_char_id[.@i], .@ins_id) == getcharid(0)){
+				.@paid_flag = true;
+				break;
+			}
+		}
+		
 		mes .@npcName$;
 		mes "Your MVP Map instance is now ready.";
 		mes "Do you want to enter the instance now?";
@@ -115,7 +123,36 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 			mes "Talk to me again when you are ready.";
 			close;
 		}
-		
+		if(.@paid_flag == false){
+			mes .@npcName$;
+			mes "You still need to pay " + mesitemlink(7199) + " 5 pcs. ea. or 100,000 Zeny";
+			next;
+
+			select("Give 5 Hourly Coins:Give 100,000 Zeny");
+			if(@menu == 1){
+				if(countitem(7199) < 5){
+					mes .@npcName$;
+					mes "You don't have enough " + mesitemlink(7199);
+					close;
+				}
+				delitem 7199, 5;
+				setinstancevar('paid_char_id[.@i], getcharid(0), .@ins_id);
+			}
+			else if(@menu == 2){
+				if(Zeny < 100000){
+					mes .@npcName$;
+					mes "You don't have enough Zeny.";
+					close;
+				}
+				Zeny -= 100000;
+				setinstancevar('paid_char_id[.@i], getcharid(0), .@ins_id);
+			}
+			else {
+				mes .@npcName$;
+				mes "Talk to me again when you are ready.";
+				close;
+			}
+		}
 		mes .@npcName$;
 		mes "You will now be teleported to the instance dungeon.";
 		close2;
@@ -293,6 +330,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 		.@ret = instance_create("MVP " + .@sel_mvp_id, .@ins_mode);
 		if(.@ret > 0){
 			delitem 7199, 5;
+			setinstancevar('paid_char_id[0], getcharid(0), .@ret);
 		}
 		else {
 			mes .@npcName$;
@@ -334,6 +372,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 		.@ret = instance_create("MVP " + .@sel_mvp_id, .@ins_mode);
 		if(.@ret > 0){
 			Zeny -= 100000;
+			setinstancevar('paid_char_id[0], getcharid(0), .@ret);
 		}
 		else {
 			mes .@npcName$;
@@ -417,7 +456,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("prts05-1");
@@ -425,8 +464,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Golden Bug", 
 		"GOLDEN_BUG", 1, instance_npcname("mvp gtb spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "THIEF_BUG_EGG", 10;
 	monster strnpcinfo(4), 0, 0, "--en--", "THIEF_BUG", 20;
@@ -498,7 +535,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("payf06-1");
@@ -507,8 +544,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Eddga", 
 		"EDDGA", 1, instance_npcname("mvp eddga spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "GREATEST_GENERAL", 30;
 	monster strnpcinfo(4), 0, 0, "--en--", "NINE_TAIL", 60;
@@ -577,7 +612,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("payd04-1");
@@ -588,8 +623,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 120, 115, "Instance Moonlight Flower", 
 		"MOONLIGHT", 1, instance_npcname("mvp moonlight spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "DOKEBI", 40;
 	monster strnpcinfo(4), 0, 0, "--en--", "HORONG", 30;
@@ -663,7 +696,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("mocf21-1");
@@ -673,8 +706,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Phreeoni", 
 		"PHREEONI", 1, instance_npcname("mvp phreeoni spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "HODE", 100;
 	monster strnpcinfo(4), 0, 0, "--en--", "STEEL_CHONCHON", 30;
@@ -746,7 +777,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("tre003");
@@ -754,8 +785,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 101, 151, "Instance Drake", 
 		"DRAKE", 1, instance_npcname("mvp drake spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "GHOSTRING", 1;
 	monster strnpcinfo(4), 0, 0, "--en--", "WHISPER", 5;
@@ -869,7 +898,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("cmd_beach_dun1-2");
@@ -877,8 +906,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Tao Gunka", 
 		"TAO_GUNKA", 1, instance_npcname("mvp tao gunka spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "MEDUSA", 60;
 	monster strnpcinfo(4), 0, 0, "--en--", "MERMAN", 3;
@@ -948,7 +975,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("ama_dun2-2");
@@ -956,8 +983,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Samurai Specter", 
 		"INCANTATION_SAMURAI", 1, instance_npcname("mvp incantation samurai spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "SHINOBI", 55;
 	monster strnpcinfo(4), 0, 0, "--en--", "ANTIQUE_FIRELOCK", 25;
@@ -1029,7 +1054,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("gefd02-1");
@@ -1037,8 +1062,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Doppelganger", 
 		"DOPPELGANGER", 1, instance_npcname("mvp doppelganger spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "GHOUL", 10;
 	monster strnpcinfo(4), 0, 0, "--en--", "WHISPER", 20;
@@ -1110,7 +1133,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("xmas_fild1-1");
@@ -1120,8 +1143,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Garm", 
 		"GARM", 1, instance_npcname("mvp garm spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "MARIN", 35;
 	monster strnpcinfo(4), 0, 0, "--en--", "SASQUATCH", 20;
@@ -1190,7 +1211,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("gon_dun4-2");
@@ -1198,8 +1219,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Evil Snake Lord", 
 		"DARK_SNAKE_LORD", 1, instance_npcname("mvp evil snake lord spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "WHITE_PLANT", 10;
 	monster strnpcinfo(4), 0, 0, "--en--", "WILD_GINSENG", 20;
@@ -1269,7 +1288,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("mjol07");
@@ -1279,8 +1298,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Mistress", 
 		"MISTRESS", 1, instance_npcname("mvp mistress spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "MANTIS", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "HORNET", 70;
@@ -1351,7 +1368,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("geff11-1");
@@ -1367,8 +1384,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Orc Lord", 
 		"ORC_LORD", 1, instance_npcname("mvp orc lord spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "ORK_WARRIOR", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "ORC_LADY", 70;
@@ -1438,7 +1453,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("geff17-1");
@@ -1447,8 +1462,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Orc Hero", 
 		"ORK_HERO", 1, instance_npcname("mvp orc hero spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "ORC_LADY", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "ORK_WARRIOR", 10;
@@ -1518,7 +1531,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("xmas_dun2-2");
@@ -1526,8 +1539,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Stormy Knight", 
 		"KNIGHT_OF_WINDSTORM", 1, instance_npcname("mvp knight of windstorm spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "COOKIE_XMAS", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "COOKIE", 20;
@@ -1598,7 +1609,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("mocp04-1");
@@ -1609,8 +1620,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Osiris", 
 		"OSIRIS", 1, instance_npcname("mvp osiris spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "MUMMY", 25;
 	monster strnpcinfo(4), 0, 0, "--en--", "ANCIENT_MUMMY", 3;
@@ -1681,7 +1690,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("gl22");
@@ -1691,8 +1700,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Dark Lord", 
 		"DARK_LORD", 1, instance_npcname("mvp dark lord spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "GHOUL", 35;
 	monster strnpcinfo(4), 0, 0, "--en--", "ZOMBIE", 20;
@@ -1764,7 +1771,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("mazewarp5333");
@@ -1776,8 +1783,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Baphomet", 
 		"BAPHOMET", 1, instance_npcname("mvp baphomet spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "POPORING", 45;
 	monster strnpcinfo(4), 0, 0, "--en--", "SIDE_WINDER", 10;
@@ -1927,7 +1932,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("ant01-1");
@@ -1936,8 +1941,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Maya", 
 		"MAYA", 1, instance_npcname("mvp maya spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "ANT_EGG", 15;
 	monster strnpcinfo(4), 0, 0, "--en--", "FARMILIAR", 20;
@@ -2010,7 +2013,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("gefd01-1");
@@ -2019,8 +2022,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Dracula", 
 		"DRACULA", 1, instance_npcname("mvp dracula spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "DRAINLIAR", 20;
 	monster strnpcinfo(4), 0, 0, "--en--", "NIGHTMARE", 30;
@@ -2092,7 +2093,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("mocp08-1");
@@ -2100,8 +2101,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 102, 85, "Instance Amon Ra", 
 		"AMON_RA", 1, instance_npcname("mvp amon ra spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "VERIT", 10;
 	monster strnpcinfo(4), 0, 0, "--en--", "ARCLOUSE", 20;
@@ -2171,7 +2170,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("sphx06-1");
@@ -2179,8 +2178,6 @@ OnInstanceInit:
 	monster strnpcinfo(4), 0, 0, "Instance Pharaoh", 
 		"PHARAOH", 1, instance_npcname("mvp pharaoh spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "PASANA", 70;
 	monster strnpcinfo(4), 0, 0, "--en--", "MATYR", 10;
@@ -2251,7 +2248,7 @@ OnInstanceInit:
 		end;
 	}
 	//.day_id = gettime(DT_DAYOFMONTH);
-	setmapflag strnpcinfo(4), mf_noteleport;
+	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
 	disablenpc instance_npcname("ttl03-1");
@@ -2259,8 +2256,6 @@ OnInstanceInit:
 	areamonster strnpcinfo(4), 78, 73, 119, 113, "Instance Turtle General", 
 		"TURTLE_GENERAL", 1, instance_npcname("mvp turtle general spawner1") + "::OnMVPQuiled";
 	'mvp_summon_id = $@mobid[0];
-
-	removemapflag strnpcinfo(4), mf_pvp; //current setting is pvp will be turn on when mvp is spawned, but here we need to turn it off
 
 	monster strnpcinfo(4), 0, 0, "--en--", "WANDER_MAN", 2;
 	monster strnpcinfo(4), 0, 0, "--en--", "HEATER", 30;

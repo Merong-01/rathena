@@ -170,7 +170,7 @@ function	script	F_HeadGear_Low	{
 	switch(.@sel){
 		case 1: 
 				.@gear_requirements_id[0] = 2268;
-				.@gear_requirements_count[0] = 10;
+				.@gear_requirements_count[0] = 5;
 			break;
 		case 2:
 				.@gear_requirements_id[0] = 5111;

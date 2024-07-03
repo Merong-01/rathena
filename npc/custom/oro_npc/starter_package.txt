@@ -8,7 +8,7 @@ new_1-1,63,116,3	script	Reward Kafra	117,{
 	mes "Some are only available for a limited time and some only 1 item per account or IP address.";
 	next;
 	
-	.@sel = select("Claim Early Registration Reward:All-in-One Ring and Mount:Starter Weapon Box:Cancel");
+	.@sel = select("Claim Starter Pack (1 per account):All-in-One Ring and Mount (1 per IP address):Starter Weapon Box (1 per character):Cancel");
 	if(.@sel == 4){
 		mes .@npcName$;
 		mes "Welcome to Overgeared Ragnarok Online.";
@@ -55,40 +55,56 @@ new_1-1,63,116,3	script	Reward Kafra	117,{
 		close;
 	}
 	
-	.@acc_id = getcharid(3);
-	.@query_str$ = "select reg_date from cp_createlog where(account_id = " + .@acc_id + ")";
-	.@query_result_num = query_sql(.@query_str$, .@reg_date$);
-	
-	if(.@query_result_num == 0){
-		mes .@npcName$;
-		mes "I can't seem to check your registration date.";
-		mes "Did you somehow manage to get an account other than from the website?";
-		close;
-	}
-	
-	
-	if(compare(.@reg_date$, "2024") == 1){
-		.@month_registered = atoi(charat(.@reg_date$,5)+charat(.@reg_date$,6));
-		.@day_registered = atoi(charat(.@reg_date$,8)+charat(.@reg_date$,9));
-		
-		mes .@npcName$;
-		mes "Welcome to Overgeared Ragnarok Online.";
-		mes "Your registration date is on " + .@month_registered + "/" + .@day_registered + "/2024";
-		mes "Here is you event reward.";
-		mes "I wish your adventures ahead to be an enjoyable experience.";
-		if(.@month_registered < 06){
-			getitembound 5286,1,Bound_Account;
-		}
-		getitembound 14003,10,Bound_Account;
-		getitembound 12411,10,Bound_Account;
-		getitembound 12210,10,Bound_Account;
-		#claim_preregister = 1;
-		close;
-	}
+	getitembound 5286,1,Bound_Account; // Pecopeco Hairband
+	getitembound 14003,10,Bound_Account; // ESSB
+	getitembound 12411,10,Bound_Account; // he battle manual
+	getitembound 12210,10,Bound_Account; // bubble gum
+	getitembound 12323,500,Bound_Account; // novice fly wing
+	getitembound 12324,100,Bound_Account; // novice butterfly wing
+	getitembound 7059,50,Bound_Account; // Free Ticket for Kafra Storage
+	getitembound 7060,100,Bound_Account; // Free Ticket for Kafra Transportation
+	getitembound 30005,1,Bound_Account; // VIP_1Day_Coin
+	#claim_preregister = 1;
 
 	mes .@npcName$;
-	mes "I am sorry, but the date of your registration does not qualify for the reward.";
+	mes "Here is you event reward.";
+	mes "I wish your adventures ahead to be an enjoyable experience.";
 	close;
+
+	//.@acc_id = getcharid(3);
+	//.@query_str$ = "select reg_date from cp_createlog where(account_id = " + .@acc_id + ")";
+	//.@query_result_num = query_sql(.@query_str$, .@reg_date$);
+	
+	//if(.@query_result_num == 0){
+	//	mes .@npcName$;
+	//	mes "I can't seem to check your registration date.";
+	//	mes "Did you somehow manage to get an account other than from the website?";
+	//	close;
+	//}
+	
+	
+	//if(compare(.@reg_date$, "2024") == 1){
+	//	.@month_registered = atoi(charat(.@reg_date$,5)+charat(.@reg_date$,6));
+	//	.@day_registered = atoi(charat(.@reg_date$,8)+charat(.@reg_date$,9));
+		
+	//	mes .@npcName$;
+	//	mes "Welcome to Overgeared Ragnarok Online.";
+	//	mes "Your registration date is on " + .@month_registered + "/" + .@day_registered + "/2024";
+	//	mes "Here is you event reward.";
+	//	mes "I wish your adventures ahead to be an enjoyable experience.";
+	//	if(.@month_registered < 06){
+	//		getitembound 5286,1,Bound_Account;
+	//	}
+	//	getitembound 14003,10,Bound_Account;
+	//	getitembound 12411,10,Bound_Account;
+	//	getitembound 12210,10,Bound_Account;
+	//	#claim_preregister = 1;
+	//	close;
+	//}
+
+	//mes .@npcName$;
+	//mes "I am sorry, but the date of your registration does not qualify for the reward.";
+	//close;
 
 OnInit:
 	waitingroom "Claim Starter Package Here", 0;
