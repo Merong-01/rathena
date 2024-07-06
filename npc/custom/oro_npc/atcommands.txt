@@ -4,6 +4,7 @@
 end;
 OnInit:
 	bindatcmd("shout",strnpcinfo(0)+"::OnCommand",0,99);
+	bindatcmd("vipstatus",strnpcinfo(0)+"::OnVIPStatus",0,99);
 	bindatcmd("mapshower",strnpcinfo(0)+"::OnMapShower",99,99);
 end;
 OnMapShower:
@@ -115,6 +116,15 @@ OnCommand:
 end;
 OnCoolDown:
 	@shout_cd = 0;
+end;
+OnVIPStatus:
+	if(vip_status(VIP_STATUS_ACTIVE) == false){
+		dispbottom "Your VIP Status is currenlty not active.", 0x00FF00;
+		end;
+	}
+
+	dispbottom "Your VIP Status is active!", 0x00FF00;
+	dispbottom "Your remaining VIP time is " + F_gettimestr(vip_status(VIP_STATUS_REMAINING)), 0x00FF00;
 end;
 }
 

@@ -731,6 +731,11 @@ Body:
             Amount: 1
             Bound: Account
             Announced: true
+          - Index: 19
+            Item: Giant_Fly_Wing_Box
+            Rate: 12
+            Amount: 1
+            Announced: true
   - Group: CASH_EGG_SCROLL2
     SubGroups:
       - SubGroup: 1
@@ -833,6 +838,11 @@ Body:
           - Index: 18
             Item: C_Subject_Aura_V
             Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 19
+            Item: Giant_Fly_Wing_Box
+            Rate: 12
             Amount: 1
             Announced: true
 #          - Index: 2

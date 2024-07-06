@@ -12,6 +12,7 @@ OnInit:
 	npcshopadditem "Cash Shop", 14175, 8; // megaphone box 10
 	npcshopadditem "Cash Shop", 12211, 2; // kafra card
 	npcshopadditem "Cash Shop", 14165, 8; // kafra card box 10
+	npcshopadditem "Cash Shop", 12910, 10; // Giant Fly Wing Box 10
 	
 	npcshopadditem "Cash Shop", 12210, 3; // bubble gum
 	npcshopadditem "Cash Shop", 12902, 25; // bubble gum box 10

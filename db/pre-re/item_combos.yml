@@ -208,15 +208,18 @@ Body:
       - Combo:
           - Frozen_Bow
           - Crystal_Arrow
-    Script: |
-      bonus bLongAtkRate,25;
-  - Combos:
       - Combo:
           - Earth_Bow
           - Stone_Arrow
     Script: |
       bonus bLongAtkRate,25;
-      bonus2 bAddEff,Eff_Stone,1000;
+  #- Combos:
+  #    - Combo:
+  #        - Earth_Bow
+  #        - Stone_Arrow
+  #  Script: |
+  #    bonus bLongAtkRate,25;
+  #    bonus2 bAddEff,Eff_Stone,1000;
   - Combos:
       - Combo:
           - Gust_Bow

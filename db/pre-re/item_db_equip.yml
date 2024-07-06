@@ -11850,6 +11850,8 @@ Body:
     WeaponLevel: 3
     EquipLevelMin: 55
     Refineable: true
+    Script: |
+      bonus2 bAddEff,Eff_Blind,1000;
   - Id: 1733
     AegisName: Gust_Bow
     Name: Gust Bow

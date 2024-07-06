@@ -9634,9 +9634,6 @@ Body:
     Trade:
       NoDrop: true
       NoSell: true
-      NoGuildStorage: true
-      NoMail: true
-      NoAuction: true
     Script: |
       getitem 12212,10;
   - Id: 12911

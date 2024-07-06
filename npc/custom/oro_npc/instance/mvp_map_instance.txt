@@ -459,6 +459,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("prts05-1");
 
 	monster strnpcinfo(4), 0, 0, "Instance Golden Bug", 
@@ -538,6 +539,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("payf06-1");
 	disablenpc instance_npcname("payf004");
 	
@@ -615,6 +617,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("payd04-1");
 	disablenpc instance_npcname("payd04-2");
 	disablenpc instance_npcname("payd04-3");
@@ -699,6 +702,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("mocf21-1");
 	disablenpc instance_npcname("moc29");
 	disablenpc instance_npcname("mocf28-1");
@@ -780,6 +784,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("tre003");
 	
 	monster strnpcinfo(4), 101, 151, "Instance Drake", 
@@ -901,6 +906,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("cmd_beach_dun1-2");
 	
 	monster strnpcinfo(4), 0, 0, "Instance Tao Gunka", 
@@ -978,6 +984,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("ama_dun2-2");
 	
 	monster strnpcinfo(4), 0, 0, "Instance Samurai Specter", 
@@ -1057,6 +1064,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("gefd02-1");
 	
 	monster strnpcinfo(4), 0, 0, "Instance Doppelganger", 
@@ -1136,6 +1144,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("xmas_fild1-1");
 	disablenpc instance_npcname("xmax_fild1-2");
 	disablenpc instance_npcname("xmas_fild2");
@@ -1214,6 +1223,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("gon_dun4-2");
 	
 	monster strnpcinfo(4), 0, 0, "Instance Evil Snake Lord", 
@@ -1291,6 +1301,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("mjol07");
 	disablenpc instance_npcname("mjol05-1");
 	disablenpc instance_npcname("mjol06");
@@ -1371,6 +1382,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("geff11-1");
 	disablenpc instance_npcname("geff12");
 	disablenpc instance_npcname("geff05-1");
@@ -1456,6 +1468,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("geff17-1");
 	disablenpc instance_npcname("geff19");
 	
@@ -1534,6 +1547,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("xmas_dun2-2");
 	
 	monster strnpcinfo(4), 0, 0, "Instance Stormy Knight", 
@@ -1612,6 +1626,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("mocp04-1");
 	disablenpc instance_npcname("mocp05-1");
 	disablenpc instance_npcname("mocp06-1");
@@ -1693,6 +1708,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("gl22");
 	disablenpc instance_npcname("gl12-1");
 	disablenpc instance_npcname("gl11-1");
@@ -1774,6 +1790,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("mazewarp5333");
 	disablenpc instance_npcname("#mazewarp5303");
 	disablenpc instance_npcname("#mazewarp5339");
@@ -1935,6 +1952,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("ant01-1");
 	disablenpc instance_npcname("moc_ant2-2");
 	
@@ -2016,6 +2034,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("gefd01-1");
 	disablenpc instance_npcname("gefd02");
 	
@@ -2096,6 +2115,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("mocp08-1");
 	
 	monster strnpcinfo(4), 102, 85, "Instance Amon Ra", 
@@ -2173,6 +2193,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("sphx06-1");
 	
 	monster strnpcinfo(4), 0, 0, "Instance Pharaoh", 
@@ -2251,6 +2272,7 @@ OnInstanceInit:
 	//setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
 	disablenpc instance_npcname("ttl03-1");
 	
 	areamonster strnpcinfo(4), 78, 73, 119, 113, "Instance Turtle General", 

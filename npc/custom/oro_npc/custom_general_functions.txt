@@ -2,10 +2,16 @@
 //============================================================
 function	script	F_gettimestr	{
 	.@timeInSeconds = getarg(0);
-	.@countHours = .@timeInSeconds / 3600;
-	.@countMin = (.@timeInSeconds % 3600) / 60;
-	.@countSec = (.@timeInSeconds % 3600) % 60;
-	.@timeInStr$ = "" + .@countHours + " Hours, " + .@countMin + " Minutes, " + .@countSec + " Seconds";
+	.@countDays = .@timeInSeconds / 86400;
+	.@newTimeInSec = .@timeInSeconds % 86400;
+	.@countHours = .@newTimeInSec / 3600;
+	.@countMin = (.@newTimeInSec % 3600) / 60;
+	.@countSec = (.@newTimeInSec % 3600) % 60;
+	.@timeInStr$ = "";
+	if(.@countDays > 0){
+		.@timeInStr$ = .@countDays + " Days, ";
+	}
+	.@timeInStr$ += .@countHours + " Hours, " + .@countMin + " Minutes, " + .@countSec + " Seconds";
 	
 	return .@timeInStr$;
 }
