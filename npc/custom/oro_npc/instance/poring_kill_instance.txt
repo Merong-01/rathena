@@ -1,0 +1,257 @@
+//============Poring Kill Event===============================
+//============================================================
+
+-	script	Poring Kill Game	-1,{
+OnInit:
+	bindatcmd("startporinggame",strnpcinfo(0)+"::OnInitEvent",99,99);
+end;
+OnInitEvent:
+	if(.ins_id > 0){
+		if(playerattached()){
+			dispbottom "An instance of Poring Kill Game is already active", 0x00FF00;
+		}
+		else {
+			debugmes "An instance of Poring Kill Game is already active";
+		}
+		end;
+	}
+	bindatcmd("joinporinggame",strnpcinfo(0)+"::OnJoinEvent",0,99);
+	.ins_id = instance_create("PoringKill Event", IM_NONE);
+
+	if(.ins_id == -4){
+		if(playerattached()){
+			dispbottom "No free instance!", 0xFF0000;
+		}
+		else {
+			debugmes "No free instance!";
+		}
+		end;
+	}
+	else if(.ins_id < 1){
+		if(playerattached()){
+			dispbottom "Failed to create instance", 0xFF0000;
+		}
+		else {
+			debugmes "Failed to create instance";
+		}
+		end;
+	}
+
+	cleararray .join_char_id[0], 0, getarraysize(.join_char_id);
+	announce "The Poring Kill Game will start in 5 minutes, to join the game type @joinporinggame", bc_all, 0x00FFFF;
+	.poring_event_status = 1;
+	initnpctimer;
+end;
+OnTimer60000:
+	announce "The Poring Kill Game will start in 4 minutes, to join the game type @joinporinggame", bc_all, 0x00FFFF;
+end;
+OnTimer120000:
+	announce "The Poring Kill Game will start in 3 minutes, to join the game type @joinporinggame", bc_all, 0x00FFFF;
+end;
+OnTimer180000:
+	announce "The Poring Kill Game will start in 2 minutes, to join the game type @joinporinggame", bc_all, 0x00FFFF;
+end;
+OnTimer240000:
+	announce "The Poring Kill Game will start in 1 minute, to join the game type @joinporinggame", bc_all, 0x00FFFF;
+end;
+OnTimer300000:
+	.poring_event_status = 2;
+//	.@player_count = getarraysize(.join_char_id);
+	announce "A total of " + getarraysize(.join_char_id) + " players have registered to join the game." +
+		"The Poring Kill Game is Starting, teleporting participants to Game Map instance.", bc_all, 0x00FFFF;
+	
+	for(.@i = 0; .@i < getarraysize(.join_char_id); .@i++){
+		if(isloggedin(convertpcinfo(.join_char_id[.@i], CPC_ACCOUNT), .join_char_id[.@i])){
+			.@ret = instance_enter("PoringKill Event", -1, -1, .join_char_id[.@i], .ins_id);
+			switch(.@ret){
+				case IE_NOMEMBER: .@retStr$ = "No Member";
+					break;
+				case IE_NOINSTANCE: .@retStr$ = "No Instance";
+					break;
+				case IE_OTHER: .@retStr$ = "Other Error";
+					break;
+				case IE_OK: .@retStr$ = "OK"; continue;
+					break;
+			}
+			debugmes "Instance Enter return: " + .@retStr$;
+		}
+	}
+end;
+OnTimer910000:		//nid correction 
+	unbindatcmd "joinporinggame";
+	.ins_id = 0;
+	stopnpctimer;
+end;
+OnJoinEvent:
+	if(.poring_event_status == 0){
+		dispbottom "It's not yet the time to join the game", 0x00FFFF;
+		end;
+	}
+	else if(.poring_event_status == 2){
+		dispbottom "Registration for the game has ended", 0x00FFFF;
+		end;
+	}
+
+	.@num = getarraysize(.join_char_id);
+	.@char_id = getcharid(0);
+	for(.@i = 0; .@i < .@num; .@i++){
+		if(.join_char_id[.@i] == .@char_id){
+			dispbottom "You've already joined the Poring Kill Game, you will be teleported to the instance map in " 
+				+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
+			end;
+		}
+	}
+	.join_char_id[.@num] = .@char_id;
+	dispbottom "You've joined the Poring Kill Game, you will be teleported to the instance map in " 
+		+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
+end;
+}
+
+// nid to announce game mechanics and countdown to start the round 1
+izlu2dun,108,87,4	script	PoringSummoner1	-1,3,3,{
+OnInit:
+	disablenpc();
+end;
+OnInstanceInit:
+	.round_counter = 1;
+	.num_win = 0;	//counter kung pila ang winners out of 10 rounds
+	setmapflag strnpcinfo(4), mf_noteleport;
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_noskill;
+	setmapflag strnpcinfo(4), mf_noitemconsumption;
+	setmapflag strnpcinfo(4), mf_noloot;
+	setarray .npc_name$[0],"";
+	.@num = getmapunits(BL_NPC,strnpcinfo(4),.npc_name$[0]);
+	.@index = inarray(.npc_name$[0], "");
+	if(.@index >= 0)
+		deletearray .npc_name$[.@index],1;
+	.@index = inarray(.npc_name$[0], "PoringSummoner");
+	if(.@index >= 0)
+		deletearray .npc_name$[.@index],1;
+	freeloop(1);
+	for(.@i = 0; .@i < getarraysize(.npc_name$); .@i++){
+//		disablenpc(.npc_name$[.@i]);
+	}
+	freeloop(0);
+end;
+OnTouch_:
+	if('touche){
+		end;
+	}
+	'touche = 1;
+	initnpctimer;
+	mapannounce strnpcinfo(4), "Welcome to Poring Kill Game. To win the game you only need to kill the only monster named [Poring] in a minute." +
+		" But becareful cuz when kill monsters with different name your dead! This game have 10 rounds so GOOD LUCK!!!", bc_map;
+	sleep 2000;
+	mapannounce strnpcinfo(4), "The Game Begins in 3 seconds.",bc_map;
+	sleep 3000;
+	mapannounce strnpcinfo(4), "Round " + .round_counter + "/10 of Poring KIll Game...GAME START!!!",bc_map;
+	callsub SummonPoring;
+end;
+SummonPoring:
+
+	.num_player = getmapusers(strnpcinfo(4));
+	setarray .poring_name$[1],
+		"PORING",
+		"Pporing",
+		"PorinG",
+		"Porign",
+		"PoRing";
+	setarray .poring_id[1],
+		1002,	//poring
+		1113,	//drops
+		1031,	//poporing
+		1242,	//marin
+		1894;	//pouring
+	for(.@i = 1; .@i < getarraysize(.poring_name$); .@i++){
+		for(.@j = 1; .@j < getarraysize(.poring_id); .@j++ ){
+			//monster x,y change to 0,0 after test
+			monster strnpcinfo(4), 108, 88, .poring_name$[.@i], .poring_id[.@j], 1, instance_npcname("PoringSummoner1") + "::OnPoringKill1";
+			setunitdata $@mobid[0],UMOB_HP,1;
+			setunitdata $@mobid[0],UMOB_MAXHP,1;
+		}
+	}
+	.rand_num = rand(1,5);
+	//monster x,y change to 0,0 after test
+	monster strnpcinfo(4), 108, 98, "Poring", .poring_id[.rand_num], 1, instance_npcname("PoringSummoner1") + "::OnPoringKill1";
+	.poring_gid = $@mobid[0];
+	setunitdata .poring_gid,UMOB_HP,1;
+	setunitdata .poring_gid,UMOB_MAXHP,1;
+	mapannounce strnpcinfo(4), "Summoned " + getmapunits(BL_MOB,strnpcinfo(4)) + " monsters.",bc_map;
+end;
+OnPoringKill1:
+
+	if(killedgid == .poring_gid){
+		mapannounce strnpcinfo(4), "Congratulations to " + strcharinfo(0) + " for winning the round " + .round_counter +
+			" of Poring Kill Game.", bc_map;
+		.num_win++;
+		setarray .winner_name$[.num_win], strcharinfo(0);
+		if(.round_counter < 10){
+			callsub ResetEvent;
+		}
+		else{
+			killmonster strnpcinfo(4), instance_npcname("PoringSummoner1") + "::OnPoringKill1";
+			//End of GAME, list all winning players and rewards
+			mapannounce strnpcinfo(4), "GAME OVER. Rewards will be given to winning player/s in 5 seconds.", bc_map;
+			sleep 5000;
+			announce "List of Player/s won after 10 rounds of Poring Kill Game",0;
+			for(.@i = 1; .@i <= getarraysize(.winner_name$); .@i++){
+				announce .winner_name$[.@i],0;
+				//getitem	rewards for the player
+			}
+		}
+		
+	}
+	else{
+		.@player_acc = convertpcinfo(strcharinfo(0),CPC_ACCOUNT);
+		if(!isdead(.@player_acc)){
+			percentheal -100,0;
+			.num_player = getmapunits(BL_PC,strnpcinfo(4),.player_name$[0]);
+			for(.@i = 0; .@i < getarraysize(.player_name$); .@i++){
+				.@player_acc = convertpcinfo(.player_name$[.@i],CPC_ACCOUNT);
+				if(isdead(.@player_acc))
+					.num_player--;
+			}
+			mapannounce strnpcinfo(4), "Player [" + strcharinfo(0) + "] is dead for killing the wrong monster. " +
+				"Remaining number of player/s " + .num_player, bc_map;
+		}
+		
+		if(.num_player == 0 && .round_counter < 10){
+			mapannounce strnpcinfo(4), "All Players Dead. The Game will Reset in a few seconds." , bc_map;
+			callsub ResetEvent;
+		}
+		//ELSE IF end of Game, list all winning players and rewards
+		else if(.num_player == 0 && .round_counter == 10){
+			if('game_end){
+				end;
+			}
+			'game_end = 1;
+			mapannounce strnpcinfo(4), "GAME OVER. Rewards will be given to winning player/s in 5 seconds.", bc_map;
+			sleep 5000;
+			announce "List of Player won after 10 rounds of Poring Kill Game",0;
+			for(.@i = 1; .@i <= getarraysize(.winner_name$); .@i++){
+				announce .winner_name$[.@i],0;
+				//getitem	rewards for the player
+			}
+		}
+	}
+end;
+
+ResetEvent:
+	killmonster strnpcinfo(4), instance_npcname("PoringSummoner1") + "::OnPoringKill1";
+	sleep 5000;
+	.round_counter++;
+	atcommand "@raisemap";
+	//BUFF NYA DRE kung pd
+	
+	setnpctimer 5000;
+	mapannounce strnpcinfo(4), "Round " + .round_counter + "/10 of Poring Kill Game...GAME START!!!", bc_map;
+	callsub SummonPoring;
+end;
+OnTimer65000:
+	if(.round_counter < 10){
+		mapannounce strnpcinfo(4), "Time's Up! No one kill the target monster this round. Don't you worry you still have next round in a few seconds.",bc_map;
+		callsub ResetEvent;
+	}
+end;
+}

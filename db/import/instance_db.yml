@@ -248,3 +248,11 @@ Body:
       Map: tur_dun04
       X: 100
       Y: 192
+  - Id: 134
+    Name: PoringKill Event
+    TimeLimit: 905
+    IdleTimeOut: 420
+    Enter:
+      Map: izlu2dun
+      X: 108
+      Y: 88
