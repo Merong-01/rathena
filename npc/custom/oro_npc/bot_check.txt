@@ -127,6 +127,7 @@ function	script	fx_simple_bot_check	{
 		sc_start SC_INCREASEAGI,1800000,10;
 		specialeffect2 EF_BLESSING;
 		sc_start SC_BLESSING,1800000,10;
+		percentheal 100, 100;
 		return;
 	}
 	else if(.@tries < 2){

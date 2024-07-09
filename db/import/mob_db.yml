@@ -201,6 +201,12 @@ Body:
     MvpDrops:
       - Item: Black_Glasses
         Rate: 100
+  - Id: 1511
+    AegisName: AMON_RA
+    Name: Amon Ra
+    MvpDrops:
+      - Item: Soulless_Wing
+        Rate: 100
 
 # eAthena Dev Team
 #=============================================================

@@ -529,15 +529,12 @@ Body:
           - Index: 2
             Item: HE_Battle_Manual
             Amount: 15
-            Bound: Account
           - Index: 3
             Item: Job_Manual50
             Amount: 15
-            Bound: Account
           - Index: 4
             Item: Bubble_Gum
             Amount: 15
-            Bound: Account
           - Index: 5
             Item: N_Fly_Wing
             Amount: 150
@@ -553,7 +550,6 @@ Body:
           - Index: 8
             Item: Convex_Mirror
             Amount: 20
-            Bound: Account
           - Index: 9
             Item: All_In_One_Ring_Box
             Amount: 1
@@ -574,58 +570,75 @@ Body:
             Item: ASPD_Potion_Box
             Rate: 100
             Amount: 1
+            Announced: true
           - Index: 3
             Item: Elite_Siege_Supply_Box
-            Rate: 100
+            Rate: 200
             Amount: 1
+            Announced: true
           - Index: 4
             Item: Elite_Siege_Supply_Box_
-            Rate: 5
+            Rate: 150
             Amount: 1
+            Announced: true
           - Index: 5
             Item: Kafra_Card_Box5
             Rate: 100
             Amount: 1
+            Announced: true
           - Index: 6
             Item: Megaphone_Box5
             Rate: 100
             Amount: 1
+            Announced: true
           - Index: 7
             Item: Bubble_Gum
-            Rate: 100
+            Rate: 150
             Amount: 1
+            Announced: true
           - Index: 8
             Item: HE_Battle_Manual
-            Rate: 100
+            Rate: 150
             Amount: 1
+            Announced: true
           - Index: 9
             Item: Job_Manual50
-            Rate: 100
+            Rate: 150
             Amount: 1
+            Announced: true
           - Index: 10
             Item: Universal_Catalog_Gold_Box10
             Rate: 100
             Amount: 1
+            Announced: true
           - Index: 11
             Item: Convex_Mirror
             Rate: 100
             Amount: 1
+            Announced: true
           - Index: 12
             Item: VIP_1Day_Coin
-            Rate: 10
+            Rate: 50
             Amount: 1
+            Bound: Account
+            Announced: true
           - Index: 13
             Item: Greed_Box50
-            Rate: 10
+            Rate: 50
             Amount: 1
+            Announced: true
           - Index: 14
             Item: C_Sunglasses_S
             Rate: 1
             Amount: 1
+            Bound: Account
+            Announced: true
           - Index: 15
             Item: C_Cigarette_S
             Rate: 1
             Amount: 1
+            Bound: Account
+            Announced: true
   - Group: CASH_EGG_SCROLL
     SubGroups:
       - SubGroup: 1
@@ -654,31 +667,26 @@ Body:
             Item: Kafra_Card
             Rate: 12
             Amount: 5
-            Bound: Account
             Announced: true
           - Index: 5
             Item: Bubble_Gum
             Rate: 20
             Amount: 3
-            Bound: Account
             Announced: true
           - Index: 6
             Item: HE_Battle_Manual
             Rate: 12
             Amount: 3
-            Bound: Account
             Announced: true
           - Index: 7
             Item: Job_Manual50
             Rate: 12
             Amount: 3
-            Bound: Account
             Announced: true
           - Index: 8
             Item: Convex_Mirror
             Rate: 12
             Amount: 2
-            Bound: Account
             Announced: true
           - Index: 9
             Item: Greed_Box50
@@ -764,31 +772,26 @@ Body:
             Item: Kafra_Card
             Rate: 12
             Amount: 5
-            Bound: Account
             Announced: true
           - Index: 5
             Item: Bubble_Gum
             Rate: 20
             Amount: 3
-            Bound: Account
             Announced: true
           - Index: 6
             Item: HE_Battle_Manual
             Rate: 12
             Amount: 3
-            Bound: Account
             Announced: true
           - Index: 7
             Item: Job_Manual50
             Rate: 12
             Amount: 3
-            Bound: Account
             Announced: true
           - Index: 8
             Item: Convex_Mirror
             Rate: 12
             Amount: 2
-            Bound: Account
             Announced: true
           - Index: 9
             Item: Greed_Box50

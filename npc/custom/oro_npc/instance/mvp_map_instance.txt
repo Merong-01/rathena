@@ -110,6 +110,10 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 				.@paid_flag = true;
 				break;
 			}
+			if(getinstancevar('paid_uniq_id[.@i], .@ins_id) == get_unique_id()){
+				.@uniq_id_flag = true;
+				break;
+			}
 		}
 		
 		mes .@npcName$;
@@ -121,6 +125,13 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 		if(@menu == 2){
 			mes .@npcName$;
 			mes "Talk to me again when you are ready.";
+			close;
+		}
+		if(.@uniq_id_flag == true){
+			mes .@npcName$;
+			mes "It seems that another version of you is already inside the instance,";
+			mes "or at least has already paid to enter the instance.";
+			mes "I am sorry but we can't allow you enter this instance.";
 			close;
 		}
 		if(.@paid_flag == false){
@@ -137,6 +148,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 				}
 				delitem 7199, 5;
 				setinstancevar('paid_char_id[.@i], getcharid(0), .@ins_id);
+				setinstancevar('paid_uniq_id[.@i], get_unique_id(), .@ins_id);
 			}
 			else if(@menu == 2){
 				if(Zeny < 100000){
@@ -146,6 +158,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 				}
 				Zeny -= 100000;
 				setinstancevar('paid_char_id[.@i], getcharid(0), .@ins_id);
+				setinstancevar('paid_uniq_id[.@i], get_unique_id(), .@ins_id);
 			}
 			else {
 				mes .@npcName$;
@@ -331,6 +344,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 		if(.@ret > 0){
 			delitem 7199, 5;
 			setinstancevar('paid_char_id[0], getcharid(0), .@ret);
+			setinstancevar('paid_uniq_id[0], get_unique_id(), .@ret);
 		}
 		else {
 			mes .@npcName$;
@@ -373,6 +387,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 		if(.@ret > 0){
 			Zeny -= 100000;
 			setinstancevar('paid_char_id[0], getcharid(0), .@ret);
+			setinstancevar('paid_uniq_id[0], get_unique_id(), .@ret);
 		}
 		else {
 			mes .@npcName$;

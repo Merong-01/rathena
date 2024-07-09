@@ -1879,9 +1879,10 @@ Body:
     Trade:
       NoSell: true
     Script: |
-      .@item_id = groupranditem(IG_STREAMER_GIFT_BOX,1);
-      getitembound .@item_id, 1, Bound_Account;
-      announce "Player [ " + strcharinfo(0) + " ] opened Streamer Gift Box and obtained " + getitemname(.@item_id),0;
+      getgroupitem IG_STREAMER_GIFT_BOX,1;
+    #  .@item_id = groupranditem(IG_STREAMER_GIFT_BOX,1);
+    #  getitembound .@item_id, 1, Bound_Account;
+    #  announce "Player [ " + strcharinfo(0) + " ] opened Streamer Gift Box and obtained " + getitemname(.@item_id),0;
   - Id: 30009
     AegisName: New_Hairstyle_Coupon_ORO
     Name: New Hairstyle Coupon

@@ -307,9 +307,9 @@ moc_fild20,0,0	monster	Picky	1049,50
 //==================================================
 // moc_fild21 - Dimensional Gorge
 //==================================================
-moc_fild21,0,0	monster	Golem	1040,61
-moc_fild21,0,0	monster	Stalactic Golem	1278,46
-moc_fild21,0,0	monster	Lava Golem	1366,46
+moc_fild21,0,0	monster	Golem	1040,10
+moc_fild21,0,0	monster	Stalactic Golem	1278,5
+moc_fild21,0,0	monster	Lava Golem	1366,5
 //moc_fild21,0,0	monster	Incarnation of Morocc	1918,46,30000,0,0
 //moc_fild21,0,0	monster	Incarnation of Morocc	1919,46,30000,0,0
 //moc_fild21,0,0	monster	Incarnation of Morocc	1920,46,30000,0,0

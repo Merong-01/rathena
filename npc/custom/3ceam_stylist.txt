@@ -100,23 +100,33 @@ Lhairdye:
 	mes "[Super Stylist]";
 	mes "Enter the dye you want.";
 	mes "Max Hair Dyes = "+@hairdyemax+"";
+	next;
 	.@prevlook = getlook(LOOK_HAIR_COLOR);
 	input @hairdye;
 	if (@hairdye < 0 || @hairdye > @hairdyemax) set @hairdye,0;
 	changelook 6,@hairdye;
-	next;
+
 	mes "[Super Stylist]";
 	mes "Is this the correct hair color you are looking for?";
-	if(select("Confirm selection:Revert to original color") == 2){
+	.@ret = prompt("Confirm selection:Revert to original color");
+	if(.@ret == 2 || @hairdye == .@prevlook){
 		changelook 6, .@prevlook;
+		clear;
+		mes "[Super Stylist]";
+		mes "Have a good day.";
+	}
+	else if(.@ret == 255){
+		changelook 6, .@prevlook;
+		end;
 	}
 	else {
 		setlook 6, @hairdye;
 		delitem 30010, 1;
-	}
-	next;
-	goto Lmain;
-
+		clear;
+		mes "[Super Stylist]";
+		mes "Have fun with your new look.";
+	}	
+end;
 Lhairstyle:
 	if(countitem(30009) < 1){
 		goto Lnocoupon;
@@ -124,47 +134,67 @@ Lhairstyle:
 	mes "[Super Stylist]";
 	mes "Enter the style you want.";
 	mes "Max Hair Styles = "+@hairstylemax+"";
+	next;
 	.@prevlook = getlook(LOOK_HAIR);
 	input @hairstyle;
 	if (@hairstyle < 1 || @hairstyle > @hairstylemax) set @hairstyle,1;
 	changelook 1,@hairstyle;
-	next;
+
 	mes "[Super Stylist]";
 	mes "Is this the correct hair style you are looking for?";
-	if(select("Confirm selection:Revert to original style") == 2){
+	prompt("Confirm selection:Revert to original color");
+	if(@menu == 2 || @hairstyle == .@prevlook){
 		changelook 1, .@prevlook;
+		clear;
+		mes "[Super Stylist]";
+		mes "Have a good day.";
+	}
+	else if(@menu == 255){
+		changelook 1, .@prevlook;
+		end;
 	}
 	else {
 		setlook 1, @hairstyle;
 		delitem 30009, 1;
+		clear;
+		mes "[Super Stylist]";
+		mes "Have fun with your new look.";
 	}
-	next;
-	goto Lmain;
-
+end;
 Lbodydye:
 	if(countitem(30011) < 1){
 		goto Lnocoupon;
 	}
 	mes "[Super Stylist]";
 	mes "Enter the dye you want.";
-	mes "Max Body Dyes = "+@bodydyemax+"";
+	mes "Max Body Dyes = " + (@bodydyemax - 1) + "";
+	next;
 	.@prevlook = getlook(LOOK_CLOTHES_COLOR);
 	input @bodydye;
 	if (@bodydye < 0 || @bodydye > @bodydyemax) set @bodydye,0;
 	changelook 7,@bodydye+1;
-	next;
+
 	mes "[Super Stylist]";
 	mes "Is this the correct cloth dye you are looking for?";
-	if(select("Confirm selection:Revert to original color") == 2){
+	prompt("Confirm selection:Revert to original color");
+	if(@menu == 2 || .@prevlook == (@bodydye + 1)){
 		changelook 7, .@prevlook;
+		clear;
+		mes "[Super Stylist]";
+		mes "Have a good day.";
+	}
+	else if(@menu == 255){
+		changelook 7, .@prevlook;
+		end;
 	}
 	else {
 		setlook 7, @bodydye+1;
 		delitem 30011, 1;
+		clear;
+		mes "[Super Stylist]";
+		mes "Have fun with your new look.";
 	}
-	next;
-	goto Lmain;
-
+end;
 Lbodystyle:
 	mes "[Super Stylist]";
 	mes "Enter the style you want.";

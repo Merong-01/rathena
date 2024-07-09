@@ -252,7 +252,8 @@ Body:
     Name: PoringKill Event
     TimeLimit: 905
     IdleTimeOut: 420
+    NoNpc: true
     Enter:
-      Map: izlu2dun
-      X: 108
-      Y: 88
+      Map: int_land
+      X: 75
+      Y: 93
