@@ -6,7 +6,7 @@
 OnInit:
 	bindatcmd("startglasstilegame",strnpcinfo(0)+"::OnInitGame",99,99);
 end;
-OnHour12:
+OnHour20:
 OnInitGame:
 	if(.instance_id > 0){
 		//dispbottom "An instance of Glass Tile Mini Game is already active", 0x00FF00;

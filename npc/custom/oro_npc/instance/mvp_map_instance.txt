@@ -430,7 +430,7 @@ OnInit:
 		$MVP_MAP_INS_CD = gettime(DT_DAYOFMONTH);
 	}
 end;
-OnHour16:
+OnHour00:
 	//.day_id = gettime(DT_DAYOFMONTH);
 	$MVP_MAP_INS_CD += 1;
 end;

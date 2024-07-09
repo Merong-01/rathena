@@ -4,7 +4,7 @@
 OnInit:
 	bindatcmd("startmvpbosshunt",strnpcinfo(0)+"::OnInitEvent",99,99);
 end;
-OnHour13:
+OnHour21:
 OnInitEvent:
 	if(.ins_id > 0){
 		if(playerattached()){

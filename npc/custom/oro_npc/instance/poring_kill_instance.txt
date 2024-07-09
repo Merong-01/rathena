@@ -5,7 +5,7 @@
 OnInit:
 	bindatcmd("startporinggame",strnpcinfo(0)+"::OnInitEvent",99,99);
 end;
-OnClock1330:
+OnClock2030:
 OnInitEvent:
 	if(.ins_id > 0){
 		if(playerattached()){

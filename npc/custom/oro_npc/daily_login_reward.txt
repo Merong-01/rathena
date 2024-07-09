@@ -50,7 +50,7 @@ OnInit:
 	}
 	waitingroom "Daily Login Reward Here", 0;
 end;
-OnHour16:
+OnClock0001:
 	//.day_id = gettime(DT_DAYOFMONTH);
 	$DAILY_REW_CD += 1;
 end;
