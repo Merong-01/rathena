@@ -250,7 +250,7 @@ Body:
       Y: 192
   - Id: 134
     Name: PoringKill Event
-    TimeLimit: 905
+    TimeLimit: 1200
     IdleTimeOut: 420
     NoNpc: true
     Enter:

@@ -39,7 +39,7 @@ OnInitEvent:
 	}
 
 	cleararray .join_char_id[0], 0, getarraysize(.join_char_id);
-	cleararray .winner_name$[0], 0, getarraysize(.winner_name$);
+	deletearray .winner_name$[0], getarraysize(.winner_name$);
 	announce "The Poring Hunt Game will start in 5 minutes, to join the game type @joinporinggame", bc_all, 0x00FFFF;
 	.poring_event_status = 1;
 	initnpctimer;
@@ -175,6 +175,16 @@ SummonPoring:
 		"Pporing",
 		"PoringG",
 		"Porign",
+		"Boring",
+		"Poning",
+		"Borign",
+		"Boriing",
+		"Poriing",
+		"Boning",
+		"Pooing",
+		"Ponring",
+		"Broing",
+		"Proing",
 		"PorRing";
 	setarray .poring_id[1],
 		1002,	//poring
@@ -182,21 +192,14 @@ SummonPoring:
 		1031,	//poporing
 		1242,	//marin
 		1894;	//pouring
-	.@poring_num = cap_value(getmapusers(.ins_map_name$) * 2 + 9, 24, 65);
+	.@poring_num = cap_value(getmapusers(.ins_map_name$) * 5 + 95, 100, 150);
 	for(.@i = 0; .@i < .@poring_num; .@i++){
-		areamonster .ins_map_name$, 50, 80, 95, 60, .poring_name$[rand(1,5)], .poring_id[rand(1,5)], 1, strnpcinfo(0) + "::OnFakePoring";
+		areamonster .ins_map_name$, 50, 87, 97, 49, .poring_name$[rand(1,15)], .poring_id[rand(1,5)], 1, strnpcinfo(0) + "::OnFakePoring";
 		setunitdata $@mobid[0],UMOB_HP,1;
 		setunitdata $@mobid[0],UMOB_MAXHP,1;
 	}
-	//for(.@i = 1; .@i < getarraysize(.poring_name$); .@i++){
-	//	for(.@j = 1; .@j < getarraysize(.poring_id); .@j++ ){
-	//		areamonster .ins_map_name$, 50, 80, 95, 60, .poring_name$[.@i], .poring_id[.@j], 1, strnpcinfo(0) + "::OnFakePoring";
-	//		setunitdata $@mobid[0],UMOB_HP,1;
-	//		setunitdata $@mobid[0],UMOB_MAXHP,1;
-	//	}
-	//}
 
-	areamonster .ins_map_name$, 50, 80, 95, 60, "Poring", .poring_id[rand(1,5)], 1, strnpcinfo(0) + "::OnTruePoring";
+	areamonster .ins_map_name$, 50, 87, 97, 49, "Poring", .poring_id[rand(1,5)], 1, strnpcinfo(0) + "::OnTruePoring";
 	.poring_gid = $@mobid[0];
 	setunitdata .poring_gid,UMOB_HP,1;
 	setunitdata .poring_gid,UMOB_MAXHP,1;
