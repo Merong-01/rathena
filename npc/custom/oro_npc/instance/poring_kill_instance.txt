@@ -113,7 +113,7 @@ OnTimer310000:
 end;
 OnTimer370000:
 	if(.round_counter < 10){
-		mapannounce .ins_map_name$, "Time's Up! No one killed the target monster this round. Don't you worry you still have a chance next round.",bc_map;
+		mapannounce .ins_map_name$, "Time's Up! No one killed the target monster this round. Don't worry you still have a chance next round.",bc_map;
 		callsub ResetEvent;
 	}
 	else {
@@ -130,6 +130,7 @@ OnTimer965000:
 	.ins_id = 0;
 	.poring_event_status = 0;
 	.poring_found = 0;
+	.num_win = 0;
 	stopnpctimer;
 end;
 OnJoinEvent:
@@ -206,6 +207,10 @@ SummonPoring:
 	mapannounce .ins_map_name$, "Summoned " + getmapunits(BL_MOB,.ins_map_name$) + " monsters.",bc_map;
 end;
 ResetEvent:
+	if(getmapusers(.ins_map_name$) == 0){
+		callsub AnnounceWinners;
+		end;
+	}
 	.round_counter++;
 	setnpctimer 300001;
 	killmonster .ins_map_name$, "All";
@@ -215,22 +220,32 @@ ResetEvent:
 	.poring_found = 0;
 end;
 AnnounceWinners:
-	.@message$ = "List of Player/s won after 10 rounds of Poring Hunt Game";
+	if(.num_win == 0){
+		announce "Poring Hunt Game is Over! Sadly, nobody won throughout the "+ .round_counter + " rounds of the game.", 0;
+		setnpctimer 900000;
+		end;
+	}
+	//End of GAME, list all winning players and rewards
+	mapannounce .ins_map_name$, "GAME OVER. Rewards will be given to winning player/s in 5 seconds.", bc_map;
+	
 	sleep 5000;
+
+	.@message$ = "List of Player/s won after "+ .round_counter + " rounds of Poring Hunt Game";
 	for(.@i = 1; .@i < getarraysize(.winner_name$); .@i++){
-		.@message$ += "\n " + .winner_name$[.@i];
+		.@message$ += "\n -->> " + .winner_name$[.@i];
 		.@acc_id = convertpcinfo(.winner_name$[.@i], CPC_ACCOUNT);
 		if(.@acc_id == 0){
 			continue;
 		}
 		getitem	7199, 5, .@acc_id;
 	}
-	//End of GAME, list all winning players and rewards
-	mapannounce .ins_map_name$, "GAME OVER. Rewards will be given to winning player/s in 5 seconds.", bc_map;
 	announce .@message$, 0;
 	setnpctimer 900000;
 end;
 OnTruePoring:
+	if(playerattached() == 0){
+		end;
+	}
 	.poring_found = 1;
 	instance_announce .ins_id, "Congratulations to " + strcharinfo(0) + " for winning the round " + .round_counter +
 		" of Poring Hunt Game.", bc_map;
@@ -245,6 +260,9 @@ OnTruePoring:
 	}
 end;
 OnFakePoring:
+	if(playerattached() == 0){
+		end;
+	}
 	.@num_player = getmapusers(.ins_map_name$);
 	.@player_acc = convertpcinfo(strcharinfo(0),CPC_ACCOUNT);
 	if(!isdead(.@player_acc)){
@@ -268,6 +286,7 @@ OnFakePoring:
 	}
 	//ELSE IF end of Game, list all winning players and rewards
 	else if(.@num_player == 0 && .round_counter == 10){
+		killmonster .ins_map_name$, "All";
 		callsub AnnounceWinners;
 	}
 end;

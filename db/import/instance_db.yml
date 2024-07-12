@@ -251,7 +251,7 @@ Body:
   - Id: 134
     Name: PoringKill Event
     TimeLimit: 1200
-    IdleTimeOut: 420
+    IdleTimeOut: 480
     NoNpc: true
     Enter:
       Map: int_land

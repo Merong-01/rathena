@@ -30,6 +30,8 @@ OnMapShower:
 	.@item_id[8] = 30007; // Egg Scrool
 	.@item_id[9] = 12911; // neuralizer box
 	.@item_id[10] = 6320; // reset stone
+	.@item_id[11] = 30010; // new hair dye coupon
+	.@item_id[12] = 30126; // costume teddybear hat
 	
 	.@item_name_sel$ = "";
 	for(.@i = 0; .@i < getarraysize(.@item_id); .@i++){
@@ -48,7 +50,7 @@ OnMapShower:
 	mes "Select the number of items you want to give:";
 	next;
 	
-	if(.@item_id[.@sel] == 30007 || .@item_id[.@sel] == 12911 || .@item_id[.@sel] == 6320){
+	if(.@item_id[.@sel] == 30007 || .@item_id[.@sel] == 12911 || .@item_id[.@sel] == 6320 || .@item_id[.@sel] == 30126){
 		.@num = select("1");
 	}
 	else {
@@ -241,15 +243,13 @@ OnBattleStart:
 	attachnpctimer;
 	initnpctimer;
 end;
-OnTimer300000:
-//OnTimer6000:
-	announce "Five minutes has passed since the battle started.", bc_all, 0x00FF00, FW_BOLD, 20;
+OnTimer180000:
+	announce "Three minutes has passed since the battle started.", bc_all, 0x00FF00, FW_BOLD, 20;
 end;
-//OnTimer10000:
-OnTimer301000:
+OnTimer181000:
 	callsub StartCountdown, "Disabling item use/consumption in", 10;
 	setmapflag strcharinfo(3), mf_noitemconsumption;
-	announce "Item use/consumption is disabled!", bc_all, 0x00FF00, FW_BOLD, 20;
+	announce "Item use/consumption is now disabled!", bc_all, 0x00FF00, FW_BOLD, 20;
 end;
 //OnTimer25000:
 OnTimer600000:

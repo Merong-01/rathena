@@ -2566,7 +2566,28 @@ Body:
     View: 4019
     Script: |
         bonus2 bExpAddClass,Class_All,10;
-        bonus2 bDropAddClass,Class_All,5; 
+        bonus2 bDropAddClass,Class_All,5;
+  - Id: 30126
+    AegisName: C_Brown_Teddybear_Cap
+    Name: Costume Teddybear Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoTrade: true
+      NoCart: true
+      NoMail: true
+      NoGuildStorage: true
+      NoAuction: true
+    View: 143
+    Script: |
+        bonus2 bExpAddClass,Class_All,5;
+        bonus2 bDropAddClass,Class_All,2;
+        bonus bAddMaxWeight,1000;
   - Id: 30201
     AegisName: Rapier_S
     Name: Rapier (Starter Weapon)

@@ -510,6 +510,9 @@ OnMVPQuiled:
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
 				continue;
 			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
+				continue;
+			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
@@ -586,6 +589,9 @@ OnMVPQuiled:
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
 				continue;
 			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
@@ -673,6 +679,9 @@ OnMVPQuiled:
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
 				continue;
 			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
+				continue;
+			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
@@ -753,6 +762,9 @@ OnMVPQuiled:
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
 				continue;
 			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
@@ -877,6 +889,9 @@ OnMVPQuiled:
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
 				continue;
 			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
+				continue;
+			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
@@ -953,6 +968,9 @@ OnMVPQuiled:
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
 				continue;
 			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
@@ -1035,6 +1053,9 @@ OnMVPQuiled:
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
 				continue;
 			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
+				continue;
+			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
@@ -1113,6 +1134,9 @@ OnMVPQuiled:
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
 				continue;
 			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
@@ -1194,6 +1218,9 @@ OnMVPQuiled:
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
 				continue;
 			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
+				continue;
+			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
@@ -1270,6 +1297,9 @@ OnMVPQuiled:
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
 				continue;
 			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
@@ -1351,6 +1381,9 @@ OnMVPQuiled:
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
 				continue;
 			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
@@ -1439,6 +1472,9 @@ OnMVPQuiled:
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
 				continue;
 			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
+				continue;
+			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
@@ -1518,6 +1554,9 @@ OnMVPQuiled:
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
 				continue;
 			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
+				continue;
+			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
@@ -1595,6 +1634,9 @@ OnMVPQuiled:
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
 				continue;
 			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
@@ -1679,6 +1721,9 @@ OnMVPQuiled:
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
 				continue;
 			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
+				continue;
+			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
@@ -1759,6 +1804,9 @@ OnMVPQuiled:
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
 				continue;
 			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
@@ -1850,6 +1898,9 @@ OnMVPQuiled:
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
 				continue;
 			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
@@ -2005,6 +2056,9 @@ OnMVPQuiled:
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
 				continue;
 			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
+				continue;
+			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
@@ -2086,6 +2140,9 @@ OnMVPQuiled:
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
 				continue;
 			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
+				continue;
+			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
 			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
 				continue;
@@ -2162,6 +2219,9 @@ OnMVPQuiled:
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
 				continue;
 			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
@@ -2241,6 +2301,9 @@ OnMVPQuiled:
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
 				continue;
 			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
@@ -2332,6 +2395,9 @@ OnMVPQuiled:
 		getpartymember getcharid(1), 2, .@party_mem_acc_id;
 		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
 			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
 				continue;
 			}
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
