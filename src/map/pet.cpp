@@ -853,6 +853,10 @@ static TIMER_FUNC(pet_hungry){
 	else
 		interval = pet_db_ptr->hungry_delay;
 
+	if (pd->pet.intimate >= PET_INTIMATE_LOYAL && battle_config.pet_hungry_friendly_decrease != 0) {
+		interval += (interval * battle_config.pet_hungry_friendly_decrease) / 100;
+	}
+
 	pd->pet.hungry -= pet_db_ptr->fullness;
 
 	if( pd->pet.hungry < PET_HUNGRY_NONE ) {

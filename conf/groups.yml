@@ -181,6 +181,7 @@ Body:
     Level: 0
     Commands:
       rates: true
+      autotrade: true
       #who: true
       #shout: true
   - Id: 10

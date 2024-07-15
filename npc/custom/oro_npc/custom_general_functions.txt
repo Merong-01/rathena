@@ -15,3 +15,32 @@ function	script	F_gettimestr	{
 	
 	return .@timeInStr$;
 }
+
+function	script	F_addCharSlot	{
+	.@char_id = getcharid(3);
+	.@ret = query_sql("SELECT character_slots FROM ragnaserver.login WHERE account_id = " + .@char_id, @char_slots);
+	if(.@ret == -1){
+		dispbottom "Failed to access account data", 0xFF0000;
+		end;
+	}
+	if(.@ret == 0){
+		dispbottom "DB Error: Did not found the account data", 0xFF0000;
+		end;
+	}
+	if(.@ret > 1){
+		debugmes "DB Error: check query statement for logic error";
+	}
+	
+	if(@char_slots[0] >= 12){
+		dispbottom "You can't add more since you already have 12 unlocked character slots", 0x00FF00;
+		end;
+	}
+	.@new_char_slots = @char_slots[0] + 1;
+	.@result = query_sql("UPDATE ragnaserver.login SET character_slots = " + .@new_char_slots + " WHERE account_id = " + .@char_id);
+	if(.@result == -1){
+		dispbottom "Failed to unlock additional character slot", 0xFF0000;
+		end;
+	}
+	dispbottom "The character slots of this account is increased to " + .@new_char_slots, 0x00FF00;
+	end;
+}

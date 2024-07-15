@@ -926,13 +926,16 @@ uint64 ItemDatabase::parseBodyNode(const ryml::NodeRef& node) {
 
 			if (override > 100) {
 				this->invalidWarning(tradeNode["Override"], "Item trade override level %d exceeds 100, capping to 100.\n", override);
-				override = 100;
+				override = 99;
+			}
+			if (override == 100) {
+				override = 99;
 			}
 
 			item->gm_lv_trade_override = override;
 		} else {
 			if (!exists)
-				item->gm_lv_trade_override = 100;
+				item->gm_lv_trade_override = 99;
 		}
 
 		if (this->nodeExists(tradeNode, "NoDrop")) {

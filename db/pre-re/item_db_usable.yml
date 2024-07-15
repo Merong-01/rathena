@@ -7315,6 +7315,14 @@ Body:
     Type: Usable
     Buy: 2
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
     Script: |
       sc_start SC_EXPBOOST,900000,200;
   - Id: 12412
@@ -7323,6 +7331,14 @@ Body:
     Type: Usable
     Buy: 2
     Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
     Script: |
       sc_start SC_ITEMBOOST,900000,200;
   - Id: 12413

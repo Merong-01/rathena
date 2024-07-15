@@ -121,10 +121,13 @@ max_cloth_color: 35
 min_body_style: 0
 max_body_style: 1
 
+// Visible area size (how many squares away from a player they can see)
+area_size: 18
+
 //battle/feature.conf
 feature.achievement: off
-feature.refineui: off
-feature.equipswitch: off
+feature.refineui: on
+feature.equipswitch: on
 feature.homunculus_autofeed: on
 feature.attendance: off
 feature.privateairship: off
@@ -153,6 +156,7 @@ spear_mastery_aspd_buff: yes
 mace_mastery_aspd_buff: yes
 spear_quicken_buff: no
 auto_spell_buff: yes
+body_reloc_trabweb: yes
 gvg_traps_target_all: 0
 skip_teleport_lv1_menu: yes
 
@@ -171,6 +175,9 @@ max_guild_alliance: 0
 // Does autoloot work, when a monster is killed by homunculus only?
 homunculus_autoloot: no
 
+//battle/pet.conf
+pet_hungry_friendly_decrease: 100
+
 //battle/misc.conf
 // Using duel on pvp-maps
 duel_allow_pvp: no
@@ -180,3 +187,8 @@ duel_allow_gvg: no
 
 // Delay between using @duel in minutes
 duel_time_interval: 10
+
+// Allow autotrade only in maps with autotrade flag?
+// Set this to "no" to allow autotrade where no "autotrade" mapflag is set.
+// Set this to "yes" to only allow autotrade on maps with "autotrade" mapflag.
+at_mapflag: yes

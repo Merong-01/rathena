@@ -14053,6 +14053,11 @@ int skill_castend_pos2(struct block_list* src, int x, int y, uint16 skill_id, ui
 		return 0; // not to consume item.
 
 	case MO_BODYRELOCATION:
+		if (sc && (sc->getSCE(SC_SPIDERWEB) || sc->getSCE(SC_ANKLE) || sc->getSCE(SC_CLOSECONFINE))
+			&& battle_config.mo_bodyrelocTrabWeb == 1)
+		{
+			return 0;
+		}
 		if (unit_movepos(src, x, y, 2, 1)) {
 #if PACKETVER >= 20111005
 			clif_snap(src, src->x, src->y);

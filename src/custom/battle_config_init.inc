@@ -19,3 +19,4 @@
  { "mace_mastery_aspd_buff", &battle_config.pr_maceMasteryAspdBuff, 0, 0, 1},
  { "spear_quicken_buff", &battle_config.cr_spearQuickenBuff, 0, 0, 1},
  { "auto_spell_buff", &battle_config.sa_autoSpellBuff, 0, 0, 1},
+ { "body_reloc_trabweb", &battle_config.mo_bodyrelocTrabWeb, 0, 0, 1},

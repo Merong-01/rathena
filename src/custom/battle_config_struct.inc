@@ -20,3 +20,4 @@
  int pr_maceMasteryAspdBuff;
  int cr_spearQuickenBuff;
  int sa_autoSpellBuff;
+ int mo_bodyrelocTrabWeb;

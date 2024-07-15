@@ -1,0 +1,19 @@
+//===== rAthena Script =======================================
+//== Mapflag: Enabled Autotrade
+//===== Description: =========================================
+//== Made by Project Overgeared RO
+//==============================================================
+
+//============================================================
+// Prontera City
+//============================================================
+prontera	mapflag	autotrade
+
+//============================================================
+// Test Map
+//============================================================
+new_1-4	mapflag	autotrade
+new_2-4	mapflag	autotrade
+new_3-4	mapflag	autotrade
+new_4-4	mapflag	autotrade
+new_5-4	mapflag	autotrade

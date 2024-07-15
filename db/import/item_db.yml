@@ -269,6 +269,7 @@ Body:
     Type: Etc
     Weight: 0
     Trade:
+      Override: 99
       NoDrop: true
       NoTrade: true
       NoSell: false
@@ -2185,6 +2186,22 @@ Body:
       NoAuction: false
     Script: |
       getgroupitem IG_CASH_EGG_SCROLL2,1;
+  - Id: 30026
+    AegisName: Unlock_Char_Slot_Coupon
+    Name: Unlock Character Slot Coupon
+    Type: Usable
+    Weight: 0
+    Trade:
+      Override: 99
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      callfunc "F_addCharSlot";
   - Id: 30100
     AegisName: C_Analyze_Eye_S
     Name: Costume Analyze Eye
@@ -2995,6 +3012,154 @@ Body:
       NoGuildStorage: true
       NoMail: true
       NoAuction: true
+  - Id: 30213
+    AegisName: Novice_Figure_
+    Name: Novice Figure
+    Type: Armor
+    Weight: 100
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Slots: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bMaxHP,70;
+      if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
+         bonus bMaxHP,30;
+  - Id: 30214
+    AegisName: Swordman_Figure_
+    Name: Swordman Figure
+    Type: Armor
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Slots: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bVit,1;
+      if (BaseClass == Job_Swordman)
+         bonus bDef,2;
+  - Id: 30215
+    AegisName: Acolyte_Figure_
+    Name: Acolyte Figure
+    Type: Armor
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Slots: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bInt,1;
+      if (BaseClass == Job_Acolyte)
+         bonus bMaxSP,50;
+  - Id: 30216
+    AegisName: Mage_Figure_
+    Name: Mage Figure
+    Type: Armor
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Slots: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bInt,1;
+      if (BaseClass == Job_Mage)
+         bonus bSPrecovRate,5;
+  - Id: 30217
+    AegisName: Archer_Figure_
+    Name: Archer Figure
+    Type: Armor
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Slots: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bDex,1;
+      if (BaseClass == Job_Archer)
+         bonus bBaseAtk,10;
+  - Id: 30218
+    AegisName: Thief_Figure_
+    Name: Thief Figure
+    Type: Armor
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Slots: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bAgi,1;
+      if (BaseClass == Job_Thief)
+         bonus bAspdRate,3;
+  - Id: 30219
+    AegisName: Merchant_Figure_
+    Name: Merchant Figure
+    Type: Armor
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    Slots: 1
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: false
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bStr,1;
+      if (BaseClass == Job_Merchant)
+         bonus bCritical,5;
   - Id: 30220
     AegisName: C_Akatsuki_Cape
     Name: Costume Akatsuki Cape
