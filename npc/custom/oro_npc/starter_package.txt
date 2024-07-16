@@ -55,7 +55,8 @@ new_1-1,63,116,3	script	Reward Kafra	117,{
 		close;
 	}
 	
-	getitembound 5286,1,Bound_Account; // Pecopeco Hairband
+	//getitembound 5286,1,Bound_Account; // Pecopeco Hairband
+	getitembound 5273,1,Bound_Account; // Happy Wig
 	getitembound 14003,10,Bound_Account; // ESSB
 	getitembound 12411,10,Bound_Account; // he battle manual
 	getitembound 12210,10,Bound_Account; // bubble gum

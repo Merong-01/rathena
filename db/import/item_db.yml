@@ -99,6 +99,27 @@ Body:
 #    Name: Angeling Egg
 #    Type: Petegg
 #    Buy: 20
+  - Id: 2417
+    AegisName: Fricco_Shoes
+    Name: Fricco's Shoes
+    Type: Armor
+    Buy: 30000
+    Weight: 500
+    Defense: 3
+    Jobs:
+      All: true
+      Novice: false
+      SuperNovice: false
+    Locations:
+      Shoes: true
+    ArmorLevel: 1
+    EquipLevelMin: 65
+    Refineable: true
+    Script: |
+      bonus bAgi,2;
+      bonus2 bAddItemGroupHealRate,IG_Potion,20;
+      bonus2 bAddItemHealRate,11503,20;
+      bonus2 bAddItemHealRate,30002,20;
   - Id: 2741
     AegisName: All_In_One_Ring
     Name: All In One Ring
@@ -298,15 +319,15 @@ Body:
     Script: |
       .@r = getrefine();
       if (.@r >= 9) {
-         bonus2 bHPDrainRate,100,16;
+         bonus2 bHPDrainRate,350,20;
          bonus2 bSPDrainRate,20,8;
       }
       else if (.@r >= 7) {
-         bonus2 bHPDrainRate,100,8;
+         bonus2 bHPDrainRate,350,10;
          bonus2 bSPDrainRate,20,4;
       }
       else {
-         bonus2 bHPDrainRate,50,8;
+         bonus2 bHPDrainRate,250,10;
          bonus2 bSPDrainRate,10,4;
       }
       bonus2 bHPLossRate,10,5000;
