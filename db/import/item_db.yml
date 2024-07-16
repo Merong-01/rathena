@@ -320,15 +320,15 @@ Body:
       .@r = getrefine();
       if (.@r >= 9) {
          bonus2 bHPDrainRate,350,20;
-         bonus2 bSPDrainRate,20,8;
+         bonus2 bSPDrainRate,200,2;
       }
       else if (.@r >= 7) {
          bonus2 bHPDrainRate,350,10;
-         bonus2 bSPDrainRate,20,4;
+         bonus2 bSPDrainRate,200,1;
       }
       else {
          bonus2 bHPDrainRate,250,10;
-         bonus2 bSPDrainRate,10,4;
+         bonus2 bSPDrainRate,100,1;
       }
       bonus2 bHPLossRate,10,5000;
   - Id: 5286
