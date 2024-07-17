@@ -319,15 +319,15 @@ Body:
     Script: |
       .@r = getrefine();
       if (.@r >= 9) {
-         bonus2 bHPDrainRate,350,20;
-         bonus2 bSPDrainRate,200,2;
+         bonus2 bHPDrainRate,300,20;
+         bonus2 bSPDrainRate,150,2;
       }
       else if (.@r >= 7) {
-         bonus2 bHPDrainRate,350,10;
-         bonus2 bSPDrainRate,200,1;
+         bonus2 bHPDrainRate,300,10;
+         bonus2 bSPDrainRate,150,1;
       }
       else {
-         bonus2 bHPDrainRate,250,10;
+         bonus2 bHPDrainRate,150,10;
          bonus2 bSPDrainRate,100,1;
       }
       bonus2 bHPLossRate,10,5000;
