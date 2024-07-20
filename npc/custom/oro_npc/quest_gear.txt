@@ -34,7 +34,14 @@ function	script	F_DisplayMenuType	{
 }
 
 function	script	F_HeadGear_Upper	{
-	setarray .@gear_list_id[0], 5286,5481,5388,5423,5378,5208;
+	setarray .@gear_list_id[0], 
+		5286,
+		5481,
+		5388,
+		5423,
+		5378,
+		5208,
+		5137; // alice doll
 	
 	.@gear_list_names$ = "";
 	for(.@i = 0; .@i < getarraysize(.@gear_list_id); .@i++){
@@ -83,6 +90,40 @@ function	script	F_HeadGear_Upper	{
 				.@gear_requirements_id[3] = 1556;
 				.@gear_requirements_count[3] = 2;
 			break;
+		case 7:
+				.@gear_requirements_id[0] = 4208; //miyabi doll card
+				.@gear_requirements_count[0] = 1;
+
+				.@gear_requirements_id[1] = 4035; //hydra card
+				.@gear_requirements_count[1] = 2;
+
+				.@gear_requirements_id[2] = 5141; //marionette doll hat
+				.@gear_requirements_count[2] = 2;
+
+				.@gear_requirements_id[3] = 751; //Osiris doll
+				.@gear_requirements_count[3] = 5;
+
+				.@gear_requirements_id[4] = 752; //rocker doll
+				.@gear_requirements_count[4] = 5;
+
+				.@gear_requirements_id[5] = 754; //racoon doll
+				.@gear_requirements_count[5] = 5;
+
+				.@gear_requirements_id[6] = 743; //spore doll
+				.@gear_requirements_count[6] = 5;
+
+				.@gear_requirements_id[7] = 753; //yoyo doll
+				.@gear_requirements_count[7] = 5;
+
+				.@gear_requirements_id[8] = 750; //baphomet doll
+				.@gear_requirements_count[8] = 1;
+
+				.@gear_requirements_id[9] = 7047; //alice's apron
+				.@gear_requirements_count[9] = 150;
+
+				.@gear_requirements_id[10] = 5315; //observer
+				.@gear_requirements_count[10] = 1;
+			break;
 		default: return 0;
 			break;
 	}
@@ -124,10 +165,10 @@ function	script	F_HeadGear_Mid	{
 				.@gear_requirements_id[0] = 5040;
 				.@gear_requirements_count[0] = 3;
 			break;
-//		case 4: 
-//				.@gear_requirements_id[0] = 2276;
-//				.@gear_requirements_count[0] = 3;
-//			break;
+	//	case 4: 
+	//			.@gear_requirements_id[0] = 2276;
+	//			.@gear_requirements_count[0] = 3;
+	//		break;
 		case 4: 
 				.@gear_requirements_id[0] = 5074;
 				.@gear_requirements_count[0] = 1;

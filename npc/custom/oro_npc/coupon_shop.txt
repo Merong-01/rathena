@@ -10,6 +10,7 @@ OnInit:
 	npcshopadditem "Hourly Shop", 12221, 1;		//megaphone
 	npcshopadditem "Hourly Shop", 12004, 1;		//quiver
 	npcshopadditem "Hourly Shop", 12910, 10;	//Giant Fly Wing Box 10
+	npcshopadditem "Hourly Shop", 30028, 10;	//MVP Map Teleport Scroll Box 5
 	npcshopadditem "Hourly Shop", 14003, 2;		//ESSB
 	npcshopadditem "Hourly Shop", 12210, 2;		//bubble gum
 	npcshopadditem "Hourly Shop", 12208, 2;		//battle manual

@@ -132,6 +132,11 @@ Body:
             Rate: 5
             Amount: 3
             Announced: true
+          - Index: 16
+            Item: MVP_Map_Tele_Scroll_Box5
+            Rate: 5
+            Amount: 1
+            Announced: true
   - Group: MVP_REWARD_BOX_UNCOMMON
     SubGroups:
       - SubGroup: 1
@@ -435,6 +440,11 @@ Body:
             Rate: 4
             Amount: 1
             Announced: true
+          - Index: 41
+            Item: Wasteland_Outlaw
+            Rate: 4
+            Amount: 1
+            Announced: true
   - Group: MVP_REWARD_BOX_EPIC
     SubGroups:
       - SubGroup: 1
@@ -514,6 +524,11 @@ Body:
             Rate: 5
             Amount: 1
             Announced: true
+          - Index: 15
+            Item: Clack_Of_Servival
+            Rate: 5
+            Amount: 1
+            Announced: true
   - Group: GUILD_PACKAGE_P
     SubGroups:
       - SubGroup: 0
@@ -569,6 +584,11 @@ Body:
           - Index: 0
             Item: ASPD_Potion_Box
             Rate: 100
+            Amount: 1
+            Announced: true
+          - Index: 1
+            Item: MVP_Map_Tele_Scroll_Box5
+            Rate: 200
             Amount: 1
             Announced: true
           - Index: 3
@@ -744,6 +764,11 @@ Body:
             Rate: 12
             Amount: 1
             Announced: true
+          - Index: 20
+            Item: MVP_Map_Tele_Scroll_Box5
+            Rate: 12
+            Amount: 1
+            Announced: true
   - Group: CASH_EGG_SCROLL2
     SubGroups:
       - SubGroup: 1
@@ -845,6 +870,11 @@ Body:
             Announced: true
           - Index: 19
             Item: Giant_Fly_Wing_Box
+            Rate: 12
+            Amount: 1
+            Announced: true
+          - Index: 20
+            Item: MVP_Map_Tele_Scroll_Box5
             Rate: 12
             Amount: 1
             Announced: true

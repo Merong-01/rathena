@@ -447,7 +447,7 @@ beach_dun,268,72,4	duplicate(MVPS)	MVP Scholar#6	4_M_ZONDAOYAJI
 ama_dun03,123,16,3	duplicate(MVPS)	MVP Scholar#7	4_M_ZONDAOYAJI
 gef_dun02,111,135,5	duplicate(MVPS)	MVP Scholar#8	4_M_ZONDAOYAJI
 xmas_fild01,93,244,3	duplicate(MVPS)	MVP Scholar#9	4_M_ZONDAOYAJI
-//gon_dun03,62,17,6	duplicate(MVPS)	MVP Scholar#10	4_M_ZONDAOYAJI
+gon_dun03,62,17,6	duplicate(MVPS)	MVP Scholar#10	4_M_ZONDAOYAJI
 mjolnir_04,146,210,3	duplicate(MVPS)	MVP Scholar#11	4_M_ZONDAOYAJI
 gef_fild10,60,332,5	duplicate(MVPS)	MVP Scholar#12	4_M_ZONDAOYAJI
 gef_fild14,362,225,4	duplicate(MVPS)	MVP Scholar#13	4_M_ZONDAOYAJI
@@ -1003,7 +1003,7 @@ OnTouch_:
 end;
 }
 
-//	-Incantaion Samurai 
+//	-Incantation Samurai 
 ama_dun03,120,11,0	script	mvp incantation samurai spawner1	-1,2,2,{
 OnInit:
 	disablenpc;

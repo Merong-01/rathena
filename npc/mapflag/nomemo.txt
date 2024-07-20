@@ -139,10 +139,10 @@ new_5-4	mapflag	nomemo
 //gef_fild03	mapflag	nomemo
 //gef_fild06	mapflag	nomemo
 //gef_fild08	mapflag	nomemo
-//gef_fild10	mapflag	nomemo
+gef_fild10	mapflag	nomemo
 //gef_fild11	mapflag	nomemo
 //gef_fild12	mapflag	nomemo
-//gef_fild14	mapflag	nomemo
+gef_fild14	mapflag	nomemo
 //glast_01	mapflag	nomemo
 //hu_fild01	mapflag	nomemo
 //hu_fild05	mapflag	nomemo
@@ -150,7 +150,7 @@ new_5-4	mapflag	nomemo
 //mjolnir_01	mapflag	nomemo
 //mjolnir_02	mapflag	nomemo
 //mjolnir_03	mapflag	nomemo
-//mjolnir_04	mapflag	nomemo
+mjolnir_04	mapflag	nomemo
 //mjolnir_05	mapflag	nomemo
 //mjolnir_07	mapflag	nomemo
 //mjolnir_08	mapflag	nomemo
@@ -167,7 +167,7 @@ new_5-4	mapflag	nomemo
 //moc_fild14	mapflag	nomemo
 //moc_fild15	mapflag	nomemo
 //moc_fild16	mapflag	nomemo
-//moc_fild17	mapflag	nomemo
+moc_fild17	mapflag	nomemo
 //moc_fild18	mapflag	nomemo
 //moc_fild20	mapflag	nomemo
 //moc_fild21	mapflag	nomemo
@@ -179,7 +179,7 @@ new_5-4	mapflag	nomemo
 //pay_fild05	mapflag	nomemo
 //pay_fild09	mapflag	nomemo
 //pay_fild10	mapflag	nomemo
-//pay_fild11	mapflag	nomemo
+pay_fild11	mapflag	nomemo
 //prt_fild00	mapflag	nomemo
 //prt_fild03	mapflag	nomemo
 //prt_fild04	mapflag	nomemo

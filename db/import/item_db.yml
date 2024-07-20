@@ -2003,7 +2003,7 @@ Body:
       NoMail: true
       NoAuction: true
     Script: |
-      getitembound 12211,5,Bound_Account;
+      getitem 12211,5;
   - Id: 30016
     AegisName: Starter_Weapon_Box_1st
     Name: Starter Weapon Box (First Job)
@@ -2223,6 +2223,34 @@ Body:
       NoAuction: true
     Script: |
       callfunc "F_addCharSlot";
+  - Id: 30027
+    AegisName: MVP_Map_Tele_Scroll
+    Name: MVP Map Teleport Scroll
+    Type: Usable
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      callfunc "F_MVPMapTele";
+  - Id: 30028
+    AegisName: MVP_Map_Tele_Scroll_Box5
+    Name: MVP Map Teleport Scroll Box 5
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      getitem 30027,5;
   - Id: 30100
     AegisName: C_Analyze_Eye_S
     Name: Costume Analyze Eye
