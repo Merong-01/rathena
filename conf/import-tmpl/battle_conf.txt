@@ -51,7 +51,7 @@ item_drop_card_max: 9000
 
 // The rate adjustment for the MVP items that the MVP gets directly in their inventory
 // Mode: 0 - official order, 1 - random order, 2 - all items
-item_drop_mvp_mode: 0
+item_drop_mvp_mode: 1
 
 // The rate adjustment for card-granted item drops.
 item_rate_adddrop: 200
