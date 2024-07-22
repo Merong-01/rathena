@@ -17,7 +17,8 @@ function	script	F_Starter_Weapon_Box	{
 	.@options$ += "Thief Set - Stiletto and Damascus:";
 	.@options$ += "Merchant Set - Orcish Axe and Two-handed Axe:";
 	.@options$ += "Mage Set - Staff and Arc Wand:";
-	.@options$ += "Acolyte Set - Flail and Sword Mace";
+	.@options$ += "Acolyte Set - Flail and Sword Mace:";
+	.@options$ += "Gunslinger Set - Six Shooter and Cyclone";
 	
 	.@sel = prompt(.@options$);
 	switch(.@sel){
@@ -44,6 +45,10 @@ function	script	F_Starter_Weapon_Box	{
 		case 6:
 			getitem 30211,1;
 			getitem 30212,1;
+			break;
+		case 7:
+			getitem 30258,1;
+			getitem 30259,1;
 			break;
 		default:
 			return;
@@ -74,5 +79,87 @@ function	script	F_StreamerCode	{
 	mes .@npcName$;
 	mes "Thank you for your patronage.";
 	close;
+	return;
+}
+
+function	script	F_addCharSlot	{
+	.@char_id = getcharid(3);
+	.@ret = query_sql("SELECT character_slots FROM ragnaserver.login WHERE account_id = " + .@char_id, @char_slots);
+	if(.@ret == -1){
+		dispbottom "Failed to access account data", 0xFF0000;
+		end;
+	}
+	if(.@ret == 0){
+		dispbottom "DB Error: Did not found the account data", 0xFF0000;
+		end;
+	}
+	if(.@ret > 1){
+		debugmes "DB Error: check query statement for logic error";
+	}
+	
+	if(@char_slots[0] >= 12){
+		dispbottom "You can't add more since you already have 12 unlocked character slots", 0x00FF00;
+		end;
+	}
+	.@new_char_slots = @char_slots[0] + 1;
+	.@result = query_sql("UPDATE ragnaserver.login SET character_slots = " + .@new_char_slots + " WHERE account_id = " + .@char_id);
+	if(.@result == -1){
+		dispbottom "Failed to unlock additional character slot", 0xFF0000;
+		end;
+	}
+	dispbottom "The character slots of this account is increased to " + .@new_char_slots, 0x00FF00;
+	end;
+}
+
+function	script	F_MVPMapTele	{
+	.@mvpname_map$[0] = "Golden Thief Bug - Prontera Culvert F4";
+	.@mvpname_map$[1] = "Eddga - Payon Field 11";
+	.@mvpname_map$[2] = "Moonlight Flower - Payon Cave F5";
+	.@mvpname_map$[3] = "Phreeoni - Morocc Field 17";
+	.@mvpname_map$[4] = "Sunken Ship F2";
+	.@mvpname_map$[5] = "Tao Gunka - Karu, the West Cave";
+	.@mvpname_map$[6] = "Incantation Samurai - Amatsu Underground Shrine";
+	.@mvpname_map$[7] = "Doppelganger - Geffen Dungeon F3";
+	.@mvpname_map$[8] = "Garm - Lutie Field";
+	.@mvpname_map$[9] = "Mistress - Mt.Mjolnir";
+	.@mvpname_map$[10] = "Orc Lord - Geffen Field 10";
+	.@mvpname_map$[11] = "Orc Hero - West Orc Village";
+	.@mvpname_map$[12] = "Stormy Knight - Toy Monitoring Room";
+	.@mvpname_map$[13] = "Osiris - Inside Pyramid F4";
+	.@mvpname_map$[14] = "Dark Lord - Glast Heim Churchyard";
+	.@mvpname_map$[15] = "Baphomet - Labyrinth Forest F3";
+	.@mvpname_map$[16] = "Maya - Ant Hell 2";
+	.@mvpname_map$[17] = "Dracula - Geffen Dungeon F2";
+	.@mvpname_map$[18] = "Amon Ra - Inside Pyramid B2";
+	.@mvpname_map$[19] = "Pharaoh - Sphinx F5";
+	.@mvpname_map$[20] = "Turtle General - Turtle Palace";
+	.@mvpname_map$[21] = "Evil Snake Lord - Arcadia";
+
+	.@sel = prompt(implode(.@mvpname_map$, ":"));
+	switch(.@sel){
+		case 1: warp "prt_sewb4", 94, 94; end;
+		case 2: warp "pay_fild11", 284, 141; end;
+		case 3: warp "pay_dun04", 37, 207; end;
+		case 4: warp "moc_fild17", 216, 360; end;
+		case 5: warp "treasure02", 95, 33; end;
+		case 6: warp "beach_dun", 269, 72; end;
+		case 7: warp "ama_dun03", 122, 16; end;
+		case 8: warp "gef_dun02", 112, 135; end;
+		case 9: warp "xmas_fild01", 92, 244; end;
+		case 10: warp "mjolnir_04", 147, 210; end;
+		case 11: warp "gef_fild10", 60, 331; end;
+		case 12: warp "gef_fild14", 361, 225; end;
+		case 13: warp "xmas_dun02", 134, 134; end;
+		case 14: warp "moc_pryd04", 17, 192; end;
+		case 15: warp "gl_chyard", 155, 25; end;
+		case 16: warp "prt_maze03", 186, 98; end;
+		case 17: warp "anthell02", 28, 262; end;
+		case 18: warp "gef_dun01", 124, 244; end;
+		case 19: warp "moc_pryd06", 191, 15; end;
+		case 20: warp "in_sphinx5", 102, 105; end;
+		case 21: warp "tur_dun04", 108, 189; end;
+		case 22: warp "gon_dun03", 63, 17; end;
+		default: end;
+	}
 	return;
 }

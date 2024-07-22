@@ -23,7 +23,7 @@
 //	-Thanks to Brainstorm.
 //============================================================
 
-prontera,164,174,3	script	Guide#prt::PrtGuide	105,{
+prontera,161,128,4	script	Guide#prt::PrtGuide	105,{
 	cutin "prt_soldier",2;
 	mes "[Prontera Guide]";
 	mes "Welcome to Prontera,";

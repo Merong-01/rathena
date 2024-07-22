@@ -48,7 +48,7 @@ mosk_dun03	mapflag	nomemo
 nameless_in	mapflag	nomemo
 niflheim	mapflag	nomemo
 nif_in	mapflag	nomemo
-pay_arche	mapflag	nomemo
+//pay_arche	mapflag	nomemo
 payon_in01	mapflag	nomemo
 payon_in02	mapflag	nomemo
 payon_in03	mapflag	nomemo

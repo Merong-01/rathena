@@ -2,7 +2,7 @@
 //============================================================
 prontera,157,196,4	script	Job Changer	4_M_JOB_WIZARD,{
 	set .@npcName$, "[ Job Changer ]";
-	setarray .@first_job$[0],"Swordsman","Archer","Magician","Acolyte","Thief","Merchant","Super Novice";
+	setarray .@first_job$[0],"Swordsman","Archer","Magician","Acolyte","Thief","Merchant","Super Novice","Gunslinger";
 	
 	mes .@npcName$;
 	mes "Hello!...";
@@ -68,6 +68,14 @@ prontera,157,196,4	script	Job Changer	4_M_JOB_WIZARD,{
 			case 6: jobchange Job_Merchant;
 				break;
 			case 7: jobchange Job_Super_Novice;
+				break;
+			case 8: jobchange Job_Gunslinger;
+					getitem 13200,100;		// Bullet
+					if (rand(2))
+						getitem 13100,1;	// Six_Shooter
+					else
+						getitem 13150,1;	// Branch
+				break;
 		}
 		
 		#CASHPOINTS -= 10;

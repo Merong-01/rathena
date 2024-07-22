@@ -207,6 +207,12 @@ Body:
     MvpDrops:
       - Item: Soulless_Wing
         Rate: 100
+  - Id: 1418
+    AegisName: DARK_SNAKE_LORD
+    Name: Evil Snake Lord
+    MvpDrops:
+      - Item: Coke_Hat
+        Rate: 100
 
 # eAthena Dev Team
 #=============================================================

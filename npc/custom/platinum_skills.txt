@@ -38,7 +38,7 @@ prontera,154,196,5	script	Platinum Skill NPC	117,{
 		mes "Go and do some adventures, adventurer!";
 		end;
 	}
-	else if(Class == Job_Super_Novice){
+	else if(Class == Job_Super_Novice || Class == Job_Gunslinger){
 		mes "[Platinum Skill NPC]";
 		mes "There are no platinum skill available for your class.";
 		close;

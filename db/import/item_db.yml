@@ -3669,6 +3669,61 @@ Body:
     Script: |
         bonus2 bExpAddClass,Class_All,25;
         bonus2 bDropAddClass,Class_All,5;
+  - Id: 30258
+    AegisName: Six_Shooter_S
+    Name: Six Shooter (Starter Weapon)
+    Type: Weapon
+    SubType: Revolver
+    Buy: 100
+    Weight: 300
+    Attack: 25
+    Range: 7
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 1
+    EquipLevelMin: 10
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bHit,-5;
+  - Id: 30259
+    AegisName: The_Cyclone_S
+    Name: Cyclone (Starter Weapon)
+    Type: Weapon
+    SubType: Rifle
+    Buy: 100
+    Weight: 500
+    Attack: 110
+    Range: 9
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 2
+    EquipLevelMin: 24
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bHit,10;
+      bonus bCritical,10;
   - Id: 19910
     AegisName: C_Halloween_Hat
     Name: Costume Halloween Hat

@@ -188,6 +188,7 @@ que_ng,152,167,3	script	Master Miller	901,{
 				getitem 12149,2;		// Bullet_Case
 				getitem 12151,1;		// Bullet_Case_Silver
 			} else {
+				getitem 13200,100;		// Bullet
 				if (rand(2))
 					getitem 13100,1;	// Six_Shooter
 				else
