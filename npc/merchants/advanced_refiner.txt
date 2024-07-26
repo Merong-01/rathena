@@ -19,6 +19,16 @@
 //============================================================
 
 payon,157,146,6	script	Suhnbi#cash	85,{
+	if( getbattleflag( "feature.refineui" ) ){
+		mes "[Suhnbi]";
+		mes "I am the Armsmith";
+		mes "I can refine all kinds of weapons,";
+		mes "armor and equipment, so let me";
+		mes "know what you want to refine.";
+		close2;
+		refineui();
+		end;
+	}
 	disable_items;
 	mes "[Suhnbi]";
 	mes "I am the Armsmith";

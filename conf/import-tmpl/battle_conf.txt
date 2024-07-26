@@ -100,6 +100,7 @@ show_hp_sp_drain: yes
 bone_drop: 1
 
 //VIP options
+vip_storage_increase: 0
 vip_base_exp_increase: 25
 vip_job_exp_increase: 25
 vip_exp_penalty_base: 0
@@ -110,6 +111,8 @@ vip_gemstone: 0
 //battle/client.conf
 display_version: no
 save_body_style: no
+
+bodystyle_ignorepalette: yes
 
 // Valid range of dyes and styles on the client.
 min_hair_style: 0
