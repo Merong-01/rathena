@@ -139,8 +139,8 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 			mes "You still need to pay " + mesitemlink(7199) + " 5 pcs. ea. or 100,000 Zeny";
 			next;
 
-			select("Give 5 Hourly Coins:Give 100,000 Zeny");
-			if(@menu == 1){
+			select("Give 100,000 Zeny:Give 5 Hourly Coins");
+			if(@menu == 2){
 				if(countitem(7199) < 5){
 					mes .@npcName$;
 					mes "You don't have enough " + mesitemlink(7199);
@@ -150,7 +150,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 				setinstancevar('paid_char_id[.@i], getcharid(0), .@ins_id);
 				setinstancevar('paid_uniq_id[.@i], get_unique_id(), .@ins_id);
 			}
-			else if(@menu == 2){
+			else if(@menu == 1){
 				if(Zeny < 100000){
 					mes .@npcName$;
 					mes "You don't have enough Zeny.";
@@ -180,7 +180,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 	mes "So don't disturb me so I can concentrate in my studies...";
 	next;
 
-	select("I'm looking for some MVP monster maybe you know where it is:Sorry for taking your time... ");
+	select("I'm looking for some MVP monster:Sorry for taking your time... ");
 	if(@menu == 2){
 		mes .@npcName$;
 		mes "There still a lot of mysteries about MVP monsters";
@@ -321,8 +321,8 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 	mes "how do you want to provide funds for my research?";
 	next;
 	
-	select("5 Hourly Coins:100,000 Zeny");
-	if(@menu == 1){
+	select("100,000 Zeny:5 Hourly Coins");
+	if(@menu == 2){
 		if(countitem(7199) < 5){
 			mes .@npcName$;
 			mes "It seems that you don't have enough " + mesitemlink(7199);
