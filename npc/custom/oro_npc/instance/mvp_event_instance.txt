@@ -16,6 +16,7 @@ OnInitEvent:
 		end;
 	}
 	bindatcmd("joinmvpbosshunt",strnpcinfo(0)+"::OnJoinEvent",0,99);
+	bindatcmd("joinevent",strnpcinfo(0)+"::OnJoinEvent",0,99);
 	.ins_id = instance_create("MVP Night Event", IM_NONE);
 
 	if(.ins_id == -4){
@@ -38,21 +39,21 @@ OnInitEvent:
 	}
 
 	cleararray .join_char_id[0], 0, getarraysize(.join_char_id);
-	announce "The MVP Boss Random Summon Event will start in 5 minutes, to join the event type @joinmvpbosshunt", bc_all, 0x00FFFF;
+	announce "The MVP Boss Random Summon Event will start in 5 minutes, to join the event type @joinmvpbosshunt or @joinevent", bc_all, 0x00FFFF;
 	.mvp_event_status = 1;
 	initnpctimer;
 end;
 OnTimer60000:
-	announce "The MVP Boss Random Summon Event will start in 4 minutes, to join the event type @joinmvpbosshunt", bc_all, 0x00FFFF;
+	announce "The MVP Boss Random Summon Event will start in 4 minutes, to join the event type @joinmvpbosshunt or @joinevent", bc_all, 0x00FFFF;
 end;
 OnTimer120000:
-	announce "The MVP Boss Random Summon Event will start in 3 minutes, to join the event type @joinmvpbosshunt", bc_all, 0x00FFFF;
+	announce "The MVP Boss Random Summon Event will start in 3 minutes, to join the event type @joinmvpbosshunt or @joinevent", bc_all, 0x00FFFF;
 end;
 OnTimer180000:
-	announce "The MVP Boss Random Summon Event will start in 2 minutes, to join the event type @joinmvpbosshunt", bc_all, 0x00FFFF;
+	announce "The MVP Boss Random Summon Event will start in 2 minutes, to join the event type @joinmvpbosshunt or @joinevent", bc_all, 0x00FFFF;
 end;
 OnTimer240000:
-	announce "The MVP Boss Random Summon Event will start in 1 minute, to join the event type @joinmvpbosshunt", bc_all, 0x00FFFF;
+	announce "The MVP Boss Random Summon Event will start in 1 minute, to join the event type @joinmvpbosshunt or @joinevent", bc_all, 0x00FFFF;
 end;
 OnTimer300000:
 	.mvp_event_status = 2;
@@ -78,6 +79,7 @@ OnTimer300000:
 end;
 OnTimer2100000:
 	unbindatcmd "joinmvpbosshunt";
+	unbindatcmd "joinevent";
 	.ins_id = 0;
 	stopnpctimer;
 end;
@@ -122,22 +124,30 @@ OnInstanceInit:
 	setarray .mvpid[0],
 		1086,//	Golden Thief Bug
 		1115,//	Eddga
+		1115,//	Eddga
+		1150,//	Moonlight Flower
 		1150,//	Moonlight Flower
 		1159,//	Phreeoni
+		1159,//	Phreeoni
+		1112,//	Drake
 		1112,//	Drake
 		1583,//	Tao Gunka
 		1492,//	Incantation Samurai
 		1046,//	Doppelganger
+		1046,//	Doppelganger
+		1252,//	Garm
 		1252,//	Garm
 		1418,//	Evil Snake Lord
 		1059,//	Mistress
 		1190,//	Orc Lord
 		1087,//	Orc Hero
+		1087,//	Orc Hero
 		1251,//	Knight of Windstorm
 		1038,//	Osiris
 //		1658,//	Ygnizem
-//		1272,//	Dark Lord
+		1272,//	Dark Lord
 //		1871,//	Fallen Bishop
+		1039,//	Baphomet
 		1039,//	Baphomet
 		1147,//	Maya
 //		1785,//	Atroce
@@ -185,10 +195,15 @@ SummonRandomMVP:
 	deletearray .mvpid[.@random_mvpid], 1;
 end;
 OnMVPQuiled:
+	getunitdata killedgid, .@mvp_boss_data;
 	.@current_map$ = strnpcinfo(4);
 	.@player_num = getmapunits(BL_PC, .@current_map$, .@user_id[0]);
 	
 	for(.@i = 0; .@i < .@player_num; .@i++){
+		getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@user_id[.@i]);
+		if(distance(.@map_x, .@map_y, .@mvp_boss_data[UMOB_X], .@mvp_boss_data[UMOB_Y]) > 20){
+			continue;
+		}
 		if(rand(1,100) <= 55){
 			getitem 984, 1, .@user_id[.@i];
 		}
@@ -196,7 +211,36 @@ OnMVPQuiled:
 			getitem 985, 1, .@user_id[.@i];
 		}
 	}
-
+	if(getarraysize(.mvpid) == 20){
+		instance_announce 0, "Congratulations for killing the 10th MVP, receive your reward Brave Warriors", 0, 0x00FFFF, FW_BOLD, 20;
+		for(.@i = 0; .@i < .@player_num; .@i++){
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@user_id[.@i]);
+			if(distance(.@map_x, .@map_y, .@mvp_boss_data[UMOB_X], .@mvp_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			getitem 14003, 5, .@user_id[.@i];
+		}
+	}
+	if(getarraysize(.mvpid) == 10){
+		instance_announce 0, "Congratulations for killing the 20th MVP, receive your reward Heroic Warriors", 0, 0x00FFFF, FW_BOLD, 20;
+		for(.@i = 0; .@i < .@player_num; .@i++){
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@user_id[.@i]);
+			if(distance(.@map_x, .@map_y, .@mvp_boss_data[UMOB_X], .@mvp_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			getitem 7199, 10, .@user_id[.@i];
+		}
+	}
+	if(getarraysize(.mvpid) == 0){
+		instance_announce 0, "Congratulations for killing the 30th MVP, receive your reward Legendary Warriors", 0, 0x00FFFF, FW_BOLD, 20;
+		for(.@i = 0; .@i < .@player_num; .@i++){
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@user_id[.@i]);
+			if(distance(.@map_x, .@map_y, .@mvp_boss_data[UMOB_X], .@mvp_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			getitem 30007, 2, .@user_id[.@i];
+		}
+	}
 	sleep 5000;
 	if(getarraysize(.mvpid) == 0){
 		instance_announce 0, "Can't believe it, but it seems you have finished all the available MVP Bosses.", 0, 0x00FFFF, FW_BOLD, 20;

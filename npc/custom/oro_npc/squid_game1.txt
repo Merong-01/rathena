@@ -13,6 +13,7 @@ OnInitGame:
 		end;
 	}
 	bindatcmd("joinglasstilegame",strnpcinfo(0)+"::OnJoinGame",0,99);
+	bindatcmd("joinevent",strnpcinfo(0)+"::OnJoinGame",0,99);
 	.instance_id = instance_create("Glass Tile", IM_NONE);
 
 	if(.instance_id == -4){
@@ -27,21 +28,21 @@ OnInitGame:
 	//setmapflag instance_mapname("1@tnm1", .instance_id), mf_noitemconsumption;
 
 	cleararray .join_char_id[0], 0, getarraysize(.join_char_id);
-	announce "The Glass Tile Mini Game will start in 5 minutes, to join the game type @joinglasstilegame", 0x0000FF;
+	announce "The Glass Tile Mini Game will start in 5 minutes, to join the game type @joinglasstilegame or @joinevent", 0x0000FF;
 	.starting_game = 1;
 	initnpctimer;
 end;
 OnTimer60000:
-	announce "The Glass Tile Mini Game will start in 4 minutes, to join the game type @joinglasstilegame", 0x0000FF;
+	announce "The Glass Tile Mini Game will start in 4 minutes, to join the game type @joinglasstilegame or @joinevent", 0x0000FF;
 end;
 OnTimer120000:
-	announce "The Glass Tile Mini Game will start in 3 minutes, to join the game type @joinglasstilegame", 0x0000FF;
+	announce "The Glass Tile Mini Game will start in 3 minutes, to join the game type @joinglasstilegame or @joinevent", 0x0000FF;
 end;
 OnTimer180000:
-	announce "The Glass Tile Mini Game will start in 2 minutes, to join the game type @joinglasstilegame", 0x0000FF;
+	announce "The Glass Tile Mini Game will start in 2 minutes, to join the game type @joinglasstilegame or @joinevent", 0x0000FF;
 end;
 OnTimer240000:
-	announce "The Glass Tile Mini Game will start in 1 minute, to join the game type @joinglasstilegame", 0x0000FF;
+	announce "The Glass Tile Mini Game will start in 1 minute, to join the game type @joinglasstilegame or @joinevent", 0x0000FF;
 end;
 OnTimer300000:
 	.starting_game = 2;
@@ -52,6 +53,7 @@ OnTimer300000:
 	}
 	announce "The Glass Tile Mini Game is Starting, teleporting participants to the Mini Game instance", 0x0000FF;
 	unbindatcmd "joinglasstilegame";
+	unbindatcmd "joinevent";
 	sleep 1000;
 	donpcevent "::OnSGPillarEffect";
 end;

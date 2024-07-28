@@ -17,6 +17,7 @@ OnInitEvent:
 		end;
 	}
 	bindatcmd("joinporinggame",strnpcinfo(0)+"::OnJoinEvent",0,99);
+	bindatcmd("joinevent",strnpcinfo(0)+"::OnJoinEvent",0,99);
 	.ins_id = instance_create("PoringKill Event", IM_NONE);
 
 	if(.ins_id == -4){
@@ -40,7 +41,7 @@ OnInitEvent:
 
 	cleararray .join_char_id[0], 0, getarraysize(.join_char_id);
 	deletearray .winner_name$[0], getarraysize(.winner_name$);
-	announce "The Poring Hunt Game will start in 5 minutes, to join the game type @joinporinggame", bc_all, 0x00FFFF;
+	announce "The Poring Hunt Game will start in 5 minutes, to join the game type @joinporinggame or @joinevent", bc_all, 0x00FFFF;
 	.poring_event_status = 1;
 	initnpctimer;
 	.ins_map_name$ = instance_mapname("int_land", .ins_id);
@@ -56,18 +57,18 @@ OnInitEvent:
 	setmapflag .ins_map_name$, mf_loadevent;
 end;
 OnTimer60000:
-	announce "The Poring Hunt Game will start in 4 minutes, to join the game type @joinporinggame", bc_all, 0x00FFFF;
+	announce "The Poring Hunt Game will start in 4 minutes, to join the game type @joinporinggame or @joinevent", bc_all, 0x00FFFF;
 end;
 OnTimer120000:
-	announce "The Poring Hunt Game will start in 3 minutes, to join the game type @joinporinggame", bc_all, 0x00FFFF;
+	announce "The Poring Hunt Game will start in 3 minutes, to join the game type @joinporinggame or @joinevent", bc_all, 0x00FFFF;
 end;
 OnTimer180000:
-	announce "The Poring Hunt Game will start in 2 minutes, to join the game type @joinporinggame", bc_all, 0x00FFFF;
+	announce "The Poring Hunt Game will start in 2 minutes, to join the game type @joinporinggame or @joinevent", bc_all, 0x00FFFF;
 end;
 //OnTimer10000:
 //	setnpctimer 240000;
 OnTimer240000:
-	announce "The Poring Hunt Game will start in 1 minute, to join the game type @joinporinggame", bc_all, 0x00FFFF;
+	announce "The Poring Hunt Game will start in 1 minute, to join the game type @joinporinggame or @joinevent", bc_all, 0x00FFFF;
 end;
 OnTimer300000:
 	.poring_event_status = 2;
@@ -127,6 +128,7 @@ end;
 OnTimer965000:
 	instance_destroy .ins_id;
 	unbindatcmd "joinporinggame";
+	unbindatcmd "joinevent";
 	.ins_id = 0;
 	.poring_event_status = 0;
 	.poring_found = 0;
