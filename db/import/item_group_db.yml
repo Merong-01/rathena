@@ -665,27 +665,27 @@ Body:
         List:
           - Index: 0
             Item: ASPD_Potion_Box
-            Rate: 12
+            Rate: 10
             Amount: 1
             Announced: true
           - Index: 1
             Item: Elite_Siege_Supply_Box
-            Rate: 22
+            Rate: 20
             Amount: 3
             Announced: true
           - Index: 2
             Item: Elite_Siege_Supply_Box_
-            Rate: 22
+            Rate: 20
             Amount: 4
             Announced: true
           - Index: 3
             Item: F_Megaphone_Box
-            Rate: 12
+            Rate: 10
             Amount: 1
             Announced: true
           - Index: 4
             Item: Kafra_Card
-            Rate: 12
+            Rate: 10
             Amount: 5
             Announced: true
           - Index: 5
@@ -710,7 +710,7 @@ Body:
             Announced: true
           - Index: 9
             Item: Greed_Box50
-            Rate: 22
+            Rate: 20
             Amount: 1
             Announced: true
           - Index: 10
@@ -761,12 +761,12 @@ Body:
             Announced: true
           - Index: 19
             Item: Giant_Fly_Wing_Box
-            Rate: 12
+            Rate: 10
             Amount: 1
             Announced: true
           - Index: 20
             Item: MVP_Map_Tele_Scroll_Box5
-            Rate: 12
+            Rate: 10
             Amount: 1
             Announced: true
   - Group: CASH_EGG_SCROLL2
@@ -775,27 +775,27 @@ Body:
         List:
           - Index: 0
             Item: ASPD_Potion_Box
-            Rate: 12
+            Rate: 10
             Amount: 1
             Announced: true
           - Index: 1
             Item: Elite_Siege_Supply_Box
-            Rate: 22
+            Rate: 20
             Amount: 3
             Announced: true
           - Index: 2
             Item: Elite_Siege_Supply_Box_
-            Rate: 22
+            Rate: 20
             Amount: 4
             Announced: true
           - Index: 3
             Item: F_Megaphone_Box
-            Rate: 12
+            Rate: 10
             Amount: 1
             Announced: true
           - Index: 4
             Item: Kafra_Card
-            Rate: 12
+            Rate: 10
             Amount: 5
             Announced: true
           - Index: 5
@@ -805,12 +805,12 @@ Body:
             Announced: true
           - Index: 6
             Item: HE_Battle_Manual
-            Rate: 12
+            Rate: 10
             Amount: 3
             Announced: true
           - Index: 7
             Item: Job_Manual50
-            Rate: 12
+            Rate: 10
             Amount: 3
             Announced: true
           - Index: 8
@@ -820,7 +820,7 @@ Body:
             Announced: true
           - Index: 9
             Item: Greed_Box50
-            Rate: 22
+            Rate: 20
             Amount: 1
             Announced: true
           - Index: 10
@@ -870,12 +870,12 @@ Body:
             Announced: true
           - Index: 19
             Item: Giant_Fly_Wing_Box
-            Rate: 12
+            Rate: 10
             Amount: 1
             Announced: true
           - Index: 20
             Item: MVP_Map_Tele_Scroll_Box5
-            Rate: 12
+            Rate: 10
             Amount: 1
             Announced: true
 #          - Index: 2

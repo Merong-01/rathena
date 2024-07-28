@@ -1,95 +1,5 @@
 //======= MVP Map Instance ===================================
 //============================================================
-new_3-1,180,86,3	script	MVP Map Instance	4_M_JOB_KNIGHT1,{
-	.@npcName$ = "[ MVP Map Instance ]";
-
-	mes .@npcName$;
-	mes "Select the MVP Map you want to teleport to:";
-	next;
-
-	setarray .@mvp_mapname$[1],
-		"prt_sewb4",
-		"pay_fild11",
-		"pay_dun04",
-		"moc_fild17",
-		"treasure02",
-		"beach_dun",
-		"ama_dun03",
-		"gef_dun02",
-		"xmas_fild01",
-		//"gon_dun03",
-		"mjolnir_04",
-		"gef_fild10",
-		"gef_fild14",
-		"xmas_dun02",
-		"moc_pryd04",
-		"gl_chyard",
-		"prt_maze03",
-		"anthell02",
-		"gef_dun01",
-		"moc_pryd06",
-		"in_sphinx5",
-		"tur_dun04",
-		"Cancel";
-	setarray .@mvp_map_x[1],
-		95,
-		285,
-		36,
-		215,
-		94,
-		268,
-		123,
-		111,
-		93,
-		//62,
-		146,
-		60,
-		362,
-		135,
-		16,
-		154,
-		187,
-		28,
-		125,
-		192,
-		103,
-		109;
-	setarray .@mvp_map_y[1],
-		94,
-		141,
-		207,
-		360,
-		33,
-		72,
-		16,
-		135,
-		244,
-		//17,
-		210,
-		332,
-		225,
-		134,
-		192,
-		25,
-		98,
-		263,
-		244,
-		15,
-		105,
-		189;
-	select(implode(.@mvp_mapname$, ":"));
-	if(@menu >= getarraysize(.@mvp_mapname$)){
-		mes .@npcName$;
-		mes "Goodbye...";
-		close;
-	}
-	mes .@npcName$;
-	mes "You will now be teleported...";
-	close2;
-	warp .@mvp_mapname$[@menu-1], .@mvp_map_x[@menu-1], .@mvp_map_y[@menu-1];
-end;
-}
-
 prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 	.@npcName$ = "[ MVP Scholar ]";
 	
@@ -149,6 +59,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 				delitem 7199, 5;
 				setinstancevar('paid_char_id[.@i], getcharid(0), .@ins_id);
 				setinstancevar('paid_uniq_id[.@i], get_unique_id(), .@ins_id);
+				doevent "Daily Quest::OnUpdateDailyQuest";
 			}
 			else if(@menu == 1){
 				if(Zeny < 100000){
@@ -159,6 +70,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 				Zeny -= 100000;
 				setinstancevar('paid_char_id[.@i], getcharid(0), .@ins_id);
 				setinstancevar('paid_uniq_id[.@i], get_unique_id(), .@ins_id);
+				doevent "Daily Quest::OnUpdateDailyQuest";
 			}
 			else {
 				mes .@npcName$;
@@ -345,6 +257,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 			delitem 7199, 5;
 			setinstancevar('paid_char_id[0], getcharid(0), .@ret);
 			setinstancevar('paid_uniq_id[0], get_unique_id(), .@ret);
+			doevent "Daily Quest::OnUpdateDailyQuest";
 		}
 		else {
 			mes .@npcName$;
@@ -388,6 +301,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 			Zeny -= 100000;
 			setinstancevar('paid_char_id[0], getcharid(0), .@ret);
 			setinstancevar('paid_uniq_id[0], get_unique_id(), .@ret);
+			doevent "Daily Quest::OnUpdateDailyQuest";
 		}
 		else {
 			mes .@npcName$;
@@ -409,7 +323,7 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 
 	mes .@npcName$;
 	mes "Your instance is now ready";
-	mes "Do you to enter the instance now?";
+	mes "Do you want to enter the instance now?";
 	next;
 
 	select("Yes, I want to enter instance now:No, let me prepare my party first");

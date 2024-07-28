@@ -48,3 +48,7 @@
 Header:
   Type: QUEST_DB
   Version: 3
+
+Body:
+  - Id: 80001
+    Title: Daily Quest

@@ -1,0 +1,219 @@
+//====== Daily Quest Script ==================================
+//============================================================
+prontera,147,169,5	script	Daily Quest	833,{
+	.@npcName$ = "[Daily Quest NPC]";
+	
+	if(isbegin_quest(80001) == 1){
+		mes .@npcName$;
+		mes "Hello, adventurer!";
+		mes "It seems that you have not completed your Daily Quest yet.";
+		end;
+	}
+	else if(isbegin_quest(80001) == 2){
+		.@ret = callsub(DailyQuestComplete, .@npcName$);
+		if(.@ret == 0){
+			erasequest 80001;
+		}
+		end;
+	}
+	if(#daily_quest_cd == $DAILY_REW_CD){
+		mes .@npcName$;
+		mes "I am sorry, but you've already taken your Daily Quest for today.";
+		mes "Remember to come back to take a Daily Quest tomorrow!";
+		end;
+	}
+	
+	mes .@npcName$;
+	mes "Hello, adventurer!";
+	mes "Would you like to take a Daily Quest?";
+	next;
+	
+	select("Take Daily Quest:What is this Daily Quest?:Cancel");
+	
+	if(@menu == 1){
+		callsub DailyQuest, .@npcName$;
+	}
+	else if(@menu == 2){
+		callsub DailyQuestInfo, .@npcName$;
+	}
+	else {
+		mes .@npcName$;
+		mes "Thank you again for visiting today.";
+	}
+end;
+OnInit:
+	if($DAILY_REW_CD == 0){
+		$DAILY_REW_CD = gettime(DT_DAYOFMONTH);
+	}
+	//$DAILY_REW_CD += 1; // for testing
+	questinfo QTYPE_QUEST2, QMARK_YELLOW, "isbegin_quest(80001) == 2";
+	questinfo QTYPE_DAILYQUEST, QMARK_GREEN, "#daily_quest_cd != $DAILY_REW_CD && isbegin_quest(80001) != 1";
+end;
+OnClock0001:
+	$DAILY_REW_CD += 1;
+end;
+DailyQuestInfo:
+	.@npcName$= getarg(0);
+
+	mes .@npcName$;
+	mes "The Daily Quest is a quest that improves your Daily Login Level after you complete it.";
+	mes "You gain 1 Daily Login Level for every Daily Quest complete.";
+	next;
+
+	mes .@npcName$;
+	mes "After you reach a certain level threshold, you can then receive a reward item for your certain Daily Login Level.";
+	next;
+
+	mes .@npcName$;
+	mes "Here are the list of Daily Login Level Threshold and Reward:";
+	mes "Level 1 and above:";
+	mes "2 " + mesitemlink(14003, 0); // ESSB
+	mes "2 " + mesitemlink(12210, 0); // Bubble_Gum
+	mes "2 " + mesitemlink(12211, 0) + ", 2 " + mesitemlink(12221, 0); // Kafra Card and Megaphone_
+	mes "2 " + mesitemlink(12214, 0) + ", 2 " + mesitemlink(12212, 0); // Convex Mirror and Giant_Fly_Wing
+	next;
+
+	mes .@npcName$;
+	mes "Here are the list of Daily Login Level Threshold and Reward:"; 
+	mes "Level 5 - " + mesitemlink(30005, 0, "1 Day VIP Coin");
+	mes "Level 10 - " + mesitemlink(30029, 0, "Third Job Ring") + " 1 Day Rental";
+	mes "Level 15 - " + mesitemlink(30025, 0, "1 Costume Mid EggScroll");
+	mes "Level 20 - " + mesitemlink(30007, 0, "1 Costume EggScroll");
+	mes "Level 25 - " + mesitemlink(17162, 0, "Boarding Halter") + " 7 Day Rental";
+	mes "Level 26 - " + mesitemlink(30005, 0, "1 Day VIP Coin");
+	mes "Level 27 - " + mesitemlink(7776, 0, "1 Gym Pass");
+	mes "Level 28 - " + mesitemlink(30026, 0, "1 Character Slot Coupon");
+	next;
+
+	mes .@npcName$;
+	mes "Please take note that you can only complete 1 Daily Quest everyday.";
+	close2;
+return;
+DailyQuest:
+	.@npcName$= getarg(0);
+
+	mes .@npcName$;
+	mes "To complete the Daily Quest, you just had to do 5 MVP Instances or accumulate 1000 Kill Points.";
+	next;
+
+	mes .@npcName$;
+	mes "Kill Points can be gained by hunting monsters.";
+	mes "1 point for small monster, 2 points for medium monster, and 3 points for large monster.";
+	next;
+
+	mes .@npcName$;
+	mes "Please confirm to take Daily Quest:";
+	next;
+
+	select("Confirm:Cancel");
+	if(@menu == 2){
+		mes .@npcName$;
+		mes "Okay, but remember that you can only complete 1 Daily Quest everyday.";
+		return;
+	}
+	if(#daily_quest_cd == $DAILY_REW_CD){
+		mes .@npcName$;
+		mes "I am sorry, but you already completed a Daily Quest today.";
+		return;
+	}
+
+	setquest 80001;
+	#daily_quest_cd = $DAILY_REW_CD;
+	mes .@npcName$;
+	mes "Great! Now, make sure to complete the quest within today to so that you can take another one tomorrow.";
+	close2;
+return;
+DailyQuestComplete:
+	.@npcName$= getarg(0);
+	if(checkweight(14003, 2, 12210, 2, 12211, 2, 12221, 2, 12214, 1, 12212, 1, 30007, 1) == 0){
+		mes .@npcName$;
+		mes "Please make sure you are not overweight before you receive your rewards.";
+		return -1;
+	}
+	
+	getitembound 14003, 2, Bound_Account; // ESSB
+	getitembound 12210, 2, Bound_Account; // Bubble_Gum
+	getitembound 12211, 2, Bound_Account; // Kafra Card
+	getitembound 12221, 2, Bound_Account; // Megaphone_
+	getitembound 12214, 1, Bound_Account; // Convex Mirror
+	getitembound 12212, 1, Bound_Account; // Giant_Fly_Wing
+	
+	if(#daily_login_level == 5){
+		getitembound 30005, 1, Bound_Account; // VIP_1Day_Coin
+	}
+	else if(#daily_login_level == 10){
+		getitembound 30029, 1, Bound_Account; // Kafra_Ring_3C rental 1 day box
+	}
+	else if(#daily_login_level == 15){
+		getitembound 30025, 1, Bound_Account; // Egg_Scroll_C_Mid
+	}
+	else if(#daily_login_level == 20){
+		getitembound 30007, 1, Bound_Account; // Egg_Scroll_C
+	}
+	else if(#daily_login_level == 25){
+		getitembound 17162, 1, Bound_Account; // Boarding Halter 7days Box
+	}
+	else if(#daily_login_level == 26){
+		getitembound 30005, 1, Bound_Account; // VIP_1Day_Coin
+	}
+	else if(#daily_login_level == 27){
+		getitembound 7776, 1, Bound_Account; // Gym Pass
+	}
+	else if(#daily_login_level == 28){
+		getitembound 30026, 1, Bound_Account; // Unlock_Char_Slot_Coupon
+	}
+
+	mes .@npcName$;
+	mes "Here are your rewards.";
+	mes "Your current Daily Login Level is ^0000FF" + #daily_login_level + "^000000";
+	mes "Remember to come back for your Daily Quest tomorrow!";
+	close2;
+return 0;
+OnNPCKillEvent:
+	if(isbegin_quest(80001) != 1){
+		end;
+	}
+
+	switch(getmonsterinfo(killedrid, MOB_SIZE)){
+		case Size_Small:
+			DQ_killpoints += 1;
+			dispbottom "You killed small monster " + strmobinfo(1,killedrid) + " and gained 1 kill point.", 0x00FF00;
+			break;
+		case Size_Medium: 
+			DQ_killpoints += 2;
+			dispbottom "You killed medium monster " + strmobinfo(1,killedrid) + " and gained 2 kill points.", 0x00FF00;
+			break;
+		case Size_Large: 
+			DQ_killpoints += 3;
+			dispbottom "You killed large monster " + strmobinfo(1,killedrid) + " and gained 3 kill points.", 0x00FF00;
+			break;
+	}
+
+	dispbottom "Your current kill points is " + DQ_killpoints + " / 1000", 0x00FF00;
+
+	if(DQ_killpoints >= 1000){
+		completequest 80001;
+		DQ_killpoints = 0;
+		DQ_InstanceCount = 0;
+		#daily_login_level++;
+		dispbottom "You have completed your Daily Quest, your current Daily Login Level is " + #daily_login_level, 0x00FF00;
+		dispbottom "Get your Daily Quest Reward from Daily Quest NPC", 0x00FFFF;
+	}
+end;
+OnUpdateDailyQuest:
+	if(isbegin_quest(80001) != 1){
+		end;
+	}
+
+	DQ_InstanceCount++;
+	dispbottom "Daily Quest Update: Instance Count is " + DQ_InstanceCount + " / 5", 0x00FFFF;
+	if(DQ_InstanceCount >= 5){
+		completequest 80001;
+		DQ_killpoints = 0;
+		DQ_InstanceCount = 0;
+		#daily_login_level++;
+		dispbottom "You have completed your Daily Quest, your current Daily Login Level is " + #daily_login_level, 0x00FF00;
+		dispbottom "Get your Daily Quest Reward from Daily Quest NPC", 0x00FFFF;
+	}
+end;
+}

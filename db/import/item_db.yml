@@ -2267,6 +2267,19 @@ Body:
       NoSell: true
     Script: |
       getitem 30027,5;
+  - Id: 30029
+    AegisName: Kafra_Ring_3C_1Day_Box
+    Name: Rental Third Job Ring 1 Day Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+    Script: |
+      rentitem 30106, 86400; // Kafra_Ring_3C rental 1 day
   - Id: 30100
     AegisName: C_Analyze_Eye_S
     Name: Costume Analyze Eye
@@ -2356,7 +2369,7 @@ Body:
         bonus2 bDropAddClass,Class_All,10;
   - Id: 30106
     AegisName: Kafra_Ring_3C
-    Name: Kafra Ring - Third Class Avatar
+    Name: Third Job Ring
     Type: Shadowgear
     Jobs:
       Alchemist: true
@@ -2378,9 +2391,12 @@ Body:
       NoDrop: true
       NoSell: true
     EquipScript: |
-        setlook 13,1;
+        changelook 13,1; // changebase roclass(eaclass()|EAJL_THIRD);
+        @currentdye = getlook(7);
+        changelook 7,0;
     UnEquipScript: |
-        setlook 13,0;
+        changelook 13,0; // changebase Class;
+        changelook 7, @currentdye;
   - Id: 30107
     AegisName: C_Fine_Sun
     Name: Costume Shining Sun
