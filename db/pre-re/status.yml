@@ -2207,6 +2207,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoRemoveOnDead: true
   - Status: Fleefood
     Icon: EFST_FOOD_BASICAVOIDANCE
     CalcFlags:
@@ -2216,6 +2217,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoRemoveOnDead: true
   - Status: Batkfood
     CalcFlags:
       Batk: true

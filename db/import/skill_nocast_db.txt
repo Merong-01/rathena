@@ -22,3 +22,5 @@
 // Example:
 // 8,6  // Endure cannot be used in PvP and GvG maps (2+4)
 
+// Zone 4
+54,256 // Resurrection Skill

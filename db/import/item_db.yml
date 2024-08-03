@@ -258,7 +258,7 @@ Body:
       NoAuction: true
     Script: |
       bonus bDex,1;
-      if (BaseClass == Job_Archer)
+      if (BaseClass == Job_Archer || BaseClass == Job_Gunslinger)
          bonus bBaseAtk,10;
   - Id: 2770
     AegisName: Thief_Figure

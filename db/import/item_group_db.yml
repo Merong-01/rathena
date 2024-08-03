@@ -445,6 +445,21 @@ Body:
             Rate: 4
             Amount: 1
             Announced: true
+          - Index: 42
+            Item: Butcher
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 43
+            Item: Lever_Action_Rifle
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 44
+            Item: Gate_Keeper
+            Rate: 2
+            Amount: 1
+            Announced: true
   - Group: MVP_REWARD_BOX_EPIC
     SubGroups:
       - SubGroup: 1
@@ -526,6 +541,11 @@ Body:
             Announced: true
           - Index: 15
             Item: Clack_Of_Servival
+            Rate: 5
+            Amount: 1
+            Announced: true
+          - Index: 16
+            Item: Gate_KeeperDD
             Rate: 5
             Amount: 1
             Announced: true

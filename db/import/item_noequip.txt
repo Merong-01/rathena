@@ -36,6 +36,18 @@
 30002,1 //PVP white pots
 30003,1 //PVP blue pots
 
+//Zone 4
+4141,256 // Evil Druid Card
+4170,256 // Dark Frame Card
+4173,256 // Demon Pungus Card
+4315,256 // Pest Card
+4216,256 // Sasquatch Card
+4222,256 // Skeleton Prisoner Card
+4127,256 // Nightmare Card
+4112,256 // Marduk Card
+610,256 // Yggdrasil Leaf
+7621,256 // Token Of Siegfried
+
 //Zone 10
 4105,16384 // Marc Card
 4141,16384 // Evil Druid Card
