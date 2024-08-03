@@ -44,7 +44,7 @@ Header:
 Body:
   - Id: 101
     Name: Glass Tile
-    TimeLimit: 905
+    TimeLimit: 965
     IdleTimeOut: 350
     Enter:
       Map: 1@tnm1
