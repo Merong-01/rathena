@@ -4006,6 +4006,9 @@ void clif_changelook(struct block_list *bl, int type, int val) {
 						vd->cloth_color = 0;
 					if (vd->body_style && sd->sc.option&OPTION_COSTUME)
  						vd->body_style = 0;
+					if (vd->body_style == 1 && battle_config.bodystyle_ignorepalette) {
+						vd->cloth_color = 0;
+					}
 				}
 				break;
 			case LOOK_HAIR:
@@ -4035,6 +4038,9 @@ void clif_changelook(struct block_list *bl, int type, int val) {
 						val = 0;
 					if (sd->sc.option&OPTION_OKTOBERFEST && battle_config.oktoberfest_ignorepalette)
 						val = 0;
+					if (vd->body_style == 1 && battle_config.bodystyle_ignorepalette) {
+						val = 0;
+					}
 				}
 				vd->cloth_color = val;
 				break;

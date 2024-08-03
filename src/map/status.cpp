@@ -3879,6 +3879,10 @@ int status_calc_pc_sub(map_session_data* sd, uint8 opt)
 				wd->overrefine = info->randombonus_max / 100;
 			}
 
+			if (sd->status.weapon == W_STAFF || sd->status.weapon == W_2HSTAFF) {
+				sd->bonus.ematk += wlv * sd->inventory.u.items_inventory[index].refine;
+			}
+
 			wa->range += sd->inventory_data[index]->range;
 			if(sd->inventory_data[index]->script && (pc_has_permission(sd,PC_PERM_USE_ALL_EQUIPMENT) || !itemdb_isNoEquip(sd->inventory_data[index],sd->bl.m))) {
 				if (wd == &sd->left_weapon) {
@@ -9334,6 +9338,9 @@ void status_set_viewdata(struct block_list *bl, int class_)
 						sd->vd.cloth_color = 0;
 					if(sd->sc.option&OPTION_OKTOBERFEST && battle_config.oktoberfest_ignorepalette)
 						sd->vd.cloth_color = 0;
+					if (sd->vd.body_style == 1 && battle_config.bodystyle_ignorepalette) {
+						sd->vd.cloth_color = 0;
+					}
 				}
 				if ( sd->vd.body_style && sd->sc.option&OPTION_COSTUME)
  					sd->vd.body_style = 0;

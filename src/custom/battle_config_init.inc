@@ -20,3 +20,4 @@
  { "spear_quicken_buff", &battle_config.cr_spearQuickenBuff, 0, 0, 1},
  { "auto_spell_buff", &battle_config.sa_autoSpellBuff, 0, 0, 1},
  { "body_reloc_trabweb", &battle_config.mo_bodyrelocTrabWeb, 0, 0, 1},
+ { "bodystyle_ignorepalette", &battle_config.bodystyle_ignorepalette, 1, 0, 1},

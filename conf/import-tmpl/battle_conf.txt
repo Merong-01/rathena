@@ -100,7 +100,7 @@ show_hp_sp_drain: yes
 bone_drop: 1
 
 //VIP options
-vip_storage_increase: 0
+vip_storage_increase: 300
 vip_base_exp_increase: 25
 vip_job_exp_increase: 25
 vip_exp_penalty_base: 0
