@@ -257,3 +257,13 @@ Body:
       Map: int_land
       X: 75
       Y: 93
+  - Id: 135
+    Name: Emperium_Arena
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: 06guild_r
+      X: 81
+      Y: 180
+    AdditionalMaps: 
+      06guild_01: true
