@@ -6,7 +6,7 @@
 OnInit:
 	bindatcmd("startglasstilegame",strnpcinfo(0)+"::OnInitGame",99,99);
 end;
-OnHour20:
+//OnHour20:
 OnInitGame:
 	if(.instance_id > 0){
 		if(playerattached()){
@@ -73,8 +73,10 @@ OnTimer725000:
 	instance_announce .instance_id, "This Instance Map will be Closed in 30 seconds and you all will be teleported out.", bc_map, 0x00FFFF, FW_NORMAL, 20;
 end;
 OnTimer755000:
-	instance_destroy .instance_id;
 OnTimerQuit:
+	instance_destroy .instance_id;
+end;
+OnInstanceEnd:
 	.instance_id = 0;
 	unbindatcmd "joinglasstilegame";
 	unbindatcmd "joinevent";
@@ -477,7 +479,7 @@ OnInstanceInit:
 end;
 OnInstanceDestroy:
 	stopnpctimer;
-	donpcevent "SquidGame1::OnTimerQuit";
+	donpcevent "SquidGame1::OnInstanceEnd";
 end;
 OnTimer123000:
 	//donpcevent "::OnSGPillarEffect";
