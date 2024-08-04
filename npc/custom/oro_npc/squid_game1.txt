@@ -9,42 +9,55 @@ end;
 OnHour20:
 OnInitGame:
 	if(.instance_id > 0){
-		//dispbottom "An instance of Glass Tile Mini Game is already active", 0x00FF00;
+		if(playerattached()){
+			dispbottom "An instance of Emperium Arena is already active", 0x00FF00;
+		}
+		else {
+			debugmes "An instance of Emperium Arena is already active";
+		}
 		end;
 	}
+	.test_flag = .@atcmd_parameters$[0];
+	if(.test_flag == 1){
+		.target = bc_self;
+		attachnpctimer;
+	}
+	else {
+		.target = bc_all;
+	}
+
 	bindatcmd("joinglasstilegame",strnpcinfo(0)+"::OnJoinGame",0,99);
 	bindatcmd("joinevent",strnpcinfo(0)+"::OnJoinGame",0,99);
 	.instance_id = instance_create("Glass Tile", IM_NONE);
 
 	if(.instance_id == -4){
-		//dispbottom "No free instance!", 0xFF0000;
+		if(playerattached()){
+			dispbottom "No free instance!", 0xFF0000;
+		}
+		else {
+			debugmes "No free instance!";
+		}
 		end;
 	}
 	else if(.instance_id < 1){
-		//dispbottom "Failed to create instance", 0xFF0000;
+		if(playerattached()){
+			dispbottom "Failed to create instance", 0xFF0000;
+		}
+		else {
+			debugmes "Failed to create instance";
+		}
 		end;
 	}
-	//setmapflag instance_mapname("1@tnm1", .instance_id), mf_noskill;
-	//setmapflag instance_mapname("1@tnm1", .instance_id), mf_noitemconsumption;
 
 	cleararray .join_char_id[0], 0, getarraysize(.join_char_id);
-	announce "The Glass Tile Mini Game will start in 5 minutes, to join the game type @joinglasstilegame or @joinevent", 0x0000FF;
+	announce "The Glass Tile Mini Game will start in 2 minutes, to join the game type @joinglasstilegame or @joinevent", .target, 0x00FFFF;
 	.starting_game = 1;
 	initnpctimer;
 end;
 OnTimer60000:
-	announce "The Glass Tile Mini Game will start in 4 minutes, to join the game type @joinglasstilegame or @joinevent", 0x0000FF;
+	announce "The Glass Tile Mini Game will start in 1 minute, to join the game type @joinglasstilegame or @joinevent", .target, 0x00FFFF;
 end;
 OnTimer120000:
-	announce "The Glass Tile Mini Game will start in 3 minutes, to join the game type @joinglasstilegame or @joinevent", 0x0000FF;
-end;
-OnTimer180000:
-	announce "The Glass Tile Mini Game will start in 2 minutes, to join the game type @joinglasstilegame or @joinevent", 0x0000FF;
-end;
-OnTimer240000:
-	announce "The Glass Tile Mini Game will start in 1 minute, to join the game type @joinglasstilegame or @joinevent", 0x0000FF;
-end;
-OnTimer300000:
 	.starting_game = 2;
 	for(.@i = 0; .@i < getarraysize(.join_char_id); .@i++){
 		if(isloggedin(convertpcinfo(.join_char_id[.@i], CPC_ACCOUNT), .join_char_id[.@i])){
@@ -52,19 +65,21 @@ OnTimer300000:
 		}
 	}
 	announce "A total of " + getarraysize(.join_char_id) + " players have registered to join the game." +
-		"The Glass Tile Mini Game is Starting, teleporting participants to the Mini Game instance", 0x0000FF;
-	unbindatcmd "joinglasstilegame";
-	unbindatcmd "joinevent";
+		"The Glass Tile Mini Game is Starting, teleporting participants to the Mini Game instance", .target, 0x00FFFF;
 	sleep 1000;
 	donpcevent "::OnSGPillarEffect";
 end;
-OnTimer905000:
-	instance_announce .instance_id, "This Instance Map will be Closed in 1 minute and you all will be teleported out.", 0, 0x00FFFF, FW_NORMAL, 20;
+OnTimer725000:
+	instance_announce .instance_id, "This Instance Map will be Closed in 30 seconds and you all will be teleported out.", bc_map, 0x00FFFF, FW_NORMAL, 20;
 end;
-OnTimer965000:
+OnTimer755000:
 	instance_destroy .instance_id;
+OnTimerQuit:
 	.instance_id = 0;
+	unbindatcmd "joinglasstilegame";
+	unbindatcmd "joinevent";
 	stopnpctimer;
+	detachnpctimer;
 end;
 OnJoinGame:
 	if(.starting_game == 0){
@@ -80,8 +95,8 @@ OnJoinGame:
 	.@char_id = getcharid(0);
 	for(.@i = 0; .@i < .@num; .@i++){
 		if(.join_char_id[.@i] == .@char_id){
-			dispbottom "You've joined the Glass Tile mini game, you will be teleported to the intance map in " 
-				+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
+			dispbottom "You've already joined the Glass Tile mini game, you will be teleported to the intance map in " 
+				+ (120000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
 			end;
 		}
 	}
@@ -89,7 +104,7 @@ OnJoinGame:
 	@glasstile_p = 0;
 	@gtiletrapped = 0;
 	dispbottom "You've joined the Glass Tile mini game, you will be teleported to the intance map in " 
-		+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
+		+ (120000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
 end;
 }
 
@@ -142,7 +157,6 @@ OnTouch:
 		}
 		donpcevent "::OnSGPillarEffect";
 	}
-	
 	else if(strnpcinfo(0) == "Team Leader" && @glasstile_p == 1){
 		@glasstile_p = 2;
 		if(.tltouch < 5){
@@ -156,16 +170,16 @@ OnTouch:
 		}
 		donpcevent "::OnSGPillarEffect";
 	}
-	
 	else if(strnpcinfo(0) == "Manager" && @glasstile_p == 2){
 		@glasstile_p = 3;
 		if(.mtouch < 5){
 			npctalk "Congratulations! You manage to arrive here safely.";
 			getitem 7199,5; //Hourly Coin
 			.mtouch++;
-			announce "Congratulations to player [" + strcharinfo(0) + "]  for reaching the end and winning 5 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", 0x0000FF;
+			announce "Congratulations to player [" + strcharinfo(0) + "]  for reaching the end and winning 5 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", bc_all, 0x00FFFF;
 			if(.mtouch == 1){
-				setnpctimer 900001,"SquidGame1";
+				detachnpctimer "SquidGame1";
+				setnpctimer 724999, "SquidGame1";
 			}
 		}
 		else {
@@ -227,16 +241,6 @@ OnInstanceDestroy:
 	disablenpc;
 end;
 OnInstanceInit:
-//	setd "$@" + strnpcinfo(0) + "flag", 0;
-	//setd "$@" + instance_npcname(strnpcinfo(0)) + "flag", 0;
-//	getmapxy(.@mapname$,.@mapxkor,.@mapykor,BL_NPC);
-//	if(checkwall("wall" + strnpcinfo(0))){
-//		delwall "wall" + strnpcinfo(0);
-//	}
-//	if(!checkcell(instance_mapname(.@mapname$), .@mapxkor, .@mapykor, cell_chknpc)){
-//		setcell instance_mapname(.@mapname$),.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_NPC,1;
-//	}
-//OnSGReset:
 	.@npc_name$ = strnpcinfo(0);
 	.@random_num = rand(0,2);
 	getmapxy(.@mapname$,.@mapxkor,.@mapykor,BL_NPC);
@@ -467,21 +471,19 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceInit:
-	//bindatcmd("gtilereset",strnpcinfo(0)+"::OnCommand",99,99);
-	//bindatcmd("refreshgtile",strnpcinfo(0)+"::OnCommand2",0,0);
 	setmapflag strnpcinfo(4), mf_noskill;
 	setmapflag strnpcinfo(4), mf_noitemconsumption;
 	initnpctimer;
 end;
 OnInstanceDestroy:
 	stopnpctimer;
+	donpcevent "SquidGame1::OnTimerQuit";
 end;
-OnTimer303000:
+OnTimer123000:
 	//donpcevent "::OnSGPillarEffect";
 	instance_announce 0, "Reach the other end of the map within 10 minutes, the first 5 players to pass each level will receive 3/4/5" + getitemname(7199), 0;
-	//showdigit 0, 1;
 end;
-OnTimer390000:
+OnTimer213000:
 	instance_announce 0, "1 minute and 30 seconds has passed, summoning monsters to encourage everyone", 0;
 	switch(rand(1,2)){
 		case 1: monster strnpcinfo(4), 92, 24, "Hunter Fly", 1422, 5;
@@ -490,7 +492,7 @@ OnTimer390000:
 			break;
 	}
 end;
-OnTimer550000:
+OnTimer373000:
 	instance_announce 0, "4 minutes and 10 seconds has passed, summoning more monsters to encourage everyone", 0;
 	switch(rand(1,2)){
 		case 1: monster strnpcinfo(4), 116, 24, "Hunter Fly", 1422, 5;
@@ -499,7 +501,7 @@ OnTimer550000:
 			break;
 	}
 end;
-OnTimer700000:
+OnTimer523000:
 	instance_announce 0, "6 minutes and 40 seconds has passed, summoning more monsters to encourage everyone", 0;
 	switch(rand(1,2)){
 		case 1: monster strnpcinfo(4), 141, 24, "Hunter Fly", 1422, 5;
@@ -508,14 +510,8 @@ OnTimer700000:
 			break;
 	}
 end;
-OnTimer900000:
-	//stopnpctimer;
-	//showdigit 0, 0;
+OnTimer725000:
 	instance_announce 0, "10 minutes has passed, the Game is Over!", 0;
 	//instance_warpall "SavePoint", 0, 0;
-end;
-OnCommand:
-OnCommand2:
-	dispbottom "This is a depreciated command and will be removed next server retart", 0x00FF00;
 end;
 }

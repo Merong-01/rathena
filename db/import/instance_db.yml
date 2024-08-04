@@ -45,7 +45,7 @@ Body:
   - Id: 101
     Name: Glass Tile
     TimeLimit: 965
-    IdleTimeOut: 350
+    IdleTimeOut: 200
     Enter:
       Map: 1@tnm1
       X: 91
