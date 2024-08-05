@@ -4,7 +4,7 @@
 OnInit:
 	bindatcmd("startmvpbosshunt",strnpcinfo(0)+"::OnInitEvent",99,99);
 end;
-OnHour21:
+OnClock2120:
 OnInitEvent:
 	if(.ins_id > 0){
 		if(playerattached()){
@@ -15,8 +15,22 @@ OnInitEvent:
 		}
 		end;
 	}
-	bindatcmd("joinmvpbosshunt",strnpcinfo(0)+"::OnJoinEvent",0,99);
-	bindatcmd("joinevent",strnpcinfo(0)+"::OnJoinEvent",0,99);
+	for(.@i = 0; .@i <= getarraysize($TimeEventFlag); .@i++){
+		if($TimeEventFlag[.@i] == 0){
+			.event_flag_index = .@i;
+			break;
+		}
+	}
+	if(.event_flag_index == 0){
+		.joinevent_cmdstr$ = "joinevent";
+		$TimeEventFlag[0] = 1;
+	}
+	else {
+		.joinevent_cmdstr$ = "joinevent" + (.event_flag_index + 1);
+		$TimeEventFlag[.event_flag_index] = 1;
+	}
+	bindatcmd("joinmvpbosshunt", strnpcinfo(0)+"::OnJoinEvent",0,99);
+	bindatcmd(.joinevent_cmdstr$, strnpcinfo(0)+"::OnJoinEvent",0,99);
 	.ins_id = instance_create("MVP Night Event", IM_NONE);
 
 	if(.ins_id == -4){
@@ -39,23 +53,14 @@ OnInitEvent:
 	}
 
 	cleararray .join_char_id[0], 0, getarraysize(.join_char_id);
-	announce "The MVP Boss Random Summon Event will start in 5 minutes, to join the event type @joinmvpbosshunt or @joinevent", bc_all, 0x00FFFF;
+	announce "The MVP Boss Random Summon Event will start in 2 minutes, to join the event type @joinmvpbosshunt or @" + .joinevent_cmdstr$, bc_all, 0x00FFFF;
 	.mvp_event_status = 1;
 	initnpctimer;
 end;
 OnTimer60000:
-	announce "The MVP Boss Random Summon Event will start in 4 minutes, to join the event type @joinmvpbosshunt or @joinevent", bc_all, 0x00FFFF;
+	announce "The MVP Boss Random Summon Event will start in 1 minute, to join the event type @joinmvpbosshunt or @" + .joinevent_cmdstr$, bc_all, 0x00FFFF;
 end;
 OnTimer120000:
-	announce "The MVP Boss Random Summon Event will start in 3 minutes, to join the event type @joinmvpbosshunt or @joinevent", bc_all, 0x00FFFF;
-end;
-OnTimer180000:
-	announce "The MVP Boss Random Summon Event will start in 2 minutes, to join the event type @joinmvpbosshunt or @joinevent", bc_all, 0x00FFFF;
-end;
-OnTimer240000:
-	announce "The MVP Boss Random Summon Event will start in 1 minute, to join the event type @joinmvpbosshunt or @joinevent", bc_all, 0x00FFFF;
-end;
-OnTimer300000:
 	.mvp_event_status = 2;
 	announce "A total of " + getarraysize(.join_char_id) + " players have registered to join the event." +
 		"The MVP Boss Random Summon Event is Starting, teleporting participants to Event Map instance.", bc_all, 0x00FFFF;
@@ -77,9 +82,11 @@ OnTimer300000:
 		}
 	}
 end;
-OnTimer2100000:
+OnInstanceEnd:
+OnTimer1920000:
 	unbindatcmd "joinmvpbosshunt";
-	unbindatcmd "joinevent";
+	unbindatcmd .joinevent_cmdstr$;
+	$TimeEventFlag[.event_flag_index] = 0;
 	.ins_id = 0;
 	stopnpctimer;
 end;
@@ -99,13 +106,13 @@ OnJoinEvent:
 	for(.@i = 0; .@i < .@num; .@i++){
 		if(.join_char_id[.@i] == .@char_id){
 			dispbottom "You've already joined the MVP Boss Random Summon Event, you will be teleported to the intance map in " 
-				+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
+				+ (120000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
 			end;
 		}
 	}
 	.join_char_id[.@num] = .@char_id;
 	dispbottom "You've joined the MVP Boss Random Summon Event, you will be teleported to the intance map in " 
-		+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
+		+ (120000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
 end;
 }
 
@@ -144,31 +151,31 @@ OnInstanceInit:
 		1087,//	Orc Hero
 		1251,//	Knight of Windstorm
 		1038,//	Osiris
-//		1658,//	Ygnizem
+	//	1658,//	Ygnizem
 		1272,//	Dark Lord
-//		1871,//	Fallen Bishop
+	//	1871,//	Fallen Bishop
 		1039,//	Baphomet
 		1039,//	Baphomet
 		1147,//	Maya
-//		1785,//	Atroce
+	//	1785,//	Atroce
 		1389,//	Dracula
-//		1630,//	Bacsojin
-//		1885,//	Gorynych
-//		1623,//	RSX 0806
+	//	1630,//	Bacsojin
+	//	1885,//	Gorynych
+	//	1623,//	RSX 0806
 		1511,//	Amon Ra
-//		1688,//	Lady Tanee
-//		1768,//	Gloom Under Night
-//		1719,//	Datale
-//		1734,//	Kiel D-01
+	//	1688,//	Lady Tanee
+	//	1768,//	Gloom Under Night
+	//	1719,//	Datale
+	//	1734,//	Kiel D-01
 		1157,//	Pharaoh
-//		1373,//	Lord of Death
+	//	1373,//	Lord of Death
 		1312;//	Turtle General
-//		1779,//	Ktullanux
-//		1874,//	Beelzebub
-//		1646,// Bio3 placeholder
-//		1708,//	Thanatos
-//		1751,//	Valkyrie Randgris
-//		1832;//	Ifrit
+	//	1779,//	Ktullanux
+	//	1874,//	Beelzebub
+	//	1646,// Bio3 placeholder
+	//	1708,//	Thanatos
+	//	1751,//	Valkyrie Randgris
+	//	1832;//	Ifrit
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
 	callsub SummonRandomMVP;
@@ -250,5 +257,8 @@ OnMVPQuiled:
 		sleep 5000;
 		callsub SummonRandomMVP;
 	}
+end;
+OnInstanceDestroy:
+	donpcevent "MVP Boss Random Instance::OnInstanceEnd";
 end;
 }
