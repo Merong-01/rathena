@@ -16,8 +16,22 @@ OnInitEvent:
 		}
 		end;
 	}
-	bindatcmd("joinporinggame",strnpcinfo(0)+"::OnJoinEvent",0,99);
-	bindatcmd("joinevent",strnpcinfo(0)+"::OnJoinEvent",0,99);
+	for(.@i = 0; .@i <= getarraysize($TimeEventFlag); .@i++){
+		if($TimeEventFlag[.@i] == 0){
+			.event_flag_index = .@i;
+			break;
+		}
+	}
+	if(.event_flag_index == 0){
+		.joinevent_cmdstr$ = "joinevent";
+		$TimeEventFlag[0] = 1;
+	}
+	else {
+		.joinevent_cmdstr$ = "joinevent" + (.event_flag_index + 1);
+		$TimeEventFlag[.event_flag_index] = 1;
+	}
+	bindatcmd("joinporinggame", strnpcinfo(0)+"::OnJoinEvent",0,99);
+	bindatcmd(.joinevent_cmdstr$, strnpcinfo(0)+"::OnJoinEvent",0,99);
 	.ins_id = instance_create("PoringKill Event", IM_NONE);
 
 	if(.ins_id == -4){
@@ -41,7 +55,7 @@ OnInitEvent:
 
 	cleararray .join_char_id[0], 0, getarraysize(.join_char_id);
 	deletearray .winner_name$[0], getarraysize(.winner_name$);
-	announce "The Poring Hunt Game will start in 5 minutes, to join the game type @joinporinggame or @joinevent", bc_all, 0x00FFFF;
+	announce "The Poring Hunt Game will start in 2 minutes, to join the game type @joinporinggame or @" + .joinevent_cmdstr$, bc_all, 0x00FFFF;
 	.poring_event_status = 1;
 	initnpctimer;
 	.ins_map_name$ = instance_mapname("int_land", .ins_id);
@@ -57,22 +71,10 @@ OnInitEvent:
 	setmapflag .ins_map_name$, mf_loadevent;
 end;
 OnTimer60000:
-	announce "The Poring Hunt Game will start in 4 minutes, to join the game type @joinporinggame or @joinevent", bc_all, 0x00FFFF;
+	announce "The Poring Hunt Game will start in 1 minute, to join the game type @joinporinggame or @" + .joinevent_cmdstr$, bc_all, 0x00FFFF;
 end;
 OnTimer120000:
-	announce "The Poring Hunt Game will start in 3 minutes, to join the game type @joinporinggame or @joinevent", bc_all, 0x00FFFF;
-end;
-OnTimer180000:
-	announce "The Poring Hunt Game will start in 2 minutes, to join the game type @joinporinggame or @joinevent", bc_all, 0x00FFFF;
-end;
-//OnTimer10000:
-//	setnpctimer 240000;
-OnTimer240000:
-	announce "The Poring Hunt Game will start in 1 minute, to join the game type @joinporinggame or @joinevent", bc_all, 0x00FFFF;
-end;
-OnTimer300000:
 	.poring_event_status = 2;
-	//.@player_count = getarraysize(.join_char_id);
 	announce "A total of " + getarraysize(.join_char_id) + " players have registered to join the game." +
 		"The Poring Hunt Game is Starting, teleporting participants to Game Map instance.", bc_all, 0x00FFFF;
 	
@@ -93,26 +95,26 @@ OnTimer300000:
 		}
 	}
 end;
-OnTimer305000:
+OnTimer125000:
 	mapannounce .ins_map_name$, "Round " + .round_counter + " starts in 5",bc_map, 0xFFFF00, FW_BOLD, 20;
 end;
-OnTimer306000:
+OnTimer126000:
 	mapannounce .ins_map_name$, "Round " + .round_counter + " starts in 4",bc_map, 0xFFFF00, FW_BOLD, 20;
 end;
-OnTimer307000:
+OnTimer127000:
 	mapannounce .ins_map_name$, "Round " + .round_counter + " starts in 3",bc_map, 0xFFFF00, FW_BOLD, 20;
 end;
-OnTimer308000:
+OnTimer128000:
 	mapannounce .ins_map_name$, "Round " + .round_counter + " starts in 2",bc_map, 0xFFFF00, FW_BOLD, 20;
 end;
-OnTimer309000:
+OnTimer129000:
 	mapannounce .ins_map_name$, "Round " + .round_counter + " starts in 1",bc_map, 0xFFFF00, FW_BOLD, 20;
 end;
-OnTimer310000:
+OnTimer130000:
 	mapannounce .ins_map_name$, "GO!!",bc_map, 0xFFFF00, FW_BOLD, 30;
 	callsub SummonPoring;
 end;
-OnTimer370000:
+OnTimer190000:
 	if(.round_counter < 10){
 		mapannounce .ins_map_name$, "Time's Up! No one killed the target monster this round. Don't worry you still have a chance next round.",bc_map;
 		callsub ResetEvent;
@@ -122,13 +124,14 @@ OnTimer370000:
 		callsub AnnounceWinners;
 	}
 end;
-OnTimer905000:
-	instance_announce .ins_id, "This Instance Map will be Closed in 1 minute and you all will be teleported out.", 0, 0x00FFFF, FW_NORMAL, 20;
+OnTimer730000:
+	instance_announce .ins_id, "This Instance Map will be Closed in 30 seconds and you all will be teleported out.", 0, 0x00FFFF, FW_NORMAL, 20;
 end;
-OnTimer965000:
+OnTimer760000:
 	instance_destroy .ins_id;
 	unbindatcmd "joinporinggame";
-	unbindatcmd "joinevent";
+	unbindatcmd .joinevent_cmdstr$;
+	$TimeEventFlag[.event_flag_index] = 0;
 	.ins_id = 0;
 	.poring_event_status = 0;
 	.poring_found = 0;
@@ -150,13 +153,13 @@ OnJoinEvent:
 	for(.@i = 0; .@i < .@num; .@i++){
 		if(.join_char_id[.@i] == .@char_id){
 			dispbottom "You've already joined the Poring Hunt Game, you will be teleported to the instance map in " 
-				+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
+				+ (120000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
 			end;
 		}
 	}
 	.join_char_id[.@num] = .@char_id;
 	dispbottom "You've joined the Poring Hunt Game, you will be teleported to the instance map in " 
-		+ (300000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
+		+ (120000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
 end;
 OnPCLoadMapEvent:
 	sleep2 500;
@@ -214,7 +217,7 @@ ResetEvent:
 		end;
 	}
 	.round_counter++;
-	setnpctimer 300001;
+	setnpctimer 120001;
 	killmonster .ins_map_name$, "All";
 	
 	sleep 3000;
@@ -224,7 +227,7 @@ end;
 AnnounceWinners:
 	if(.num_win == 0){
 		announce "Poring Hunt Game is Over! Sadly, nobody won throughout the "+ .round_counter + " rounds of the game.", 0;
-		setnpctimer 900000;
+		setnpctimer 729999;
 		end;
 	}
 	//End of GAME, list all winning players and rewards
@@ -242,7 +245,7 @@ AnnounceWinners:
 		getitem	7199, 5, .@acc_id;
 	}
 	announce .@message$, 0;
-	setnpctimer 900000;
+	setnpctimer 729999;
 end;
 OnTruePoring:
 	if(playerattached() == 0){

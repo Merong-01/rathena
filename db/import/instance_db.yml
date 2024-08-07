@@ -66,8 +66,8 @@ Body:
       pay_dun04: true
   - Id: 111
     Name: MVP Night Event
-    TimeLimit: 2110
-    IdleTimeOut: 500
+    TimeLimit: 1920
+    IdleTimeOut: 200
     Enter:
       Map: 1@def01
       X: 50
@@ -250,8 +250,8 @@ Body:
       Y: 192
   - Id: 134
     Name: PoringKill Event
-    TimeLimit: 1200
-    IdleTimeOut: 480
+    TimeLimit: 1100
+    IdleTimeOut: 300
     NoNpc: true
     Enter:
       Map: int_land
