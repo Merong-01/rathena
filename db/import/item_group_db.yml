@@ -137,6 +137,16 @@ Body:
             Rate: 5
             Amount: 1
             Announced: true
+          - Index: 17
+            Item: Convex_Mirror
+            Rate: 5
+            Amount: 3
+            Announced: true
+          - Index: 18
+            Item: Giant_Fly_Wing
+            Rate: 5
+            Amount: 3
+            Announced: true
   - Group: MVP_REWARD_BOX_UNCOMMON
     SubGroups:
       - SubGroup: 1
@@ -248,6 +258,11 @@ Body:
             Announced: true
           - Index: 21
             Item: Odin's_Blessing
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 22
+            Item: Kafra_Ring_3C_1Day_Box
             Rate: 2
             Amount: 1
             Announced: true
@@ -546,6 +561,11 @@ Body:
             Announced: true
           - Index: 16
             Item: Gate_KeeperDD
+            Rate: 5
+            Amount: 1
+            Announced: true
+          - Index: 17
+            Item: Boarding_Halter_Box7
             Rate: 5
             Amount: 1
             Announced: true
@@ -885,6 +905,115 @@ Body:
             Announced: true
           - Index: 18
             Item: C_Subject_Aura_V
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 19
+            Item: Giant_Fly_Wing_Box
+            Rate: 10
+            Amount: 1
+            Announced: true
+          - Index: 20
+            Item: MVP_Map_Tele_Scroll_Box5
+            Rate: 10
+            Amount: 1
+            Announced: true
+  - Group: COSTUMEMILEPACK_35_1
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: ASPD_Potion_Box
+            Rate: 10
+            Amount: 1
+            Announced: true
+          - Index: 1
+            Item: Elite_Siege_Supply_Box
+            Rate: 20
+            Amount: 3
+            Announced: true
+          - Index: 2
+            Item: Elite_Siege_Supply_Box_
+            Rate: 20
+            Amount: 4
+            Announced: true
+          - Index: 3
+            Item: F_Megaphone_Box
+            Rate: 10
+            Amount: 1
+            Announced: true
+          - Index: 4
+            Item: Kafra_Card
+            Rate: 10
+            Amount: 5
+            Announced: true
+          - Index: 5
+            Item: Bubble_Gum
+            Rate: 20
+            Amount: 3
+            Announced: true
+          - Index: 6
+            Item: HE_Battle_Manual
+            Rate: 10
+            Amount: 3
+            Announced: true
+          - Index: 7
+            Item: Job_Manual50
+            Rate: 10
+            Amount: 3
+            Announced: true
+          - Index: 8
+            Item: Convex_Mirror
+            Rate: 12
+            Amount: 2
+            Announced: true
+          - Index: 9
+            Item: Greed_Box50
+            Rate: 20
+            Amount: 1
+            Announced: true
+          - Index: 10
+            Item: VIP_1Day_Coin
+            Rate: 15
+            Amount: 1
+            Announced: true
+          - Index: 11
+            Item: Max_Weight_Up_Scroll
+            Rate: 8
+            Amount: 1
+            Announced: true
+          - Index: 12
+            Item: Cloth_Dye_Coupon_ORO
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 13
+            Item: New_Hairstyle_Coupon_ORO
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 14
+            Item: New_Hair_Dye_Coupon_ORO
+            Rate: 4
+            Amount: 1
+            Announced: true
+          - Index: 15
+            Item: Neuralizer_Box
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 16
+            Item: Premium_Reset_Stone
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 17
+            Item: Change_Name_Card_Box
+            Rate: 2
+            Amount: 1
+            Announced: true
+          - Index: 18
+            Item: C_Poring_Soap_Pipe
             Rate: 2
             Amount: 1
             Announced: true

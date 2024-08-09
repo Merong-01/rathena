@@ -2280,6 +2280,23 @@ Body:
       NoSell: true
     Script: |
       rentitem 30106, 86400; // Kafra_Ring_3C rental 1 day
+  - Id: 30030
+    AegisName: Egg_Scroll_C_Low
+    Name: Costume Low Egg Scroll
+    Type: Usable
+    Weight: 10
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: false
+      NoSell: true
+      NoCart: false
+      NoGuildStorage: false
+      NoMail: false
+      NoAuction: false
+    Script: |
+      getgroupitem IG_COSTUMEMILEPACK_35_1,1;
   - Id: 30100
     AegisName: C_Analyze_Eye_S
     Name: Costume Analyze Eye
@@ -2686,6 +2703,19 @@ Body:
         bonus2 bExpAddClass,Class_All,5;
         bonus2 bDropAddClass,Class_All,2;
         bonus bAddMaxWeight,1000;
+  - Id: 30127
+    AegisName: MoveSpeed_25
+    Name: MoveSpeed 25
+    Type: Card
+    SubType: Enchant
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+    Script: |
+        bonus bSpeedRate,25;
   - Id: 30201
     AegisName: Rapier_S
     Name: Rapier (Starter Weapon)
@@ -3756,6 +3786,21 @@ Body:
     Script: |
       bonus bHit,10;
       bonus bCritical,10;
+  - Id: 30260
+    AegisName: Preserve_Clip_
+    Name: Preserve Clip
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Jobs:
+      Rogue: true
+    Locations:
+      Both_Accessory: true
+    EquipLevelMin: 70
+    ArmorLevel: 1
+    Script: |
+      bonus bAllStats,1;
+      skill "ST_PRESERVE", 1, 1;
   - Id: 19910
     AegisName: C_Halloween_Hat
     Name: Costume Halloween Hat
@@ -3807,6 +3852,23 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 80
+  - Id: 31055
+    AegisName: C_Poring_Soap_Pipe
+    Name: Costume Poring Soap Pipe
+    Type: Armor
+    Weight: 0
+    Buy: 20
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 1499
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
   - Id: 31383
     AegisName: C_Volume_Low_Twin
     Name: Costume Volume Low Twin

@@ -4,7 +4,7 @@
 	.@ret = 0;
 	
 	while(.@ret == 0){
-		mes "[Head Gear Commissioner]";
+		mes "[Quest Gear Commissioner]";
 		mes "Perharps your looking for a new head gear?";
 		mes "Why don't you check out my collection...";
 		mes "I'm sure you will find what you need.";
@@ -15,7 +15,7 @@
 }
 
 function	script	F_DisplayMenuType	{
-	set .@sel, select("HeadGear-Upper:HeadGear-Mid:HeadGear-Low:Cancel");
+	set .@sel, select("HeadGear-Upper:HeadGear-Mid:HeadGear-Low:Accessory:Cancel");
 	switch(.@sel) {
 		case 1: .@ret = callfunc("F_HeadGear_Upper");
 			break;
@@ -23,7 +23,9 @@ function	script	F_DisplayMenuType	{
 			break;
 		case 3: .@ret = callfunc("F_HeadGear_Low");
 			break;
-		default: mes "[Head Gear Commissioner]";
+		case 4: .@ret = callfunc("F_Accessory_S");
+			break;
+		default: mes "[Quest Gear Commissioner]";
 				 mes "Talk to me again if you change your mind.";
 				 close;
 				 .@ret = -1;
@@ -235,12 +237,51 @@ function	script	F_HeadGear_Low	{
 	return 0;
 }
 
+function	script	F_Accessory_S	{
+	setarray .@accessoryIdList[0], 30260; // Preserve Clip
+	
+	.@accessory_name$ = "";
+	for(.@i = 0; .@i < getarraysize(.@accessoryIdList); .@i++){
+		.@accessory_name$ += "^0000CC" + getitemname(.@accessoryIdList[.@i]) + "^000000:";
+	}
+	.@accessory_name$ += "Cancel";
+	
+	.@sel = select(.@accessory_name$);
+	switch(.@sel){
+		case 1: 
+				.@gear_requirements_id[0] = 2607; // Clip[1]
+				.@gear_requirements_count[0] = 2;
+
+				.@gear_requirements_id[1] = 2603; // Necklace[0]
+				.@gear_requirements_count[1] = 1;
+
+				.@gear_requirements_id[2] = 2604; // Glove[0]
+				.@gear_requirements_count[2] = 1;
+
+				.@gear_requirements_id[3] = 2605; // Brooch[0]
+				.@gear_requirements_count[3] = 1;
+			break;
+		default: return 0;
+			break;
+	}
+	
+	.@isProceed = callfunc("F_DisplayGearRequirements", .@accessoryIdList[.@sel-1], 
+						.@gear_requirements_id, .@gear_requirements_count);
+						
+	if(.@isProceed == 1){
+		callfunc "F_HandleGearExchange",.@accessoryIdList[.@sel-1],
+					.@gear_requirements_id,.@gear_requirements_count;
+	}
+	
+	return 0;
+}
+
 function	script	F_DisplayGearRequirements	{
 	.@headGear_Id = getarg(0);
 	copyarray .@headGearRequirements_Id[0], getarg(1), getarraysize(getarg(1));
 	copyarray .@headGearRequirements_Count[0], getarg(2), getarraysize(getarg(2));
 	
-	mes "[Head Gear Commissioner]";
+	mes "[Quest Gear Commissioner]";
 	mes "You can have ^0000CC" + getitemname(.@headGear_Id) + "^000000 if you have: ";
 	
 	for(.@ii = 0; .@ii < getarraysize(.@headGearRequirements_Id); .@ii++){
@@ -278,19 +319,19 @@ function	script	F_HandleGearExchange	{
 		}
 		getitem .@item_id,1;
 		announce "Player [ " + strcharinfo(0) + 
-			" ] completed HeadGear Quest for " + getitemname(.@item_id), 0;
+			" ] completed Gear Quest for " + getitemname(.@item_id), 0;
 		
-		mes "[Head Gear Commissioner]";
+		mes "[Quest Gear Commissioner]";
 		mes "There you go.";
 		mes "Come again if you want another equipment.";
 		end;
 	}
 	else {
-		mes "[Head Gear Commissioner]";
+		mes "[Quest Gear Commissioner]";
 		mes "You don't have the required items.";
 		mes "Come back when you have them.";
 		end;
 	}
 }
 
-prontera,147,189,5	duplicate(Quest Gear)	Head Gear Commissioner#prt	4_M_MERCAT1
+prontera,147,189,5	duplicate(Quest Gear)	Quest Gear Commissioner#prt	4_M_MERCAT1
