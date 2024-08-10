@@ -1,0 +1,8 @@
+//====== Prontera No Vending Area ============================
+//============================================================
+prontera,146,174,5	script	NoVending Aria NPC	-1,{
+end;
+OnInit:
+
+end;
+}
