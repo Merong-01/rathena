@@ -7,7 +7,7 @@ OnInit:
 	bindatcmd("startglasstilegame",strnpcinfo(0)+"::OnInitGame",99,99);
 end;
 //OnClock2130:
-OnHour21:
+//OnHour21:
 OnInitGame:
 	if(.ins_id > 0){
 		if(playerattached()){
@@ -184,7 +184,7 @@ end;
 }
 
 1@tnm1,141,24,3	duplicate(SGNPC)	Team Leader	453,3,4
-1@tnm1,157,24,3	duplicate(SGNPC)	Manager	451,3,4
+1@tnm1,157,24,3	duplicate(SGNPC)	Manager	451,2,4
 
 1@tnm1,96,20,0	script	01_gc_01#1::GameCell	139,0,0,{
 end;
