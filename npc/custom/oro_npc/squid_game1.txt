@@ -206,7 +206,6 @@ OnInstanceInit:
 	if(.@ret_xy != 0){
 		debugmes strnpcinfo(1) + "getmapxy failed!";
 	}
-	
 	if(checkwall(.@wallName$)){
 		delwall .@wallName$;
 	}
@@ -259,7 +258,8 @@ OnInstanceInit:
 		specialeffect EF_GLASSWALL;
 	}
 	else {
-		setwall .@mapname$, .@mapxkor, .@mapykor, 1, 0, 1, .@wallName$;
+		setwall strnpcinfo(4), .@mapxkor, .@mapykor, 1, 0, 1, .@wallName$;
+		//setcell .@mapname$,.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,cell_walkable,0;
 		specialeffect EF_BOTTOM_FOGWALL;
 		setd "$@" + strnpcinfo(0) + "flag", 2;
 	}
