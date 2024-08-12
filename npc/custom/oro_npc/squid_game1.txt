@@ -192,9 +192,9 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceDestroy:
-	if(checkwall("wall" + strnpcinfo(3))){
-		delwall "wall" + strnpcinfo(3);
-	}
+//	if(checkwall("wall" + strnpcinfo(3))){
+//		delwall "wall" + strnpcinfo(3);
+//	}
 end;
 OnInstanceInit:
 	.@npc_name$ = strnpcinfo(1);
@@ -203,9 +203,9 @@ OnInstanceInit:
 	setd "$@" + strnpcinfo(0) + "flag", 0;
 	.@wallName$ = "wall" + strnpcinfo(3);
 	
-	if(checkwall(.@wallName$)){
-		delwall .@wallName$;
-	}
+//	if(checkwall(.@wallName$)){
+//		delwall .@wallName$;
+//	}
 	if(!checkcell(strnpcinfo(4), .@mapxkor, .@mapykor, cell_chknpc)){
 		setcell strnpcinfo(4),.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_NPC,1;
 	}
