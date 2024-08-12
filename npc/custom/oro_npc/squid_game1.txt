@@ -193,15 +193,33 @@ OnInstanceInit:
 	.@npc_name$ = strnpcinfo(1);
 	.@random_num = rand(0,2);
 	getmapxy(.@mapname$,.@mapxkor,.@mapykor,BL_NPC);
+	setd "$@" + strnpcinfo(0) + "flag", 0;
 	
 	if(.@random_num == 2){
 		specialeffect EF_GLASSWALL;
+		setd "$@" + strnpcinfo(0) + "flag", 1;
 	}
 	else if(.@random_num == 1){
 		specialeffect EF_GLASSWALL;
+		setd "$@" + strnpcinfo(0) + "flag", 0;
 	}
 	else {
 		specialeffect EF_BOTTOM_FOGWALL;
+		setd "$@" + strnpcinfo(0) + "flag", 2;
+	}
+end;
+OnSGPillarEffect:
+	if(getd("$@" + strnpcinfo(0) + "flag") == 1){
+		removespecialeffect EF_GLASSWALL;
+		specialeffect EF_GLASSWALL;
+	}
+	else if(getd("$@" + strnpcinfo(0) + "flag") == 2){
+		removespecialeffect EF_BOTTOM_FOGWALL;
+		specialeffect EF_BOTTOM_FOGWALL;
+	}
+	else {
+		removespecialeffect EF_GLASSWALL;
+		specialeffect EF_GLASSWALL;
 	}
 end;
 }
