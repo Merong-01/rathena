@@ -127,35 +127,6 @@ end;
 }
 
 1@tnm1,115,24,3	script	Employee::SGNPC	449,3,4,{
-	//if(strnpcinfo(0) != "Manager" || @glasstile_p != 3){
-	//	end;
-	//}
-	
-	//mes "[ Manager ]";
-	//mes "I did not expect for someone to arrive here actually.";
-	//mes "But I guess you surpass expectations.";
-	//if(.winner_count >= 5){
-	//	mes "Although I am sad to say that only the first 3 players can receive the reward.";
-	//}
-	//else {
-	//	mes "Congratulations! Here is your reward.";
-	//	.winner_count += 1;
-	//	getitem "Egg_Scroll_C", 5;
-	//	switch(.winner_count){
-	//		case 1: .@rankstr$ = "first";
-	//			break;
-	//		case 2: .@rankstr$ = "second";
-	//			break;
-	//		case 3: .@rankstr$ = "third";
-	//			break;
-	//		default: .@rankstr$ = "last";
-	//			break;
-	//	}
-	//	announce "Congratulations to " + strcharinfo(0) + ", you are the " + .@rankstr$ + " player to win for today's Glass Tile Mini Game ", 0x0000FF;
-	//}
-	//close2;
-	//@glasstile_p = 4;
-	//warp "1@tnm1",92,23; //or to "SavePoint"
 end;
 OnTouch:
 	if(getgmlevel()){
