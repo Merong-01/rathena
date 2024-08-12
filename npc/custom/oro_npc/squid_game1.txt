@@ -192,15 +192,15 @@ OnInit:
 	disablenpc;
 end;
 OnInstanceDestroy:
-	if(checkwall("wall" + strnpcinfo(3))){
-		delwall "wall" + strnpcinfo(3);
+	if(checkwall("wall" + strnpcinfo(1))){
+		delwall "wall" + strnpcinfo(1);
 	}
 end;
 OnInstanceInit:
 	.@npc_name$ = strnpcinfo(1);
 	.@random_num = rand(0,2);
 	setd "$@" + strnpcinfo(0) + "flag", 0;
-	.@wallName$ = "wall" + strnpcinfo(3);
+	.@wallName$ = "wall" + strnpcinfo(1);
 	.@ret_xy = getmapxy(.@mapname$, .@mapxkor, .@mapykor, BL_NPC, strnpcinfo(3));
 
 	if(.@ret_xy != 0){
