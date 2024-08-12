@@ -188,21 +188,6 @@ end;
 
 1@tnm1,96,20,0	script	01_gc_01#1::GameCell	139,0,0,{
 end;
-OnTouch:
-	donpcevent "::OnSGPillarEffect";
-	if(getgmlevel() > 0 || getgroupid() == 6){
-		end;
-	}
-	
-	if(getd("$@" + strnpcinfo(0) + "flag") == 1){
-		mapannounce strnpcinfo(4), strcharinfo(0) + ", you stepped on a trap. You're out!", bc_map;
-		percentheal -100,0; //participant eliminated
-		specialeffect2 EF_CRITICALWOUND;
-	}
-	else {
-		specialeffect EF_HAPGYEOK;
-	}
-end;
 OnInit:
 	disablenpc;
 end;
@@ -287,6 +272,21 @@ OnSGPillarEffect:
 	else {
 		removespecialeffect EF_GLASSWALL;
 		specialeffect EF_GLASSWALL;
+	}
+end;
+OnTouch:
+	donpcevent "::OnSGPillarEffect";
+	if(getgmlevel() > 0 || getgroupid() == 6){
+		end;
+	}
+	
+	if(getd("$@" + strnpcinfo(0) + "flag") == 1){
+		mapannounce strnpcinfo(4), strcharinfo(0) + ", you stepped on a trap. You're out!", bc_map;
+		percentheal -100,0; //participant eliminated
+		specialeffect2 EF_CRITICALWOUND;
+	}
+	else {
+		specialeffect EF_HAPGYEOK;
 	}
 end;
 }
@@ -447,9 +447,6 @@ end;
 OnInstanceDestroy:
 	stopnpctimer;
 	donpcevent "SquidGame1::OnInstanceEnd";
-end;
-OnTimer122000:
-	donpcevent "::OnSGPillarEffect";
 end;
 OnTimer123000:
 	instance_announce 0, "Reach the other end of the map within 10 minutes, the first 5 players to pass each level will receive 3/4/5" + getitemname(7199), 0;
