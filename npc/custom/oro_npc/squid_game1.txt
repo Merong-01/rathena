@@ -194,6 +194,10 @@ OnInstanceInit:
 	.@random_num = rand(0,2);
 	getmapxy(.@mapname$,.@mapxkor,.@mapykor,BL_NPC);
 	setd "$@" + strnpcinfo(0) + "flag", 0;
+
+	if(!checkcell(strnpcinfo(4), .@mapxkor, .@mapykor, cell_chknpc)){
+		setcell strnpcinfo(4),.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_NPC,1;
+	}
 	
 	if(.@random_num == 2){
 		specialeffect EF_GLASSWALL;
@@ -220,6 +224,21 @@ OnSGPillarEffect:
 	else {
 		removespecialeffect EF_GLASSWALL;
 		specialeffect EF_GLASSWALL;
+	}
+end;
+OnTouch:
+	donpcevent "::OnSGPillarEffect";
+	if(getgmlevel() > 0){
+		end;
+	}
+	
+	if(getd("$@" + strnpcinfo(0) + "flag") == 1){
+		mapannounce strnpcinfo(4), strcharinfo(0) + ", you stepped on a trap. You're out!", bc_map;
+		percentheal -100,0; //participant eliminated
+		specialeffect2 EF_CRITICALWOUND;
+	}
+	else {
+		specialeffect EF_HAPGYEOK;
 	}
 end;
 }
