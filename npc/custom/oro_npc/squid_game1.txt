@@ -80,6 +80,8 @@ OnTimer120000:
 	}
 	announce "A total of " + getarraysize(.join_char_id) + " players have registered to join the game." +
 		"The Glass Tile Mini Game is Starting, teleporting participants to the Mini Game instance", .target, 0x00FFFF;
+	//sleep 1000;
+	//donpcevent "::OnSGPillarEffect";
 end;
 OnTimer725000:
 	instance_announce .ins_id, "This Instance Map will be Closed in 30 seconds and you all will be teleported out.", bc_map, 0x00FFFF, FW_NORMAL, 20;
@@ -125,6 +127,35 @@ end;
 }
 
 1@tnm1,115,24,3	script	Employee::SGNPC	449,3,4,{
+	//if(strnpcinfo(0) != "Manager" || @glasstile_p != 3){
+	//	end;
+	//}
+	
+	//mes "[ Manager ]";
+	//mes "I did not expect for someone to arrive here actually.";
+	//mes "But I guess you surpass expectations.";
+	//if(.winner_count >= 5){
+	//	mes "Although I am sad to say that only the first 3 players can receive the reward.";
+	//}
+	//else {
+	//	mes "Congratulations! Here is your reward.";
+	//	.winner_count += 1;
+	//	getitem "Egg_Scroll_C", 5;
+	//	switch(.winner_count){
+	//		case 1: .@rankstr$ = "first";
+	//			break;
+	//		case 2: .@rankstr$ = "second";
+	//			break;
+	//		case 3: .@rankstr$ = "third";
+	//			break;
+	//		default: .@rankstr$ = "last";
+	//			break;
+	//	}
+	//	announce "Congratulations to " + strcharinfo(0) + ", you are the " + .@rankstr$ + " player to win for today's Glass Tile Mini Game ", 0x0000FF;
+	//}
+	//close2;
+	//@glasstile_p = 4;
+	//warp "1@tnm1",92,23; //or to "SavePoint"
 end;
 OnTouch:
 	if(getgmlevel()){
@@ -141,6 +172,7 @@ OnTouch:
 		else {
 			npctalk "Sorry, But I'm out of Hourly Coins. This is only the first level, you can receive more hourly coins at next levels.";
 		}
+		donpcevent "::OnSGPillarEffect";
 	}
 	else if(strnpcinfo(0) == "Team Leader" && @glasstile_p == 1){
 		@glasstile_p = 2;
@@ -153,6 +185,7 @@ OnTouch:
 		else {
 			npctalk "Sorry, But I'm out of Hourly Coins. There is only the last level left so you better hurry";
 		}
+		donpcevent "::OnSGPillarEffect";
 	}
 	else if(strnpcinfo(0) == "Manager" && @glasstile_p == 2){
 		@glasstile_p = 3;
@@ -193,6 +226,16 @@ OnInstanceInit:
 	.@npc_name$ = strnpcinfo(1);
 	.@random_num = rand(0,2);
 	getmapxy(.@mapname$,.@mapxkor,.@mapykor,BL_NPC);
+	setd "$@" + strnpcinfo(0) + "flag", 0;
+	.@wallName$ = "wall" + strnpcinfo(3);
+	
+	
+	if(checkwall(.@wallName$)){
+		delwall .@wallName$;
+	}
+	if(!checkcell(strnpcinfo(4), .@mapxkor, .@mapykor, cell_chknpc)){
+		setcell strnpcinfo(4),.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_NPC,1;
+	}
 	
 	if(.@random_num == 2){
 		specialeffect EF_GLASSWALL;
@@ -201,10 +244,172 @@ OnInstanceInit:
 		specialeffect EF_GLASSWALL;
 	}
 	else {
+		setwall strnpcinfo(4), .@mapxkor, .@mapykor, 1, 3, 0, .@wallName$;
 		specialeffect EF_BOTTOM_FOGWALL;
 	}
 end;
+OnSGPillarEffect:
+	if(getd("$@" + strnpcinfo(0) + "flag") == 1){
+		removespecialeffect EF_GLASSWALL;
+		sleep 50;
+		specialeffect EF_GLASSWALL;
+	}
+	else if(getd("$@" + strnpcinfo(0) + "flag") == 2){
+		removespecialeffect EF_BOTTOM_FOGWALL;
+		sleep 50;
+		specialeffect EF_BOTTOM_FOGWALL;
+	}
+	else {
+		removespecialeffect EF_GLASSWALL;
+		sleep 50;
+		specialeffect EF_GLASSWALL;
+	}
+end;
 }
+
+1@tnm1,96,21,0	duplicate(GameCell)	01_gc_02#2	139,0,0
+1@tnm1,96,22,0	duplicate(GameCell)	01_gc_03#3	139,0,0
+1@tnm1,96,23,0	duplicate(GameCell)	01_gc_04#4	139,0,0
+1@tnm1,96,24,0	duplicate(GameCell)	01_gc_05#5	139,0,0
+1@tnm1,96,25,0	duplicate(GameCell)	01_gc_06#6	139,0,0
+1@tnm1,96,26,0	duplicate(GameCell)	01_gc_07#7	139,0,0
+1@tnm1,96,27,0	duplicate(GameCell)	01_gc_08#8	139,0,0
+
+1@tnm1,99,20,0	duplicate(GameCell)	02_gc_01#1	139,0,0
+1@tnm1,99,21,0	duplicate(GameCell)	02_gc_02#2	139,0,0
+1@tnm1,99,22,0	duplicate(GameCell)	02_gc_03#3	139,0,0
+1@tnm1,99,23,0	duplicate(GameCell)	02_gc_04#4	139,0,0
+1@tnm1,99,24,0	duplicate(GameCell)	02_gc_05#5	139,0,0
+1@tnm1,99,25,0	duplicate(GameCell)	02_gc_06#6	139,0,0
+1@tnm1,99,26,0	duplicate(GameCell)	02_gc_07#7	139,0,0
+1@tnm1,99,27,0	duplicate(GameCell)	02_gc_08#8	139,0,0
+
+1@tnm1,102,20,0	duplicate(GameCell)	03_gc_01#1	139,0,0
+1@tnm1,102,21,0	duplicate(GameCell)	03_gc_02#2	139,0,0
+1@tnm1,102,22,0	duplicate(GameCell)	03_gc_03#3	139,0,0
+1@tnm1,102,23,0	duplicate(GameCell)	03_gc_04#4	139,0,0
+1@tnm1,102,24,0	duplicate(GameCell)	03_gc_05#5	139,0,0
+1@tnm1,102,25,0	duplicate(GameCell)	03_gc_06#6	139,0,0
+1@tnm1,102,26,0	duplicate(GameCell)	03_gc_07#7	139,0,0
+1@tnm1,102,27,0	duplicate(GameCell)	03_gc_08#8	139,0,0
+
+1@tnm1,105,20,0	duplicate(GameCell)	04_gc_01#1	139,0,0
+1@tnm1,105,21,0	duplicate(GameCell)	04_gc_02#2	139,0,0
+1@tnm1,105,22,0	duplicate(GameCell)	04_gc_03#3	139,0,0
+1@tnm1,105,23,0	duplicate(GameCell)	04_gc_04#4	139,0,0
+1@tnm1,105,24,0	duplicate(GameCell)	04_gc_05#5	139,0,0
+1@tnm1,105,25,0	duplicate(GameCell)	04_gc_06#6	139,0,0
+1@tnm1,105,26,0	duplicate(GameCell)	04_gc_07#7	139,0,0
+1@tnm1,105,27,0	duplicate(GameCell)	04_gc_08#8	139,0,0
+
+1@tnm1,108,20,0	duplicate(GameCell)	05_gc_01#1	139,0,0
+1@tnm1,108,21,0	duplicate(GameCell)	05_gc_02#2	139,0,0
+1@tnm1,108,22,0	duplicate(GameCell)	05_gc_03#3	139,0,0
+1@tnm1,108,23,0	duplicate(GameCell)	05_gc_04#4	139,0,0
+1@tnm1,108,24,0	duplicate(GameCell)	05_gc_05#5	139,0,0
+1@tnm1,108,25,0	duplicate(GameCell)	05_gc_06#6	139,0,0
+1@tnm1,108,26,0	duplicate(GameCell)	05_gc_07#7	139,0,0
+1@tnm1,108,27,0	duplicate(GameCell)	05_gc_08#8	139,0,0
+
+1@tnm1,111,20,0	duplicate(GameCell)	06_gc_01#1	139,0,0
+1@tnm1,111,21,0	duplicate(GameCell)	06_gc_02#2	139,0,0
+1@tnm1,111,22,0	duplicate(GameCell)	06_gc_03#3	139,0,0
+1@tnm1,111,23,0	duplicate(GameCell)	06_gc_04#4	139,0,0
+1@tnm1,111,24,0	duplicate(GameCell)	06_gc_05#5	139,0,0
+1@tnm1,111,25,0	duplicate(GameCell)	06_gc_06#6	139,0,0
+1@tnm1,111,26,0	duplicate(GameCell)	06_gc_07#7	139,0,0
+1@tnm1,111,27,0	duplicate(GameCell)	06_gc_08#8	139,0,0
+
+1@tnm1,121,20,0	duplicate(GameCell)	07_gc_01#1	139,0,0
+1@tnm1,121,21,0	duplicate(GameCell)	07_gc_02#2	139,0,0
+1@tnm1,121,22,0	duplicate(GameCell)	07_gc_03#3	139,0,0
+1@tnm1,121,23,0	duplicate(GameCell)	07_gc_04#4	139,0,0
+1@tnm1,121,24,0	duplicate(GameCell)	07_gc_05#5	139,0,0
+1@tnm1,121,25,0	duplicate(GameCell)	07_gc_06#6	139,0,0
+1@tnm1,121,26,0	duplicate(GameCell)	07_gc_07#7	139,0,0
+1@tnm1,121,27,0	duplicate(GameCell)	07_gc_08#8	139,0,0
+
+1@tnm1,124,20,0	duplicate(GameCell)	08_gc_01#1	139,0,0
+1@tnm1,124,21,0	duplicate(GameCell)	08_gc_02#2	139,0,0
+1@tnm1,124,22,0	duplicate(GameCell)	08_gc_03#3	139,0,0
+1@tnm1,124,23,0	duplicate(GameCell)	08_gc_04#4	139,0,0
+1@tnm1,124,24,0	duplicate(GameCell)	08_gc_05#5	139,0,0
+1@tnm1,124,25,0	duplicate(GameCell)	08_gc_06#6	139,0,0
+1@tnm1,124,26,0	duplicate(GameCell)	08_gc_07#7	139,0,0
+1@tnm1,124,27,0	duplicate(GameCell)	08_gc_08#8	139,0,0
+
+1@tnm1,127,20,0	duplicate(GameCell)	09_gc_01#1	139,0,0
+1@tnm1,127,21,0	duplicate(GameCell)	09_gc_02#2	139,0,0
+1@tnm1,127,22,0	duplicate(GameCell)	09_gc_03#3	139,0,0
+1@tnm1,127,23,0	duplicate(GameCell)	09_gc_04#4	139,0,0
+1@tnm1,127,24,0	duplicate(GameCell)	09_gc_05#5	139,0,0
+1@tnm1,127,25,0	duplicate(GameCell)	09_gc_06#6	139,0,0
+1@tnm1,127,26,0	duplicate(GameCell)	09_gc_07#7	139,0,0
+1@tnm1,127,27,0	duplicate(GameCell)	09_gc_08#8	139,0,0
+
+1@tnm1,130,20,0	duplicate(GameCell)	10_gc_01#1	139,0,0
+1@tnm1,130,21,0	duplicate(GameCell)	10_gc_02#2	139,0,0
+1@tnm1,130,22,0	duplicate(GameCell)	10_gc_03#3	139,0,0
+1@tnm1,130,23,0	duplicate(GameCell)	10_gc_04#4	139,0,0
+1@tnm1,130,24,0	duplicate(GameCell)	10_gc_05#5	139,0,0
+1@tnm1,130,25,0	duplicate(GameCell)	10_gc_06#6	139,0,0
+1@tnm1,130,26,0	duplicate(GameCell)	10_gc_07#7	139,0,0
+1@tnm1,130,27,0	duplicate(GameCell)	10_gc_08#8	139,0,0
+
+1@tnm1,133,20,0	duplicate(GameCell)	11_gc_01#1	139,0,0
+1@tnm1,133,21,0	duplicate(GameCell)	11_gc_02#2	139,0,0
+1@tnm1,133,22,0	duplicate(GameCell)	11_gc_03#3	139,0,0
+1@tnm1,133,23,0	duplicate(GameCell)	11_gc_04#4	139,0,0
+1@tnm1,133,24,0	duplicate(GameCell)	11_gc_05#5	139,0,0
+1@tnm1,133,25,0	duplicate(GameCell)	11_gc_06#6	139,0,0
+1@tnm1,133,26,0	duplicate(GameCell)	11_gc_07#7	139,0,0
+1@tnm1,133,27,0	duplicate(GameCell)	11_gc_08#8	139,0,0
+
+1@tnm1,136,20,0	duplicate(GameCell)	12_gc_01#1	139,0,0
+1@tnm1,136,21,0	duplicate(GameCell)	12_gc_02#2	139,0,0
+1@tnm1,136,22,0	duplicate(GameCell)	12_gc_03#3	139,0,0
+1@tnm1,136,23,0	duplicate(GameCell)	12_gc_04#4	139,0,0
+1@tnm1,136,24,0	duplicate(GameCell)	12_gc_05#5	139,0,0
+1@tnm1,136,25,0	duplicate(GameCell)	12_gc_06#6	139,0,0
+1@tnm1,136,26,0	duplicate(GameCell)	12_gc_07#7	139,0,0
+1@tnm1,136,27,0	duplicate(GameCell)	12_gc_08#8	139,0,0
+
+1@tnm1,144,20,0	duplicate(GameCell)	13_gc_01#1	139,0,0
+1@tnm1,144,21,0	duplicate(GameCell)	13_gc_02#2	139,0,0
+1@tnm1,144,22,0	duplicate(GameCell)	13_gc_03#3	139,0,0
+1@tnm1,144,23,0	duplicate(GameCell)	13_gc_04#4	139,0,0
+1@tnm1,144,24,0	duplicate(GameCell)	13_gc_05#5	139,0,0
+1@tnm1,144,25,0	duplicate(GameCell)	13_gc_06#6	139,0,0
+1@tnm1,144,26,0	duplicate(GameCell)	13_gc_07#7	139,0,0
+1@tnm1,144,27,0	duplicate(GameCell)	13_gc_08#8	139,0,0
+
+1@tnm1,147,20,0	duplicate(GameCell)	14_gc_01#1	139,0,0
+1@tnm1,147,21,0	duplicate(GameCell)	14_gc_02#2	139,0,0
+1@tnm1,147,22,0	duplicate(GameCell)	14_gc_03#3	139,0,0
+1@tnm1,147,23,0	duplicate(GameCell)	14_gc_04#4	139,0,0
+1@tnm1,147,24,0	duplicate(GameCell)	14_gc_05#5	139,0,0
+1@tnm1,147,25,0	duplicate(GameCell)	14_gc_06#6	139,0,0
+1@tnm1,147,26,0	duplicate(GameCell)	14_gc_07#7	139,0,0
+1@tnm1,147,27,0	duplicate(GameCell)	14_gc_08#8	139,0,0
+
+1@tnm1,150,20,0	duplicate(GameCell)	15_gc_01#1	139,0,0
+1@tnm1,150,21,0	duplicate(GameCell)	15_gc_02#2	139,0,0
+1@tnm1,150,22,0	duplicate(GameCell)	15_gc_03#3	139,0,0
+1@tnm1,150,23,0	duplicate(GameCell)	15_gc_04#4	139,0,0
+1@tnm1,150,24,0	duplicate(GameCell)	15_gc_05#5	139,0,0
+1@tnm1,150,25,0	duplicate(GameCell)	15_gc_06#6	139,0,0
+1@tnm1,150,26,0	duplicate(GameCell)	15_gc_07#7	139,0,0
+1@tnm1,150,27,0	duplicate(GameCell)	15_gc_08#8	139,0,0
+
+1@tnm1,153,20,0	duplicate(GameCell)	16_gc_01#1	139,0,0
+1@tnm1,153,21,0	duplicate(GameCell)	16_gc_02#2	139,0,0
+1@tnm1,153,22,0	duplicate(GameCell)	16_gc_03#3	139,0,0
+1@tnm1,153,23,0	duplicate(GameCell)	16_gc_04#4	139,0,0
+1@tnm1,153,24,0	duplicate(GameCell)	16_gc_05#5	139,0,0
+1@tnm1,153,25,0	duplicate(GameCell)	16_gc_06#6	139,0,0
+1@tnm1,153,26,0	duplicate(GameCell)	16_gc_07#7	139,0,0
+1@tnm1,153,27,0	duplicate(GameCell)	16_gc_08#8	139,0,0
+
 
 1@tnm1,90,20,0	script	Squid Game Controller	-1,{
 OnInit:
@@ -219,7 +424,11 @@ OnInstanceDestroy:
 	stopnpctimer;
 	donpcevent "SquidGame1::OnInstanceEnd";
 end;
+OnTimer122000:
+	donpcevent "::OnSGPillarEffect";
+end;
 OnTimer123000:
+	//donpcevent "::OnSGPillarEffect";
 	instance_announce 0, "Reach the other end of the map within 10 minutes, the first 5 players to pass each level will receive 3/4/5" + getitemname(7199), 0;
 end;
 OnTimer213000:
@@ -251,5 +460,6 @@ OnTimer523000:
 end;
 OnTimer725000:
 	instance_announce 0, "10 minutes has passed, the Game is Over!", 0;
+	//instance_warpall "SavePoint", 0, 0;
 end;
 }
