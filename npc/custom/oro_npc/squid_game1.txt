@@ -340,41 +340,41 @@ OnSGPillarEffect:
 end;
 }
 
-1@tnm1,96,21,0	duplicate(GameCell)	01_gc_02#2	139,0,0
-1@tnm1,96,22,0	duplicate(GameCell)	01_gc_03#3	139,0,0
-1@tnm1,96,23,0	duplicate(GameCell)	01_gc_04#4	139,0,0
-1@tnm1,96,24,0	duplicate(GameCell)	01_gc_05#5	139,0,0
-1@tnm1,96,25,0	duplicate(GameCell)	01_gc_06#6	139,0,0
-1@tnm1,96,26,0	duplicate(GameCell)	01_gc_07#7	139,0,0
-1@tnm1,96,27,0	duplicate(GameCell)	01_gc_08#8	139,0,0
+//1@tnm1,96,21,0	duplicate(GameCell)	01_gc_02#2	139,0,0
+//1@tnm1,96,22,0	duplicate(GameCell)	01_gc_03#3	139,0,0
+//1@tnm1,96,23,0	duplicate(GameCell)	01_gc_04#4	139,0,0
+//1@tnm1,96,24,0	duplicate(GameCell)	01_gc_05#5	139,0,0
+//1@tnm1,96,25,0	duplicate(GameCell)	01_gc_06#6	139,0,0
+//1@tnm1,96,26,0	duplicate(GameCell)	01_gc_07#7	139,0,0
+//1@tnm1,96,27,0	duplicate(GameCell)	01_gc_08#8	139,0,0
 
-1@tnm1,99,20,0	duplicate(GameCell)	02_gc_01#1	139,0,0
-1@tnm1,99,21,0	duplicate(GameCell)	02_gc_02#2	139,0,0
-1@tnm1,99,22,0	duplicate(GameCell)	02_gc_03#3	139,0,0
-1@tnm1,99,23,0	duplicate(GameCell)	02_gc_04#4	139,0,0
-1@tnm1,99,24,0	duplicate(GameCell)	02_gc_05#5	139,0,0
-1@tnm1,99,25,0	duplicate(GameCell)	02_gc_06#6	139,0,0
-1@tnm1,99,26,0	duplicate(GameCell)	02_gc_07#7	139,0,0
-1@tnm1,99,27,0	duplicate(GameCell)	02_gc_08#8	139,0,0
+//1@tnm1,99,20,0	duplicate(GameCell)	02_gc_01#1	139,0,0
+//1@tnm1,99,21,0	duplicate(GameCell)	02_gc_02#2	139,0,0
+//1@tnm1,99,22,0	duplicate(GameCell)	02_gc_03#3	139,0,0
+//1@tnm1,99,23,0	duplicate(GameCell)	02_gc_04#4	139,0,0
+//1@tnm1,99,24,0	duplicate(GameCell)	02_gc_05#5	139,0,0
+//1@tnm1,99,25,0	duplicate(GameCell)	02_gc_06#6	139,0,0
+//1@tnm1,99,26,0	duplicate(GameCell)	02_gc_07#7	139,0,0
+//1@tnm1,99,27,0	duplicate(GameCell)	02_gc_08#8	139,0,0
 
-1@tnm1,102,20,0	duplicate(GameCell)	03_gc_01#1	139,0,0
-1@tnm1,102,21,0	duplicate(GameCell)	03_gc_02#2	139,0,0
-1@tnm1,102,22,0	duplicate(GameCell)	03_gc_03#3	139,0,0
-1@tnm1,102,23,0	duplicate(GameCell)	03_gc_04#4	139,0,0
-1@tnm1,102,24,0	duplicate(GameCell)	03_gc_05#5	139,0,0
-1@tnm1,102,25,0	duplicate(GameCell)	03_gc_06#6	139,0,0
-1@tnm1,102,26,0	duplicate(GameCell)	03_gc_07#7	139,0,0
-1@tnm1,102,27,0	duplicate(GameCell)	03_gc_08#8	139,0,0
+//1@tnm1,102,20,0	duplicate(GameCell)	03_gc_01#1	139,0,0
+//1@tnm1,102,21,0	duplicate(GameCell)	03_gc_02#2	139,0,0
+//1@tnm1,102,22,0	duplicate(GameCell)	03_gc_03#3	139,0,0
+//1@tnm1,102,23,0	duplicate(GameCell)	03_gc_04#4	139,0,0
+//1@tnm1,102,24,0	duplicate(GameCell)	03_gc_05#5	139,0,0
+//1@tnm1,102,25,0	duplicate(GameCell)	03_gc_06#6	139,0,0
+//1@tnm1,102,26,0	duplicate(GameCell)	03_gc_07#7	139,0,0
+//1@tnm1,102,27,0	duplicate(GameCell)	03_gc_08#8	139,0,0
 
-1@tnm1,105,20,0	duplicate(GameCell)	04_gc_01#1	139,0,0
-1@tnm1,105,21,0	duplicate(GameCell)	04_gc_02#2	139,0,0
-1@tnm1,105,22,0	duplicate(GameCell)	04_gc_03#3	139,0,0
-1@tnm1,105,23,0	duplicate(GameCell)	04_gc_04#4	139,0,0
-1@tnm1,105,24,0	duplicate(GameCell)	04_gc_05#5	139,0,0
-1@tnm1,105,25,0	duplicate(GameCell)	04_gc_06#6	139,0,0
-1@tnm1,105,26,0	duplicate(GameCell)	04_gc_07#7	139,0,0
-1@tnm1,105,27,0	duplicate(GameCell)	04_gc_08#8	139,0,0
-
+//1@tnm1,105,20,0	duplicate(GameCell)	04_gc_01#1	139,0,0
+//1@tnm1,105,21,0	duplicate(GameCell)	04_gc_02#2	139,0,0
+//1@tnm1,105,22,0	duplicate(GameCell)	04_gc_03#3	139,0,0
+//1@tnm1,105,23,0	duplicate(GameCell)	04_gc_04#4	139,0,0
+//1@tnm1,105,24,0	duplicate(GameCell)	04_gc_05#5	139,0,0
+//1@tnm1,105,25,0	duplicate(GameCell)	04_gc_06#6	139,0,0
+//1@tnm1,105,26,0	duplicate(GameCell)	04_gc_07#7	139,0,0
+//1@tnm1,105,27,0	duplicate(GameCell)	04_gc_08#8	139,0,0
+/*
 1@tnm1,108,20,0	duplicate(GameCell)	05_gc_01#1	139,0,0
 1@tnm1,108,21,0	duplicate(GameCell)	05_gc_02#2	139,0,0
 1@tnm1,108,22,0	duplicate(GameCell)	05_gc_03#3	139,0,0
@@ -482,7 +482,7 @@ end;
 1@tnm1,153,25,0	duplicate(GameCell)	16_gc_06#6	139,0,0
 1@tnm1,153,26,0	duplicate(GameCell)	16_gc_07#7	139,0,0
 1@tnm1,153,27,0	duplicate(GameCell)	16_gc_08#8	139,0,0
-
+*/
 
 1@tnm1,90,20,0	script	Squid Game Controller	-1,{
 OnInit:
