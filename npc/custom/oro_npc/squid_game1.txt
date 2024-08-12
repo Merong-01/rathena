@@ -124,7 +124,7 @@ OnJoinGame:
 end;
 }
 
-1@tnm1,115,24,3	script	Employee::SGNPC	449,3,4,{
+1@tnm1,116,24,3	script	Employee::SGNPC	449,3,4,{
 end;
 OnTouch:
 	if(getgmlevel()){
@@ -183,7 +183,7 @@ OnInstanceDestroy:
 end;
 }
 
-1@tnm1,140,24,3	duplicate(SGNPC)	Team Leader	453,3,4
+1@tnm1,141,24,3	duplicate(SGNPC)	Team Leader	453,3,4
 1@tnm1,157,24,3	duplicate(SGNPC)	Manager	451,3,4
 
 1@tnm1,96,20,0	script	01_gc_01#1::GameCell	139,0,0,{
@@ -259,7 +259,7 @@ OnInstanceInit:
 		specialeffect EF_GLASSWALL;
 	}
 	else {
-		//setwall .@mapname$, .@mapxkor, .@mapykor, 1, 0, 1, .@wallName$;
+		setwall .@mapname$, .@mapxkor, .@mapykor, 1, 0, 1, .@wallName$;
 		specialeffect EF_BOTTOM_FOGWALL;
 		setd "$@" + strnpcinfo(0) + "flag", 2;
 	}
