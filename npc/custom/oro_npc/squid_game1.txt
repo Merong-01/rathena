@@ -255,7 +255,7 @@ OnInstanceInit:
 		specialeffect EF_GLASSWALL;
 	}
 	else {
-		setwall strnpcinfo(4), .@mapxkor, .@mapykor, 1, 3, 0, .@wallName$;
+		//setwall strnpcinfo(4), .@mapxkor, .@mapykor, 1, 3, 0, .@wallName$;
 		specialeffect EF_BOTTOM_FOGWALL;
 		setd "$@" + strnpcinfo(0) + "flag", 2;
 	}
