@@ -7793,6 +7793,9 @@
 	
 	export_constant(IG_CASH_EGG_SCROLL);
 	export_constant(IG_CASH_EGG_SCROLL2);
+	export_constant(IG_CASH_EGG_SCROLL_TOP);
+	export_constant(IG_CASH_EGG_SCROLL_MID);
+	export_constant(IG_CASH_EGG_SCROLL_LOW);
 	export_constant(IG_STREAMER_GIFT_BOX);
 	export_constant(IG_GUILD_PACKAGE_P);
 	export_constant(IG_MVP_REWARD_BOX_BRONZE);

@@ -164,7 +164,7 @@ OnTouch:
 			.mtouch++;
 			announce "Congratulations to player [" + strcharinfo(0) + "]  for reaching the end and winning 5 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", bc_all, 0x00FFFF;
 			if(.mtouch == 1){
-				detachnpctimer "SquidGame1";
+				//detachnpctimer "SquidGame1";
 				setnpctimer 724999, "SquidGame1";
 			}
 		}

@@ -2222,7 +2222,7 @@ Body:
       NoMail: false
       NoAuction: false
     Script: |
-      getgroupitem IG_CASH_EGG_SCROLL2,1;
+      getgroupitem IG_CASH_EGG_SCROLL_MID,1;
   - Id: 30026
     AegisName: Unlock_Char_Slot_Coupon
     Name: Unlock Character Slot Coupon
@@ -2296,7 +2296,7 @@ Body:
       NoMail: false
       NoAuction: false
     Script: |
-      getgroupitem IG_COSTUMEMILEPACK_35_1,1;
+      getgroupitem IG_CASH_EGG_SCROLL_LOW,1;
   - Id: 30100
     AegisName: C_Analyze_Eye_S
     Name: Costume Analyze Eye

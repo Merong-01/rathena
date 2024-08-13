@@ -809,7 +809,7 @@ Body:
             Rate: 10
             Amount: 1
             Announced: true
-  - Group: CASH_EGG_SCROLL2
+  - Group: CASH_EGG_SCROLL_MID
     SubGroups:
       - SubGroup: 1
         List:
@@ -918,7 +918,7 @@ Body:
             Rate: 10
             Amount: 1
             Announced: true
-  - Group: COSTUMEMILEPACK_35_1
+  - Group: CASH_EGG_SCROLL_LOW
     SubGroups:
       - SubGroup: 1
         List:

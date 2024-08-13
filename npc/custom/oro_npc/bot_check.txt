@@ -42,7 +42,7 @@ OnMinute31:
 		showdigit 30,2;
 		addtimer 30000,strnpcinfo(0) + "::OnCheckBot";
 	}
-	end;
+end;
 
 OnPCLoginEvent:
 	if(playerattached() != 0){
@@ -65,26 +65,38 @@ OnCommand:
 	bot_check_flag = 1;
 	@bot_check_flag2 = 1;
 OnCheckBot:
-	//attachrid(.@account_id[.@i]);
-	.@char_id = convertpcinfo(playerattached(),CPC_CHAR);
+	if(.@atcmd_numparameters == 0){
+		.@char_id = convertpcinfo(playerattached(),CPC_CHAR);
+	}
+	else {
+		.@playername$ = implode(.@atcmd_parameters$, " ");
+		.@char_id = convertpcinfo(.@playername$,CPC_CHAR);
+		if(.@char_id == 0){
+			dispbottom "Player not found!", 0xFF0000;
+			end;
+		}
+		bot_check_flag = 0;
+		@bot_check_flag2 = 0;
+		message strcharinfo(0), "Player " + .@playername$ + " is now being bot checked...";
+
+		attachrid(convertpcinfo(.@char_id,CPC_ACCOUNT));
+		set bot_check_flag, 1, .@char_id;
+		set @bot_check_flag2, 1, .@char_id;
+	}
+
 	showdigit 0;
 	ignoretimeout 1,.@char_id;
 	if(@bot_check_flag2 == 0){
 		detachrid;
-		//end;
 	}
 	else {
-	//	setoption 0x40,1,.@char_id;
-	//	sc_start SC_FREEZE, INFINITE_TICK, 0, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF|SCSTART_NORATEDEF;
 		setpcblock PCBLOCK_ALL, TRUE;
 		callfunc "fx_simple_bot_check", .@char_id,0;
 		bot_check_flag = 0;
 		setpcblock PCBLOCK_ALL, FALSE;
-	//	sc_end SC_FREEZE;
 		detachrid;
-	//	setoption 0x40,0,.@char_id;
 	}
-	//end;
+end;
 }
 
 function	script	fx_simple_bot_check	{
