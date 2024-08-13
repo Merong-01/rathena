@@ -3,6 +3,7 @@
 prontera,146,174,5	script	NoVending Aria NPC	-1,{
 end;
 OnInit:
-
+	setcell "prontera", 148, 186, 163, 164, cell_novending, 1;
+	setcell "prontera", 148, 186, 163, 164, cell_nobuyingstore, 1;
 end;
 }
