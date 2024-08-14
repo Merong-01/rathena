@@ -102,6 +102,7 @@ end;
 OnTimer10800000:
 OnTimerQuit:
 	donpcevent "Emperium Arena NPC::OnEmpArenaEnd";
+	detachnpctimer;
 end;
 OnEndEvent:
 	unbindatcmd "joinemparena";
@@ -293,7 +294,6 @@ return;
 OnEmpArenaEnd:
 	killmonster strnpcinfo(4), instance_npcname(strnpcinfo(0), .ins_id) + "::OnTeamAEmpBreak";
 	killmonster strnpcinfo(4), instance_npcname(strnpcinfo(0), .ins_id) + "::OnTeamBEmpBreak";
-	detachnpctimer "Emperium Arena";
 	sleep 5000;
 	instance_announce .ins_id, "This Instance Map will be Closed in 30 seconds and you all will be teleported out.", bc_all, 0x00FFFF, FW_BOLD, 20;
 	sleep 30000;
