@@ -2,12 +2,12 @@
 //============================================================
 -	script	Server Notice	-1,{
 end;
-OnMinute01:
-OnMinute11:
-OnMinute21:
-OnMinute31:
-OnMinute41:
-OnMinute51:
+OnMinute02:
+OnMinute12:
+OnMinute22:
+OnMinute32:
+OnMinute42:
+OnMinute52:
 	.@notice$[0] = "Check our discord and website 'projectovergeared.com' for detailed server features and updates";
 	.@notice$[1] = "Feature Costume Enchant: +Weight Capacity enchantment for costumes from Costume Egg Scroll";
 	.@notice$[2] = "Feature Customized Refined Gears: Added Equipments with enhanced effects according to refine level";
@@ -23,11 +23,13 @@ OnMinute51:
 	.@notice$[10] = "Feature AFK Leveling: Starting level 60, you will gain base exp every 20 minutes by just staying online";
 	.@notice$[11] = "Feature Play To Earn: You can ask any active GM to turn your PODS to real cash (5% charging fee)";
 	.@notice$[12] = "Please leave a review at ratemyserver.net to help promote our server";
-	.@notice$[13] = "Everyone is invited to join the Glass Tile Mini Game everynight at 8:00 P.M. (GMT +8)";
-	.@notice$[14] = "Everyone is invited to join the MVP Boss Random Summon event everynight at 9:00 P.M. (GMT +8)";
+	.@notice$[13] = "Everyone is invited to join the Glass Tile Mini Game everynight at 9:00 P.M. (GMT +8)";
+	.@notice$[14] = "Everyone is invited to join the MVP Boss Random Summon event everynight at 9:20 P.M. (GMT +8)";
 	.@notice$[15] = "Everyone is invited to join the Poring Hunt Mini Game everynight at 8:30 P.M. (GMT +8)";
 	.@notice$[16] = "Feature MVP Map Instance: Hunt MVP Bosses on your own/party instance map and get MVP Reward Boxes";
 	.@notice$[17] = "Feature Costume Enchant: Teleport skill enchantment for costumes from Costume Mid Egg Scroll";
+	.@notice$[18] = "Feature Costume Enchant: +MoveSpeed enchantment for costumes from Costume Low Egg Scroll";
+	.@notice$[19] = "Everyone is invited to join the Emperium Arena everynight at 10:00 P.M. (GMT +8)";
 
 	announce .@notice$[rand(0, getarraysize(.@notice$) - 1)], 0;
 	

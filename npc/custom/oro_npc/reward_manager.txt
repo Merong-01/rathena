@@ -618,7 +618,7 @@ function viewGengWar;
 	}
 
 OnInit:
-	bindatcmd("rewardmanager",strnpcinfo(0)+"::OnCommand",99,99);
+	bindatcmd("rewardmanager",strnpcinfo(0)+"::OnCommand",10,99);
 	end;
 OnCommand:
 	mainRewardManager;
