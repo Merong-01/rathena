@@ -4,7 +4,7 @@
 //====== Last update 20240812 ================================
 -	script	SquidGame1	-1,{
 OnInit:
-	bindatcmd("startglasstilegame",strnpcinfo(0)+"::OnInitGame",99,99);
+	bindatcmd("startglasstilegame",strnpcinfo(0)+"::OnInitGame",10,99);
 end;
 OnHour21:
 OnInitGame:
@@ -75,6 +75,7 @@ OnTimer120000:
 	for(.@i = 0; .@i < getarraysize(.join_char_id); .@i++){
 		if(isloggedin(convertpcinfo(.join_char_id[.@i], CPC_ACCOUNT), .join_char_id[.@i])){
 			instance_enter("Glass Tile", -1, -1, .join_char_id[.@i], .ins_id);
+			getitem 7199, 5, convertpcinfo(.join_char_id[.@i], CPC_ACCOUNT); // hourly coin
 		}
 	}
 	announce "A total of " + getarraysize(.join_char_id) + " players have registered to join the game." +
@@ -133,9 +134,9 @@ OnTouch:
 		@glasstile_p = 1;
 		if(.etouch < 5){
 			npctalk "Good job for arriving here safely, here are some hourly coins. But this is only the first level, you can receive more hourly coins at next levels.";
-			getitem 7199,3; //Hourly Coin
+			getitem 7199,5; //Hourly Coin
 			.etouch++;
-			announce "Congratulations to player [" + strcharinfo(0) + "]  for passing first level and winning 3 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", 0x0000FF;
+			announce "Congratulations to player [" + strcharinfo(0) + "]  for passing first level and winning 5 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", 0x0000FF;
 		}
 		else {
 			npctalk "Sorry, But I'm out of Hourly Coins. This is only the first level, you can receive more hourly coins at next levels.";
@@ -146,9 +147,9 @@ OnTouch:
 		@glasstile_p = 2;
 		if(.tltouch < 5){
 			npctalk "Impressive! Here are some Horly Coins, There is only the last level left.";
-			getitem 7199,4; //Hourly Coin
+			getitem 7199,8; //Hourly Coin
 			.tltouch++;
-			announce "Congratulations to player [" + strcharinfo(0) + "]  for passing second level and winning 4 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", 0x0000FF;
+			announce "Congratulations to player [" + strcharinfo(0) + "]  for passing second level and winning 8 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", 0x0000FF;
 		}
 		else {
 			npctalk "Sorry, But I'm out of Hourly Coins. There is only the last level left so you better hurry";
@@ -159,9 +160,9 @@ OnTouch:
 		@glasstile_p = 3;
 		if(.mtouch < 5){
 			npctalk "Congratulations! You manage to arrive here safely.";
-			getitem 7199,5; //Hourly Coin
+			getitem 7199,10; //Hourly Coin
 			.mtouch++;
-			announce "Congratulations to player [" + strcharinfo(0) + "]  for reaching the end and winning 5 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", bc_all, 0x00FFFF;
+			announce "Congratulations to player [" + strcharinfo(0) + "]  for reaching the end and winning 10 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", bc_all, 0x00FFFF;
 			if(.mtouch == 1){
 				//detachnpctimer "SquidGame1";
 				setnpctimer 724999, "SquidGame1";
@@ -455,7 +456,7 @@ OnTimer122000:
 	donpcevent "::OnSGPillarEffect";
 end;
 OnTimer123000:
-	instance_announce 0, "Reach the other end of the map within 10 minutes, the first 5 players to pass each level will receive 3/4/5" + getitemname(7199), 0;
+	instance_announce 0, "Reach the other end of the map within 10 minutes, the first 5 players to pass each level will receive 5/8/10" + getitemname(7199), 0;
 end;
 OnTimer213000:
 	instance_announce 0, "1 minute and 30 seconds has passed, summoning monsters to encourage everyone", 0;

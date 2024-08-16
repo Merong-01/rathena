@@ -2,7 +2,7 @@
 //============================================================
 -	script	Emperium Arena	-1,{
 OnInit:
-	bindatcmd("startemparena",strnpcinfo(0)+"::OnInitEvent",99,99);
+	bindatcmd("startemparena",strnpcinfo(0)+"::OnInitEvent",10,99);
 end;
 OnHour22:
 OnInitEvent:
@@ -229,6 +229,10 @@ OnArenaDeathTeamA:
 end;
 OnArenaQuitTeamA:
 	percentheal 100, 100;
+	.@index = inarray('arena_uniqid, get_unique_id());
+	if(.@index >= 0){
+		deletearray 'arena_uniqid[.@index], 1;
+	}
 	if (!bg_get_data(getcharid(4), 0)){
 		mapannounce instance_mapname("06guild_01"), "All Team A members have quit!", bc_map, 0xff3333;
 	}
@@ -250,8 +254,13 @@ OnArenaDeathTeamB:
 end;
 OnArenaQuitTeamB:
 	percentheal 100, 100;
-	if (!bg_get_data(getcharid(4), 0))
+	.@index = inarray('arena_uniqid, get_unique_id());
+	if(.@index >= 0){
+		deletearray 'arena_uniqid[.@index], 1;
+	}
+	if (!bg_get_data(getcharid(4), 0)){
 		mapannounce instance_mapname("06guild_01"), "All Team B members have quit!", bc_map, 0xff3333;
+	}
 end;
 OnTeamAEmpBreak:
 	if(playerattached() == 0){

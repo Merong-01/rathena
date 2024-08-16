@@ -115,6 +115,43 @@ Body:
       sc_end SC_Confusion;
       sc_end SC_Curse;
       sc_end SC_Hallucination;
+  - Id: 1188
+    AegisName: Veteran_Sword
+    Name: Veteran Sword
+    Type: Weapon
+    SubType: 2hSword
+    Buy: 10000
+    Weight: 2000
+    Attack: 180
+    Range: 1
+    Slots: 1
+    Jobs:
+      Crusader: true
+      Knight: true
+      Swordman: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 4
+    EquipLevelMin: 20
+    Refineable: true
+    Script: |
+      if (getskilllv("SM_BASH") == 10) {
+         bonus2 bSkillAtk,"SM_BASH",50;
+      }
+      if (getskilllv("KN_BOWLINGBASH") == 10) {
+         bonus2 bSkillAtk,"KN_BOWLINGBASH",50;
+      }
+      bonus bStr,1;
+      bonus bDex,1;
+      .@val = getrefine();
+      if(.@val >= 7){
+         bonus2 bSkillAtk,"SM_BASH",15;
+         bonus2 bSkillAtk,"KN_BOWLINGBASH",15;
+      }
+      if(.@val >= 9){
+         bonus2 bSkillAtk,"SM_BASH",15;
+         bonus2 bSkillAtk,"KN_BOWLINGBASH",15;
+      }
   - Id: 2417
     AegisName: Fricco_Shoes
     Name: Fricco's Shoes
@@ -953,6 +990,32 @@ Body:
       sc_start SC_INCMSPRATE,1800000,3;
       sc_start SC_INCHITRATE,1800000,3;
       sc_start SC_INCCRI,1800000,7;
+  - Id: 13105
+    AegisName: The_Garrison_
+    Name: Garrison
+    Type: Weapon
+    SubType: Revolver
+    Buy: 48000
+    Weight: 500
+    Attack: 70
+    Range: 7
+    Slots: 2
+    Jobs:
+      Gunslinger: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 2
+    EquipLevelMin: 55
+    Refineable: true
+    Script: |
+      bonus bHit,-10;
+      .@val = getrefine();
+      if(.@val >= 7){
+         bonus2 bSkillAtk,"GS_DESPERADO",15;
+      }
+      if(.@val >= 9){
+         bonus2 bSkillAtk,"GS_DESPERADO",15;
+      }
   - Id: 12790
     AegisName: Change_Name_Card
     Name: Character Name Change Coupon
