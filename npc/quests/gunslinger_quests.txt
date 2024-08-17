@@ -381,6 +381,9 @@ SubGarrison_:
 			mes "I'll see you when I see you~";
 			close;
 	}
+OnInit:
+	disablenpc;
+end;
 }
 
 lighthalzen,322,247,6	script	Ravey	86,{
