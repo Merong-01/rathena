@@ -135,23 +135,23 @@ Body:
     EquipLevelMin: 20
     Refineable: true
     Script: |
-      if (getskilllv("SM_BASH") == 10) {
-         bonus2 bSkillAtk,"SM_BASH",50;
-      }
-      if (getskilllv("KN_BOWLINGBASH") == 10) {
-         bonus2 bSkillAtk,"KN_BOWLINGBASH",50;
-      }
       bonus bStr,1;
       bonus bDex,1;
       .@val = getrefine();
       if(.@val >= 7){
-         bonus2 bSkillAtk,"SM_BASH",15;
-         bonus2 bSkillAtk,"KN_BOWLINGBASH",15;
+         bonus2 bSkillAtk,"SM_BASH",20;
+         bonus2 bSkillAtk,"KN_BOWLINGBASH",20;
       }
       if(.@val >= 9){
-         bonus2 bSkillAtk,"SM_BASH",15;
-         bonus2 bSkillAtk,"KN_BOWLINGBASH",15;
+         bonus2 bSkillAtk,"SM_BASH",20;
+         bonus2 bSkillAtk,"KN_BOWLINGBASH",20;
       }
+    #  if (getskilllv("SM_BASH") == 10) {
+    #     bonus2 bSkillAtk,"SM_BASH",50;
+    #  }
+    #  if (getskilllv("KN_BOWLINGBASH") == 10) {
+    #     bonus2 bSkillAtk,"KN_BOWLINGBASH",50;
+    #  }
   - Id: 2417
     AegisName: Fricco_Shoes
     Name: Fricco's Shoes
@@ -3864,6 +3864,28 @@ Body:
     Script: |
       bonus bAllStats,1;
       skill "ST_PRESERVE", 1, 1;
+  - Id: 30261
+    AegisName: C_Adventurer_Cat_Bag
+    Name: Costume Adventurer's Bag
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoTrade: true
+      NoCart: true
+      NoMail: true
+      NoGuildStorage: true
+      NoAuction: true
+    View: 107
+    Script: |
+        bonus2 bExpAddClass,Class_All,5;
+        bonus2 bDropAddClass,Class_All,2;
+        bonus bAddMaxWeight,1000;
   - Id: 19910
     AegisName: C_Halloween_Hat
     Name: Costume Halloween Hat
