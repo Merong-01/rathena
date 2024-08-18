@@ -15,7 +15,7 @@
 }
 
 function	script	F_DisplayMenuType	{
-	set .@sel, select("HeadGear-Upper:HeadGear-Mid:HeadGear-Low:Accessory:Cancel");
+	set .@sel, select("HeadGear-Upper:HeadGear-Mid:HeadGear-Low:Weapon:Accessory:Cancel");
 	switch(.@sel) {
 		case 1: .@ret = callfunc("F_HeadGear_Upper");
 			break;
@@ -23,7 +23,9 @@ function	script	F_DisplayMenuType	{
 			break;
 		case 3: .@ret = callfunc("F_HeadGear_Low");
 			break;
-		case 4: .@ret = callfunc("F_Accessory_S");
+		case 4: .@ret = callfunc("F_Weapon_S");
+			break;
+		case 5: .@ret = callfunc("F_Accessory_S");
 			break;
 		default: mes "[Quest Gear Commissioner]";
 				 mes "Talk to me again if you change your mind.";
@@ -43,7 +45,8 @@ function	script	F_HeadGear_Upper	{
 		5423,
 		5378,
 		5208,
-		5137; // alice doll
+		5137, // alice doll
+		5182; // puppy_hat
 	
 	.@gear_list_names$ = "";
 	for(.@i = 0; .@i < getarraysize(.@gear_list_id); .@i++){
@@ -125,6 +128,13 @@ function	script	F_HeadGear_Upper	{
 
 				.@gear_requirements_id[10] = 5315; //observer
 				.@gear_requirements_count[10] = 1;
+			break;
+		case 8:
+				.@gear_requirements_id[0] = 2214; // bunny_band
+				.@gear_requirements_count[0] = 1;
+
+				.@gear_requirements_id[1] = 5397; // scuba_mask
+				.@gear_requirements_count[1] = 1;
 			break;
 		default: return 0;
 			break;
@@ -231,6 +241,39 @@ function	script	F_HeadGear_Low	{
 						
 	if(.@isProceed == 1){
 		callfunc "F_HandleGearExchange",.@lowGearIdList[.@sel-1],
+					.@gear_requirements_id,.@gear_requirements_count;
+	}
+	
+	return 0;
+}
+
+function	script	F_Weapon_S	{
+	setarray .@weaponIdList[0], 13105; // The_Garrison_
+	
+	.@weapon_name$ = "";
+	for(.@i = 0; .@i < getarraysize(.@weaponIdList); .@i++){
+		.@weapon_name$ += "^0000CC" + getitemname(.@weaponIdList[.@i]) + "^000000:";
+	}
+	.@weapon_name$ += "Cancel";
+	
+	.@sel = select(.@weapon_name$);
+	switch(.@sel){
+		case 1: 
+				.@gear_requirements_id[0] = 13107; // Wasteland_Outlaw
+				.@gear_requirements_count[0] = 1;
+
+				.@gear_requirements_id[1] = 5471; // Hairband_Of_Reginleif
+				.@gear_requirements_count[1] = 1;
+			break;
+		default: return 0;
+			break;
+	}
+	
+	.@isProceed = callfunc("F_DisplayGearRequirements", .@weaponIdList[.@sel-1], 
+						.@gear_requirements_id, .@gear_requirements_count);
+						
+	if(.@isProceed == 1){
+		callfunc "F_HandleGearExchange",.@weaponIdList[.@sel-1],
 					.@gear_requirements_id,.@gear_requirements_count;
 	}
 	

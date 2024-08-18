@@ -2,7 +2,7 @@
 //============================================================
 -	script	MVP Boss Random Instance	-1,{
 OnInit:
-	bindatcmd("startmvpbosshunt",strnpcinfo(0)+"::OnInitEvent",99,99);
+	bindatcmd("startmvpbosshunt",strnpcinfo(0)+"::OnInitEvent",10,99);
 end;
 OnClock2120:
 OnInitEvent:
@@ -81,6 +81,9 @@ OnTimer120000:
 			debugmes "Instance Enter return: " + .@retStr$;
 		}
 	}
+end;
+OnTimer1860000:
+	instance_announce .ins_id, "Last 1 minute till the instance ends!!", bc_all, 0x00FFFF, FW_BOLD, 20;
 end;
 OnInstanceEnd:
 OnTimer1920000:

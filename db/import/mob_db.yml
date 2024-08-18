@@ -163,7 +163,7 @@ Body:
     AegisName: TURTLE_GENERAL
     Name: Turtle General
     MvpDrops:
-      - Item: Ninja_Scroll
+      - Item: Veteran_Sword
         Rate: 100
   - Id: 1389
     AegisName: DRACULA
@@ -181,13 +181,13 @@ Body:
     AegisName: ORC_LORD
     Name: Orc Lord
     MvpDrops:
-      - Item: Gang_Scarf
+      - Item: Doom_Slayer
         Rate: 100
   - Id: 1492
     AegisName: INCANTATION_SAMURAI
     Name: Incantation Samurai
     MvpDrops:
-      - Item: Samurai_Mask
+      - Item: Asara_Fairy_Hat
         Rate: 100
   - Id: 1086
     AegisName: GOLDEN_BUG

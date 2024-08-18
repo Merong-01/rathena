@@ -3,7 +3,7 @@
 
 -	script	Poring Kill Game	-1,{
 OnInit:
-	bindatcmd("startporinggame",strnpcinfo(0)+"::OnInitEvent",99,99);
+	bindatcmd("startporinggame",strnpcinfo(0)+"::OnInitEvent",10,99);
 end;
 OnClock2030:
 OnInitEvent:

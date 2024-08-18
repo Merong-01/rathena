@@ -2,12 +2,10 @@
 //============================================================
 -	script	Emperium Arena	-1,{
 OnInit:
-	bindatcmd("startemparena",strnpcinfo(0)+"::OnInitEvent",99,99);
+	bindatcmd("startemparena",strnpcinfo(0)+"::OnInitEvent",10,99);
 end;
 OnHour22:
 OnInitEvent:
-	.@test_flag = .@atcmd_parameters$[0];
-
 	if(.ins_id > 0){
 		if(playerattached()){
 			dispbottom "An instance of Emperium Arena is already active", 0x00FF00;
@@ -17,6 +15,7 @@ OnInitEvent:
 		}
 		end;
 	}
+	.@test_flag = .@atcmd_parameters$[0];
 	if(.@test_flag == 1){
 		.target = bc_self;
 		attachnpctimer;
@@ -24,9 +23,22 @@ OnInitEvent:
 	else {
 		.target = bc_all;
 	}
-	
-	bindatcmd("joinemparena",strnpcinfo(0)+"::OnJoinEvent",0,99);
-	bindatcmd("joinevent",strnpcinfo(0)+"::OnJoinEvent",0,99);
+	for(.@i = 0; .@i <= getarraysize($TimeEventFlag); .@i++){
+		if($TimeEventFlag[.@i] == 0){
+			.event_flag_index = .@i;
+			break;
+		}
+	}
+	if(.event_flag_index == 0){
+		.joinevent_cmdstr$ = "joinevent";
+		$TimeEventFlag[0] = 1;
+	}
+	else {
+		.joinevent_cmdstr$ = "joinevent" + (.event_flag_index + 1);
+		$TimeEventFlag[.event_flag_index] = 1;
+	}
+	bindatcmd("joinemparena", strnpcinfo(0)+"::OnJoinEvent",0,99);
+	bindatcmd(.joinevent_cmdstr$, strnpcinfo(0)+"::OnJoinEvent",0,99);
 	.ins_id = instance_create("Emperium_Arena", IM_NONE);
 
 	if(.ins_id == -4){
@@ -47,37 +59,63 @@ OnInitEvent:
 		}
 		end;
 	}
+	.teamA_id = bg_create(instance_mapname("06guild_01", .ins_id), 49, 91, 
+						instance_npcname("Emperium Arena NPC", .ins_id) + "::OnArenaQuitTeamA", 
+						instance_npcname("Emperium Arena NPC", .ins_id) + "::OnArenaDeathTeamA");
+	.teamB_id = bg_create(instance_mapname("06guild_01", .ins_id), 50, 8, 
+						instance_npcname("Emperium Arena NPC", .ins_id) + "::OnArenaQuitTeamB", 
+						instance_npcname("Emperium Arena NPC", .ins_id) + "::OnArenaDeathTeamB");
 
-	deletearray .join_char_id[0], getarraysize(.join_char_id);
-	announce "The Emperium Arena will start in 5 minutes, to join the event type @joinemparena or @joinevent", .target, 0x00FFFF;
+	
+	.@stone_id1 = bg_monster(.teamA_id, instance_mapname("06guild_01", .ins_id), 7, 50, "Stone Guardian A 1", 1907, instance_npcname("Emperium Arena NPC", .ins_id) + "::OnTeamAEmpBreak");
+	setunitdata .@stone_id1, UMOB_ELETYPE, ELE_GHOST;
+	.@stone_id2 = bg_monster(.teamA_id, instance_mapname("06guild_01", .ins_id), 26, 57, "Stone Guardian A 2", 1907, instance_npcname("Emperium Arena NPC", .ins_id) + "::OnTeamAEmpBreak");
+	setunitdata .@stone_id2, UMOB_ELETYPE, ELE_GHOST;
+	.@stone_id3 = bg_monster(.teamA_id, instance_mapname("06guild_01", .ins_id), 26, 42, "Stone Guardian A 3", 1907, instance_npcname("Emperium Arena NPC", .ins_id) + "::OnTeamAEmpBreak");
+	setunitdata .@stone_id3, UMOB_ELETYPE, ELE_GHOST;
+
+	.@stone_id4 = bg_monster(.teamB_id, instance_mapname("06guild_01", .ins_id), 92, 50, "Stone Guardian B 1", 1908, instance_npcname("Emperium Arena NPC", .ins_id) + "::OnTeamBEmpBreak");
+	setunitdata .@stone_id4, UMOB_ELETYPE, ELE_GHOST;
+	.@stone_id5 = bg_monster(.teamB_id, instance_mapname("06guild_01", .ins_id), 73, 57, "Stone Guardian B 2", 1908, instance_npcname("Emperium Arena NPC", .ins_id) + "::OnTeamBEmpBreak");
+	setunitdata .@stone_id5, UMOB_ELETYPE, ELE_GHOST;
+	.@stone_id6 = bg_monster(.teamB_id, instance_mapname("06guild_01", .ins_id), 73, 42, "Stone Guardian B 3", 1908, instance_npcname("Emperium Arena NPC", .ins_id) + "::OnTeamBEmpBreak");
+	setunitdata .@stone_id6, UMOB_ELETYPE, ELE_GHOST;
+
+	announce "The Emperium Arena will start in 2 minutes, to join the event type @joinemparena or @" + .joinevent_cmdstr$, .target, 0x00FFFF;
 	.emperium_arena = 1;
 	initnpctimer;
 end;
 OnTimer60000:
-	announce "The Emperium Arena will start in 4 minutes, to join the event type @joinemparena or @joinevent", .target, 0x00FFFF;
+	announce "The Emperium Arena will start in 1 minute, to join the event type @joinemparena or @" + .joinevent_cmdstr$, .target, 0x00FFFF;
 end;
 OnTimer120000:
-	announce "The Emperium Arena will start in 3 minutes, to join the event type @joinemparena or @joinevent", .target, 0x00FFFF;
-end;
-OnTimer180000:
-	announce "The Emperium Arena will start in 2 minutes, to join the event type @joinemparena or @joinevent", .target, 0x00FFFF;
-end;
-OnTimer240000:
-	announce "The Emperium Arena will start in 1 minute, to join the event type @joinemparena or @joinevent", .target, 0x00FFFF;
-end;
-OnTimer300000:
 	.emperium_arena = 2;
-	donpcevent instance_npcname("Emperium Arena Team A", .ins_id) + "::OnStartEmpArena";
-	// Emperium Arena Team A npc will trigger the Emperium Arena Team B OnStartEmpArena event
+	bg_warp .teamA_id, instance_mapname("06guild_01", .ins_id), 8, 50;
+	bg_warp .teamB_id, instance_mapname("06guild_01", .ins_id), 91, 50;
+
+	announce "A total of " + (bg_get_data(.teamA_id, 0) + bg_get_data(.teamB_id, 0)) + " players have registered to join the game." +
+		"The Emperium Arena is Starting", .target, 0x00FFFF;
+end;
+OnTimer121000:
+	instance_announce .ins_id, "Destroy the Stone Guardians of the other team to win.", bc_all, 0x00FFFF, FW_BOLD, 20;
 end;
 OnTimer10800000:
-OnEmpArenaEnd:
 OnTimerQuit:
+	donpcevent "Emperium Arena NPC::OnEmpArenaEnd";
+	detachnpctimer;
+end;
+OnEndEvent:
 	unbindatcmd "joinemparena";
-	unbindatcmd "joinevent";
+	unbindatcmd .joinevent_cmdstr$;
+	$TimeEventFlag[.event_flag_index] = 0;
 	.ins_id = 0;
 	.emperium_arena = 0;
+	bg_destroy .teamA_id;
+	bg_destroy .teamB_id;
+	.teamA_id = 0;
+	.teamB_id = 0;
 	stopnpctimer;
+	detachnpctimer;
 end;
 OnJoinEvent:
 	if(.emperium_arena == 0){
@@ -89,181 +127,57 @@ OnJoinEvent:
 		end;
 	}
 
-	.@char_id = getcharid(0);
-	if(inarray(.join_char_id, .@char_id) == -1){
-		.join_char_id[.@num] = .@char_id;
+	if(getcharid(4) == .teamA_id){
+		dispbottom "You have already joined the Emperium Arena as a member of Team A.", 0x00FFFF;
+		end;
+	}
+	else if(getcharid(4) == .teamB_id){
+		dispbottom "You have already joined the Emperium Arena as a member of Team B.", 0x00FFFF;
+		end;
+	}
+	
+	if(inarray(getinstancevar('arena_uniqid, .ins_id), get_unique_id()) >= 0){
+		message strcharinfo(0), "No dual login account are allowed to join the Emperium Arena";
+		end;
+	}
+	
+	if(bg_get_data(.teamA_id, 0) <= bg_get_data(.teamB_id, 0)){
+		.@ret = bg_join(.teamA_id);
 	}
 	else {
-		message strcharinfo(0), "You've joined the Emperium Arena";
+		.@ret = bg_join(.teamB_id);
 	}
-
-	if(strcharinfo(3) != instance_mapname("06guild_r", .ins_id)){
-		.@ret = instance_enter("Emperium_Arena", -1, -1, .@char_id, .ins_id);
-		switch(.@ret){
-			case IE_NOMEMBER: debugmes "Instance Enter return: No Member";
-				break;
-			case IE_NOINSTANCE: debugmes "Instance Enter return: No Instance";
-				break;
-			case IE_OTHER: debugmes "Instance Enter return: Other Error";
-				break;
-			case IE_OK: // do nothing
-				break;
-		}
+	
+	if(.@ret){
+		.@num = getarraysize(getinstancevar('arena_uniqid, .ins_id));
+		setinstancevar('arena_uniqid[.@num], get_unique_id(), .ins_id);
 	}
-end;
-}
+	else {
+		debugmes strcharinfo(0) + " failed to join Emperium Arena, team A id: " + .teamA_id + ", team B id: " + .teamB_id;
+	}
+	
+	//.@num = getarraysize(.join_char_id);
+	//.@char_id = getcharid(0);
+	//if(inarray(.join_char_id, .@char_id) == -1){
+	//	.join_char_id[.@num] = .@char_id;
+	//}
+	//else {
+	//	message strcharinfo(0), "You've joined the Emperium Arena";
+	//}
 
-06guild_r, 73, 163, 1	script	Emperium Arena Team A	4_M_JOB_KNIGHT1,{
-end;
-OnInit:
-	disablenpc;
-end;
-OnInstanceInit:
-	waitingroom " Join Team A Here", 20, instance_npcname(strnpcinfo(0)) + "::OnCheckUsers", 1;
-	setwall strnpcinfo(4), 97, 183, 8,4,0,"empwaitingroowall";
-end;
-OnInstanceDestroy:
-	bg_destroy 'teamA_id;
-end;
-OnCheckUsers:
-	chatmes "Hello! Welcome to Team A!";
-	//getwaitingroomusers instance_npcname(strnpcinfo(0));
-	//for(.@i = 0; .@i < .@waitingroom_usercount; .@i++){
-	//	.@class_id = readparam(Class, .@waitingroom_users[.@i]);
-	//	if(eaclass(.@class_id)&EAJ_BASEMASK == EAJ_MAGE || eaclass(.@class_id)&EAJL_2_1){
-	//		.@nonempbreaker++;
+	//if(strcharinfo(3) != instance_mapname("06guild_r", .ins_id)){
+	//	.@ret = instance_enter("Emperium_Arena", -1, -1, getcharid(0), .ins_id);
+	//	switch(.@ret){
+	//		case IE_NOMEMBER: debugmes "Instance Enter return: No Member";
+	//			break;
+	//		case IE_NOINSTANCE: debugmes "Instance Enter return: No Instance";
+	//			break;
+	//		case IE_OTHER: debugmes "Instance Enter return: Other Error";
+	//			break;
+	//		case IE_OK: // do nothing
+	//			break;
 	//	}
 	//}
-	//if(.@nonempbreaker == .@waitingroom_usercount - 1){
-	//	chatmes "Our team currently has no emperium breakers. Maybe some of you change team?";
-	//}
-end;
-OnStartEmpArena:
-	.teamA_count = getwaitingroomstate(0, instance_npcname(strnpcinfo(0)));
-	.teamB_count = getwaitingroomstate(0, instance_npcname("Emperium Arena Team B"));
-
-	if( .teamA_count + .teamB_count < 4){
-		// give participation reward?
-		getwaitingroomusers instance_npcname(strnpcinfo(0));
-		for(.@i = 0; .@i < .@waitingroom_usercount; .@i++){
-			getitem 7199, 5, .@waitingroom_users[.@i];
-		}
-		donpcevent instance_npcname("Emperium Arena Team B") + "::OnStartEmpArena";
-		end;
-	}
-	else if((.teamA_count + .teamB_count + 1) / 2 < .teamA_count){
-		// kick extra players and add them to team b later
-		getwaitingroomusers instance_npcname(strnpcinfo(0));
-		.@num = 0;
-		for(.@i = ((.teamA_count + .teamB_count + 1) / 2); .@i < .@waitingroom_usercount; .@i++){
-			waitingroomkick instance_npcname(strnpcinfo(0)), convertpcinfo(.@waitingroom_users[.@i], CPC_NAME);
-			'extra_char_id_b[.@num] = convertpcinfo(.@waitingroom_users[.@i], CPC_CHAR);
-			.@num++;
-		}
-	}
-	set 'teamA_id, waitingroom2bg("-", 0, 0, instance_npcname(strnpcinfo(0)) + "::OnArenaQuit", instance_npcname(strnpcinfo(0)) + "::OnArenaDeath");
-	for(.@i = 0; .@i < getarraysize('guardianA); .@i++){
-		bg_monster_set_team 'guardianA[.@i], 'teamA_id;
-		setunitdata 'guardianA[.@i], UMOB_ELETYPE, ELE_GHOST;
-		//setunitdata 'guardianA[.@i], UMOB_ELELEVEL, 1;
-	}
-	//warpwaitingpc instance_mapname("06guild_01"), 8, 50;
-	bg_warp 'teamA_id, instance_mapname("06guild_01"), 8, 50;
-	donpcevent instance_npcname("Emperium Arena Team B") + "::OnStartEmpArena";
-end;
-OnArenaDeath:
-	showdigit 10, 2;
-	sleep2 10000;
-	showdigit 0;
-	switch(rand(1,3)){
-		case 1: warp instance_mapname("06guild_01"), 8, 50;
-			break;
-		case 2: warp instance_mapname("06guild_01"), 50, 73;
-			break;
-		case 3: warp instance_mapname("06guild_01"), 34, 64;
-			break;
-	}
-	percentheal 100, 100;
-end;
-OnArenaQuit:
-	percentheal 100, 100;
-	if ( !bg_get_data( 'teamA_id, 0 ) )
-		mapannounce instance_mapname("06guild_01"), "All Team A members have quit!", bc_map, 0xff3333;
-	end;
-end;
-}
-
-06guild_r, 90, 163, 1	script	Emperium Arena Team B	4_M_JOB_KNIGHT2,{
-end;
-OnInit:
-	disablenpc;
-end;
-OnInstanceInit:
-	waitingroom "Join Team B Here", 20, instance_npcname(strnpcinfo(0)) + "::OnCheckUsers", 1;
-end;
-OnInstanceDestroy:
-	bg_destroy 'teamB_id;
-end;
-OnCheckUsers:
-	chatmes "Hello! Welcome to Team B!";
-end;
-OnStartEmpArena:
-	.@teamA_count = getvariableofnpc(.teamA_count, instance_npcname("Emperium Arena Team A"));
-	.@teamB_count = getwaitingroomstate(0, instance_npcname(strnpcinfo(0)));
-	
-	if( .@teamA_count + .@teamB_count < 4){
-		// give participation reward?
-		getwaitingroomusers instance_npcname(strnpcinfo(0));
-		for(.@i = 0; .@i < .@waitingroom_usercount; .@i++){
-			getitem 7199, 5, .@waitingroom_users[.@i];
-		}
-		.@ins_id = instance_id();
-		instance_announce .@ins_id, "Thank you for participating but we have not reached the minimum required pariticpants of 4.", bc_all, 0x00FFFF, FW_BOLD, 20;
-		sleep 5000;
-		instance_announce .@ins_id, "This Instance Map will be Closed in 30 seconds and you all will be teleported out.", bc_all, 0x00FFFF, FW_BOLD, 20;
-		sleep 30000;
-		instance_destroy .@ins_id;
-		end;
-	}
-	else if((.@teamA_count + .@teamB_count + 1) / 2 < .@teamB_count){
-		// kick extra players and add them to team a later
-		getwaitingroomusers instance_npcname(strnpcinfo(0));
-		.@num = 0;
-		for(.@i = (.@teamA_count + .@teamB_count + 1) / 2; .@i < .@waitingroom_usercount; .@i++){
-			waitingroomkick instance_npcname(strnpcinfo(0)), convertpcinfo(.@waitingroom_users[.@i], CPC_NAME);
-			'extra_char_id_a[.@num] = convertpcinfo(.@waitingroom_users[.@i], CPC_CHAR);
-			.@num++;
-		}
-	}
-	set 'teamB_id, waitingroom2bg("-", 0, 0, instance_npcname(strnpcinfo(0)) + "::OnArenaQuit", instance_npcname(strnpcinfo(0)) + "::OnArenaDeath");
-	for(.@i = 0; .@i < getarraysize('guardianB); .@i++){
-		bg_monster_set_team 'guardianB[.@i], 'teamB_id;
-		setunitdata 'guardianB[.@i], UMOB_ELETYPE, ELE_GHOST;
-		//setunitdata 'guardianB[.@i], UMOB_ELELEVEL, 1;
-	}
-	//warpwaitingpc instance_mapname("06guild_01"), 91, 50;
-	bg_warp 'teamB_id, instance_mapname("06guild_01"), 91, 50;
-	donpcevent instance_npcname("Emperium Arena NPC") + "::OnCheckExtra";
-end;
-OnArenaDeath:
-	showdigit 10, 2;
-	sleep2 10000;
-	showdigit 0;
-	switch(rand(1,3)){
-		case 1: warp instance_mapname("06guild_01"), 91, 50;
-			break;
-		case 2: warp instance_mapname("06guild_01"), 64, 34;
-			break;
-		case 3: warp instance_mapname("06guild_01"), 50, 26;
-			break;
-	}
-	percentheal 100, 100;
-end;
-OnArenaQuit:
-	percentheal 100, 100;
-	if ( !bg_get_data( 'teamB_id, 0 ) )
-		mapannounce instance_mapname("06guild_01"), "All Team B members have quit!", bc_map, 0xff3333;
-	end;
 end;
 }
 
@@ -283,17 +197,70 @@ OnInstanceInit:
 	setmapflag strnpcinfo(4), mf_restricted, 4;
 	.brokenTeamAEmp = 0;
 	.brokenTeamBEmp = 0;
-
-	'guardianA[0] = bg_monster(1, strnpcinfo(4), 7, 50, "Stone Guardian A 1", 1907, instance_npcname(strnpcinfo(0)) + "::OnTeamAEmpBreak");
-	'guardianA[1] = bg_monster(1, strnpcinfo(4), 26, 57, "Stone Guardian A 2", 1907, instance_npcname(strnpcinfo(0)) + "::OnTeamAEmpBreak");
-	'guardianA[2] = bg_monster(1, strnpcinfo(4), 26, 42, "Stone Guardian A 3", 1907, instance_npcname(strnpcinfo(0)) + "::OnTeamAEmpBreak");
-
-	'guardianB[0] = bg_monster(1, strnpcinfo(4), 92, 50, "Stone Guardian B 1", 1908, instance_npcname(strnpcinfo(0)) + "::OnTeamBEmpBreak");
-	'guardianB[1] = bg_monster(1, strnpcinfo(4), 73, 57, "Stone Guardian B 2", 1908, instance_npcname(strnpcinfo(0)) + "::OnTeamBEmpBreak");
-	'guardianB[2] = bg_monster(1, strnpcinfo(4), 73, 42, "Stone Guardian B 3", 1908, instance_npcname(strnpcinfo(0)) + "::OnTeamBEmpBreak");
+	for(.@x1 = 46; .@x1 <= 53; .@x1++){
+		monster strnpcinfo(4), .@x1, 87,"Barricade",1905,1;
+		setunitdata $@mobid[0], UMOB_DMGIMMUNE, 1;
+	}
+	for(.@x2 = 46; .@x2 <= 53; .@x2++){
+		monster strnpcinfo(4), .@x2, 12,"Barricade",1905,1;
+		setunitdata $@mobid[0], UMOB_DMGIMMUNE, 1;
+	}
+	setcell strnpcinfo(4), 46, 87, 53, 87, CELL_WALKABLE, 0;
+	setcell strnpcinfo(4), 46, 75, 53, 75, CELL_WALKABLE, 0;
+	setcell strnpcinfo(4), 46, 12, 53, 12, CELL_WALKABLE, 0;
+	setcell strnpcinfo(4), 46, 24, 53, 24, CELL_WALKABLE, 0;
+	setcell strnpcinfo(4), 46, 87, 53, 87, CELL_SHOOTABLE, 0;
+	setcell strnpcinfo(4), 46, 12, 53, 12, CELL_SHOOTABLE, 0;
 end;
-OnInstanceDestroy:
-	donpcevent "Emperium Arena::OnEmpArenaEnd";
+OnArenaDeathTeamA:
+	showdigit 10, 2;
+	sleep2 2000;
+	percentheal 100, 100;
+	sleep2 8000;
+	showdigit 0;
+	switch(rand(1,3)){
+		case 1: warp instance_mapname("06guild_01"), 8, 50;
+			break;
+		case 2: warp instance_mapname("06guild_01"), 50, 73;
+			break;
+		case 3: warp instance_mapname("06guild_01"), 34, 64;
+			break;
+	}
+end;
+OnArenaQuitTeamA:
+	percentheal 100, 100;
+	.@index = inarray('arena_uniqid, get_unique_id());
+	if(.@index >= 0){
+		deletearray 'arena_uniqid[.@index], 1;
+	}
+	if (!bg_get_data(getcharid(4), 0)){
+		mapannounce instance_mapname("06guild_01"), "All Team A members have quit!", bc_map, 0xff3333;
+	}
+end;
+OnArenaDeathTeamB:
+	showdigit 10, 2;
+	sleep2 2000;
+	percentheal 100, 100;
+	sleep2 8000;
+	showdigit 0;
+	switch(rand(1,3)){
+		case 1: warp instance_mapname("06guild_01"), 91, 50;
+			break;
+		case 2: warp instance_mapname("06guild_01"), 64, 34;
+			break;
+		case 3: warp instance_mapname("06guild_01"), 50, 26;
+			break;
+	}
+end;
+OnArenaQuitTeamB:
+	percentheal 100, 100;
+	.@index = inarray('arena_uniqid, get_unique_id());
+	if(.@index >= 0){
+		deletearray 'arena_uniqid[.@index], 1;
+	}
+	if (!bg_get_data(getcharid(4), 0)){
+		mapannounce instance_mapname("06guild_01"), "All Team B members have quit!", bc_map, 0xff3333;
+	}
 end;
 OnTeamAEmpBreak:
 	if(playerattached() == 0){
@@ -303,18 +270,21 @@ OnTeamAEmpBreak:
 	instance_announce .ins_id, "Team B has broken " + .brokenTeamAEmp + " Emperium", bc_all, 0x00FFFF, FW_BOLD, 20;
 	if(.brokenTeamAEmp == 3){
 		getitem 7199, 5; // Hourly Coin, extra reward for the last guardian stone breaker
-		instance_announce .ins_id, "Team B Won this game!", bc_all, 0x00FFFF, FW_BOLD, 20;
-		callsub S_GiveRewards, 'teamB_id;
+		instance_announce .ins_id, "Congratulations! Team B Won this game!", bc_all, 0x00FFFF, FW_BOLD, 20;
+		callsub S_GiveRewards, getcharid(4);
 		doevent instance_npcname(strnpcinfo(0)) + "::OnEmpArenaEnd";
 	}
 end;
 OnTeamBEmpBreak:
+	if(playerattached() == 0){
+		end;
+	}
 	.brokenTeamBEmp++;
 	instance_announce .ins_id, "Team A has broken " + .brokenTeamBEmp + " Emperium", bc_all, 0x00FFFF, FW_BOLD, 20;
 	if(.brokenTeamBEmp == 3){
 		getitem 7199, 5; // Hourly Coin, extra reward for the last guardian stone breaker
-		instance_announce .ins_id, "Team A Won this game!", bc_all, 0x00FFFF, FW_BOLD, 20;
-		callsub S_GiveRewards, 'teamA_id;
+		instance_announce .ins_id, "Congratulations! Team A Won this game!", bc_all, 0x00FFFF, FW_BOLD, 20;
+		callsub S_GiveRewards, getcharid(4);
 		doevent instance_npcname(strnpcinfo(0)) + "::OnEmpArenaEnd";
 	}
 end;
@@ -331,25 +301,14 @@ S_GiveRewards:
 	}
 return;
 OnEmpArenaEnd:
-	killmonster strnpcinfo(4), instance_npcname(strnpcinfo(0)) + "::OnTeamAEmpBreak";
-	killmonster strnpcinfo(4), instance_npcname(strnpcinfo(0)) + "::OnTeamBEmpBreak";
+	killmonster strnpcinfo(4), instance_npcname(strnpcinfo(0), .ins_id) + "::OnTeamAEmpBreak";
+	killmonster strnpcinfo(4), instance_npcname(strnpcinfo(0), .ins_id) + "::OnTeamBEmpBreak";
 	sleep 5000;
-	instance_announce .ins_id, "This Instance Map will be Closed in 1 minute and you all will be teleported out.", bc_all, 0x00FFFF, FW_BOLD, 20;
-	sleep 60000;
+	instance_announce .ins_id, "This Instance Map will be Closed in 30 seconds and you all will be teleported out.", bc_all, 0x00FFFF, FW_BOLD, 20;
+	sleep 30000;
 	instance_destroy .ins_id;
 end;
-OnCheckExtra:
-	if(getarraysize('extra_char_id_a) > 0){
-		// add to team a
-		for(.@i = 0; .@i < getarraysize('extra_char_id_a); .@i++){
-			bg_join('teamA_id, instance_mapname("06guild_01"), 8, 50,'extra_char_id_a[.@i]);
-		}
-	}
-	else if(getarraysize('extra_char_id_b) > 0){
-		// add to team b
-		for(.@i = 0; .@i < getarraysize('extra_char_id_b); .@i++){
-			bg_join('teamB_id, instance_mapname("06guild_01"), 91, 50,'extra_char_id_b[.@i]);
-		}
-	}
+OnInstanceDestroy:
+	donpcevent "Emperium Arena::OnEndEvent";
 end;
 }
