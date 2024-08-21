@@ -31,3 +31,15 @@
 Header:
   Type: ATCOMMAND_DB
   Version: 1
+
+Body:
+  - Command: doommap
+    Aliases:
+      - dmmp
+    Help: |
+      Kills all non GM characters on the map.
+  - Command: raisemap
+    Aliases:
+      - rsmp
+    Help: |
+      Resurrects all characters on the map.
