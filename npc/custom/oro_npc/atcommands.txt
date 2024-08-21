@@ -32,6 +32,9 @@ OnMapShower:
 	.@item_id[10] = 6320; // reset stone
 	.@item_id[11] = 30010; // new hair dye coupon
 	.@item_id[12] = 30126; // costume teddybear hat
+	.@item_id[13] = 30261; // Costume Adventurer's Bag
+	.@item_id[14] = 30025; // Costume Mid Egg Scroll
+	.@item_id[15] = 30030; // Costume Low Egg Scroll
 	
 	.@item_name_sel$ = "";
 	for(.@i = 0; .@i < getarraysize(.@item_id); .@i++){
@@ -50,7 +53,7 @@ OnMapShower:
 	mes "Select the number of items you want to give:";
 	next;
 	
-	if(.@item_id[.@sel] == 30007 || .@item_id[.@sel] == 12911 || .@item_id[.@sel] == 6320 || .@item_id[.@sel] == 30126){
+	if(.@item_id[.@sel] == 30007 || .@item_id[.@sel] == 12911 || .@item_id[.@sel] == 6320 || .@item_id[.@sel] == 30126 || .@item_id[.@sel] == 30261){
 		.@num = select("1");
 	}
 	else {
@@ -229,13 +232,16 @@ end;
 -	script	PvP Battle	-1,{
 OnInit:
 	bindatcmd("battlestart", strnpcinfo(0) + "::OnBattleStart", 10, 99);
+	bindatcmd("bstart", strnpcinfo(0) + "::OnBattleStart", 10, 99);
 end;
 OnBattleStart:
 	.pvp_flag = getmapflag(strcharinfo(3), mf_pvp);
 	.itemuse_flag = getmapflag(strcharinfo(3), mf_noitemconsumption);
 	unbindatcmd "battlestart";
+	unbindatcmd "bstart";
 	.timer_end = 0;
 	bindatcmd("battleend", strnpcinfo(0) + "::OnBattleEnd", 10, 99);
+	bindatcmd("bend", strnpcinfo(0) + "::OnBattleEnd", 10, 99);
 	callsub StartCountdown, "Battle will start in", 5;
 	announce "Start!!!", bc_all, 0x00FF00, FW_BOLD, 35;
 	setmapflag strcharinfo(3), mf_pvp;
@@ -260,7 +266,9 @@ OnBattleEnd:
 	removemapflag strcharinfo(3), mf_pvp;
 
 	unbindatcmd "battleend";
+	unbindatcmd "bend";
 	bindatcmd("battlestart", strnpcinfo(0) + "::OnBattleStart", 10, 99);
+	bindatcmd("bstart", strnpcinfo(0) + "::OnBattleStart", 10, 99);
 	announce "Battle Ended!", bc_all, 0x00FF00, FW_BOLD, 20;
 	if(.pvp_flag){
 		setmapflag strcharinfo(3), mf_pvp;

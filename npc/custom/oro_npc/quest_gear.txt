@@ -152,7 +152,13 @@ function	script	F_HeadGear_Upper	{
 }
 
 function	script	F_HeadGear_Mid	{
-	setarray .@mid_gear_list_id[0], 5358, 5664, 5800, 5389, 5135;
+	setarray .@mid_gear_list_id[0], 
+					5358, 
+					5664, 
+					5800, 
+					5389, 
+					5135,
+					18559; // Fafnir_Skin
 	
 	.@mid_gear_name$ = "";
 	for(.@i = 0; .@i < getarraysize(.@mid_gear_list_id); .@i++){
@@ -177,10 +183,6 @@ function	script	F_HeadGear_Mid	{
 				.@gear_requirements_id[0] = 5040;
 				.@gear_requirements_count[0] = 3;
 			break;
-	//	case 4: 
-	//			.@gear_requirements_id[0] = 2276;
-	//			.@gear_requirements_count[0] = 3;
-	//		break;
 		case 4: 
 				.@gear_requirements_id[0] = 5074;
 				.@gear_requirements_count[0] = 1;
@@ -194,6 +196,19 @@ function	script	F_HeadGear_Mid	{
 				
 				.@gear_requirements_id[1] = 2296;
 				.@gear_requirements_count[1] = 1;
+			break;
+		case 6:
+				.@gear_requirements_id[0] = 5068; // Ear_Of_Devil's_Wing
+				.@gear_requirements_count[0] = 1;
+
+				.@gear_requirements_id[1] = 1038; // Petite_DiablOfs_Horn
+				.@gear_requirements_count[1] = 1000;
+
+				.@gear_requirements_id[2] = 1039; // Petite_DiablOfs_Wing
+				.@gear_requirements_count[2] = 1000;
+
+				.@gear_requirements_id[3] = 5096; // Assassin_Mask_
+				.@gear_requirements_count[3] = 1;
 			break;
 		default: return 0;
 			break;
@@ -211,7 +226,10 @@ function	script	F_HeadGear_Mid	{
 }
 
 function	script	F_HeadGear_Low	{
-	setarray .@lowGearIdList[0], 5377, 5967;
+	setarray .@lowGearIdList[0], 
+					5377, 
+					5967, 
+					18560; // Fafnir_Mask
 	
 	.@low_gear_name$ = "";
 	for(.@i = 0; .@i < getarraysize(.@lowGearIdList); .@i++){
@@ -231,6 +249,22 @@ function	script	F_HeadGear_Low	{
 				
 				.@gear_requirements_id[1] = 5358;
 				.@gear_requirements_count[1] = 1;
+			break;
+		case 3:
+				.@gear_requirements_id[0] = 1035; // Dragon_Canine
+				.@gear_requirements_count[0] = 1000;
+
+				.@gear_requirements_id[1] = 1036; // Dragon_Scale
+				.@gear_requirements_count[1] = 1000;
+
+				.@gear_requirements_id[2] = 1037; // Dragon Tail
+				.@gear_requirements_count[2] = 1000;
+
+				.@gear_requirements_id[3] = 7123; // Dragon's_Skin
+				.@gear_requirements_count[3] = 1000;
+
+				.@gear_requirements_id[4] = 5096; // Assassin_Mask_
+				.@gear_requirements_count[4] = 1;
 			break;
 		default: return 0;
 			break;

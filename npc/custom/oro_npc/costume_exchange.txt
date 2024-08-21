@@ -68,6 +68,7 @@ OnInit:
 	npcshopdelitem "Costume Exchange", 512;
 end;
 OnInterIfInit:
+	// Relic Garments
 	$Costume4CouponID[0] = 30240;
 	$Costume4CouponID[1] = 30241;
 	$Costume4CouponID[2] = 30242;
@@ -86,5 +87,25 @@ OnInterIfInit:
 	$Costume4CouponID[15] = 30255;
 	$Costume4CouponID[16] = 30256;
 	$Costume4CouponID[17] = 30257;
+
+	// Heirloom Garments
+	$Costume4CouponID[18] = 30262;
+	$Costume4CouponID[19] = 30263;
+	$Costume4CouponID[20] = 30264;
+	$Costume4CouponID[21] = 30265;
+	$Costume4CouponID[22] = 30266;
+	$Costume4CouponID[23] = 30267;
+	$Costume4CouponID[24] = 30268;
+	$Costume4CouponID[25] = 30269;
+	$Costume4CouponID[26] = 30270;
+	$Costume4CouponID[27] = 30271;
+	$Costume4CouponID[28] = 30272;
+	$Costume4CouponID[29] = 30273;
+	$Costume4CouponID[30] = 30274;
+	$Costume4CouponID[31] = 30275;
+	$Costume4CouponID[32] = 30276;
+	$Costume4CouponID[33] = 30277;
+	$Costume4CouponID[34] = 30278;
+	$Costume4CouponID[35] = 30279;
 end;
 }

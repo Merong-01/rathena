@@ -85,3 +85,6 @@ Body:
     Commands:
       partyrecall: true
       guildrecall: true
+      doommap: true
+      raisemap: true
+      unjail: true

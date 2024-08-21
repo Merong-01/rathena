@@ -137,21 +137,21 @@ Body:
     Script: |
       bonus bStr,1;
       bonus bDex,1;
+      if (getskilllv("SM_BASH") == 10) {
+         bonus2 bSkillAtk,"SM_BASH",50;
+      }
+      if (getskilllv("KN_BOWLINGBASH") == 10) {
+         bonus2 bSkillAtk,"KN_BOWLINGBASH",50;
+      }
       .@val = getrefine();
       if(.@val >= 7){
-         bonus2 bSkillAtk,"SM_BASH",20;
-         bonus2 bSkillAtk,"KN_BOWLINGBASH",20;
+         bonus2 bSkillAtk,"SM_BASH",10;
+         bonus2 bSkillAtk,"KN_BOWLINGBASH",10;
       }
       if(.@val >= 9){
-         bonus2 bSkillAtk,"SM_BASH",20;
-         bonus2 bSkillAtk,"KN_BOWLINGBASH",20;
+         bonus2 bSkillAtk,"SM_BASH",10;
+         bonus2 bSkillAtk,"KN_BOWLINGBASH",10;
       }
-    #  if (getskilllv("SM_BASH") == 10) {
-    #     bonus2 bSkillAtk,"SM_BASH",50;
-    #  }
-    #  if (getskilllv("KN_BOWLINGBASH") == 10) {
-    #     bonus2 bSkillAtk,"KN_BOWLINGBASH",50;
-    #  }
   - Id: 2417
     AegisName: Fricco_Shoes
     Name: Fricco's Shoes
@@ -173,6 +173,35 @@ Body:
       bonus2 bAddItemGroupHealRate,IG_Potion,20;
       bonus2 bAddItemHealRate,11503,20;
       bonus2 bAddItemHealRate,30002,20;
+  - Id: 2527
+    AegisName: Dragon_Breath
+    Name: Dragon Breath
+    Type: Armor
+    Buy: 20
+    Weight: 600
+    Defense: 4
+    Slots: 1
+    Jobs:
+      All: true
+      Novice: false
+      SuperNovice: false
+    Classes:
+      Upper: false
+      All: true
+    Locations:
+      Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 48
+    Refineable: true
+    Script: |
+      bonus2 bSubRace,RC_Dragon,10;
+      .@val = getrefine();
+      if(.@val >= 7){
+        bonus2 bSubRace,RC_Dragon,5;
+      }
+      if(.@val >= 9){
+        bonus2 bSubRace,RC_Dragon,5;
+      }
   - Id: 2741
     AegisName: All_In_One_Ring
     Name: All In One Ring
@@ -771,6 +800,28 @@ Body:
       bonus2 bSubClass,Class_Boss,10;
       bonus bHealpower2,10;
       bonus bAddItemHealRate,10;
+  - Id: 5505
+    AegisName: Asara_Fairy_Hat
+    Name: Asara Fairy Hat
+    Type: Armor
+    Weight: 500
+    Defense: 2
+    Locations:
+      Head_Mid: true
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 50
+    Refineable: true
+    View: 492
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoGuildStorage: true
+    Script: |
+      skill "DC_DONTFORGETME",1;
+      skill "BA_POEMBRAGI",1;
+      bonus bDex,2;
+      bonus bLuk,2;
   - Id: 5564
     AegisName: Crown_Of_Deceit
     Name: Crown of Deceit
@@ -1178,6 +1229,35 @@ Body:
       NoAuction: false
     Script: |
       getitem 12221,10;
+  - Id: 18559
+    AegisName: Fafnir_Skin
+    Name: Fafnir Skin
+    Type: Armor
+    Buy: 20
+    Weight: 100
+    Defense: 3
+    Locations:
+      Head_Mid: true
+    ArmorLevel: 1
+    EquipLevelMin: 50
+    View: 152
+    Script: |
+      bonus bCritical,3;
+      bonus bHPrecovRate,-100;
+  - Id: 18560
+    AegisName: Fafnir_Mask
+    Name: Fafnir Mask
+    Type: Armor
+    Buy: 20
+    Weight: 300
+    Defense: 2
+    Locations:
+      Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 50
+    View: 180
+    Script: |
+      bonus bCritical,2;
   - Id: 19699
     AegisName: C_Gf_Recruiter_Hat
     Name: Costume Gf Recruiter Hat
@@ -3885,6 +3965,312 @@ Body:
     Script: |
         bonus2 bExpAddClass,Class_All,5;
         bonus2 bDropAddClass,Class_All,2;
+        bonus bAddMaxWeight,1000;
+  - Id: 30262
+    AegisName: C_Heirloom_Knight
+    Name: Heirloom Costume - Knight
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 223
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30263
+    AegisName: C_Heirloom_Assassin
+    Name: Heirloom Costume - Assassin
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 224
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30264
+    AegisName: C_Heirloom_Blacksmith
+    Name: Heirloom Costume - Blacksmith
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 225
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30265
+    AegisName: C_Heirloom_Hunter
+    Name: Heirloom Costume - Hunter
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 226
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30266
+    AegisName: C_Heirloom_Wizard
+    Name: Heirloom Costume - Wizard
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 227
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30267
+    AegisName: C_Heirloom_Priest
+    Name: Heirloom Costume - Priest
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 228
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30268
+    AegisName: C_Heirloom_Crusader
+    Name: Heirloom Costume - Crusader
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 229
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30269
+    AegisName: C_Heirloom_Rogue
+    Name: Heirloom Costume - Rogue
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 230
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30270
+    AegisName: C_Heirloom_Alchemist
+    Name: Heirloom Costume - Alchemist
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 231
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30271
+    AegisName: C_Heirloom_Bard
+    Name: Heirloom Costume - Bard
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 232
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30272
+    AegisName: C_Heirloom_Dancer
+    Name: Heirloom Costume - Dancer
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 233
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30273
+    AegisName: C_Heirloom_Sage
+    Name: Heirloom Costume - Sage
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 234
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30274
+    AegisName: C_Heirloom_Monk
+    Name: Heirloom Costume - Monk
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 235
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30275
+    AegisName: C_Heirloom_Taekwon
+    Name: Heirloom Costume - Taekwon
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 236
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30276
+    AegisName: C_Heirloom_StarGladiator
+    Name: Heirloom Costume - Star Gladiator
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 237
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30277
+    AegisName: C_Heirloom_SoulLinker
+    Name: Heirloom Costume - Soul Linker
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 238
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30278
+    AegisName: C_Heirloom_Ninja
+    Name: Heirloom Costume - Ninja
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 239
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
+        bonus bAddMaxWeight,1000;
+  - Id: 30279
+    AegisName: C_Heirloom_Gunslinger
+    Name: Heirloom Costume - Gunslinger
+    Type: Armor
+    Weight: 10
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Trade:
+      NoDrop: true
+      NoSell: true
+    View: 240
+    Script: |
+        bonus2 bExpAddClass,Class_All,25;
+        bonus2 bDropAddClass,Class_All,5;
         bonus bAddMaxWeight,1000;
   - Id: 19910
     AegisName: C_Halloween_Hat

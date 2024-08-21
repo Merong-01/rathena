@@ -29,7 +29,7 @@ S_Enchant_Weight:
 	.@npcName$ = "[ Costume Enchanter ]";
 
 	mes .@npcName$;
-	mes "Currently, I can only do Weight enchantment on ^0000FF Relic Costumes^000000";
+	mes "Currently, I can only do Weight enchantment on ^0000FF Relic and Heirloom Costumes^000000";
 	mes "Just bring to me the item and a ^0000FF" + getitemname(7776) + "^000000";
 	mes "For every ^0000FF" + getitemname(7776) + 
 		"^000000, I can enchant ^0000FF+100 Weight^000000 capacity";
@@ -55,20 +55,48 @@ S_Enchant_Weight:
 	}
 	
 	setarray .@enchantable_itemid[0], 30240, 30241, 30242, 30243, 30244, 30245; // 2-1 jobs relic garment
-	setarray .@enchantable_itemid[6], 30246, 30247, 30248, 30249, 30250, 30251, 30252; // 22 jobs relic garment
+	setarray .@enchantable_itemid[6], 30246, 30247, 30248, 30249, 30250, 30251, 30252; // 2-2 jobs relic garment
 	setarray .@enchantable_itemid[13], 30253, 30254, 30255, 30256, 30257; // extended jobs relic garment
-	
-	.@sel_itemname$ = "";
-	for(.@i = 0; .@i < getarraysize(.@enchantable_itemid); .@i++){
-		.@sel_itemname$ += getitemname(.@enchantable_itemid[.@i]) + ":";
-	}
-	.@sel_itemname$ += "Cancel";
+	setarray .@enchantable_itemid[18], 30262, 30263, 30264, 30265, 30266, 30267; // 2-1 jobs heirloom garment
+	setarray .@enchantable_itemid[24], 30268, 30269, 30270, 30271, 30272, 30273, 30274; // 2-2 jobs heirloom garment
+	setarray .@enchantable_itemid[31], 30275, 30276, 30277, 30278, 30279; // extended jobs heirloom garment
 	
 	mes .@npcName$;
 	mes "Which costume you want to enchant?";
 	next;
-	
-	.@sel_item = select(.@sel_itemname$) - 1;
+
+	select("Relic Costume:Heirloom Costume:Cancel");
+	if(@menu == 1){
+		mes .@npcName$;
+		mes "Which Relic Costume you want to enchant?";
+		next;
+
+		.@sel_itemname$ = "";
+		for(.@i = 0; .@i < 18; .@i++){
+			.@sel_itemname$ += getitemname(.@enchantable_itemid[.@i]) + ":";
+		}
+		.@sel_itemname$ += "Cancel";
+
+		.@sel_item = select(.@sel_itemname$) - 1;
+	}
+	else if(@menu == 2){
+		mes .@npcName$;
+		mes "Which Heirloom Costume you want to enchant?";
+		next;
+
+		.@sel_itemname$ = "";
+		for(.@i = 18; .@i < getarraysize(.@enchantable_itemid); .@i++){
+			.@sel_itemname$ += getitemname(.@enchantable_itemid[.@i]) + ":";
+		}
+		.@sel_itemname$ += "Cancel";
+
+		.@sel_item = select(.@sel_itemname$) + 17;
+	}
+	else {
+		mes .@npcName$;
+		mes "Please come back when you have any interest in enchanting your costume.";
+		close;
+	}
 	
 	if(.@sel_item >= getarraysize(.@enchantable_itemid)){
 		mes .@npcName$;
