@@ -1,0 +1,378 @@
+//================ Manhole Game ==============================
+//============================================================
+//
+-	script	Manhole Game824	-1,{
+OnInit:
+	bindatcmd("startmanhole",strnpcinfo(0)+"::OnInitEvent",10,99);
+end;
+//OnHour20:
+OnInitEvent:
+	if(.ins_id > 0){
+		if(playerattached()){
+			dispbottom "An instance of Manhole Game is already active", 0x00FF00;
+		}
+		else {
+			debugmes "An instance of Manhole Game is already active";
+		}
+		end;
+	}
+	for(.@i = 0; .@i <= getarraysize($TimeEventFlag); .@i++){
+		if($TimeEventFlag[.@i] == 0){
+			.event_flag_index = .@i;
+			break;
+		}
+	}
+	if(.event_flag_index == 0){
+		.joinevent_cmdstr$ = "joinevent";
+		$TimeEventFlag[0] = 1;
+	}
+	else {
+		.joinevent_cmdstr$ = "joinevent" + (.event_flag_index + 1);
+		$TimeEventFlag[.event_flag_index] = 1;
+	}
+	bindatcmd("joinmanholegame", strnpcinfo(0)+"::OnJoinEvent",0,99);
+	bindatcmd(.joinevent_cmdstr$, strnpcinfo(0)+"::OnJoinEvent",0,99);
+	.ins_id = instance_create("Manhole Game", IM_NONE);
+
+	if(.ins_id == -4){
+		if(playerattached()){
+			dispbottom "No free instance!", 0xFF0000;
+		}
+		else {
+			debugmes "No free instance!";
+		}
+		end;
+	}
+	else if(.ins_id < 1){
+		if(playerattached()){
+			dispbottom "Failed to create instance", 0xFF0000;
+		}
+		else {
+			debugmes "Failed to create instance";
+		}
+		end;
+	}
+
+	cleararray .join_char_id[0], 0, getarraysize(.join_char_id);
+	//deletearray .winner_name$[0], getarraysize(.winner_name$);
+	announce "The Manhole Game will start in 2 minutes, to join the game type @joinmanholegame or @" + .joinevent_cmdstr$, bc_all, 0x00FFFF;
+	.manhole_game_status = 1;
+	initnpctimer;
+	.ins_map_name$ = instance_mapname("force_1-1", .ins_id);
+	.round_counter = 1;
+	//.num_win = 0;	//counter kung pila ang winners out of 10 rounds
+	setmapflag .ins_map_name$, mf_noteleport;
+	//setmapflag .ins_map_name$, mf_monster_noteleport;
+	setmapflag .ins_map_name$, mf_noskill;
+	setmapflag .ins_map_name$, mf_noexp;
+	setmapflag .ins_map_name$, mf_noexppenalty;
+	setmapflag .ins_map_name$, mf_noitemconsumption;
+	//setmapflag .ins_map_name$, mf_noloot;
+	//setmapflag .ins_map_name$, mf_loadevent;
+end;
+OnTimer60000:
+	announce "The Manhole Game will start in 1 minute, to join the game type @joinmanholegame or @" + .joinevent_cmdstr$, bc_all, 0x00FFFF;
+end;
+OnTimer120000:
+	.manhole_game_status = 2;
+	announce "A total of " + getarraysize(.join_char_id) + " players have registered to join the game." +
+		"The Manhole Game is Starting, teleporting participants to Game Map instance.", bc_all, 0x00FFFF;
+	
+	for(.@i = 0; .@i < getarraysize(.join_char_id); .@i++){
+		if(isloggedin(convertpcinfo(.join_char_id[.@i], CPC_ACCOUNT), .join_char_id[.@i])){
+			.@ret = instance_enter("Manhole Game", -1, -1, .join_char_id[.@i], .ins_id);
+			switch(.@ret){
+				case IE_NOMEMBER: .@retStr$ = "No Member";
+					break;
+				case IE_NOINSTANCE: .@retStr$ = "No Instance";
+					break;
+				case IE_OTHER: .@retStr$ = "Other Error";
+					break;
+				case IE_OK: .@retStr$ = "OK"; continue;
+					break;
+			}
+			debugmes "Instance Enter return: " + .@retStr$;
+		}
+	}
+end;
+OnTimer190000:
+	.round_counter += 1;
+end;
+OnJoinEvent:
+	if(.manhole_game_status == 0){
+		dispbottom "It's not yet the time to join the game", 0x00FFFF;
+		end;
+	}
+	else if(.manhole_game_status == 2){
+		dispbottom "Registration for the game has ended", 0x00FFFF;
+		end;
+	}
+
+	.@num = getarraysize(.join_char_id);
+	.@char_id = getcharid(0);
+	for(.@i = 0; .@i < .@num; .@i++){
+		if(.join_char_id[.@i] == .@char_id){
+			dispbottom "You've already joined the Manhole Game, you will be teleported to the instance map in " 
+				+ (120000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
+			end;
+		}
+	}
+	.join_char_id[.@num] = .@char_id;
+	dispbottom "You've joined the Manhole Game, you will be teleported to the instance map in " 
+		+ (120000 - getnpctimer(0)) / 1000 + " seconds...", 0x00FF00;
+end;
+OnPCLoadMapEvent:
+	if(strcharinfo(3) != .ins_map_name$){
+		end;
+	}
+	sc_end SC_CONFUSION;
+	sc_start SC_CONFUSION,100000,0;
+	sleep2 500;
+	specialeffect2 EF_INCAGILITY;
+	sc_start SC_INCREASEAGI,300000,10;
+	specialeffect2 EF_BLESSING;
+	sc_start SC_BLESSING,300000,10;
+	//percentheal 100, 100;
+
+	if(.round_counter > 1){
+		end;
+	}
+	announce "Welcome to Manhole Game. To win the game you only need to reach and stay inside the safety wall before the timer runs out." +
+		" When you fail to reach and stay in the safety wall the GM will plant you on the spot. This game have 10 rounds so GOOD LUCK!!!", bc_self, 0xFFFF00, FW_NORMAL, 14;
+end;
+OnInstanceEnd:
+	.round_counter = 1;
+	.ins_id = 0;
+	unbindatcmd "joinglasstilegame";
+	unbindatcmd .joinevent_cmdstr$;
+	$TimeEventFlag[.event_flag_index] = 0;
+	.starting_game = 0;
+	stopnpctimer;
+	detachnpctimer;
+end;
+}
+
+force_1-1, 25, 25, 4,	script	MH Contoller	119,18,18,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	initnpctimer;
+	setmapflag strnpcinfo(4), mf_loadevent;
+	.ins_id = instance_id();
+	.round_counter = 1;
+	.num_win = 0;
+	setarray .sw_x[0],0,0,0;
+	setarray .sw_y[0],0,0,0;
+	//setwall strnpcinfo(4), 17, 17, 18, 6, 1, "swall";
+	//setwall strnpcinfo(4), 17, 34, 18, 6, 1, "nwall";
+	//setwall strnpcinfo(4), 17, 18, 16, 0, 1, "wwall";
+	//setwall strnpcinfo(4), 34, 18, 16, 0, 1, "ewall";
+	setcell strnpcinfo(4), 0, 0, 300, 300, cell_walkable, 0;
+	setcell strnpcinfo(4), 18, 18, 33, 33,cell_walkable, 1;
+end;
+OnTimer123000:
+	mapannounce strnpcinfo(4), "Round " + .round_counter + " starts in 3",bc_map, 0xFFFF00, FW_BOLD, 20;
+end;
+OnTimer124000:
+	mapannounce strnpcinfo(4), "Round " + .round_counter + " starts in 2",bc_map, 0xFFFF00, FW_BOLD, 20;
+end;
+OnTimer125000:
+	mapannounce strnpcinfo(4), "Round " + .round_counter + " starts in 1",bc_map, 0xFFFF00, FW_BOLD, 20;
+end;
+OnTimer126000:
+	mapannounce strnpcinfo(4), "GO!!",bc_map, 0xFFFF00, FW_BOLD, 30;
+	donpcevent "::OnSummonSafetyWall";
+end;
+/*
+SummonSafetyWall:
+	.@i = 0;
+	do{
+		getfreecell(strnpcinfo(4), .@x, .@y, 25, 25, 7, 7,1);
+		if(checkcell(strnpcinfo(4), .@x, .@y,cell_chkreach)){
+			debugmes "x = " + .@x + "	y = " + .@y;
+			mapannounce strnpcinfo(4), "x = " + .@x + "	y = " + .@y, bc_map;
+			setarray .sw_x[.@i], .@x;
+			setarray .sw_y[.@i], .@y;
+			npcskilleffect 12, 10, .@x, .@y;
+			.@i++;
+		}
+	} while(.@i < 4);
+	//specialeffect 315, AREA, instance_npcname("sw18_18::SAFETYWALL",.ins_id);
+end;
+*/
+OnTimer187000:
+	debugmes "1 minutes";
+	.@player_num = getmapunits( BL_PC, strnpcinfo(4), .@user_id[0]);
+	if(.@player_num == 0){
+		setnpctimer 200000;
+		end;
+	}
+	//copyarray .sw_x[0], getvariableofnpc(.x[0],"SAFETYWALL"), 3;
+	//copyarray .sw_y[0], getvariableofnpc(.y[0],"SAFETYWALL"), 3;
+	for(.@i = 0; .@i < getarraysize(.sw_x); .@i++){
+		debugmes "x = " + .sw_x[.@i] + "	y = " + .sw_y[.@i]; 
+	}
+	getmapunits( BL_PC, strnpcinfo(4), .@player_name$[0]);
+	for( .@i = 0; .@i < .@player_num; .@i++){
+		debugmes "inside loop";
+		getmapxy( .@mapname$, .@map_x, .@map_y, BL_PC, .@user_id[.@i]);
+		.@dup_x = countinarray( .sw_x[0], .@map_x );
+		.@dup_y = countinarray( .sw_y[0], .@map_y );
+		
+		//player fail set manhole
+		if(.@dup_x == 0 || .@dup_y == 0){
+			//manhole
+			debugmes "inside 1st if player fail";
+			specialeffect2 823, AREA, .@player_name$[.@i];
+			continue;
+		}
+		if(.@dup_x >= 2 && .@dup_y >= 2){
+			debugmes "inside 2nd if check for dup";
+			copyarray .@dup_array[0], .sw_y[0], getarraysize(.sw_y);
+			for(.@ii = 0; .@ii < min(.@dup_x,.@dup_y); .@ii++){
+				debugmes "inside 2nd loop";
+				if(.sw_x[inarray(.@dup_array[0],.@map_y)] == .@map_x){
+					//win
+					getitem 512, 1, .@user_id[.@i];
+					.num_win += 1;
+					setarray .winner_name$[.num_win], .@player_name$;
+					break;
+				}
+				else {
+					//copyarray .@dup_array[0], .@dup_array[1 + inarray(.@dup_array[0],.@map_y)], getarraysize(.@dup_array) - inarray(.@dup_array[0],.@map_y) - 1;
+					deletearray .@dup_array[0], 1 + inarray(.@dup_array[0],.@map_y);
+				}
+			}
+			if(.@ii >= min(.@dup_x,.@dup_y)){
+				//manhole
+				specialeffect2 823, AREA, .@player_name$[.@i];
+			}
+		}
+		else if(.@dup_x > .@dup_y ){
+			debugmes "inside 3rd if";
+			if(.sw_x[inarray(.sw_y[0],.@map_y)] == .@map_x){
+				//win
+				getitem 512, 1, .@user_id[.@i];
+				.num_win += 1;
+				setarray .winner_name$[.num_win], .@player_name$;
+			}
+			else {
+				//manhole
+				specialeffect2 822, AREA, .@player_name$[.@i];
+			}
+		}
+		else {
+			debugmes "inside else";
+			if(.sw_y[inarray(.sw_x[0],.@map_x)] == .@map_y){
+				//win
+				getitem 512, 1, .@user_id[.@i];
+				.num_win += 1;
+				setarray .winner_name$[.num_win], .@player_name$;
+			}
+			else {
+				//manhole
+				specialeffect2 823, AREA, .@player_name$[.@i];
+			}
+		}
+	}
+	if(.num_win == 0){
+		mapannounce strnpcinfo(4), "Sadly no winner for round " + .round_counter + " of Manhole Game", bc_map;
+	}
+	else{
+		.@message$ = "List of Player/s won in round "+ .round_counter + " of Manhole Game";
+		.@message$ += "\n[ " + .winner_name$[1] + " ]";
+		for(.@i = 2; .@i < getarraysize(.winner_name$); .@i++){
+			.@message$ += "\t[ " + .winner_name$[.@i] + " ]";
+		}
+		mapannounce strnpcinfo(4), .@message$, bc_map;
+	}
+	sleep 2000;
+	.round_counter += 1;
+	if(.round_counter > 10){
+		mapannounce strnpcinfo(4), "Game Over!!! The Instance Map will close in 30 seconds.", bc_map;
+		setnpctimer 200000;
+		end;
+	}
+	mapannounce strnpcinfo(4), "The Game will reset in 3 seconds!!!", bc_map;
+	sleep 3000;
+	deletearray .winner_name$[0], getarraysize(.winner_name$);
+	.num_win = 0;
+	setnpctimer 121001;
+	setnpctimer 121001,"Manhole Game824";
+	//donpcevent "::OnResetGame";
+	set getvariableofnpc(.safetywall_count,"SAFETYWALL"),0;
+	set getvariableofnpc(.npc_count,"SAFETYWALL"),8;
+	instance_warpall strnpcinfo(4), 25, 25, .ins_id;
+end;
+OnTimer230000:
+	instance_destroy .ins_id;
+end;
+OnInstanceDestroy:
+	deletearray .winner_name$[0], getarraysize(.winner_name$);
+	.num_win = 0;
+	.round_counter = 1;
+	donpcevent "Manhole Game824::OnInstanceEnd";
+end;
+
+}
+
+force_1-1,19,22,4	script	01sw19_22::SAFETYWALL	139,0,0,{
+end;
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	.safetywall_count = 0;
+	//.@npc_name$ = strnpcinfo(1);
+	.npc_count = 8;
+	//getmapxy(.@map$, .@x, .@y, BL_NPC, strnpcinfo(3));
+	//setcell strnpcinfo(4), .@x, .@y, .@x, .@y, cell_npc, 0;
+	hideonnpc;
+end;
+OnTouch:
+	if(.@rand_num == 1){
+		specialeffect EF_GLASSWALL2;
+	}
+end;
+OnSummonSafetyWall:
+	if(.npc_count < 4 && .safetywall_count < 3){
+		.@rand_num = 1;
+	}
+	else {
+		.@rand_num = rand(0,1);
+	}
+	if(.@rand_num == 1 && .safetywall_count < 3){
+		.@ret_xy = getmapxy(.@npc_map$, .@npc_x, .@npc_y, BL_NPC, strnpcinfo(3));
+		if(.@ret_xy != 0){
+			debugmes strnpcinfo(1) + "getmapxy failed!";
+		}
+		debugmes strnpcinfo(1) + " x = " + .@npc_x + "\ty = " + .@npc_y;
+		specialeffect EF_GLASSWALL2;
+		
+		set getvariableofnpc(.sw_x[.safetywall_count],"MH Contoller"), .@npc_x;
+		set getvariableofnpc(.sw_y[.safetywall_count],"MH Contoller"), .@npc_y;
+		.safetywall_count += 1;
+		mapannounce strnpcinfo(4), "x = " + .@npc_x + "\ty = " + .@npc_y, bc_map;
+	}
+	else {
+		//specialeffect EF_GLASSWALL2;
+		//removespecialeffect EF_GLASSWALL2;
+		.@rand_num = 0;
+	}
+	.npc_count -= 1;
+	
+end;
+OnResetGame:
+	.npc_count = 8;
+	.safetywall_count = 0;
+end;
+}
+
+force_1-1,19,29,4	duplicate(SAFETYWALL)	02sw19_29	139,0,0
+force_1-1,22,19,4	duplicate(SAFETYWALL)	03sw22_19	139,0,0
+force_1-1,22,32,4	duplicate(SAFETYWALL)	04sw22_32	139,0,0
+force_1-1,29,19,4	duplicate(SAFETYWALL)	05sw29_19	139,0,0
+force_1-1,29,32,4	duplicate(SAFETYWALL)	06sw29_32	139,0,0
+force_1-1,32,22,4	duplicate(SAFETYWALL)	07sw32_22	139,0,0
+force_1-1,32,29,4	duplicate(SAFETYWALL)	08sw32_29	139,0,0

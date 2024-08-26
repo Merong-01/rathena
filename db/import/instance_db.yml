@@ -267,3 +267,12 @@ Body:
       Y: 180
     AdditionalMaps: 
       06guild_01: true
+  - Id: 136
+    Name: Manhole Game
+    TimeLimit: 1100
+    IdleTimeOut: 300
+#    NoMapFlag: true
+    Enter:
+      Map: force_1-1
+      X: 25
+      Y: 25
