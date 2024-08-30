@@ -180,6 +180,7 @@ OnInstanceInit:
 	//	1832;//	Ifrit
 	setmapflag strnpcinfo(4), mf_noteleport;
 	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	.skipped_mvp = 0;
 	callsub SummonRandomMVP;
 end;
 SummonRandomMVP:
@@ -204,6 +205,12 @@ SummonRandomMVP:
 	deletearray .mvpid[.@random_mvpid], 1;
 end;
 OnMVPQuiled:
+	if(playerattached() == 0){
+		sleep 2000;
+		.skipped_mvp++;
+		callsub SummonRandomMVP;
+		end;
+	}
 	getunitdata killedgid, .@mvp_boss_data;
 	.@current_map$ = strnpcinfo(4);
 	.@player_num = getmapunits(BL_PC, .@current_map$, .@user_id[0]);
@@ -220,7 +227,7 @@ OnMVPQuiled:
 			getitem 985, 1, .@user_id[.@i];
 		}
 	}
-	if(getarraysize(.mvpid) == 20){
+	if(getarraysize(.mvpid) + .skipped_mvp == 20){
 		instance_announce 0, "Congratulations for killing the 10th MVP, receive your reward Brave Warriors", 0, 0x00FFFF, FW_BOLD, 20;
 		for(.@i = 0; .@i < .@player_num; .@i++){
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@user_id[.@i]);
@@ -230,7 +237,7 @@ OnMVPQuiled:
 			getitem 14003, 5, .@user_id[.@i];
 		}
 	}
-	if(getarraysize(.mvpid) == 10){
+	if(getarraysize(.mvpid) + .skipped_mvp == 10){
 		instance_announce 0, "Congratulations for killing the 20th MVP, receive your reward Heroic Warriors", 0, 0x00FFFF, FW_BOLD, 20;
 		for(.@i = 0; .@i < .@player_num; .@i++){
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@user_id[.@i]);
@@ -240,7 +247,7 @@ OnMVPQuiled:
 			getitem 7199, 10, .@user_id[.@i];
 		}
 	}
-	if(getarraysize(.mvpid) == 0){
+	if(getarraysize(.mvpid) == 0 && .skipped_mvp == 0){
 		instance_announce 0, "Congratulations for killing the 30th MVP, receive your reward Legendary Warriors", 0, 0x00FFFF, FW_BOLD, 20;
 		for(.@i = 0; .@i < .@player_num; .@i++){
 			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@user_id[.@i]);

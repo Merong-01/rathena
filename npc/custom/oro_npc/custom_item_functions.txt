@@ -134,6 +134,7 @@ function	script	F_MVPMapTele	{
 	.@mvpname_map$[19] = "Pharaoh - Sphinx F5";
 	.@mvpname_map$[20] = "Turtle General - Turtle Palace";
 	.@mvpname_map$[21] = "Evil Snake Lord - Arcadia";
+	.@mvpname_map$[22] = "Lord of Death - Niflheim";
 
 	.@sel = prompt(implode(.@mvpname_map$, ":"));
 	switch(.@sel){
@@ -159,6 +160,7 @@ function	script	F_MVPMapTele	{
 		case 20: warp "in_sphinx5", 102, 105; end;
 		case 21: warp "tur_dun04", 108, 189; end;
 		case 22: warp "gon_dun03", 63, 17; end;
+		case 23: warp "niflheim", 200, 188; end;
 		default: end;
 	}
 	return;

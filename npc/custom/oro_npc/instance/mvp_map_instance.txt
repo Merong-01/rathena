@@ -2375,7 +2375,7 @@ OnInstanceInit:
 			continue;
 		}
 		else if(.@npc_Name$[.@i] == "Kafra Employee"){
-			//hideonnpc .@npc_Name$[.@i];
+			disablenpc instance_npcname("kaf_niflheim");
 			continue;
 		}
 		else if(.@npc_Name$[.@i] == strnpcinfo(1)){
