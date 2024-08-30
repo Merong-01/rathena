@@ -213,7 +213,12 @@ Body:
     MvpDrops:
       - Item: Coke_Hat
         Rate: 100
-
+  - Id: 1373
+    AegisName: LORD_OF_DEATH
+    Name: Lord of the Dead
+    MvpDrops:
+      - Item: House_Auger
+        Rate: 100
 # eAthena Dev Team
 #=============================================================
 #  - Id: 1900

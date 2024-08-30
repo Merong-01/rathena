@@ -16951,8 +16951,6 @@ Body:
         Rate: 5335
       - Item: Pole_Axe
         Rate: 5
-      - Item: House_Auger
-        Rate: 10
       - Item: Ring_
         Rate: 2
       - Item: Shine_Spear_Blade
@@ -16964,6 +16962,8 @@ Body:
       - Item: Lord_Of_Death_Card
         Rate: 1
         StealProtected: true
+    #  - Item: House_Auger
+    #    Rate: 10
   - Id: 1374
     AegisName: INCUBUS
     Name: Incubus

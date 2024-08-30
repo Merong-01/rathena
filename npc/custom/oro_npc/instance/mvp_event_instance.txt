@@ -158,7 +158,6 @@ OnInstanceInit:
 		1272,//	Dark Lord
 	//	1871,//	Fallen Bishop
 		1039,//	Baphomet
-		1039,//	Baphomet
 		1147,//	Maya
 	//	1785,//	Atroce
 		1389,//	Dracula
@@ -171,7 +170,7 @@ OnInstanceInit:
 	//	1719,//	Datale
 	//	1734,//	Kiel D-01
 		1157,//	Pharaoh
-	//	1373,//	Lord of Death
+		1373,//	Lord of Death
 		1312;//	Turtle General
 	//	1779,//	Ktullanux
 	//	1874,//	Beelzebub

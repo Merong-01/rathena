@@ -1,12 +1,11 @@
 //====== Squid Game Parody 1 =================================
 //============================================================
 //====== Created by Merong of ProjectOvergearedRO ============
-//====== Last update 20240804 ================================
+//====== Last update 20240812 ================================
 -	script	SquidGame1	-1,{
 OnInit:
-	bindatcmd("startglasstilegame",strnpcinfo(0)+"::OnInitGame",99,99);
+	bindatcmd("startglasstilegame",strnpcinfo(0)+"::OnInitGame",10,99);
 end;
-//OnClock2130:
 OnHour21:
 OnInitGame:
 	if(.ins_id > 0){
@@ -76,12 +75,11 @@ OnTimer120000:
 	for(.@i = 0; .@i < getarraysize(.join_char_id); .@i++){
 		if(isloggedin(convertpcinfo(.join_char_id[.@i], CPC_ACCOUNT), .join_char_id[.@i])){
 			instance_enter("Glass Tile", -1, -1, .join_char_id[.@i], .ins_id);
+			getitem 7199, 5, convertpcinfo(.join_char_id[.@i], CPC_ACCOUNT); // hourly coin
 		}
 	}
 	announce "A total of " + getarraysize(.join_char_id) + " players have registered to join the game." +
 		"The Glass Tile Mini Game is Starting, teleporting participants to the Mini Game instance", .target, 0x00FFFF;
-	//sleep 1000;
-	//donpcevent "::OnSGPillarEffect";
 end;
 OnTimer725000:
 	instance_announce .ins_id, "This Instance Map will be Closed in 30 seconds and you all will be teleported out.", bc_map, 0x00FFFF, FW_NORMAL, 20;
@@ -127,35 +125,6 @@ end;
 }
 
 1@tnm1,115,24,3	script	Employee::SGNPC	449,3,4,{
-	//if(strnpcinfo(0) != "Manager" || @glasstile_p != 3){
-	//	end;
-	//}
-	
-	//mes "[ Manager ]";
-	//mes "I did not expect for someone to arrive here actually.";
-	//mes "But I guess you surpass expectations.";
-	//if(.winner_count >= 5){
-	//	mes "Although I am sad to say that only the first 3 players can receive the reward.";
-	//}
-	//else {
-	//	mes "Congratulations! Here is your reward.";
-	//	.winner_count += 1;
-	//	getitem "Egg_Scroll_C", 5;
-	//	switch(.winner_count){
-	//		case 1: .@rankstr$ = "first";
-	//			break;
-	//		case 2: .@rankstr$ = "second";
-	//			break;
-	//		case 3: .@rankstr$ = "third";
-	//			break;
-	//		default: .@rankstr$ = "last";
-	//			break;
-	//	}
-	//	announce "Congratulations to " + strcharinfo(0) + ", you are the " + .@rankstr$ + " player to win for today's Glass Tile Mini Game ", 0x0000FF;
-	//}
-	//close2;
-	//@glasstile_p = 4;
-	//warp "1@tnm1",92,23; //or to "SavePoint"
 end;
 OnTouch:
 	if(getgmlevel()){
@@ -165,9 +134,9 @@ OnTouch:
 		@glasstile_p = 1;
 		if(.etouch < 5){
 			npctalk "Good job for arriving here safely, here are some hourly coins. But this is only the first level, you can receive more hourly coins at next levels.";
-			getitem 7199,3; //Hourly Coin
+			getitem 7199,5; //Hourly Coin
 			.etouch++;
-			announce "Congratulations to player [" + strcharinfo(0) + "]  for passing first level and winning 3 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", 0x0000FF;
+			announce "Congratulations to player [" + strcharinfo(0) + "]  for passing first level and winning 5 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", 0x0000FF;
 		}
 		else {
 			npctalk "Sorry, But I'm out of Hourly Coins. This is only the first level, you can receive more hourly coins at next levels.";
@@ -178,9 +147,9 @@ OnTouch:
 		@glasstile_p = 2;
 		if(.tltouch < 5){
 			npctalk "Impressive! Here are some Horly Coins, There is only the last level left.";
-			getitem 7199,4; //Hourly Coin
+			getitem 7199,8; //Hourly Coin
 			.tltouch++;
-			announce "Congratulations to player [" + strcharinfo(0) + "]  for passing second level and winning 4 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", 0x0000FF;
+			announce "Congratulations to player [" + strcharinfo(0) + "]  for passing second level and winning 8 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", 0x0000FF;
 		}
 		else {
 			npctalk "Sorry, But I'm out of Hourly Coins. There is only the last level left so you better hurry";
@@ -191,11 +160,11 @@ OnTouch:
 		@glasstile_p = 3;
 		if(.mtouch < 5){
 			npctalk "Congratulations! You manage to arrive here safely.";
-			getitem 7199,5; //Hourly Coin
+			getitem 7199,10; //Hourly Coin
 			.mtouch++;
-			announce "Congratulations to player [" + strcharinfo(0) + "]  for reaching the end and winning 5 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", bc_all, 0x00FFFF;
+			announce "Congratulations to player [" + strcharinfo(0) + "]  for reaching the end and winning 10 "+ getitemname(7199) +"s in today's Glass Tile Mini Game ", bc_all, 0x00FFFF;
 			if(.mtouch == 1){
-				detachnpctimer "SquidGame1";
+				//detachnpctimer "SquidGame1";
 				setnpctimer 724999, "SquidGame1";
 			}
 		}
@@ -214,61 +183,34 @@ OnInstanceDestroy:
 end;
 }
 
-1@tnm1,140,24,3	duplicate(SGNPC)	Team Leader	453,3,4
-1@tnm1,157,24,3	duplicate(SGNPC)	Manager	451,3,4
+1@tnm1,141,24,3	duplicate(SGNPC)	Team Leader	453,3,4
+1@tnm1,157,24,3	duplicate(SGNPC)	Manager	451,2,4
 
 1@tnm1,96,20,0	script	01_gc_01#1::GameCell	139,0,0,{
-end;
-OnTouch:
-	donpcevent "::OnSGPillarEffect";
-	if(getgmlevel() > 0 || getgroupid() == 6){
-		end;
-	}
-	
-	if(getd("$@" + strnpcinfo(0) + "flag") == 1){
-		//if(@gtiletrapped){
-			mapannounce "1@tnm1", strcharinfo(0) + ", you stepped on a trap. You're out!", bc_map;
-			percentheal -100,0; //participant eliminated
-			specialeffect2 EF_CRITICALWOUND;
-			//@gtiletrapped = 0;
-			//end;
-		//}
-		//mapannounce "1@tnm1",strcharinfo(0) + ", you stepped on a trap. You will be sent back.",bc_map;
-		//percentheal -99,0;
-		//sc_start SC_CRITICALWOUND, 600000, 5, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF; //to disable heal
-		//sc_start SC_POISON, 600000, 0, 10000, SCSTART_NOAVOID|SCSTART_NOTICKDEF; //to disable natural regen
-		//specialeffect2 EF_CRITICALWOUND;
-		//@gtiletrapped = 1;
-		//warp strnpcinfo(4),92,23;
-		//sleep 200;
-		//donpcevent "::OnSGPillarEffect";
-	}
-	else {
-		specialeffect EF_HAPGYEOK;
-	}
 end;
 OnInit:
 	disablenpc;
 end;
 OnInstanceDestroy:
-	if(checkwall("wall" + strnpcinfo(0))){
-		delwall "wall" + strnpcinfo(0);
+	if(checkwall("wall" + strnpcinfo(1))){
+		delwall "wall" + strnpcinfo(1);
 	}
-	disablenpc;
 end;
 OnInstanceInit:
 	.@npc_name$ = strnpcinfo(1);
 	.@random_num = rand(0,2);
-	getmapxy(.@mapname$,.@mapxkor,.@mapykor,BL_NPC);
 	setd "$@" + strnpcinfo(0) + "flag", 0;
-	.@wallName$ = "wall" + strnpcinfo(3);
-	
-	
+	.@wallName$ = "wall" + strnpcinfo(1);
+	.@ret_xy = getmapxy(.@mapname$, .@mapxkor, .@mapykor, BL_NPC, strnpcinfo(3));
+
+	if(.@ret_xy != 0){
+		debugmes strnpcinfo(1) + "getmapxy failed!";
+	}
 	if(checkwall(.@wallName$)){
 		delwall .@wallName$;
 	}
-	if(!checkcell(strnpcinfo(4), .@mapxkor, .@mapykor, cell_chknpc)){
-		setcell strnpcinfo(4),.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_NPC,1;
+	if(!checkcell(.@mapname$, .@mapxkor, .@mapykor, cell_chknpc)){
+		setcell .@mapname$,.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,CELL_NPC,1;
 	}
 
 	setd ".tileset"+substr(.@npc_name$,0,1)+"_count", getd(".tileset"+substr(.@npc_name$,0,1)+"_count") +1;
@@ -316,7 +258,8 @@ OnInstanceInit:
 		specialeffect EF_GLASSWALL;
 	}
 	else {
-		setwall strnpcinfo(4), .@mapxkor, .@mapykor, 1, 3, 0, .@wallName$;
+		setwall strnpcinfo(4), .@mapxkor, .@mapykor, 1, 0, 1, .@wallName$;
+		//setcell .@mapname$,.@mapxkor,.@mapykor,.@mapxkor,.@mapykor,cell_walkable,0;
 		specialeffect EF_BOTTOM_FOGWALL;
 		setd "$@" + strnpcinfo(0) + "flag", 2;
 	}
@@ -324,57 +267,69 @@ end;
 OnSGPillarEffect:
 	if(getd("$@" + strnpcinfo(0) + "flag") == 1){
 		removespecialeffect EF_GLASSWALL;
-		sleep 50;
 		specialeffect EF_GLASSWALL;
 	}
 	else if(getd("$@" + strnpcinfo(0) + "flag") == 2){
 		removespecialeffect EF_BOTTOM_FOGWALL;
-		sleep 50;
 		specialeffect EF_BOTTOM_FOGWALL;
 	}
 	else {
 		removespecialeffect EF_GLASSWALL;
-		sleep 50;
 		specialeffect EF_GLASSWALL;
+	}
+end;
+OnTouch:
+	donpcevent "::OnSGPillarEffect";
+	if(getgmlevel() > 0 || getgroupid() == 6){
+		end;
+	}
+	
+	if(getd("$@" + strnpcinfo(0) + "flag") == 1){
+		mapannounce strnpcinfo(4), strcharinfo(0) + ", you stepped on a trap. You're out!", bc_map;
+		percentheal -100,0; //participant eliminated
+		specialeffect2 EF_CRITICALWOUND;
+	}
+	else {
+		specialeffect EF_HAPGYEOK;
 	}
 end;
 }
 
-//1@tnm1,96,21,0	duplicate(GameCell)	01_gc_02#2	139,0,0
-//1@tnm1,96,22,0	duplicate(GameCell)	01_gc_03#3	139,0,0
-//1@tnm1,96,23,0	duplicate(GameCell)	01_gc_04#4	139,0,0
-//1@tnm1,96,24,0	duplicate(GameCell)	01_gc_05#5	139,0,0
-//1@tnm1,96,25,0	duplicate(GameCell)	01_gc_06#6	139,0,0
-//1@tnm1,96,26,0	duplicate(GameCell)	01_gc_07#7	139,0,0
-//1@tnm1,96,27,0	duplicate(GameCell)	01_gc_08#8	139,0,0
+1@tnm1,96,21,0	duplicate(GameCell)	01_gc_02#2	139,0,0
+1@tnm1,96,22,0	duplicate(GameCell)	01_gc_03#3	139,0,0
+1@tnm1,96,23,0	duplicate(GameCell)	01_gc_04#4	139,0,0
+1@tnm1,96,24,0	duplicate(GameCell)	01_gc_05#5	139,0,0
+1@tnm1,96,25,0	duplicate(GameCell)	01_gc_06#6	139,0,0
+1@tnm1,96,26,0	duplicate(GameCell)	01_gc_07#7	139,0,0
+1@tnm1,96,27,0	duplicate(GameCell)	01_gc_08#8	139,0,0
 
-//1@tnm1,99,20,0	duplicate(GameCell)	02_gc_01#1	139,0,0
-//1@tnm1,99,21,0	duplicate(GameCell)	02_gc_02#2	139,0,0
-//1@tnm1,99,22,0	duplicate(GameCell)	02_gc_03#3	139,0,0
-//1@tnm1,99,23,0	duplicate(GameCell)	02_gc_04#4	139,0,0
-//1@tnm1,99,24,0	duplicate(GameCell)	02_gc_05#5	139,0,0
-//1@tnm1,99,25,0	duplicate(GameCell)	02_gc_06#6	139,0,0
-//1@tnm1,99,26,0	duplicate(GameCell)	02_gc_07#7	139,0,0
-//1@tnm1,99,27,0	duplicate(GameCell)	02_gc_08#8	139,0,0
+1@tnm1,99,20,0	duplicate(GameCell)	02_gc_01#1	139,0,0
+1@tnm1,99,21,0	duplicate(GameCell)	02_gc_02#2	139,0,0
+1@tnm1,99,22,0	duplicate(GameCell)	02_gc_03#3	139,0,0
+1@tnm1,99,23,0	duplicate(GameCell)	02_gc_04#4	139,0,0
+1@tnm1,99,24,0	duplicate(GameCell)	02_gc_05#5	139,0,0
+1@tnm1,99,25,0	duplicate(GameCell)	02_gc_06#6	139,0,0
+1@tnm1,99,26,0	duplicate(GameCell)	02_gc_07#7	139,0,0
+1@tnm1,99,27,0	duplicate(GameCell)	02_gc_08#8	139,0,0
 
-//1@tnm1,102,20,0	duplicate(GameCell)	03_gc_01#1	139,0,0
-//1@tnm1,102,21,0	duplicate(GameCell)	03_gc_02#2	139,0,0
-//1@tnm1,102,22,0	duplicate(GameCell)	03_gc_03#3	139,0,0
-//1@tnm1,102,23,0	duplicate(GameCell)	03_gc_04#4	139,0,0
-//1@tnm1,102,24,0	duplicate(GameCell)	03_gc_05#5	139,0,0
-//1@tnm1,102,25,0	duplicate(GameCell)	03_gc_06#6	139,0,0
-//1@tnm1,102,26,0	duplicate(GameCell)	03_gc_07#7	139,0,0
-//1@tnm1,102,27,0	duplicate(GameCell)	03_gc_08#8	139,0,0
+1@tnm1,102,20,0	duplicate(GameCell)	03_gc_01#1	139,0,0
+1@tnm1,102,21,0	duplicate(GameCell)	03_gc_02#2	139,0,0
+1@tnm1,102,22,0	duplicate(GameCell)	03_gc_03#3	139,0,0
+1@tnm1,102,23,0	duplicate(GameCell)	03_gc_04#4	139,0,0
+1@tnm1,102,24,0	duplicate(GameCell)	03_gc_05#5	139,0,0
+1@tnm1,102,25,0	duplicate(GameCell)	03_gc_06#6	139,0,0
+1@tnm1,102,26,0	duplicate(GameCell)	03_gc_07#7	139,0,0
+1@tnm1,102,27,0	duplicate(GameCell)	03_gc_08#8	139,0,0
 
-//1@tnm1,105,20,0	duplicate(GameCell)	04_gc_01#1	139,0,0
-//1@tnm1,105,21,0	duplicate(GameCell)	04_gc_02#2	139,0,0
-//1@tnm1,105,22,0	duplicate(GameCell)	04_gc_03#3	139,0,0
-//1@tnm1,105,23,0	duplicate(GameCell)	04_gc_04#4	139,0,0
-//1@tnm1,105,24,0	duplicate(GameCell)	04_gc_05#5	139,0,0
-//1@tnm1,105,25,0	duplicate(GameCell)	04_gc_06#6	139,0,0
-//1@tnm1,105,26,0	duplicate(GameCell)	04_gc_07#7	139,0,0
-//1@tnm1,105,27,0	duplicate(GameCell)	04_gc_08#8	139,0,0
-/*
+1@tnm1,105,20,0	duplicate(GameCell)	04_gc_01#1	139,0,0
+1@tnm1,105,21,0	duplicate(GameCell)	04_gc_02#2	139,0,0
+1@tnm1,105,22,0	duplicate(GameCell)	04_gc_03#3	139,0,0
+1@tnm1,105,23,0	duplicate(GameCell)	04_gc_04#4	139,0,0
+1@tnm1,105,24,0	duplicate(GameCell)	04_gc_05#5	139,0,0
+1@tnm1,105,25,0	duplicate(GameCell)	04_gc_06#6	139,0,0
+1@tnm1,105,26,0	duplicate(GameCell)	04_gc_07#7	139,0,0
+1@tnm1,105,27,0	duplicate(GameCell)	04_gc_08#8	139,0,0
+
 1@tnm1,108,20,0	duplicate(GameCell)	05_gc_01#1	139,0,0
 1@tnm1,108,21,0	duplicate(GameCell)	05_gc_02#2	139,0,0
 1@tnm1,108,22,0	duplicate(GameCell)	05_gc_03#3	139,0,0
@@ -482,7 +437,7 @@ end;
 1@tnm1,153,25,0	duplicate(GameCell)	16_gc_06#6	139,0,0
 1@tnm1,153,26,0	duplicate(GameCell)	16_gc_07#7	139,0,0
 1@tnm1,153,27,0	duplicate(GameCell)	16_gc_08#8	139,0,0
-*/
+
 
 1@tnm1,90,20,0	script	Squid Game Controller	-1,{
 OnInit:
@@ -501,8 +456,7 @@ OnTimer122000:
 	donpcevent "::OnSGPillarEffect";
 end;
 OnTimer123000:
-	//donpcevent "::OnSGPillarEffect";
-	instance_announce 0, "Reach the other end of the map within 10 minutes, the first 5 players to pass each level will receive 3/4/5" + getitemname(7199), 0;
+	instance_announce 0, "Reach the other end of the map within 10 minutes, the first 5 players to pass each level will receive 5/8/10" + getitemname(7199), 0;
 end;
 OnTimer213000:
 	instance_announce 0, "1 minute and 30 seconds has passed, summoning monsters to encourage everyone", 0;
