@@ -276,3 +276,11 @@ Body:
       Map: force_1-1
       X: 25
       Y: 25
+  - Id: 137
+    Name: MVP 1373
+    TimeLimit: 10800
+    IdleTimeOut: 300
+    Enter:
+      Map: niflheim
+      X: 194
+      Y: 185

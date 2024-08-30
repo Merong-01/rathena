@@ -183,7 +183,8 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 		1389,//	Dracula
 		1511,//	Amon Ra
 		1157,//	Pharaoh
-		1312;//	Turtle General
+		1312,//	Turtle General
+		1373;// Lord of Death
 	setarray .@mvp_mapname$[1],
 		"prt_sewb4",
 		"pay_fild11",
@@ -206,7 +207,8 @@ prt_sewb4,95,94,3	script	MVP Scholar#1::MVPS	4_M_ZONDAOYAJI,{
 		"gef_dun01",
 		"moc_pryd06",
 		"in_sphinx5",
-		"tur_dun04";
+		"tur_dun04",
+		"niflheim";
 	
 	.npc_mapname$ = strnpcinfo(4);
 	for(.@i = 1; .@i <= getarraysize(.@mvp_mapname$); .@i++){
@@ -374,6 +376,7 @@ gef_dun01,125,244,4	duplicate(MVPS)	MVP Scholar#19	4_M_ZONDAOYAJI
 moc_pryd06,192,15,4	duplicate(MVPS)	MVP Scholar#20	4_M_ZONDAOYAJI
 in_sphinx5,103,105,4	duplicate(MVPS)	MVP Scholar#21	4_M_ZONDAOYAJI
 tur_dun04,109,189,3	duplicate(MVPS)	MVP Scholar#22	4_M_ZONDAOYAJI
+niflheim,201,188,3	duplicate(MVPS)	MVP Scholar#23	4_M_ZONDAOYAJI
 
 prt_sewb4,100,93,0	script	mvp gtb spawner1	-1,2,2,{
 OnInit:
@@ -2288,6 +2291,237 @@ OnInstanceInit:
 	areamonster strnpcinfo(4), 80, 73, 120, 113, "--en--", "ASSULTER", 10;
 	areamonster strnpcinfo(4), 80, 73, 120, 113, "--en--", "HEATER", 3;
 	areamonster strnpcinfo(4), 80, 73, 120, 113, "--en--", "FREEZER", 5;
+end;
+OnMVPQuiled:
+	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
+		setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD;
+		.@num = rand(1,100);
+		if(.@num <= 60){
+			getitem 30022, 1;
+		}
+		else if(.@num > 60 && .@num <= 90){
+			getitem 30023, 1;
+		}
+		else { // .@num > 90 && .@num <= 100
+			getitem 30024, 1;
+		}
+	}
+	else {
+		getunitdata killedgid, .@dun_boss_data;
+		getpartymember getcharid(1), 1, .@party_mem_char_id;
+		getpartymember getcharid(1), 2, .@party_mem_acc_id;
+		for(.@i = 0; .@i < getarraysize(.@party_mem_acc_id); .@i++){
+			if(isloggedin(.@party_mem_acc_id[.@i], .@party_mem_char_id[.@i]) == 0){
+				continue;
+			}
+			if(isdead(.@party_mem_acc_id[.@i]) == true){
+				continue;
+			}
+			getmapxy(.@mapName$, .@map_x, .@map_y, BL_PC, .@party_mem_acc_id[.@i]);
+			if(.@mapName$ != strnpcinfo(4) || distance(.@map_x, .@map_y, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y]) > 20){
+				continue;
+			}
+			setd setchar(instance_live_info(ILI_NAME), "_", 3) + "_CD", $MVP_MAP_INS_CD, .@party_mem_char_id[.@i];
+			.@num = rand(1,100);
+			if(.@num <= 60){
+				getitem 30022, 1, .@party_mem_acc_id[.@i];
+			}
+			else if(.@num > 60 && .@num <= 90){
+				getitem 30023, 1, .@party_mem_acc_id[.@i];
+			}
+			else { // .@num > 90 && .@num <= 100
+				getitem 30024, 1, .@party_mem_acc_id[.@i];
+			}
+		}
+	}
+
+	sleep 6000;
+	instance_announce 0, "The Instance Dungeon will be Closed in 2 minutes and you all will be teleported out.", 0, 0x00FFFF, FW_BOLD, 20;
+	sleep 120000;
+	instance_destroy;
+end;
+OnTouch_:
+	.@mobGID = 'mvp_summon_id; //$@mobid[0];
+	getunitdata .@mobGID, .@dun_boss_data;
+	viewpointmap strnpcinfo(4), 1, .@dun_boss_data[UMOB_X], .@dun_boss_data[UMOB_Y], 1, 0xFF0000;
+end;
+}
+
+//Lord of Death
+niflheim,193,186,0	script	mvp lod spawner1	-1,2,2,{
+OnInit:
+	disablenpc;
+end;
+OnInstanceInit:
+	if(instance_live_info(ILI_NAME) != "MVP 1373"){
+		disablenpc;
+		end;
+	}
+	
+	setmapflag strnpcinfo(4), mf_monster_noteleport;
+	setmapflag strnpcinfo(4), mf_partylock;
+	setmapflag strnpcinfo(4), mf_restricted, 3;
+	disablenpc instance_npcname("nwarp10");
+	disablenpc instance_npcname("nwarp11");
+	disablenpc instance_npcname("nwarp13");
+	disablenpc instance_npcname("nwarp19a");
+	disablenpc instance_npcname("nwarp21a");
+	disablenpc instance_npcname("nwarp15");
+	disablenpc instance_npcname("nwarp19");
+	
+	.@npc_num = getmapunits(bl_npc, strnpcinfo(4), .@npc_Name$[0]);
+	for(.@i = 0; .@i < .@npc_num; .@i++){
+		if(.@npc_Name$[.@i] == "") {
+			continue;
+		}
+		else if(.@npc_Name$[.@i] == "Kafra Employee"){
+			//hideonnpc .@npc_Name$[.@i];
+			continue;
+		}
+		else if(.@npc_Name$[.@i] == strnpcinfo(1)){
+			continue;
+		}
+		else {
+			disablenpc instance_npcname(.@npc_Name$[.@i]);
+		}
+	}
+	
+	
+	switch(rand(0,6))
+	{
+
+	case 0:
+		monster strnpcinfo(4),327,193,"Instance Lord Of Death",1373,1,instance_npcname("mvp lod spawner1") + "::OnMVPQuiled";
+		'mvp_summon_id = $@mobid[0];
+		monster strnpcinfo(4),330,193,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),324,193,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),327,196,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),327,190,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),324,190,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),330,190,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),324,196,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),330,196,"Loli Ruri",1505,1;
+	break;
+
+	case 1:
+		monster strnpcinfo(4),337,252,"Instance Lord Of Death",1373,1,instance_npcname("mvp lod spawner1") + "::OnMVPQuiled";
+		'mvp_summon_id = $@mobid[0];
+		monster strnpcinfo(4),337,255,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),337,249,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),334,252,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),340,252,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),334,249,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),340,255,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),340,249,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),334,255,"Loli Ruri",1505,1;
+	break;
+
+	case 2:
+		monster strnpcinfo(4),190,185,"Instance Lord Of Death",1373,1,instance_npcname("mvp lod spawner1") + "::OnMVPQuiled";
+		'mvp_summon_id = $@mobid[0];
+		monster strnpcinfo(4),190,188,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),190,182,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),193,185,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),187,185,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),187,182,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),193,182,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),193,188,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),187,188,"Loli Ruri",1505,1;
+	break;
+
+	case 3:
+		monster strnpcinfo(4),131,138,"Instance Lord Of Death",1373,1,instance_npcname("mvp lod spawner1") + "::OnMVPQuiled";
+		'mvp_summon_id = $@mobid[0];
+		monster strnpcinfo(4),131,141,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),131,135,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),128,138,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),134,138,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),134,141,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),128,141,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),134,135,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),128,135,"Loli Ruri",1505,1;
+	break;
+
+	case 4:
+		monster strnpcinfo(4),311,64,"Instance Lord Of Death",1373,1,instance_npcname("mvp lod spawner1") + "::OnMVPQuiled";
+		'mvp_summon_id = $@mobid[0];
+		monster strnpcinfo(4),311,67,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),311,61,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),308,64,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),314,64,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),314,61,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),314,67,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),308,67,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),308,61,"Loli Ruri",1505,1;
+	break;
+
+	case 5:
+		monster strnpcinfo(4),238,131,"Instance Lord Of Death",1373,1,instance_npcname("mvp lod spawner1") + "::OnMVPQuiled";
+		'mvp_summon_id = $@mobid[0];
+		monster strnpcinfo(4),238,134,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),238,128,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),235,131,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),241,131,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),235,128,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),235,134,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),241,128,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),241,134,"Loli Ruri",1505,1;
+	break;
+
+	case 6:
+		monster strnpcinfo(4),86,219,"Instance Lord Of Death",1373,1,instance_npcname("mvp lod spawner1") + "::OnMVPQuiled";
+		'mvp_summon_id = $@mobid[0];
+		monster strnpcinfo(4),86,222,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),86,216,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),89,219,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),83,219,"Bloody Murderer",1507,1;
+		monster strnpcinfo(4),89,222,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),89,216,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),83,222,"Loli Ruri",1505,1;
+		monster strnpcinfo(4),83,216,"Loli Ruri",1505,1;
+	break;
+
+	}
+	
+	monster strnpcinfo(4),0 , 0, "--en--", 1504, 5;
+	monster strnpcinfo(4),0 , 0, "--en--", 1503, 12;
+	monster strnpcinfo(4),0 , 0, "--en--", 1510, 10;
+	monster strnpcinfo(4),0 , 0, "--en--", 1508, 20;
+	monster strnpcinfo(4),0 , 0, "--en--", 1509, 20;
+	
+	monster strnpcinfo(4),154,95,"Disguise",1506,1;
+	monster strnpcinfo(4),115,65,"Disguise",1506,1;
+	monster strnpcinfo(4),330,195,"Disguise",1506,1;
+	monster strnpcinfo(4),151,83,"Disguise",1506,1;
+	monster strnpcinfo(4),285,245,"Disguise",1506,1;
+	monster strnpcinfo(4),235,135,"Disguise",1506,1;
+	monster strnpcinfo(4),265,48,"Disguise",1506,1;
+	monster strnpcinfo(4),186,139,"Disguise",1506,1;
+	monster strnpcinfo(4),166,267,"Disguise",1506,1;
+	monster strnpcinfo(4),82,202,"Disguise",1506,1;
+	monster strnpcinfo(4),219,44,"Disguise",1506,1;
+	monster strnpcinfo(4),287,44,"Disguise",1506,1;
+	monster strnpcinfo(4),275,165,"Disguise",1506,1;
+	monster strnpcinfo(4),138,204,"Disguise",1506,1;
+	monster strnpcinfo(4),299,39,"Disguise",1506,1;
+	monster strnpcinfo(4),31,154,"Disguise",1506,1;
+	monster strnpcinfo(4),154,96,"Dullahan",1504,1;
+	monster strnpcinfo(4),116,65,"Dullahan",1504,1;
+	monster strnpcinfo(4),151,84,"Dullahan",1504,1;
+	monster strnpcinfo(4),286,245,"Dullahan",1504,1;
+	monster strnpcinfo(4),330,196,"Dullahan",1504,1;
+	monster strnpcinfo(4),236,135,"Dullahan",1504,1;
+	monster strnpcinfo(4),165,49,"Dullahan",1504,1;
+	monster strnpcinfo(4),167,267,"Dullahan",1504,1;
+	monster strnpcinfo(4),82,203,"Dullahan",1504,1;
+	monster strnpcinfo(4),220,44,"Dullahan",1504,1;
+	monster strnpcinfo(4),287,45,"Dullahan",1504,1;
+	monster strnpcinfo(4),287,44,"Dullahan",1504,1;
+	monster strnpcinfo(4),276,166,"Dullahan",1504,1;
+	monster strnpcinfo(4),139,205,"Dullahan",1504,1;
+	monster strnpcinfo(4),300,39,"Dullahan",1504,1;
+	monster strnpcinfo(4),31,155,"Dullahan",1504,1;
+			
 end;
 OnMVPQuiled:
 	if(getcharid(1) == 0){ // party id is 0, of the player who killed the mvp
