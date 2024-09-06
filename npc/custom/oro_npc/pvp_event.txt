@@ -1,0 +1,437 @@
+//====== PVP Event Script ====================================
+//============================================================
+-	script	PVP Event Manager	-1,{
+end;
+OnInit:
+	bindatcmd("pvpeventmanager", strnpcinfo(0) + "::OnPVPEventManager", 10, 99);
+end;
+OnPVPEventManager:
+	.@npcName$ = "PVP Event Manager";
+
+	if(.pvp_event_status > 0){
+		callsub PVPEventProcess;
+		end;
+	}
+
+	do {
+		mes .@npcName$;
+		mes "Welcome! This is PVP Event Manager";
+		next;
+
+		.@sel = select("Set PVP Options:Add PVP Participant:Summon Participants:Start the PVP Event:Cancel");
+		switch(.@sel){
+			case 1: callsub PVPEventOptions;
+				break;
+			case 2: callsub AddPVPParticipant;
+				break;
+			case 3: callsub SummonParticipants; .@ret = 1;
+				break;
+			case 4: callsub StartPVPEvent;
+				break;
+			default:
+				mes .@npcName$;
+				mes "PVP Event Manager is now closing!";
+				.@ret = 1;
+				break;
+		}
+	}while(.@ret == 0);
+end;
+PVPEventOptions:
+	.@npcName$ = "PVP Event Manager";
+
+	mes .@npcName$;
+	mes "Please select the type of PVP Event you want to start:";
+	next;
+
+	.event_type = select("1vs1:2vs2:3vs3");
+
+	if(.event_type == 1){
+		.allow_dup_class = 1;
+	}
+	else {
+		mes .@npcName$;
+		mes "Are duplicate class allowed in a team?";
+		next;
+
+		.allow_dup_class = select("No:Yes");
+	}
+
+	mes .@npcName$;
+	mes "Are there restrictions on Marc/Evil Druid Card?";
+	next;
+
+	.marcevildruid_flag = select("None:Restrict Marc Card and Evil Druid Card:Restrict Evil Druid Card Only");
+
+	mes .@npcName$;
+	mes "PVP Event Options are now set!";
+	next;
+
+	if(.event_type < 2 && getarraysize(.char_participants$) > 0){
+		mes .@npcName$;
+		mes "The list of player participants is currently not empty.";
+		mes "Do you want to clear the list of player participants?";
+		next;
+
+		select("Yes, clear the list!:No, leave the list as it is.");
+		if(@menu == 1){
+			deletearray .char_participants$[0], getarraysize(.char_participants$);
+			deletearray .pt_id_participants[0], getarraysize(.pt_id_participants);
+			mes .@npcName$;
+			mes "The list of player participants is now cleared!";
+			next;
+		}
+		else {
+			mes .@npcName$;
+			mes "The list of player participants is not changed.";
+			next;
+		}
+	}
+	else if(.event_type > 1 && getarraysize(.pt_id_participants) > 0){
+		mes .@npcName$;
+		mes "The list of party participants is currently not empty.";
+		mes "Do you want to clear the list of party participants?";
+		next;
+
+		select("Yes, clear the list!:No, leave the list as it is.");
+		if(@menu == 1){
+			deletearray .char_participants$[0], getarraysize(.char_participants$);
+			deletearray .pt_id_participants[0], getarraysize(.pt_id_participants);
+			mes .@npcName$;
+			mes "The list of party participants is now cleared!";
+			next;
+		}
+		else {
+			mes .@npcName$;
+			mes "The list of party participants is not changed.";
+			next;
+		}
+	}
+return;
+AddPVPParticipant:
+	.@npcName$ = "PVP Event Manager";
+
+	if(.event_type < 2){
+		mes .@npcName$;
+		mes "Enter the player name of the participant:";
+		next;
+		input(.@charname$);
+		.@ret = query_sql("select account_id from ragnaserver.char where (name = '" + .@charname$ + "')", .@account_id);
+		if(.@ret == 1){
+			.@num = getarraysize(.char_participants$);
+			.char_participants$[.@num] = .@charname$;
+			mes .@npcName$;
+			mes "Player " + .@charname$ + " is now added to the list of participants";
+			next;
+		}
+		else {
+			mes .@npcName$;
+			mes "Can't find Player " + .@charname$;
+			mes "Please check if you had entered the correct player name.";
+			next;
+		}
+	}
+	else {
+		mes .@npcName$;
+		mes "Enter the party name of the participants:";
+		next;
+		input(.@partyname$);
+		.@ret = query_sql("select party_id from ragnaserver.party where (name = '" + .@partyname$ + "')", .@partyID);
+		if(.@ret == 1){
+			getpartymember .@partyID;
+			if((.event_type == 2 && $@partymembercount == 2) || (.event_type == 3 && $@partymembercount == 3)){
+				.@num = getarraysize(.pt_id_participants);
+				.pt_id_participants[.@num] = .@partyID;
+				mes .@npcName$;
+				mes "Party " + .@partyname$ + " is now added to the list of participants";
+				next;
+			}
+			else {
+				mes .@npcName$;
+				mes "Party member count of party " + .@partyname$ + " is not valid!";
+				next;
+			}
+		}
+		else {
+			mes .@npcName$;
+			mes "Can't find Party " + .@partyname$;
+			mes "Please check if you had entered the correct party name.";
+			next;
+		}
+	}
+return;
+SummonParticipants:
+	//if(strcharinfo(3) != "1@ge_st"){
+		warp "1@ge_st", 110, 50;
+	//}
+	if(.event_type < 2){
+		for(.@i = 0; .@i < getarraysize(.char_participants$); .@i++){
+			warp "1@ge_st", rand(107, 113), rand(47, 53), convertpcinfo(.char_participants$[.@i], CPC_CHAR);
+		}
+	}
+	else {
+		for(.@i = 0; .@i < getarraysize(.pt_id_participants); .@i++){
+			warpparty "1@ge_st", rand(107, 113), rand(47, 53), .pt_id_participants[.@i];
+		}
+	}
+return;
+StartPVPEvent:
+	.@npcName$ = "PVP Event Manager";
+
+	if(.event_type < 2 && getarraysize(.char_participants$) < 2){
+		mes .@npcName$;
+		mes "Not enough player participants is on the list.";
+		next;
+	}
+	else if(.event_type > 1 && getarraysize(.pt_id_participants) < 2){
+		mes .@npcName$;
+		mes "Not enough party participants is on the list.";
+		next;
+	}
+	else {
+		.pvp_event_status = 1;
+		.roundnum = 1;
+		.matchnum = 1;
+		callsub PVPEventProcess;
+	}
+return;
+PVPEventProcess:
+	.@npcName$ = "PVP Event Manager";
+
+	switch(.pvp_event_status){
+		case 1:
+			mes .@npcName$;
+			mes "Select combatants for Round " + .roundnum + " - Match " + .matchnum;
+			next;
+			if(.event_type < 2){
+				.@sel = select(implode(.char_participants$, ":"));
+				.left_team = convertpcinfo(.char_participants$[.@sel-1], CPC_CHAR);
+				mes .@npcName$;
+				mes "Select combatants for Round " + .roundnum + " - Match " + .matchnum;
+				mes "^0000FF" + .char_participants$[.@sel-1] + "^000000 ^FF0000VS^000000 ";
+				next;
+				copyarray .@participants$[0], .char_participants$[0], getarraysize(.char_participants$);
+				deletearray .@participants$[.@sel-1], 1;
+				.@sel2 = select(implode(.@participants$, ":"));
+				.right_team = convertpcinfo(.@participants$[.@sel2-1], CPC_CHAR);
+				mes .@npcName$;
+				mes "Select combatants for Round " + .roundnum + " - Match " + .matchnum;
+				mes "^0000FF" + .char_participants$[.@sel-1] + "^000000 ^FF0000VS^000000 ^0000FF" + .@participants$[.@sel2-1] + "^000000";
+				next;
+				.pvp_event_status = 2;
+				callsub PVPEventProcess;
+			}
+			else if(.event_type > 1){
+				.@selStr$ = "";
+				for(.@i = 0; .@i < getarraysize(.pt_id_participants); .@i++){
+					.@selStr$ += getpartyname(.pt_id_participants[.@i]) + ":";
+				}
+				.@sel = select(.@selStr$ + "Cancel");
+				.left_team = .pt_id_participants[.sel - 1];
+				mes .@npcName$;
+				mes "Select combatants for Round " + .roundnum + " - Match " + .matchnum;
+				mes "^0000FF" + getpartyname(.left_team) + "^000000 ^FF0000VS^000000 ";
+				next;
+				copyarray .@partylist[0], .pt_id_participants[0], getarraysize(.pt_id_participants);
+				deletearray .@partylist[.@sel - 1], 1;
+				.@selStr$ = "";
+				for(.@i = 0; .@i < getarraysize(.@partylist); .@i++){
+					.@selStr$ += getpartyname(.@partylist[.@i]) + ":";
+				}
+				.@sel2 = select(.@selStr$ + "Cancel");
+				.right_team = .@partylist[.sel2 - 1];
+				mes .@npcName$;
+				mes "Select combatants for Round " + .roundnum + " - Match " + .matchnum;
+				mes "^0000FF" + getpartyname(.left_team) + "^000000 ^FF0000VS^000000 ^0000FF" + getpartyname(.right_team) + "^000000";
+				next;
+				.pvp_event_status = 2;
+				callsub PVPEventProcess;
+			}
+			break;
+		case 2:
+			mes .@npcName$;
+			mes "Prepare for Round " + .roundnum + " - Match " + .matchnum;
+			mes "(Summon participants to their sides)";
+			next;
+			select("Yes:No");
+			if(@menu == 1){
+				if(.event_type < 2){
+					warp "1@ge_st", 89, 48, .left_team;
+					warp "1@ge_st", 129, 48, .right_team;
+					sleep2 500;
+					announce "Round " + .roundnum + " - Match " + .matchnum + 
+						"\nPlayer " + convertpcinfo(.left_team, CPC_NAME) + 
+						" VS Player " + convertpcinfo(.right_team, CPC_NAME), 
+						BC_ALL, 0x00FFFF, FW_NORMAL, 20;
+				}
+				else {
+					warpparty "1@ge_st", 89, 48, .left_team;
+					warpparty "1@ge_st", 129, 48, .right_team;
+					sleep2 500;
+					announce "Round " + .roundnum + " - Match " + .matchnum + 
+						"\nParty " + getpartyname(.left_team) + 
+						" VS Party " + getpartyname(.right_team), 
+						BC_ALL, 0x00FFFF, FW_NORMAL, 20;
+				}
+				.matchnum++;
+				.pvp_event_status = 3;
+				.left_team_ready = 0;
+				.right_team_ready = 0;
+				
+			}
+			else {
+				mes .@npcName$;
+				mes "PVP Event Manager is now closing!";
+				mes "Open PVP Event Manager again to continue.";
+				close2;
+			}
+			break;
+		case 3:
+			mes .@npcName$;
+			mes "PVP Event Combatants are now preparing...";
+			close2;
+			break;
+		case 4: // @battlestart ??
+			.pvp_event_status = 5;
+			donpcevent "PvP Battle::OnBattleStart";
+			break;
+		case 5:
+			mes .@npcName$;
+			mes "Select the winning combatant:";
+			next;
+			if(.event_type < 2){
+				select(convertpcinfo(.left_team, CPC_NAME) + ":" + convertpcinfo(.right_team, CPC_NAME));
+				if(@menu == 1){
+					announce "Player " + convertpcinfo(.left_team, CPC_NAME) + " won this match.", BC_ALL, 0x00FFFF, FW_NORMAL, 20;
+				}
+				else {
+					announce "Player " + convertpcinfo(.right_team, CPC_NAME) + " won this match.", BC_ALL, 0x00FFFF, FW_NORMAL, 20;
+				}
+			}
+			else {
+				select(getpartyname(.left_team) + ":" + getpartyname(.right_team));
+				if(@menu == 1){
+					announce "Party " + convertpcinfo(.left_team, CPC_NAME) + " won this match.", BC_ALL, 0x00FFFF, FW_NORMAL, 20;
+				}
+				else {
+					announce "Party " + convertpcinfo(.right_team, CPC_NAME) + " won this match.", BC_ALL, 0x00FFFF, FW_NORMAL, 20;
+				}
+			}
+			mes .@npcName$;
+			mes "Proceed to next match?";
+			next;
+			select("Yes:No");
+			if(@menu == 1){
+				.pvp_event_status = 1;
+				callsub PVPEventProcess;
+			}
+			else {
+				mes .@npcName$;
+				mes "PVP Event Manager is now closing!";
+				mes "Open PVP Event Manager again to continue.";
+				close2;
+			}
+			donpcevent "PvP Battle::OnBattleEnd";
+			break;
+	}
+return;
+OnLeftTeamReady:
+	.left_team_ready++;
+	callsub ParticipantReady;
+end;
+OnRightTeamReady:
+	.right_team_ready++;
+	callsub ParticipantReady;
+end;
+ParticipantReady:
+	if(.event_type > 1){
+		getpartymember .@partyID;
+		if(.left_team_ready == $@partymembercount && .right_team_ready == $@partymembercount){
+			.pvp_event_status = 4;
+			// add check for duplicate class setting
+			callsub PVPEventProcess;
+		}
+	}
+	else if(.event_type < 2 && .left_team_ready == 1 && right_team_ready == 1){
+		.pvp_event_status = 4;
+		callsub PVPEventProcess;
+	}
+return;
+}
+
+1@ge_st, 89, 47, 3	script	PVPEvent Leftside	139, 1, 1,{
+end;
+OnTouch:
+	if(getvariableofnpc(.pvp_event_status, "PVP Event Manager") != 3){
+		end;
+	}
+	if(.timer_flag == 0){
+		initnpctimer;
+		.timer_flag = 1;
+	}
+	//if(@despell == 0){
+	//	npcskill "SA_DISPELL", 5, 99, 99;
+	//	npcskill "AB_CLEARANCE", 5, 99, 99;
+	//	@despell = 1;
+	//}
+	mes "PVP Event Manager";
+	mes "Are you ready to start the battle?";
+	next;
+	prompt("Ready");
+	if(@menu == 1 && .ready_flag == 0){
+		//set getvariableofnpc(.left_team_ready, "PVP Event Manager"), getvariableofnpc(.left_team_ready, "PVP Event Manager") + 1;
+		.ready_flag = 1;
+		npcskill "SA_DISPELL", 5, 99, 99;
+		npcskill "AB_CLEARANCE", 5, 99, 99;
+		donpcevent "PVP Event Manager::OnLeftTeamReady";
+	}
+end;
+OnTimer60000:
+	if(.ready_flag == 0){
+		donpcevent "PVP Event Manager::OnLeftTeamReady";
+		.ready_flag = 1;
+	}
+end;
+OnTimer65000:
+	stopnpctimer;
+	.ready_flag = 0;
+end;
+}
+
+1@ge_st, 129, 47, 3	script	PVPEvent Rightside	139,1,1,{
+end;
+OnTouch:
+	if(getvariableofnpc(.pvp_event_status, "PVP Event Manager") != 3){
+		end;
+	}
+	if(.timer_flag == 0){
+		initnpctimer;
+		.timer_flag = 1;
+	}
+	//if(@despell == 0){
+	//	npcskill "SA_DISPELL", 5, 99, 99;
+	//	npcskill "AB_CLEARANCE", 5, 99, 99;
+	//	@despell = 1;
+	//}
+	mes "PVP Event Manager";
+	mes "Are you ready to start the battle?";
+	next;
+	prompt("Ready");
+	if(@menu == 1 && .ready_flag == 0){
+		//set getvariableofnpc(.right_team_ready, "PVP Event Manager"), getvariableofnpc(.right_team_ready, "PVP Event Manager") + 1;
+		.ready_flag = 1;
+		npcskill "SA_DISPELL", 5, 99, 99;
+		npcskill "AB_CLEARANCE", 5, 99, 99;
+		donpcevent "PVP Event Manager::OnRightTeamReady";
+	}
+end;
+OnTimer60000:
+	if(.ready_flag == 0){
+		donpcevent "PVP Event Manager::OnRightTeamReady";
+		.ready_flag = 1;
+	}
+end;
+OnTimer65000:
+	stopnpctimer;
+	.ready_flag = 0;
+end;
+}
