@@ -165,7 +165,12 @@ SummonParticipants:
 	//}
 	if(.event_type < 2){
 		for(.@i = 0; .@i < getarraysize(.char_participants$); .@i++){
-			warp "1@ge_st", rand(107, 113), rand(47, 53), convertpcinfo(.char_participants$[.@i], CPC_CHAR);
+			if(convertpcinfo(.char_participants$[.@i], CPC_CHAR) == 0){
+				message strcharinfo(0), "Player " + .char_participants$[.@i] + " is not online.";
+			}
+			else {
+				warp "1@ge_st", rand(107, 113), rand(47, 53), convertpcinfo(.char_participants$[.@i], CPC_CHAR);
+			}
 		}
 	}
 	else {
@@ -192,6 +197,7 @@ StartPVPEvent:
 		.roundnum = 1;
 		.matchnum = 1;
 		callsub PVPEventProcess;
+		end;
 	}
 return;
 PVPEventProcess:
@@ -255,8 +261,18 @@ PVPEventProcess:
 			select("Yes:No");
 			if(@menu == 1){
 				if(.event_type < 2){
-					warp "1@ge_st", 89, 48, .left_team;
-					warp "1@ge_st", 129, 48, .right_team;
+					if(convertpcinfo(.left_team, CPC_NAME) == ""){
+						message strcharinfo(0), "Player on lefside is not online.";
+					}
+					else {
+						warp "1@ge_st", 89, 48, .left_team;
+					}
+					if(convertpcinfo(.right_team, CPC_NAME) == ""){
+						message strcharinfo(0), "Player on rightside is not online.";
+					}
+					else {
+						warp "1@ge_st", 129, 48, .right_team;
+					}
 					sleep2 500;
 					announce "Round " + .roundnum + " - Match " + .matchnum + 
 						"\nPlayer " + convertpcinfo(.left_team, CPC_NAME) + 
@@ -276,7 +292,8 @@ PVPEventProcess:
 				.pvp_event_status = 3;
 				.left_team_ready = 0;
 				.right_team_ready = 0;
-				
+				donpcevent "Leftside Referee#PVP Event::OnStartTimer";
+				donpcevent "Rightside Referee#PVP Event::OnStartTimer";
 			}
 			else {
 				mes .@npcName$;
@@ -288,10 +305,25 @@ PVPEventProcess:
 		case 3:
 			mes .@npcName$;
 			mes "PVP Event Combatants are now preparing...";
-			close2;
+			mes "Do you want to cancel the match?";
+			next;
+			if(select("No:Yes") == 2){
+				.pvp_event_status = 1;
+				mes .@npcName$;
+				mes "The match is now cancelled!";
+				mes "Open PVP Event Manager again to continue.";
+				close2;
+			}
+			else {
+				mes .@npcName$;
+				mes "PVP Event Manager is now closing!";
+				close2;
+			}
 			break;
-		case 4: // @battlestart ??
+		case 4:
 			.pvp_event_status = 5;
+			delwall "leftbarricade";
+			delwall "rightbarricade";
 			donpcevent "PvP Battle::OnBattleStart";
 			break;
 		case 5:
@@ -319,9 +351,9 @@ PVPEventProcess:
 			mes .@npcName$;
 			mes "Proceed to next match?";
 			next;
+			.pvp_event_status = 1;
 			select("Yes:No");
 			if(@menu == 1){
-				.pvp_event_status = 1;
 				callsub PVPEventProcess;
 			}
 			else {
@@ -330,7 +362,7 @@ PVPEventProcess:
 				mes "Open PVP Event Manager again to continue.";
 				close2;
 			}
-			donpcevent "PvP Battle::OnBattleEnd";
+			//donpcevent "PvP Battle::OnBattleEnd";
 			break;
 	}
 return;
@@ -351,87 +383,178 @@ ParticipantReady:
 			callsub PVPEventProcess;
 		}
 	}
-	else if(.event_type < 2 && .left_team_ready == 1 && right_team_ready == 1){
+	else if(.event_type < 2 && .left_team_ready == 1 && .right_team_ready == 1){
 		.pvp_event_status = 4;
 		callsub PVPEventProcess;
 	}
 return;
 }
 
-1@ge_st, 89, 47, 3	script	PVPEvent Leftside	139, 1, 1,{
+1@ge_st, 92, 51, 4	script	Leftside Referee#PVP Event	4_M_CRU_CRUA, 2, 4,{
 end;
 OnTouch:
+	.@npcName$ = "Leftside Referee";
 	if(getvariableofnpc(.pvp_event_status, "PVP Event Manager") != 3){
 		end;
 	}
-	if(.timer_flag == 0){
-		initnpctimer;
-		.timer_flag = 1;
+	if(getvariableofnpc(.event_type, "PVP Event Manager") < 2){
+		callsub SingleMode;
 	}
-	//if(@despell == 0){
-	//	npcskill "SA_DISPELL", 5, 99, 99;
-	//	npcskill "AB_CLEARANCE", 5, 99, 99;
-	//	@despell = 1;
-	//}
-	mes "PVP Event Manager";
+	else {
+		callsub MultipleMode, getarraysize(getvariableofnpc(.left_team, "PVP Event Manager"));
+	}
+end;
+SingleMode:
+	if(.ready_list == getcharid(0) || getvariableofnpc(.left_team, "PVP Event Manager") != getcharid(0)){
+		return;
+	}
+	mes "Leftside Referee";
+	mes "Are you ready to start the battle?";
+	next;
+	if(prompt("Ready") == 1){
+		.ready_list = getcharid(0);
+		npcskill "SA_DISPELL", 5, 99, 99;
+		npcskill "AB_CLEARANCE", 5, 99, 99;
+		setnpctimer 61000;
+		donpcevent "PVP Event Manager::OnLeftTeamReady";
+	}
+return;
+MultipleMode:
+	if(inarray(.ready_list, getcharid(0)) || inarray(getvariableofnpc(.left_team, "PVP Event Manager"), getcharid(0)) == -1){
+		return;
+	}
+	mes "Leftside Referee";
 	mes "Are you ready to start the battle?";
 	next;
 	prompt("Ready");
-	if(@menu == 1 && .ready_flag == 0){
-		//set getvariableofnpc(.left_team_ready, "PVP Event Manager"), getvariableofnpc(.left_team_ready, "PVP Event Manager") + 1;
-		.ready_flag = 1;
+	if(@menu == 1){
+		.@num = getarraysize(.ready_list);
+		.ready_list[.@num] = getcharid(0);
 		npcskill "SA_DISPELL", 5, 99, 99;
 		npcskill "AB_CLEARANCE", 5, 99, 99;
+		if(getarraysize(.ready_list) == getarg(0)){
+			setnpctimer 61000;
+		}
 		donpcevent "PVP Event Manager::OnLeftTeamReady";
 	}
+return;
+OnStartTimer:
+	initnpctimer;
+	npctalk "Talk to me when your ready!!";
+	if(getvariableofnpc(.event_type, "PVP Event Manager") < 2){
+		.ready_list = 0;
+	}
+	else {
+		deletearray .ready_list[0], getarraysize(.ready_list);
+	}
+	setwall strnpcinfo(4), 94, 49, 3, 4, 0, "leftbarricade";
 end;
 OnTimer60000:
-	if(.ready_flag == 0){
+	if(getvariableofnpc(.event_type, "PVP Event Manager") < 2 && .ready_list == 0){
 		donpcevent "PVP Event Manager::OnLeftTeamReady";
-		.ready_flag = 1;
+	}
+	else if(getarraysize(.ready_list) < getvariableofnpc(.event_type, "PVP Event Manager")){
+		donpcevent "PVP Event Manager::OnLeftTeamReady";
+		.@num = getarraysize(.ready_list);
+		if(.@num + 1 < getvariableofnpc(.event_type, "PVP Event Manager")){
+			.ready_list[.@num] = 1;
+			setnpctimer 59999;
+		}
 	}
 end;
 OnTimer65000:
 	stopnpctimer;
-	.ready_flag = 0;
+end;
+OnPCKillEvent:
+	if(getvariableofnpc(.pvp_event_status, "PVP Event Manager") != 5){
+		end;
+	}
+	if(convertpcinfo(killedrid, CPC_CHAR) == getvariableofnpc(.left_team, "PVP Event Manager")){
+		donpcevent "PvP Battle::OnBattleEnd";
+	}
 end;
 }
 
-1@ge_st, 129, 47, 3	script	PVPEvent Rightside	139,1,1,{
-end;
-OnTouch:
+1@ge_st, 126, 51, 5	script	Rightside Referee#PVP Event	4_M_CRU_HEAD,{
+	.@npcName$ = "Rightside Referee";
 	if(getvariableofnpc(.pvp_event_status, "PVP Event Manager") != 3){
 		end;
 	}
-	if(.timer_flag == 0){
-		initnpctimer;
-		.timer_flag = 1;
+	if(getvariableofnpc(.event_type, "PVP Event Manager") < 2){
+		callsub SingleMode;
 	}
-	//if(@despell == 0){
-	//	npcskill "SA_DISPELL", 5, 99, 99;
-	//	npcskill "AB_CLEARANCE", 5, 99, 99;
-	//	@despell = 1;
-	//}
-	mes "PVP Event Manager";
+	else {
+		callsub MultipleMode, getarraysize(getvariableofnpc(.right_team, "PVP Event Manager"));
+	}
+end;
+SingleMode:
+	if(.ready_list == getcharid(0) || getvariableofnpc(.right_team, "PVP Event Manager") != getcharid(0)){
+		return;
+	}
+	mes "Rightside Referee";
 	mes "Are you ready to start the battle?";
 	next;
 	prompt("Ready");
-	if(@menu == 1 && .ready_flag == 0){
-		//set getvariableofnpc(.right_team_ready, "PVP Event Manager"), getvariableofnpc(.right_team_ready, "PVP Event Manager") + 1;
-		.ready_flag = 1;
+	if(@menu == 1){
+		.ready_list = getcharid(0);
 		npcskill "SA_DISPELL", 5, 99, 99;
 		npcskill "AB_CLEARANCE", 5, 99, 99;
+		setnpctimer 61000;
 		donpcevent "PVP Event Manager::OnRightTeamReady";
 	}
+return;
+MultipleMode:
+	if(inarray(.ready_list, getcharid(0)) || inarray(getvariableofnpc(.right_team, "PVP Event Manager"), getcharid(0)) == -1){
+		return;
+	}
+	mes "Rightside Referee";
+	mes "Are you ready to start the battle?";
+	next;
+	prompt("Ready");
+	if(@menu == 1){
+		.@num = getarraysize(.ready_list);
+		.ready_list[.@num] = getcharid(0);
+		npcskill "SA_DISPELL", 5, 99, 99;
+		npcskill "AB_CLEARANCE", 5, 99, 99;
+		if(getarraysize(.ready_list) == getarg(0)){
+			setnpctimer 61000;
+		}
+		donpcevent "PVP Event Manager::OnRightTeamReady";
+	}
+return;
+OnStartTimer:
+	initnpctimer;
+	npctalk "Talk to me when your ready!!";
+	if(getvariableofnpc(.event_type, "PVP Event Manager") < 2){
+		.ready_list = 0;
+	}
+	else {
+		deletearray .ready_list[0], getarraysize(.ready_list);
+	}
+	setwall strnpcinfo(4), 124, 49, 3, 4, 0, "rightbarricade";
 end;
 OnTimer60000:
-	if(.ready_flag == 0){
+	if(getvariableofnpc(.event_type, "PVP Event Manager") < 2 && .ready_list == 0){
 		donpcevent "PVP Event Manager::OnRightTeamReady";
-		.ready_flag = 1;
+	}
+	else if(getarraysize(.ready_list) < getvariableofnpc(.event_type, "PVP Event Manager")){
+		donpcevent "PVP Event Manager::OnRightTeamReady";
+		.@num = getarraysize(.ready_list);
+		if(.@num + 1 < getvariableofnpc(.event_type, "PVP Event Manager")){
+			.ready_list[.@num] = 1;
+			setnpctimer 59999;
+		}
 	}
 end;
 OnTimer65000:
 	stopnpctimer;
-	.ready_flag = 0;
+end;
+OnPCKillEvent:
+	if(getvariableofnpc(.pvp_event_status, "PVP Event Manager") != 5){
+		end;
+	}
+	if(convertpcinfo(killedrid, CPC_CHAR) == getvariableofnpc(.left_team, "PVP Event Manager")){
+		donpcevent "PvP Battle::OnBattleEnd";
+	}
 end;
 }

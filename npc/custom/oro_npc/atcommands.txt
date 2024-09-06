@@ -235,8 +235,14 @@ OnInit:
 	bindatcmd("bstart", strnpcinfo(0) + "::OnBattleStart", 10, 99);
 end;
 OnBattleStart:
-	.pvp_flag = getmapflag(strcharinfo(3), mf_pvp);
-	.itemuse_flag = getmapflag(strcharinfo(3), mf_noitemconsumption);
+	if(playerattached()){
+		.mapname$ = strcharinfo(3);
+	}
+	else {
+		.mapname$ = "1@ge_st";
+	}
+	.pvp_flag = getmapflag(.mapname$, mf_pvp);
+	.itemuse_flag = getmapflag(.mapname$, mf_noitemconsumption);
 	unbindatcmd "battlestart";
 	unbindatcmd "bstart";
 	.timer_end = 0;
@@ -244,9 +250,9 @@ OnBattleStart:
 	bindatcmd("bend", strnpcinfo(0) + "::OnBattleEnd", 10, 99);
 	callsub StartCountdown, "Battle will start in", 5;
 	announce "Start!!!", bc_all, 0x00FF00, FW_BOLD, 35;
-	setmapflag strcharinfo(3), mf_pvp;
+	setmapflag .mapname$, mf_pvp;
 	
-	attachnpctimer;
+	//attachnpctimer;
 	initnpctimer;
 end;
 OnTimer180000:
@@ -254,7 +260,7 @@ OnTimer180000:
 end;
 OnTimer181000:
 	callsub StartCountdown, "Disabling item use/consumption in", 10;
-	setmapflag strcharinfo(3), mf_noitemconsumption;
+	setmapflag .mapname$, mf_noitemconsumption;
 	announce "Item use/consumption is now disabled!", bc_all, 0x00FF00, FW_BOLD, 20;
 end;
 //OnTimer25000:
@@ -262,8 +268,8 @@ OnTimer600000:
 OnBattleEnd:
 	.timer_end = 1;
 	awake strnpcinfo(0);
-	removemapflag strcharinfo(3), mf_noitemconsumption;
-	removemapflag strcharinfo(3), mf_pvp;
+	removemapflag .mapname$, mf_noitemconsumption;
+	removemapflag .mapname$, mf_pvp;
 
 	unbindatcmd "battleend";
 	unbindatcmd "bend";
@@ -271,13 +277,13 @@ OnBattleEnd:
 	bindatcmd("bstart", strnpcinfo(0) + "::OnBattleStart", 10, 99);
 	announce "Battle Ended!", bc_all, 0x00FF00, FW_BOLD, 20;
 	if(.pvp_flag){
-		setmapflag strcharinfo(3), mf_pvp;
+		setmapflag .mapname$, mf_pvp;
 	}
 	if(.itemuse_flag){
-		setmapflag strcharinfo(3), mf_noitemconsumption;
+		setmapflag .mapname$, mf_noitemconsumption;
 	}
 	stopnpctimer;
-	detachnpctimer;
+	//detachnpctimer;
 end;
 StartCountdown:
 	for(.@num = getarg(1); .@num > 0; .@num--){
@@ -285,7 +291,7 @@ StartCountdown:
 			end;
 		}
 		announce getarg(0) + " " + .@num + "...", bc_all, 0x00FF00, FW_BOLD, 20;
-		sleep2 1000;
+		sleep 1000;
 	}
 	if(.timer_end == 1){
 		end;
@@ -301,11 +307,6 @@ OnInit:
 	bindatcmd("marcevildruidon", strnpcinfo(0) + "::OnMarcEvilDruidOn", 10, 99);
 end;
 OnEvilDruidOff:
-	//if(getmapflag(strcharinfo(3), mf_restricted) == 11){
-	//	dispbottom "@evildruidoff failed...", 0x00FF00;
-	//	dispbottom "Evil Druid Card is already disabled on this map.", 0x00FF00;
-	//	end;
-	//}
 	setmapflag strcharinfo(3), mf_restricted, 11;
 	dispbottom "Evil Druid Card is now disabled on this map.", 0x00FF00;
 end;
