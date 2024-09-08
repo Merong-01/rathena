@@ -20,8 +20,11 @@ OnPCJobLvUpEvent:
 	if(Class != Job_Super_Novice && BaseLevel == 99 && JobLevel == 50 && Class >= Job_Knight){
 		announce "Congatulations to Player [ " + strcharinfo(0) + 
 			" ] for reaching base level 99 and job level 50.", 0;
-		if(getd("$First" + jobname(Class)) != 1){
+		if(getd("$First" + jobname(Class)) != 1 && raceto99 == 1){
 			if(Class < Job_Crusader){
+				.@reward_item = 30104;
+			}
+			else if(Class == Job_Taekwon || Class == JOB_STAR_GLADIATOR){
 				.@reward_item = 30104;
 			}
 			else {
@@ -36,4 +39,25 @@ OnPCJobLvUpEvent:
 		}
 	}
 	end;
+}
+
+new_1-1, 63, 108, 3	script	Race To 99 NPC	4_HEN,{
+	mes "Race To 99 NPC";
+	mes "Register here to join the Race to 99 for Taekwon, Star Gladiator, and Soul Linker class.";
+	next;
+	if(select("Join Race to 99:Cancel") == 1){
+		mes "Race To 99 NPC";
+		mes "Good! Try to level up to 99 as fast as you can to receive a prize.";
+		close2;
+		raceto99 = 1;
+	}
+	else {
+		mes "Race To 99 NPC";
+		mes "It's okay, but remember you can't receive any prize even if are the first to reach level 99.";
+		close2;
+	}
+end;
+OnInit:
+	waitingroom "Race To 99 NPC Here", 0;
+end;
 }

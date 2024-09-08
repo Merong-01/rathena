@@ -2,7 +2,7 @@
 //============================================================
 prontera,157,196,4	script	Job Changer	4_M_JOB_WIZARD,{
 	set .@npcName$, "[ Job Changer ]";
-	setarray .@first_job$[0],"Swordsman","Archer","Magician","Acolyte","Thief","Merchant","Super Novice","Gunslinger";
+	setarray .@first_job$[0],"Swordsman","Archer","Magician","Acolyte","Thief","Merchant","Super Novice","Gunslinger","Taekwon";
 	
 	mes .@npcName$;
 	mes "Hello!...";
@@ -75,6 +75,8 @@ prontera,157,196,4	script	Job Changer	4_M_JOB_WIZARD,{
 						getitem 13100,1;	// Six_Shooter
 					else
 						getitem 13150,1;	// Branch
+				break;
+			case 9: jobchange Job_Taekwon;
 				break;
 		}
 		
@@ -163,6 +165,46 @@ prontera,157,196,4	script	Job Changer	4_M_JOB_WIZARD,{
 		}
 		
 		jobchange .@class2_select;
+		#CASHPOINTS -= 10;
+		mes .@npcName$;
+		mes "Congratulations to our new " + jobname(Class);
+		mes "Looking forward to your future adventures with your new class.";
+		close;
+	}
+	else if(Class == Job_Taekwon){
+		if(SkillPoint != 0){
+			mes .@npcName$;
+			mes "Please make sure you have no available skill points remaining before you change job.";
+			close;
+		}
+		mes .@npcName$;
+		mes "Which job do you want to change to?";
+		next;
+		.@sel = select("Star Gladiator:Soul Linker");
+		if(.@sel == 1){
+			.@class_sel = JOB_STAR_GLADIATOR;
+		}
+		else {
+			.@class_sel = Job_Soul_Linker;
+		}
+		mes .@npcName$;
+		mes "You selected " + jobname(.@class_sel);
+		mes "Confirm your selection: ";
+		next;
+
+		if(select("Confirm:Cancel") == 2){
+			mes .@npcName$;
+			mes "Talk to me again when you are ready.";
+			close;
+		}
+		else if(#CASHPOINTS < 10){
+			mes .@npcName$;
+			mes "You don't have enough cash points.";
+			mes "Sorry but, please come back when you have 10 cash points.";
+			close;
+		}
+
+		jobchange .@class_sel;
 		#CASHPOINTS -= 10;
 		mes .@npcName$;
 		mes "Congratulations to our new " + jobname(Class);
