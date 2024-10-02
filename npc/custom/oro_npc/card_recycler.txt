@@ -1,0 +1,223 @@
+//============== Card Recycling Station===============
+//====================================================
+
+prontera,165,188,3	script	Card Apprentice	121,{
+	.@npcname$ = "[Card Apprentice - James]";
+	
+	mes .@npcname$;
+	mes "Hello Adventurer";
+	mes "You can exchange cards for Card Points at 1:1 ratio";
+	mes "While you can use 5 Card Points + 300,000 Zeny to exchange for " + mesitemlink(616);
+	next;
+	
+	switch(select("Recycle Cards:Exchange OCA")){
+	case 1:
+		callfunc "Card_Recycle",.@npcname$;
+	/*	mes .@npcname$;
+		mes "I have 2 modes of card recycling";
+		mes "Input mode: input card ID and qnty of cards to be recycled";
+		mes "All-in mode: all cards in your inventory will be recycled";
+		switch(select("Input:All-in")){
+		case 1:
+			clear;
+			mes .@npcname$;
+			mes "Please input the card item ID";
+			mes "Make sure you have the card in your inventory";
+			mes "Enter 0 to end conversation";
+			.@in_flag = 1;
+			while(.@in_flag){
+				input .@card_id; 
+				if(.@card_id == 0){
+					clear;
+					mes .@npcname$;
+					mes "Come back again if you need my services..";
+					close;
+					break;
+					end;
+				}
+				
+				if(.@card_id < 4001 || .@card_id > 4453 || .@card_id == 4446){
+					clear;
+					mes .@npcname$;
+					mes "Invalid input please try again";
+				}
+				else {
+					.@in_flag = 0;
+				}
+			}
+			
+			
+			if(countitem(.@card_id)){
+				clear;
+				mes .@npcname$;
+				mes "Select " + mesitemlink(.@card_id) + " to recycle";
+				mes "You currently have " + countitem(.@card_id) + " " + mesitemlink(.@card_id) + " in your inventory";
+				mes "Press yes to continue";
+				//next;
+				
+				switch(select("Yes:No")){
+				case 1:
+					clear;
+					mes .@npcname$;
+					mes "Input number of cards to be recycle";
+					
+					input .@card_count;
+					if(.@card_count > countitem(.@card_id) || .@card_count < 1){
+						clear;
+						mes .@npcname$;
+						mes "Learn your Math first then come back to me";
+						close;
+						break;
+					}
+					
+					delitem .@card_id, .@card_count;
+					#Card_points += .@card_count;
+					clear;
+					mes .@npcname$;
+					mes "Card Recycling Success";
+					mes "Come back next time if you have more cards to recycle";
+					dispbottom "You get " + .@card_count + " Card Points from Card Apprentice";
+					dispbottom "Total Card Points: " + #Card_points;
+					close;
+					break;
+				
+				case 2:
+					clear;
+					mes .@npcname$;
+					mes "Just talk to me if you decided to recycle your cards";
+					close;
+					break;	
+				}
+			}
+			else {
+				clear;
+				mes .@npcname$;
+				mes "You don't have " + mesitemlink(.@card_id) + " in your inventory";
+				mes "Don't mess with me kid";
+				close;
+			}
+			break;
+		case 2:
+			clear;
+			mes .@npcname$;
+			mes "Are you sure you want to recycle all your cards?";
+			switch(select("Yes:No")){
+			case 2:
+				clear;
+				mes .@npcname$;
+				mes "Just talk to me if you decided to recycle your cards";
+				close;
+				end;
+			}
+			getinventorylist;
+			.@num_card = 0;
+			for(.@i = 0; .@i < @inventorylist_count; .@i++){
+				if(@inventorylist_id[.@i] < 4001 || @inventorylist_id[.@i] > 4453 || @inventorylist_id[.@i] == 4446){
+					continue;
+				}
+				else if(countitem(@inventorylist_id[.@i])){
+					.@num_card += countitem(@inventorylist_id[.@i]);
+					delitem @inventorylist_id[.@i],countitem(@inventorylist_id[.@i]);
+				}	
+			}
+			#Card_points += .@num_card;
+			clear;
+			mes .@npcname$;
+			mes "Card Recycling Success";
+			mes "Come back next time if you have more cards to recycle";
+			dispbottom "You get " + .@num_card + " Card Points from Card Apprentice";
+			dispbottom "Total Card Points: " + #Card_points;
+			close;
+			break;
+		}
+	*/
+		break;
+	case 2:
+		mes .@npcname$;
+		mes "Press yes to continue";
+		
+		switch(select("Yes:No")){
+		case 1:
+			if(#Card_points < 5 && Zeny < 300000){
+				mes .@npcname$;
+				mes "Insufficient funds!!!";
+				mes "Recycle some cards for points or rob a bank for Zeny";
+				mes "Come back when you have enough points and Zeny";
+				close;
+				break;
+			}
+			#Card_points -= 5;
+			Zeny -= 300000;
+			dispbottom "Used 5 Card Points";
+			dispbottom "Remaining Card Points: " + #Card_points;
+			getitem 616, 1;
+			break;
+		
+		case 2:
+			mes .@npcname$;
+			mes "If you have nothing to do don't bother me";
+			mes "I still have lots of cards to bind into album";
+			close;
+			break;
+		}
+		break;
+	}
+	end;
+}
+
+function	script	Card_Recycle	{
+	.@npcname$ = getarg(0);
+	.@num_card = 0;
+	.@menu$ = "";
+	getinventorylist;
+	mes .@npcname$;
+	mes "Card List:";
+	for(.@i = 0; .@i < @inventorylist_count; .@i++){
+		if(@inventorylist_id[.@i] < 4001 || @inventorylist_id[.@i] > 4453 || @inventorylist_id[.@i] == 4446){
+			continue;
+		}
+		else if(countitem(@inventorylist_id[.@i])){
+			mes "["+ ++.@num_card +"]" +countitem(@inventorylist_id[.@i]) + " " + mesitemlink(@inventorylist_id[.@i]);
+			setarray .@card_id[.@num_card],@inventorylist_id[.@i];
+			.@menu$ += getitemname(@inventorylist_id[.@i]) + ":";
+		}	
+	}
+	.@menu$ += "cancel";
+	if(.@num_card == 0){
+		clear;
+		mes .@npcname$;
+		mes "You don't have cards in your inventory";
+		close;
+		end;
+	}
+	.@sel = select(.@menu$);
+	if(.@sel == .@num_card + 1){
+		close;
+		end;
+	}
+	clear;
+	mes .@npcname$;
+	mes "Select " + mesitemlink(.@card_id[.@sel]) + " to recycle";
+	mes "You currently have " + countitem(.@card_id[.@sel]) + " " + mesitemlink(.@card_id[.@sel]) + " in your inventory";
+	mes "Input number of cards to be recycled";
+					
+	input .@card_count;
+	if(.@card_count > countitem(.@card_id[.@sel]) || .@card_count < 1){
+		clear;
+		mes .@npcname$;
+		mes "Learn your Math first then come back to me";
+		close;
+		end;
+	}
+	
+	delitem .@card_id[.@sel], .@card_count;
+	#Card_points += .@card_count;
+	clear;
+	mes .@npcname$;
+	mes "Card Recycling Success";
+	mes "Come back next time if you have more cards to recycle";
+	dispbottom "You get " + .@card_count + " Card Points from Card Apprentice";
+	dispbottom "Total Card Points: " + #Card_points;
+	close;
+	return;
+}
